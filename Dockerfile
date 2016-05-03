@@ -16,7 +16,7 @@ COPY files/esperee-5.4.0 /opt/jboss/esperee-5.4.0
 
 USER root
 RUN chown -R jboss:jboss /opt/jboss/esperee-5.4.0/.
-
+RUN mkdir -p /opt/jboss/esperee-5.4.0/temp
 
 # Main Web console
 EXPOSE 8400
