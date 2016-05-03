@@ -13,7 +13,7 @@ FROM jboss/base-jdk:7
 #RUN chown -R jboss:jboss /opt/esper/.
 
 COPY files/esperee-5.3.0 /opt/jboss/esperee-5.3.0
-
+ADD espertech.license /opt/jboss/esperee-5.3.0/conf/
 USER root
 RUN chown -R jboss:jboss /opt/jboss/esperee-5.3.0/.
 
