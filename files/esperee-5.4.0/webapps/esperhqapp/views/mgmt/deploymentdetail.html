@@ -1,0 +1,115 @@
+<div id="deploymentdetail" ng-controller="DeploymentDetailController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doUndeployRemove()" class="btn button-bar-margin" ng-show="deployment.state=='DEPLOYED'">Undeploy And Remove</button>
+        <button type="submit" ng-click="doUndeploy()" class="btn button-bar-margin" ng-show="deployment.state=='DEPLOYED'">Undeploy</button>
+        <button type="submit" ng-click="doRemove()" class="btn button-bar-margin" ng-show="deployment.state=='UNDEPLOYED'">Remove</button>
+        <button type="submit" ng-click="doDeploy()" class="btn button-bar-margin" ng-show="deployment.state=='UNDEPLOYED'" ng-disabled="doCheckDisallowDeploy()">Deploy</button>
+        <button type="submit" ng-click="doSaveFile()" class="btn button-bar-margin">Save File</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Id:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="deployment.deploymentId" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">State:</label>
+            <div class="controls">
+                <input type="text" ng-model="deployment.state" readonly/>
+                <span class="margin-left">Added:</span>
+                <input type="text" ng-model="deploymentAddedDate" readonly/>
+                <span class="margin-left">Last Update:</span>
+                <input type="text" ng-model="deploymentLastUpdDate" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Module Name:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="deployment.moduleName" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Module URI:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="deployment.moduleURI" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Module Archive:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="deployment.archive" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">User Object:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="deployment.userObject" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Module Text:</label>
+            <div class="controls">
+                <div id="deploymentdetail_editor">
+                    <textarea></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Uses:</label>
+            <div class="controls">
+                <div id="uses_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Uses</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Imports:</label>
+            <div class="controls">
+                <div id="imports_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Import</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Statements:</label>
+            <div class="controls">
+                <div id="deploystmt_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Name</th>
+                            <th>Expression</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

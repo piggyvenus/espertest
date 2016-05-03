@@ -1,0 +1,57 @@
+<div id="eventletwizard" ng-controller="EventletWizardController">
+    <div>
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="btn-group button-bar-margin">
+                    <button class="btn" ng-class="{'btn-primary':isCurrentStep(0)}" ng-click="setCurrentStep(0)">Visualization Type</button>
+                    <button class="btn" ng-class="{'btn-primary':isCurrentStep(1)}" ng-click="setCurrentStep(1)" ng-disabled="!isStepAccessible(1)">CEP Resources</button>
+                    <button class="btn" ng-class="{'btn-primary':isCurrentStep(2)}" ng-click="setCurrentStep(2)" ng-disabled="!isStepAccessible(2)">Configuration</button>
+                </div>
+            </div>
+            <div class="span8">
+                <div class="pull-left">
+                    <span style="margin-top: 20px; text-align: center; vertical-align: middle;"><strong>Progress: {{progress}}</strong></span>
+                </div>
+                <div class="pull-right">
+                    <button class="btn button-bar-margin" ng-click="doSettings()">Settings...</button>
+                    <button class="btn button-bar-margin" ng-click="handlePrevious()" ng-disabled="isFirstStep()">Back</button>
+                    <button class="btn btn-primary button-bar-margin" ng-disabled="wizard.vistype == null" ng-click="doHandleNext()">{{getNextLabel()}}</button>
+                    <button class="btn button-bar-margin" ng-disabled="!isStepAccessible(2)" ng-click="doSave()">Save</button>
+                    <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+                </div>
+            </div>
+        </div>
+
+        <div ng-switch="getCurrentStep()" ng-animate="'wave'" class="slide-frame">
+            <div ng-show="getCurrentStep() == 'one'">
+                <form name="myform" novalidate="">
+                    <fieldset>
+                        <legend><small>Please select a visualization type:</small></legend>
+                        <div id="eventletwizard_visualizationtype_div">
+                            <table id="eventletwizard_visualizationtype_table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="vistype in vistypes">
+                                    <td>{{vistype.title}}</td>
+                                    <td>{{vistype.description}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div ng-show="getCurrentStep() == 'two'">
+                <div data-ng-include data-src="'/esperhqapp/views/push/eventletwizard_resourceselect.html'"></div>
+            </div>
+            <div ng-show="getCurrentStep() == 'three'">
+                <div data-ng-include data-src="'/esperhqapp/views/push/eventletwizard_configuration.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

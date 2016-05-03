@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.espertech.com/esper-eventletxml" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.espertech.com/esper-eventletxml">
+	<xsd:element name="eventlet" type="tns:eventlet"/>
+	<xsd:complexType name="eventlet">
+		<xsd:sequence>
+			<xsd:element ref="tns:composition"/>
+			<xsd:element ref="tns:sources"/>
+			<xsd:element ref="tns:settings" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="description" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:element name="sources">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:source" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="source">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice>
+					<xsd:element ref="tns:statement"/>
+					<xsd:element ref="tns:engineMetric"/>
+					<xsd:element ref="tns:statementSet"/>
+					<xsd:element ref="tns:onDemandQuery"/>
+					<xsd:element ref="tns:variable"/>
+				</xsd:choice>
+				<xsd:choice>
+					<xsd:element ref="tns:transformations" minOccurs="0"/>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute name="sourceId" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="transformations">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+				<xsd:choice>
+					<xsd:element ref="tns:unmap"/>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="unmap">
+		<xsd:complexType>
+			<xsd:attribute name="property" type="xsd:string" use="required"/>
+			<xsd:attribute name="key" type="xsd:string" use="required"/>
+			<xsd:attribute name="keyType" type="xsd:string" use="optional"/>
+			<xsd:attribute name="value" type="xsd:string" use="required"/>
+			<xsd:attribute name="valueType" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="statement">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="iterate" type="tns:iterate" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="endpoint" type="xsd:string" use="optional"/>
+			<xsd:attribute name="name" type="xsd:string" use="required"/>
+			<xsd:attribute name="engineUri" type="xsd:string" use="optional"/>
+			<xsd:attribute name="filter" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="onDemandQuery">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="iterate" type="tns:iterate" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="endpoint" type="xsd:string" use="optional"/>
+			<xsd:attribute name="engineUri" type="xsd:string" use="optional"/>
+			<xsd:attribute name="query" type="xsd:string" use="required"/>
+			<xsd:attribute name="maxRows" type="xsd:int" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="variable">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="iterate" type="tns:iterate" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="endpoint" type="xsd:string" use="optional"/>
+			<xsd:attribute name="engineUri" type="xsd:string" use="optional"/>
+			<xsd:attribute name="name" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="iterate">
+		<xsd:attribute name="realtime" type="xsd:boolean" use="required"/>
+		<xsd:attribute name="now" type="xsd:boolean" use="required"/>
+		<xsd:attribute name="pattern" type="xsd:string" use="optional"/>
+		<xsd:attribute name="uniquenessIdentity" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<xsd:element name="statementSet">
+		<xsd:complexType>
+			<xsd:attribute name="endpoint" type="xsd:string" use="optional"/>
+			<xsd:attribute name="includes" type="xsd:string" use="optional"/>
+			<xsd:attribute name="engineUri" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="engineMetric">
+		<xsd:complexType>
+			<xsd:attribute name="endpoint" type="xsd:string" use="optional"/>
+			<xsd:attribute name="name" type="xsd:string" use="required"/>
+			<xsd:attribute name="engineUri" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="composition">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="tns:chart"/>
+				<xsd:element ref="tns:inplacegrid"/>
+				<xsd:element ref="tns:appendgrid"/>
+				<xsd:element ref="tns:compositegrid"/>
+				<xsd:element ref="tns:gauge"/>
+				<xsd:element ref="tns:timeline"/>
+				<xsd:element ref="tns:plugin"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="chart">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:xaxis"/>
+				<xsd:element ref="tns:yaxis"/>
+				<xsd:element ref="tns:data"/>
+			</xsd:sequence>
+			<xsd:attribute name="type" type="xsd:string" use="required"/>
+			<xsd:attribute name="legendPlacement" type="xsd:string" use="optional"/>
+			<xsd:attribute name="clickCallback" type="xsd:string" use="optional"/>
+			<xsd:attribute name="stack" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="opacity" type="xsd:double" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="gauge">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:pointsource" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="redFrom" type="xsd:int" use="required"/>
+			<xsd:attribute name="redTo" type="xsd:int" use="required"/>
+			<xsd:attribute name="yellowFrom" type="xsd:int" use="required"/>
+			<xsd:attribute name="yellowTo" type="xsd:int" use="required"/>
+			<xsd:attribute name="caption" type="xsd:string" use="optional"/>
+			<xsd:attribute name="minimum" type="xsd:int" use="optional"/>
+			<xsd:attribute name="maximum" type="xsd:int" use="optional"/>
+			<xsd:attribute name="size" type="xsd:int" use="optional"/>
+			<xsd:attribute name="majorTicks" type="xsd:int" use="optional"/>
+			<xsd:attribute name="minorTicks" type="xsd:int" use="optional"/>
+			<xsd:attribute name="clickCallback" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="compositegrid">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:ckey" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="atomicType" type="tns:cgAtomicType" use="optional"/>
+			<xsd:attribute name="clickCallback" type="xsd:string" use="optional"/>
+			<xsd:attribute name="time" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="displayRowNum" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="displayEventNum" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="displayUpdNum" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="displaySource" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="displayTime" type="xsd:boolean" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ckey">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:pointsource" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="nestingType" type="tns:ckeyNestingType" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:simpleType name="cgAtomicType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="inplace"/>
+			<xsd:enumeration value="appendtop"/>
+			<xsd:enumeration value="appendend"/>
+			<xsd:enumeration value="lastvalue"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ckeyNestingType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="col"/>
+			<xsd:enumeration value="row"/>
+			<xsd:enumeration value="tab"/>
+			<xsd:enumeration value="inplace"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="inplacegrid">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="key" type="xsd:string" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="clickCallback" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="plugin">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:configuration" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="url" type="xsd:string" use="required"/>
+			<xsd:attribute name="classname" type="xsd:string" use="optional"/>
+			<xsd:attribute name="clickCallback" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="configuration">
+		<xsd:complexType mixed="true">
+			<xsd:sequence>
+				<xsd:any processContents="skip" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="appendgrid">
+		<xsd:complexType>
+			<xsd:attribute name="clickCallback" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="timeline">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:timelineSeries" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="detail" type="xsd:string" use="optional"/>
+			<xsd:attribute name="clickCallback" type="xsd:string" use="optional"/>
+			<!-- specify "full", "small" or "tiny" -->
+			<!-- tiny, small, full are the common values -->
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="timelineSeries">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:pointsource" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="xaxis">
+		<xsd:complexType>
+			<xsd:attribute name="type" type="xsd:string" use="required"/>
+			<xsd:attribute name="minimum" type="xsd:string" use="optional"/>
+			<xsd:attribute name="maximum" type="xsd:string" use="optional"/>
+			<xsd:attribute name="label" type="xsd:string" use="optional"/>
+			<xsd:attribute name="placement" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="yaxis">
+		<xsd:complexType>
+			<xsd:attribute name="type" type="xsd:string" use="required"/>
+			<xsd:attribute name="minimum" type="xsd:string" use="optional"/>
+			<xsd:attribute name="maximum" type="xsd:string" use="optional"/>
+			<xsd:attribute name="label" type="xsd:string" use="optional"/>
+			<xsd:attribute name="placement" type="xsd:string" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="data">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:series" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="series">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:pointsource" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="type" type="xsd:string" use="required"/>
+			<xsd:attribute name="label" type="xsd:string" use="required"/>
+			<xsd:attribute name="markerType" type="xsd:string" use="optional"/>
+			<xsd:attribute name="strokeWeight" type="xsd:int" use="optional"/>
+			<xsd:attribute name="strokeColor" type="xsd:string" use="optional"/>
+			<xsd:attribute name="fillColor" type="xsd:string" use="optional"/>
+			<xsd:attribute name="opacity" type="xsd:double" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="pointsource">
+		<xsd:complexType>
+			<xsd:attribute name="sourceId" type="xsd:string" use="required"/>
+			<xsd:attribute name="x" type="xsd:string" use="required"/>
+			<xsd:attribute name="y" type="xsd:string" use="optional"/>
+			<xsd:attribute name="label" type="xsd:string" use="optional"/>
+			<xsd:attribute name="incremental" type="xsd:boolean" use="optional"/>
+			<!-- for use with charts and dynamic series -->
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="settings">
+		<xsd:complexType>
+			<xsd:attribute name="retainCount" type="xsd:int" use="optional"/>
+			<xsd:attribute name="retainUnit" type="tns:retainUnitEnum" use="optional"/>
+			<xsd:attribute name="menu" type="xsd:boolean" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:simpleType name="retainUnitEnum">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="events"/>
+			<xsd:enumeration value="seconds"/>
+			<xsd:enumeration value="minutes"/>
+			<xsd:enumeration value="hours"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

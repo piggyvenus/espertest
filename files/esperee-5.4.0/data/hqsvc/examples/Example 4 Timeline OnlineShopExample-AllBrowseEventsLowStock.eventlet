@@ -1,0 +1,10 @@
+<eventlet>
+  <composition>
+    <timeline detail="tiny"/>
+  </composition>
+  <sources>
+    <source sourceId="1">
+      <statement name="OnlineShopExample-AllBrowseEventsLowStock"/>
+    </source>
+  </sources>
+</eventlet>

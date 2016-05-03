@@ -1,0 +1,220 @@
+<div id="browse_pushendpoint" ng-controller="PushEndpointBrowseController">
+    <div class="row-fluid">
+        <div class="span9">
+            <span>Engine</span>
+            <select ng-model="engineChoice" ng-options="e.engineURI for e in engines"></select>
+            <span>Metric</span>
+            <select ng-model="metricChoice" ng-options="m.name for m in metrics"></select>
+            <button type="submit" ng-click="doOpen()" class="btn button-bar-margin">Launch</button>
+            &nbsp;
+            <button type="submit" ng-click="doStatementMemoryUse()" class="btn button-bar-margin">Statement Detailed Metrics</button>
+        </div>
+        <div class="span3">
+            <div class="pull-right">
+                <button type="submit" ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+                <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <div id="endpoint_monitoring_tabs">
+        <ul>
+            <li><a href="#tabs-1">Sessions</a></li>
+            <li><a href="#tabs-2">Session History</a></li>
+            <li><a href="#tabs-3">Resources</a></li>
+            <li><a href="#tabs-4">Resource History</a></li>
+            <li><a href="#tabs-5">Subscriptions</a></li>
+            <li><a href="#tabs-6">Subscription History</a></li>
+            <li><a href="#tabs-7">Audit</a></li>
+            <li><a href="#tabs-8">Log Messages</a></li>
+            <li><a href="#tabs-9">Stats</a></li>
+        </ul>
+        <div id="tabs-1">
+            <div id="endpoint_currsessions_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Session Id</th>
+                        <th>Connection Info</th>
+                        <th>Established Date</th>
+                        <th>Renewed Date</th>
+                        <th>Session State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-2">
+            <div id="endpoint_histsessions_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Session Id</th>
+                        <th>Connection Info</th>
+                        <th>Established Date</th>
+                        <th>Renewed Date</th>
+                        <th>Session State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-3">
+            <div id="endpoint_currresources_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Resource Id</th>
+                        <th>Resource</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-4">
+            <div id="endpoint_histresources_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Resource Id</th>
+                        <th>Resource</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-5">
+            <div id="endpoint_currsubscriptions_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Subscription Id</th>
+                        <th>Session Id</th>
+                        <th>Resource Id</th>
+                        <th>Resource</th>
+                        <th>Subscription State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-6">
+            <div id="endpoint_histsubscriptions_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Subscription Id</th>
+                        <th>Session Id</th>
+                        <th>Resource Id</th>
+                        <th>Resource</th>
+                        <th>Subscription State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-7">
+            <div id="endpoint_audit_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Audited</th>
+                        <th>Action</th>
+                        <th>Id</th>
+                        <th>Audit Detail</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-8">
+            <div id="endpoint_logmsg_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Log Level</th>
+                        <th>Log Message</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-9">
+            <fieldset ng-repeat="stat in info.stats" class="margin-bottom">
+                <legend>
+                    Destination {{stat.destination}}
+                </legend>
+
+                <h5>Totals</h5>
+                <table width="100%" class="table-hor-minimalist">
+                    <thead>
+                    <tr>
+                        <th>Last Update</th>
+                        <th>Bytes</th>
+                        <th>Messages</th>
+                        <th>Events</th>
+                        <th>Manifests</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            {{stat.totals.time}}
+                        </td>
+                        <td>
+                            {{stat.totals.numBytes}}
+                        </td>
+                        <td>
+                            {{stat.totals.numMsgs}}
+                        </td>
+                        <td>
+                            {{stat.totals.numEvents}}
+                        </td>
+                        <td>
+                            {{stat.totals.numManifests}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h5>Last Messages</h5>
+                <table width="100%" class="table-hor-minimalist">
+                    <thead>
+                    <tr>
+                        <th>Last Update</th>
+                        <th>Bytes</th>
+                        <th>Messages</th>
+                        <th>Events</th>
+                        <th>Manifests</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in stat.last">
+                        <td>
+                            {{item.time}}
+                        </td>
+                        <td>
+                            {{item.numBytes}}
+                        </td>
+                        <td>
+                            {{item.numMsgs}}
+                        </td>
+                        <td>
+                            {{item.numEvents}}
+                        </td>
+                        <td>
+                            {{item.numManifests}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+
+</div>

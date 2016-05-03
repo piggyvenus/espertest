@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 9. Eventlet Menu Dialogs</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="pushmonitoring.html" title="Chapter 8. Push Monitoring Dialogs"/><link rel="next" href="eventletjquery.html" title="Chapter 10. jQuery Plugin for Eventlets"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pushmonitoring.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="eventletjquery.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu"/>Chapter 9. Eventlet Menu Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="eventletmenu.html#eventletmenu-about">9.1. Eventlet About Dialog</a></span></dt><dt><span class="sect1"><a href="eventletmenu.html#eventletmenu-settings">9.2. Eventlet Settings Dialog</a></span></dt><dt><span class="sect1"><a href="eventletmenu.html#eventletmenu-timeline-settings">9.3. Timeline Eventlet - Settings Dialog</a></span></dt></dl></div><p>
+      This section outlines the menu options and dialogs available when launching eventlets from the menu dropdown.
+    </p><p>
+		The menu option <code class="literal">Clear</code> clears all data held by the eventlet.
+    </p><p>
+		The menu option <code class="literal">Suspend-Discarding</code> causes the eventlet to discard incoming data. 
+		When you click <code class="literal">Resume-Stop Discarding</code> the eventlet starts applying incoming data again.
+    </p><p>
+		The menu option <code class="literal">Suspend-Buffering</code> instructs the eventlet to buffer incoming data and not update the page. 
+		When you click <code class="literal">Resume-From Buffered Data</code> the eventlet applies the buffered data to the page.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu-about"/>9.1. Eventlet About Dialog</h2></div></div></div><p>
+			The About dialog for eventlets is a read-only dialog and shows the client id associated to the browser window or tab and additional information such as activation name, eventlet activation xml, 
+			message count, live messages and last update time. Live messages include eventlet initialization messages, configuration messages and any eventlet exceptions or other information an eventlet may report.
+		</p><p>
+			This screen gets updated automatically and there is no refresh option (the refresh is automatic).
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu-settings"/>9.2. Eventlet Settings Dialog</h2></div></div></div><p>
+			The Settings dialog for eventlets allows controlling the number of events retained and shown by an eventlet. This setting can also be changed for the eventlet
+			in the eventlet wizard under <code class="literal">Settings</code> or directly in the eventlet XML definition.
+		</p><p>
+			The default is generally that an eventlet does not discard any events and thereby retains all events. You can uncheck the Retain All Events checkbox
+			to change the amount of events retained. Please enter a numeric value into Retain Last and select a unit from the dropdown. This setting does not affect server operation 
+			and any memory associated with retaining data points is client web browser memory.
+		</p><p>
+		    Use the <code class="literal">Apply</code> button to apply the new settings without closing the dialog, and the <code class="literal">Ok</code> button to apply and close the dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu-timeline-settings"/>9.3. Timeline Eventlet - Settings Dialog</h2></div></div></div><p>
+			The Settings dialog for Timeline eventlets can be used to change the level of detailed displayed for each event and to change the color associated to each event type.
+		</p><p>
+			The dialog presents a list of event type names and a color picker for each.
+		</p><p>
+		    Use the <code class="literal">Apply</code> button to apply the new settings without closing the dialog, and the <code class="literal">Ok</code> button to apply and close the dialog.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pushmonitoring.html"><strong>Prev</strong>Chapter 8. Push Monitoring Dialogs</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="eventletjquery.html"><strong>Next</strong>Chapter 10. jQuery Plugin for Eventlets</a></li></ul></body></html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 4. Remote Server and Driver</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper JDBC Driver"/><link rel="up" href="index.html" title="Esper JDBC Driver"/><link rel="prev" href="local.html" title="Chapter 3. Local Driver"/><link rel="next" href="parameters.html" title="Chapter 5. Driver Parameters"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="local.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="parameters.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="remote"/>Chapter 4. Remote Server and Driver</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="remote.html#overview-remote-server">4.1. Remote Network Server</a></span></dt><dd><dl><dt><span class="sect2"><a href="remote.html#overview-remote-server-configuration">4.1.1. Endpoint API</a></span></dt><dt><span class="sect2"><a href="remote.html#overview-remote-server-plugin">4.1.2. Plugin Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="remote.html#overview-remote-client">4.2. JDBC Remote Client</a></span></dt><dd><dl><dt><span class="sect2"><a href="remote.html#overview-remote-client-params">4.2.1. JDBC Remote Driver Parameters</a></span></dt></dl></dd></dl></div><p>
+		The JDBC remote network server and the JDBC remote driver allow your application JDBC code and driver to reside in a different Java VM and host as Esper engine instance(s). As part of the remote JDBC driver package, a remote server class acts as a socket server for incoming JDBC connections. Your application must first start a remote network server before connecting via the remote driver.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-remote-server"/>4.1. Remote Network Server</h2></div></div></div><p>
+			The remote network server requires the following dependent libraries in the classpath:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Apache MINA (mina-core-2.0.0-M1.jar) and its dependencies (slf4j-api-1.5.0.jar and slf4j-log4j12-1.5.0.jar).
+				</p></li><li><p>
+					The driver <code class="literal">esper-jdbc-driver-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> and server <code class="literal">esper-jdbc-server-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> jar files.
+				</p></li></ol></div><p>
+			There are two options to start the EsperJDBC network server endpoint:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					As a JDBC endpoint via the EsperJDBC endpoint API:
+				</p><p>
+					Allows JDBC to be added to an already running Esper engine instance and provides more options for JDBC connectivity.
+				</p></li><li><p>
+					As an Esper plug-in:
+				</p><p>
+					This requires your application to add EsperJDBC to the Esper configuration (XML or API). EsperJDBC is then started automatically as part of Esper engine initialization.
+				</p></li></ol></div><p>
+			The above options are mutually exclusive.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="overview-remote-server-configuration"/>4.1.1. Endpoint API</h3></div></div></div><p>
+				The class that provides an endpoint for JDBC connections thus acting as a remote network server for JDBC, is <code class="literal">com.espertech.esper.jdbc.server.remote.JDBCEndpoint</code>.
+			</p><p>
+				Your application can start a JDBC endpoint to listen on a given port, without any additional configuration, as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JDBCEndpoint endpoint = new JDBCEndpoint(8450); // using port 8450
+endpoint.start();	// this is a non-blocking call
+... 
+endpoint.destroy();  // stop accepting connections</pre><p>
+				The endpoint can be configured further using the <code class="literal">JDBCEndpointConfiguration</code> class. 
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JDBCEndpointConfiguration config = new JDBCEndpointConfiguration();
+config.setListenPort(8450);
+config.setSessionIdleTimeout(600); // 10-miinute idle timeout
+
+JDBCEndpoint endpoint = new JDBCEndpoint(config);
+endpoint.start();</pre><p>
+				The next section outlines each remote network server configuration option:
+			</p><div class="table"><a id="d0e363"/><p class="title"><b>Table 4.1. JDBC Endpoint Configuration</b></p><div class="table-contents"><table summary="JDBC Endpoint Configuration" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Listen port</td><td>8450</td><td>The port the remote network server listens to for client connections.</td></tr><tr><td>Processor Count</td><td>1</td><td>The number of threads dedicated to handling client connections and query processing.</td></tr><tr><td>Session Idle Timeout</td><td>600 seconds (10 minutes)</td><td>The number of seconds that a client connection can be idle before the remote network server closes the connection and flushes the cache for the connection.</td></tr><tr><td>Filters</td><td>none</td><td>Filters can be registered with the remote network server to implement custom logic pertaining to client connections, such as authentication.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				As part of the JDBC endpoint configuration, a filter implementation may be registered that is applied to new connections by the endpoint connection handler. The filter interface is <code class="literal">JDBCEndpointConnectionFilter</code>. By returning a value of <code class="literal">true</code> an incoming connection is accepted:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JDBCEndpointConfiguration config = new JDBCEndpointConfiguration();
+config.setNewConnectionFilter(new JDBCEndpointConnectionFilter() {
+  public boolean filter(ConnectionInformation connectionInformation) {
+      String user = connectionInformation.getUser();
+      String pwd = connectionInformation.getPassword();
+      if (user.equals("myuser")) &amp;&amp; (pwd.equals("mypassword"))) {
+        return true;
+      }
+      return false;
+  }
+}</pre><p>
+				Additional filters that implement the Apache MINA interface <code class="literal">org.apache.mina.common.IOFilter</code> can be registered through the endpoint configuration, please check the Apache MINA documentation for available filters.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="overview-remote-server-plugin"/>4.1.2. Plugin Configuration</h3></div></div></div><p>
+				In alternative to the endpoint API as described above, you may use EsperJDBC as a plug-in adapter to an Esper configuration. The Esper engine initialization then also initializes and starts the EsperJDBC endpoint.
+			</p><p>
+				Under this option EsperJDBC is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				EsperJDBC is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><p>
+				This option configures the JDBC endpoint via properties passed in XML or <code class="literal">Properties</code> object.
+			</p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="configuration-plugin-api"/>4.1.2.1. Via Esper Configuration API</h4></div></div></div><p>
+					This section shows how to register EsperJDBC as part of Esper configuration using the Esper configuration API.
+				</p><p>
+					Your application must populate a <code class="literal">Properties</code> object to set EsperJDBC configuration options.
+				</p><p>
+					The sample code here sets the properties to use an JDBC server port 8450:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration configuration = new Configuration();     // Esper Configuration class
+		
+// Properties are used to pass EsperJMX configuration 
+Properties properties = new Properties();
+properties.put("port", "8450");
+properties.put("processorCount", "1");
+properties.put("sessionIdleTimeout", "600");
+
+configuration.addPluginLoader(
+		"EsperJDBC",
+		"com.espertech.esper.jdbc.server.remote.JDBCServerPlugin",
+		properties);</pre><p>
+						Note that is is not possible to add filters via the properties object configuration as above.
+					</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="configuration-plugin-xml"/>4.1.2.2. Via Esper Configuration XML</h4></div></div></div><p>
+						The XML as below configures an engine instance with EsperJDBC. It specifies the same configuration options as outlined above.
+					</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;
+  &lt;plugin-loader name="EsperJDBC" 
+		class-name="com.espertech.esper.jdbc.server.remote.JDBCServerPlugin"&gt;
+	 &lt;init-arg name="port" value="8450" /&gt;
+	 &lt;init-arg name="processorCount" value="1" /&gt;
+	 &lt;init-arg name="sessionIdleTimeout" value="600" /&gt;
+   &lt;/plugin-loader&gt;		
+&lt;/esper-configuration&gt;</pre></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-remote-client"/>4.2. JDBC Remote Client</h2></div></div></div><p>
+			The following table outlines the connection information for the remote network driver:
+		</p><div class="table"><a id="d0e483"/><p class="title"><b>Table 4.2. Remote Driver</b></p><div class="table-contents"><table summary="Remote Driver" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Item</th><th>Description</th></tr></thead><tbody><tr><td>Jar file</td><td>esper-jdbcdriver-<span class="emphasis"><em>version</em></span>.jar</td></tr><tr><td>Jar dependencies</td><td>none</td></tr><tr><td><code class="literal">java.sql.Driver</code> class</td><td>com.espertech.esper.jdbc.remote.EPLRemoteJdbcDriver</td></tr><tr><td>URL</td><td><pre class="synopsis">jdbc:esper:remote:<span class="emphasis"><em>host</em></span>:<span class="emphasis"><em>port</em></span>[/<span class="emphasis"><em>Esper_provider_URI</em></span>]
+[&amp;<span class="emphasis"><em>parameter</em></span>=<span class="emphasis"><em>value</em></span>[&amp;...]]</pre></td></tr><tr><td><code class="literal">javax.sql.DataSource</code> class</td><td>com.espertech.esper.jdbc.remote.EPLRemoteDataSource</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			Similar to the local driver, the remote driver connection URL may specify a provider URI as part of the URL.
+		</p><p>
+			The next code snippet connects using the <code class="literal">DriverManager</code> class:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Class.forName("com.espertech.esper.jdbc.remote.EPLRemoteJdbcDriver");
+// Using localhost (127.0.0.1) as hostname and default port
+String url = "jdbc:esper:remote:127.0.01:8450";  
+Connection connection = DriverManager.getConnection(url);</pre><p>
+			An example that connects via <code class="literal">DataSource</code> to obtain a connection is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPLRemoteDataSource remoteDataSource = new EPLRemoteDataSource();
+remoteDataSource.setServer("myhostname");
+remoteDataSource.setPortNumber(8450);
+Connection connection = remoteDataSource.getConnection();</pre><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="overview-remote-client-params"/>4.2.1. JDBC Remote Driver Parameters</h3></div></div></div><p>
+				This section outlines optional parameters specific to the remote JDBC driver only. Common JDBC driver parameters applicable to both remote and local JDBC drivers are 
+				listed in <a class="xref" href="parameters.html" title="Chapter 5. Driver Parameters">Chapter 5, <i>Driver Parameters</i></a>.
+			</p><div class="table"><a id="d0e567"/><p class="title"><b>Table 4.3. Remote Driver Parameters</b></p><div class="table-contents"><table summary="Remote Driver Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>socketTimeout</td><td>
+								<p>An integer-type parameter to define the socket timeout, default is 0 (zero).</p>
+								<p>The amount of time to wait (in seconds) for network activity before timing out.</p>
+								<p>Use with care! A zero value is an infinite timeout. If a non-zero value is supplied this must be greater than the maximum time that the server will take to answer any query. 
+								Once the timeout value is exceeded the network connection will be closed. This parameter may be useful for detecting dead network connections in a pooled environment.</p>
+							</td></tr><tr><td>user</td><td>
+								<p>An string-type parameter to specify a user name for the connection.</p>
+								<p>For use with the <code class="literal">JDBCEndpointConnectionFilter</code> that may perform authentication and accept or reject incoming connections.</p>
+							</td></tr><tr><td>password</td><td>
+								<p>An string-type parameter to specify a password for the connection.</p>
+								<p>For use with the <code class="literal">JDBCEndpointConnectionFilter</code>.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				This sample code connects via <code class="literal">DriverManager</code> and specifies a new socket timeout of 60 seconds:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String url = "jdbc:esper:remote:myhostname:8450&amp;socketTimeout=60";  
+Connection connection = DriverManager.getConnection(url);</pre><p>
+				The next code snippet connects via <code class="literal">DataSource</code> and also specifies a new socket timeout:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPLRemoteDataSource remoteDataSource = new EPLRemoteDataSource();
+remoteDataSource.setServer("myhostname");
+remoteDataSource.setPortNumber(8450);
+remoteDataSource.setSocketTimeout(60);
+Connection connection = remoteDataSource.getConnection();</pre></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="local.html"><strong>Prev</strong>Chapter 3. Local Driver</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="parameters.html"><strong>Next</strong>Chapter 5. Driver Parameters</a></li></ul></body></html>

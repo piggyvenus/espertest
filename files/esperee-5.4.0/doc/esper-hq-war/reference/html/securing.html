@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 3. Securing the Web Application</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper HQ Web Application Archive"/><link rel="up" href="index.html" title="Esper HQ Web Application Archive"/><link rel="prev" href="gettingstarted.html" title="Chapter 2. Getting Started"/><link rel="next" href="configuration.html" title="Chapter 4. Configuration"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="gettingstarted.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing"/>Chapter 3. Securing the Web Application</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="securing.html#securing-authentication">3.1. Authentication</a></span></dt><dt><span class="sect1"><a href="securing.html#securing-roles">3.2. Roles</a></span></dt><dt><span class="sect1"><a href="securing.html#securing-spring">3.3. Securing via Spring Security (ACEGI)</a></span></dt></dl></div><p>
+			Configuring SSL communication requires following a multistep process that includes generating an SSL certificate. Enterprise Edition utilizes the Jetty container
+			for the client application and REST web services. Please follow the steps described in the Jetty documentation at http://www.eclipse.org/jetty/documentation/current/configuring-ssl.html
+			to enable SSL communication.
+		</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing-authentication"/>3.1. Authentication</h2></div></div></div><p>
+			  The EsperHQ client application and eventlet faceless execution can be protected as described below. By default a new installation of the distribution does not authenticate or check authorizations.
+			</p><p>
+			  To enable the login challenge, and authorization checking of roles, set the provider-type in the authentication settings to <code class="literal">local</code>, as outlined in <a class="xref" href="configuration.html#configuration-client-authen" title="4.1.2. Authentication">Section 4.1.2, “Authentication�?</a>.
+			  You may add individual users and credentials directly to the EsperHQ configuration file.
+			</p><p>
+			  To integrate EsperHQ with common security authentication and authorization architectures including for example LDAP, Siteminder, OpenID and JA-SIG we provide instructions to configure
+			  Spring security below.
+			</p><p>
+			  As a further alternative, consider configuring your own servlet filter or servlet context listener in the EsperHQ war file to secure EsperHQ URLs.
+			</p><p>
+			  In addition, if your application requires fine-grained control over individual operations that EsperHQ servlet performs on request by client applications, EsperHQ provides a callback that you may register. We explain 
+			  service filters below. A service filter can perform authorization checks and may also modify operation request values.
+			</p><p>
+			  EsperHQ enforces authentication and authorization in the client application and as part of all servlet operations of the web application server.
+			</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing-roles"/>3.2. Roles</h2></div></div></div><p>
+				The <code class="literal">EHQ_ADMIN</code> role is a superset of all roles and provides access to all functions.
+			</p><p>
+				 Assign the <code class="literal">EHQ_EXEC</code> role to users that may only execute an eventlet via faceless launch. 
+			</p><p>
+				 Assign the <code class="literal">EHQ_RO</code> role to users that may only perform read-only operations in the client application. 
+			</p><p>
+				 The below table summarizes authorizations:
+			</p><div class="table"><a id="d0e245"/><p class="title"><b>Table 3.1. Roles</b></p><div class="table-contents"><table summary="Roles" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th>Function</th><th>EHQ_ADMIN</th><th>EHQ_RO</th><th>EHQ_EXEC</th></tr></thead><tbody><tr><td>All create, update and delete operations, e.g. create statements, transition statements, set variable values, create eventlets and others.</td><td>Yes.</td><td>No.</td><td>No.</td></tr><tr><td>All read-only operations, e.g. view statements, view variable values.</td><td>Yes.</td><td>Yes.</td><td>No.</td></tr><tr><td>Launch eventlets via client application or faceless.</td><td>Yes.</td><td>No.</td><td>Yes.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing-spring"/>3.3. Securing via Spring Security (ACEGI)</h2></div></div></div><p>
+				This section provides the instructions to configure the web application with Spring (ACEGI) security. Via Spring ACEGI security it is easy to secure and integrate EsperHQ into many additional security architectures. 
+			</p><p>
+			  When using Spring security, the step-by-step instructions to enable security are as follows. File paths provided below are relative to the installation root directory.
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Open <code class="literal">bin/setclasspath.sh</code> (Linux) or <code class="literal">bin/setclasspath.bat</code> (Windows)
+						and remove the comments in <code class="literal">Spring/ACEGI Security</code> section, such that Spring and Spring Security jar files are part of the classpath.
+					</p></li><li><p>
+						Change the <code class="literal">webapps/esperhqapp/WEB-INF/web.xml</code> file to include a reference to the Spring security context and the Spring web context loader, by adding the following lines before <code class="literal">&lt;/web-app&gt;</code>:
+					</p><pre xmlns="" class="">&lt;context-param&gt;
+  &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;
+      classpath:/spring-security.xml
+   &lt;/param-value&gt;
+&lt;/context-param&gt;
+
+&lt;listener&gt;
+  &lt;listener-class&gt;
+    org.springframework.web.context.ContextLoaderListener
+  &lt;/listener-class&gt;
+&lt;/listener&gt;</pre></li><li><p>
+						Add the <code class="literal">spring-security.xml</code> Spring security configuration to the <code class="literal">webapps/esperhqapp/WEB-INF/classes</code> folder, create the folder if it does not exist. 
+						The distribution provides a sample file in <code class="literal">lib-security</code>.
+					</p></li><li><p>
+						Configure EsperHQ to set the authentication provider type to Spring by setting <code class="literal">provider-type="spring"</code>.
+					</p></li></ol></div></div><p>
+		After restarting the server, review server console or log output to determine that Spring security initialized successfully and no exceptions were logged.
+		</p></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="gettingstarted.html"><strong>Prev</strong>Chapter 2. Getting Started</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong>Chapter 4. Configuration</a></li></ul></body></html>

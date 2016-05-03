@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<esper-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.espertech.com/schema/esper"
+    xsi:noNamespaceSchemaLocation="esper-configuration-5-0.xsd">
+
+	<!--
+		JMS Provider.
+		
+        This entry starts an embedded Apache ActiveMQ JMS broker. Remove this entry if running an external JMS broker.
+        The below connector URL binds only to "localhost". To allow external clients to connect to the broker, add a binding with hostname and port. 
+        For example:
+		  <init-arg name="connectorURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0,tcp://myhostname:myport?wireFormat.maxInactivityDuration=0" />
+	-->
+	<plugin-loader name="JMS_Provider_Bootstrap" class-name="com.espertech.esper.ceppushsvc.jmsbroker.JMSProviderMgmtPlugin">
+		<init-arg name="type" value="ApacheActiveMQ" />
+		<init-arg name="connectorURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0" />
+		<init-arg name="dataDirectory" value="${ESPEREE_BASE}/data/jmsbroker-endpoint-default" />
+	</plugin-loader>
+	
+	<!--
+		CEP Push Services Endpoint..
+	-->
+	<plugin-loader name="CEPPushServices" class-name="com.espertech.esper.ceppushsvc.client.EndpointMgmtPlugin">
+	 	<init-arg name="esperceppushsvc.configuration.file" value="ceppushsvc-trafficsample.xml" />
+	</plugin-loader>
+
+</esper-configuration>

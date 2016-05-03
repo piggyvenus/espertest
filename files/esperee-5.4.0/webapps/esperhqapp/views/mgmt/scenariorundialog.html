@@ -1,0 +1,178 @@
+<div ng-controller="ScenarioRunDialogController">
+    <div class="row-fluid">
+        <div class="span4">
+            <button type="submit" class="btn button-bar-margin" ng-click="doLoadEPL()">Load EPL</button>
+            <button type="submit" class="btn button-bar-margin" ng-click="doSaveEPL()">Save EPL</button>
+        </div>
+        <div class="span6">
+            <button type="submit" class="btn button-bar-margin" ng-click="doLoadSequence()">Load Seq.</button>
+            <button type="submit" class="btn button-bar-margin" ng-click="doSaveSequence()">Save Seq.</button>
+            <span class="button-bar-margin">Trace File Name:</span>
+            <input type="text" class="input-small" ng-disabled="debugDisabled" ng-model="scenarioName" ng-class="{'emptyField':scenarioNameRequired}"/>
+            <button type="submit" class="btn button-bar-margin" ng-click="doDebug()" ng-disabled="debugDisabled">Debug</button>
+        </div>
+        <div class="span2">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary" ng-click="doSubmit()" ng-disabled="nowprocessing">Run</button>
+                <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <div id="scenario_statements">
+        <form novalidate>
+            <fieldset>
+                <legend><small>EPL Statements</small></legend>
+
+                <div>
+                    <span><strong>EPL Module Text</strong></span>
+                </div>
+                <span class="small">Enter EPL Here:</span>
+                <div id="scenario_module_editor_div">
+                    <textarea></textarea>
+                </div>
+                <div id="scenario_module_messages_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="spacer"></div>
+            </fieldset>
+        </form>
+        <div class="debugger-resizable-e ui-resizable-handle ui-resizable-e" style="right:-3px;"></div>
+    </div>
+
+    <div id="scenario_sequence">
+        <form novalidate>
+            <fieldset>
+                <legend><small>Time And Event Sequence</small></legend>
+
+                <div>
+                    <span><strong>Beginning Of Time</strong></span>
+                </div>
+                <span class="small">Provide a timestamp to start at:</span>
+                <div class="spacer"></div>
+                <div>
+                    <input type="text" name="input_starttime" id="input_starttime" ng-model="startDate"/>
+                    <span ng-show="nowprocessing"><strong>...Processing Form...</strong></span>
+                </div>
+                <div ng-show="startDateErrorMsg != null">
+                    <span class="span-invalid">{{startDateErrorMsg}}</span>
+                </div>
+                <div class="clear"></div>
+
+                <div>
+                    <span><strong>Advance Time and Send Events</strong></span>
+                </div>
+                <span class="small">Enter sequence of time and events:</span>
+                <div id="scenario_sequence_editor_div">
+                    <textarea></textarea>
+                </div>
+                <div id="scenario_sequence_messages_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="spacer"></div>
+            </fieldset>
+        </form>
+        <div class="debugger-resizable-e ui-resizable-handle ui-resizable-e" style="right: 0px;"></div>
+    </div>
+
+    <div id="scenario_output">
+        <form novalidate>
+            <fieldset>
+                <legend><small>Scenario Results</small></legend>
+                <div id="scenario_output_tabs">
+                    <ul>
+                        <li><a href="#tabs-1">All Output Events</a></li>
+                        <li><a href="#tabs-2">Output Per Statement</a></li>
+                        <li><a href="#tabs-3">All Audit Text</a></li>
+                        <li><a href="#tabs-4">Audit Text Per Statement</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <div class="scenario_output_scrolling">
+                            <ul class="scenario_outputlist">
+                                <li class="outputlistitem" ng-repeat="level1 in level1s">
+                                    At: <span class="level1">{{level1.date}}</span>
+                                    <ul class="scenario_outputlist">
+                                        <li class="outputlistitem" ng-repeat="level2 in level1.level2s">
+                                            Statement: <span class="level2">{{level2.statementName}}</span>
+                                            <ul class="scenario_outputlist">
+                                                <li class="outputlistitem" ng-repeat="level3 in level2.level3s">
+                                                    <span class="level3">{{level3.insertedRemoved}}</span>
+                                                    <ul class="scenario_outputlist">
+                                                        <li class="outputlistitem" ng-repeat="level4 in level3.level4s">
+                                                            <span class="level4">{{level4.event}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="tabs-2">
+                        <div id="scenario_stmtoutput_tabs">
+                            <ul>
+                                <li ng-repeat="stmtitem in perstmtoutput">
+                                    <a href="#tabs-stmt-{{$index}}">{{stmtitem.statementName}}</a>
+                                </li>
+                            </ul>
+                            <div ng-repeat="stmtitem in perstmtoutput" id="tabs-stmt-{{$index}}">
+                                <ul class="scenario_outputlist">
+                                    <li class="outputlistitem" ng-repeat="level1 in stmtitem.level1s">
+                                        At: <span class="level1">{{level1.date}}</span>
+                                        <ul class="scenario_outputlist">
+                                            <li class="outputlistitem" ng-repeat="level3 in level1.level3s">
+                                                <span class="level3">{{level3.insertedRemoved}}</span>
+                                                <ul class="scenario_outputlist">
+                                                    <li class="outputlistitem" ng-repeat="level4 in level3.level4s">
+                                                        <span class="level4">{{level4.event}}</span>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tabs-3">
+                        <div class="scenario_output_scrolling">
+                            <textarea rows="30" style="width:100%;" ng-model="audit" readonly></textarea>
+                        </div>
+                    </div>
+                    <div id="tabs-4">
+                        <div id="scenario_stmtaudit_tabs">
+                            <ul>
+                                <li ng-repeat="stmtitem in perstmtaudit">
+                                    <a href="#tabs-stmtaudit-{{$index}}">{{stmtitem.statementName}}</a>
+                                </li>
+                            </ul>
+                            <div ng-repeat="stmtitem in perstmtaudit" id="tabs-stmtaudit-{{$index}}">
+                                <textarea rows="30" style="width:100%;" ng-model="stmtitem.auditInfo" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+            </fieldset>
+        </form>
+        <div class="debugger-resizable-e ui-resizable-handle ui-resizable-e" style="right: 0px;"></div>
+    </div>
+</div>

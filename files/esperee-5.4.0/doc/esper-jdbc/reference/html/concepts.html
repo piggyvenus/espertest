@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 2. Concepts</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper JDBC Driver"/><link rel="up" href="index.html" title="Esper JDBC Driver"/><link rel="prev" href="overview.html" title="Chapter 1. Overview"/><link rel="next" href="local.html" title="Chapter 3. Local Driver"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="overview.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="local.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts"/>Chapter 2. Concepts</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="concepts.html#concepts-engineuritocatalog">2.1. Catalogs</a></span></dt><dt><span class="sect1"><a href="concepts.html#concepts-storedproc">2.2. Stored Procedures</a></span></dt><dt><span class="sect1"><a href="concepts.html#concepts-namedwindow">2.3. Tables</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-engineuritocatalog"/>2.1. Catalogs</h2></div></div></div><p>
+			As documented for Esper, multiple Esper engine instances can co-exist within the same JVM. A provider URI uniquely identifies each Esper provider (engine) instance. The JDBC driver represents each available
+			(initialized) Esper engine instance URI as a catalog name, and the Esper default provider instance (no provider URI) as the catalog name <code class="literal">"default"</code>.
+		</p><p>
+			At connection time, your application can specify a provider URI via a driver URL parameter or property on the data source. Setting the catalog at the time you obtain a connection is equivalent to setting the catalog name on an existing connection.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-storedproc"/>2.2. Stored Procedures</h2></div></div></div><p>
+			Your application creates EPL statements within an Esper engine instance typically via the Esper administrative API. Each started EPL statement is visible as a stored procedure through JDBC.
+		</p><p>
+			The query result of a stored procedure is the events returned by the <code class="literal">safeIterator</code> method on <code class="literal">EPStatement</code>. 
+		</p><p>
+			Any type of EPL statement can be invoked as a stored procedure via the JDBC driver. EPL statements that return query results include <code class="literal">select</code> and <code class="literal">insert into</code> clauses as well as <code class="literal">create variable</code> and <code class="literal">create window</code> clauses.
+		</p><p>
+			To retrieve results of started Esper EPL statements (stored procedures in JDBC terminology), your application may use either of the following syntax:
+		</p><div class="itemizedlist"><ul compact="compact"><li><p>
+					The shortcut notation: </p><pre class="synopsis">[<span class="emphasis"><em>provider_URI</em></span>.]&lt;esper_statement_name&gt;</pre><p>. 
+				</p></li><li><p>
+					The standard escape syntax : </p><pre class="synopsis">{call [provider_URI.]&lt;esper_statement_name&gt;}</pre><p>. 
+				</p></li></ul></div><p>
+			The <span class="emphasis"><em>provider_URI</em></span> is equivalent to the JDBC catalog name and may optionally prefix the statement name.
+		</p><p>
+			For example, suppose your application creates an EPL statement:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String epl = "select symbol, avg(price) as avp from Tick group by symbol";
+String name = "avgPriceBySymbol";
+epAdministrator.createEPL(epl, name);</pre><p>
+			The code for the JDBC call via <code class="literal">PreparedStatement</code> may look like this:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String eplStmtName = "avgPriceBySymbol";
+PreparedStatement stmt = connection.prepareStatement(eplStmtName);
+ResultSet = stmt.executeQuery();
+//... code to interrogate the result set
+//... rs.next(); rs.getDouble("avp");</pre><p>
+			The equivalent call using the JDBC escape syntax is show here, and this example specifies a provider URI:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String query = "{call default.avgPriceBySymbol}";
+PreparedStatement stmt = connection.prepareStatement(query);</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-namedwindow"/>2.3. Tables</h2></div></div></div><p>
+			Your application may create named windows via the <code class="literal">create window</code> clause. Such named windows are listed as tables in JDBC metadata. Your application can 
+			prepare and execute dynamic (non-continuous, fire-and-forget) EPL against named windows.
+		</p><p>
+			To demonstrate, assume your application creates a named window in an Esper engine instance:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String epl = "create window TickSummary.win:time(60 sec) as select symbol, price from Tick";
+epAdministrator.createEPL(epl);
+// ... more statements here to populate the named window from a stream</pre><p>
+			Via the JDBC driver the name window can be queried using a <code class="literal">java.sql.Statement</code> or <code class="literal">java.sql.PreparedStatement</code> as shown here:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String query = "select * from TickSummary";
+PreparedStatement stmt = connection.prepareStatement(query);
+ResultSet rs = stmt.executeQuery();
+//... code to interrogate the result set
+//... rs.next(); rs.getDouble("price");</pre><p>
+			The dynamic EPL query can contain all elements of the Esper EPL query language, including joins.
+		</p><p>
+			The following limitations apply to dynamic EPL queries:
+		</p><div class="itemizedlist"><ul compact="compact"><li><p>
+					There is no support for subqueries.
+				</p></li><li><p>
+					Views are not allowed within dynamic EPL queries.
+				</p></li><li><p>
+					The <code class="literal">prev</code> and <code class="literal">prior</code> operators are not allowed.
+				</p></li><li><p>
+					The output rate limiting clause and insert-into clause are not honored by dynamic queries.
+				</p></li></ul></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="overview.html"><strong>Prev</strong>Chapter 1. Overview</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="local.html"><strong>Next</strong>Chapter 3. Local Driver</a></li></ul></body></html>

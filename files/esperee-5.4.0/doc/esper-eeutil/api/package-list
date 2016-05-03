@@ -1,0 +1,16 @@
+com.espertech.esper.eeutil.client.debug
+com.espertech.esper.eeutil.client.metric
+com.espertech.esper.eeutil.domain.common
+com.espertech.esper.eeutil.domain.debug.common
+com.espertech.esper.eeutil.domain.debug.core
+com.espertech.esper.eeutil.domain.debug.expr
+com.espertech.esper.eeutil.domain.debug.filter
+com.espertech.esper.eeutil.domain.debug.pattern
+com.espertech.esper.eeutil.domain.debug.regex
+com.espertech.esper.eeutil.domain.debug.schedule
+com.espertech.esper.eeutil.domain.debug.shard
+com.espertech.esper.eeutil.domain.message
+com.espertech.esper.eeutil.domain.metric
+com.espertech.esper.eeutil.domain.mgmt
+com.espertech.esper.eeutil.domain.push
+com.espertech.esper.eeutil.domain.service

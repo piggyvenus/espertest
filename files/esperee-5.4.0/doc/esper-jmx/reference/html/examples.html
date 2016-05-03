@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 4. Examples</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperJMX"/><link rel="up" href="index.html" title="EsperJMX"/><link rel="prev" href="mbeans.html" title="Chapter 3. MBeans"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="mbeans.html"><strong>Prev</strong></a></li><li class="next"/></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples"/>Chapter 4. Examples</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="examples.html#examples-trafficsim">4.1. JMX-enabled Esper Engine and JMX Client</a></span></dt><dd><dl><dt><span class="sect2"><a href="examples.html#examples-trafficsim-overview">4.1.1. Overview</a></span></dt><dt><span class="sect2"><a href="examples.html#examples-trafficsim-configuration">4.1.2. Example Configuration</a></span></dt><dt><span class="sect2"><a href="examples.html#examples-trafficsim-ondemand">4.1.3. On-Demand Query Example</a></span></dt><dt><span class="sect2"><a href="examples.html#examples-trafficsim-jconsole">4.1.4. JConsole View</a></span></dt></dl></dd></dl></div><p>
+		In order to compile and run the samples please follow the below instructions:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Make sure Java 1.5 or greater is installed and the JAVA_HOME environment variable is set.
+			</p></li><li><p>
+				Copy the Esper distribution jar file and its runtime dependencies to <code class="literal">esperjmx/lib</code>.
+			</p></li><li><p>
+				Open a console window and change directory to examples/etc.
+			</p></li><li><p>
+				Run "setenv.bat" (Windows) or "setenv.sh" (Unix) to verify your environment settings.
+			</p></li><li><p>
+				Run "compile.bat" (Windows) or "compile.sh" (Unix) to compile the examples.
+			</p></li><li><p>
+				Now you are ready to run the examples. Further information to running
+				each example can be found in the "examples/etc" folder in file "readme.txt".
+			</p></li><li><p>
+				Modify the logger logging level in the "log4j.xml" configuration file 
+				changing DEBUG to INFO on a class or package level to reduce the volume of text output. 
+			</p></li></ol></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-trafficsim"/>4.1. JMX-enabled Esper Engine and JMX Client</h2></div></div></div><p>
+			This example demonstrates:
+		</p><div class="itemizedlist"><ul><li><p>
+					How to set up EsperJMX.
+				</p></li><li><p>
+					How to connect with a JMX console such as "jconsole".
+				</p></li><li><p>
+					How to connect with a Java client and invoke methods on MBeans remotely.
+				</p></li><li><p>
+					How to run an on-demand fire-and-forget query against a named window.
+				</p></li></ul></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-overview"/>4.1.1. Overview</h3></div></div></div><p>
+				After following above instructions, use the script <code class="literal">run_trafficsim_server.sh</code> (Linux) or <code class="literal">run_trafficsim_server.bat</code> (Windows) to start the server. The server uses EsperJMX configured to start an RMI registry and JMX connector on the port provided by the properties file <code class="literal">trafficexample_config.properties</code> (port 1099).
+			</p><p>
+				After starting the server, you may verify server operation with a JMX console such as <code class="literal">jconsole</code>. To connect, enter the service url <code class="literal">service:jmx:rmi:///jndi/rmi://localhost:1099/com.espertech.esper</code> into the Remote Process textbox and press Ok. Replace the hostname <code class="literal">localhost</code> in the service URL with the host you have started the server.
+			</p><p>
+				Use the script <code class="literal">run_trafficsim_client.sh</code> (Linux) or <code class="literal">run_trafficsim_client.bat</code> (Windows) to start the client. The client connects to the same port, obtains a proxy to <code class="literal">RuntimeMBean</code> and executes a fire-and-forget on-demand query on a named window that contains real-time traffic data.
+			</p><p>
+				This example is out of the transportation domain: events processed are <code class="literal">TrainLeaveEvent</code> events indicating a train leaving a station. The example creates a named window to hold the last 10 minutes of events for querying.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-configuration"/>4.1.2. Example Configuration</h3></div></div></div><p>
+				Since every Java VM has its own means of starting and providing a connector for the Java VM platform MBeanServer, this example does not use the JavaVM platform MBeanServer and instead starts an RMI registry and JMX connector on the port provided by the properties file <code class="literal">trafficexample_config.properties</code> (port 1099). This section outlines the steps to use the Sun JavaVM platform MBeanServer with the example.
+			</p><p>
+				The platform MBeanServer provides additional information about the Java VM, such as memory use and threading. It may therefore be desired by your application to use the platform MBeanServer with EsperJMX.
+			</p><p>
+				To use the platform MBeanServer instead of the RMI registry, edit the file <code class="literal">trafficexample_config.properties</code>:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Set the property <code class="literal">use-platform-mbean-server</code> to <code class="literal">true</code>.
+					</p></li><li><p>
+						Set the property <code class="literal">service-url</code> to <code class="literal">service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi</code>. This value is used by the example client to connect to the platform MBeanServer.
+					</p></li></ol></div><p>
+				If using the Sun Java VM, edit the file <code class="literal">run_trafficsim_server</code> and add the following system properties: 
+				<code class="literal">-Dcom.sun.management.jmxremote.port=1099</code> 
+				<code class="literal">-Dcom.sun.management.jmxremote.authenticate=false</code> 
+				<code class="literal">-Dcom.sun.management.jmxremote.ssl=false</code> 
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-ondemand"/>4.1.3. On-Demand Query Example</h3></div></div></div><p>
+				The example client first obtains the <code class="literal">RuntimeMBean</code> proxy as this code snippet shows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JMXServiceURL jmxServiceURL = new JMXServiceURL(serviceURL);
+JMXConnector jmxc = JMXConnectorFactory.connect(jmxServiceURL, null);
+MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
+
+RuntimeMBean runtimeMBean = (RuntimeMBean) MBeanServerInvocationHandler.newProxyInstance(
+		mbsc, new ObjectName("com.espertech.esper-default-provider:type=Runtime"),
+		RuntimeMBean.class, false);</pre><p>
+				The <code class="literal">fireAndForgetQueryType1</code> method on <code class="literal">RuntimeMBean</code> returns a object array in which the first item is the property names and types and the second item the 2-dimensional array of rows and columns.
+			</p><p>
+				The client executes the query and prints a table of query results:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String query = "select stationName, count(*) from ArrivalsLast10 " +
+  "group by stationName order by count(*) desc";
+
+Object[] result = runtimeMBean.fireAndForgetQueryType1(query, -1);
+String[][] propertyNames = (String[][]) result[0];
+Object[][] rows = (Object[][]) result[1];
+
+String line = String.format("%15s %10s", "Station", "count");
+for (int i = 0; i &lt; rows.length; i++) {
+  line = String.format("%15s %10s", rows[i][0], rows[i][1]);
+  log.info(line);
+}</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-jconsole"/>4.1.4. JConsole View</h3></div></div></div><p>
+				A screenshot of <code class="literal">jconsole</code> attached to the server is shown here:
+			</p><div class="mediaobject" align="center"><img src="../shared/images/jconsole_example.gif" align="middle"/></div></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="mbeans.html"><strong>Prev</strong>Chapter 3. MBeans</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li></ul></body></html>

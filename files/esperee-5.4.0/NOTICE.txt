@@ -1,0 +1,6 @@
+Esper Enterprise Edition
+Copyright 2006-2013 EsperTech Inc.
+
+Please see the LICENSE.TXT file for license information.
+
+Please open index.html for introduction and all documentation links.

@@ -1,0 +1,43 @@
+module com.espertech.esper.server.example.geoapp;
+
+import com.espertech.esper.server.example.geoapp.GeoLib;
+
+@Name('GeoExample-Define Location Event Type')
+create schema LatLng (lat float, lng float, id string);
+
+@Name('GeoExample-AllEvents')
+@Description('Listenes to each Geo-event.')
+select * from LatLng;
+
+@Name('GeoExample-LastPositionRelation')
+@Description('Keeps the last position for each Geo-event.')
+create window GeoPositionWindow.win:time(1 hour).std:unique(id) as select * from LatLng;
+
+@Name('GeoExample-LastPositionRelationInsert')
+@Description('Populates the relation to hold the last position for each Geo event from all incoming events.')
+insert into GeoPositionWindow select * from LatLng;
+
+@Name('GeoExample-NearBy')
+@Description('Pattern to populate a stream of distance between two markers when the distance is less then 500 meters.')
+insert into NearBy select *, GeoLib.distanceKM(a.lat, a.lng, b.lat, b.lng) as distance from pattern [
+  every a = GeoPositionWindow -> (every b = GeoPositionWindow(id!=a.id, GeoLib.distanceKM(a.lat, a.lng, lat, lng) < 0.5) and not GeoPositionWindow(id=a.id))];
+
+@Name('GeoExample-NearBy10sec')
+@Description('Distance between 2 markers < 500m only when they keep close (and moving around) for >10seconds.')
+insert into NearBy10sec select *, GeoLib.distanceKM(a.lat, a.lng, b.lat, b.lng) as distance from pattern [
+  every a = GeoPositionWindow -> (every b = GeoPositionWindow(id!=a.id, GeoLib.distanceKM(a.lat, a.lng, lat, lng) < 0.5) and not GeoPositionWindow(id=a.id))
+      -> (timer:interval(10 seconds) and not (GeoPositionWindow(id=a.id, GeoLib.distanceKM(b.lat, b.lng, lat, lng) > 0.5) 
+              or GeoPositionWindow(id=b.id, GeoLib.distanceKM(a.lat, a.lng, lat, lng) > 0.5)))];
+
+@Name('GeoExample-DensityStream')
+@Description('Density - as NearBy10sec triggers for each neighbors, there are duplicates for density.')
+on NearBy10sec as x
+insert into Density
+select x.a.id as id, x.a.lat as lat, x.a.lng as lng, count(*) as density
+from GeoPositionWindow b
+where GeoLib.distanceKM(x.a.lat, x.a.lng, b.lat, b.lng) < 0.5
+group by id;
+
+@Name('GeoExample-DensityBatch')
+@Description('Last density per id.')
+select * from Density.std:unique(id);

@@ -1,0 +1,101 @@
+<div id="browse_consumers" ng-controller="ConsumerBrowseController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">My Client Id:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="clientId" readonly/>
+            </div>
+        </div>
+
+        <fieldset ng-repeat="subtopic in subtopics">
+            <legend>
+                Consumer {{subtopic.consumerId}}
+            </legend>
+            <div class="control-group">
+                <label class="control-label">Subtopic:</label>
+                <div class="controls">
+                    <input type="text" class="predefined-60wide" ng-model="subtopic.subtopic" readonly/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">URL:</label>
+                <div class="controls">
+                    <input type="text" class="predefined-60wide" ng-model="subtopic.consumerURL" readonly/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">State:</label>
+                <div class="controls">
+                    <input type="text" class="predefined-60wide" ng-model="subtopic.consumerState" readonly/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Message Count:</label>
+                <div class="controls">
+                    <input type="text" class="predefined-60wide" ng-model="subtopic.consumerMsgCount" readonly/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Activations:</label>
+                <div class="controls">
+                    <table width="100%" class="table-hor-minimalist">
+                        <thead>
+                        <tr>
+                            <th>Activation Name</th>
+                            <th>Activation Id</th>
+                            <th>Composition</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="activation in subtopic.activations">
+                            <td>
+                                {{activation.activationName}}
+                            </td>
+                            <td>
+                                {{activation.activationId}}
+                            </td>
+                            <td>
+                                {{activation.composition}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Messages:</label>
+                <div class="controls">
+                    <table width="100%" class="table-hor-minimalist">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="log in subtopic.consumerLogEntries">
+                            <td>
+                                {{log.date}}
+                            </td>
+                            <td>
+                                {{log.msg}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,18 @@
+<div id="eventdataentry" ng-controller="EventDataEntryController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doClose(true)" class="btn btn-primary button-bar-margin">Ok</button>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <legend>Event Data for Event Type {{eventType.eventTypeName}}</legend>
+
+        <div class="control-group" ng-repeat="property in eventType.properties">
+            <label class="control-label">{{property.propertyName}}</label>
+            <div class="controls">
+                <input class="predefined-60wide" ng-model="fields[property.propertyName]"/>
+                <label>{{property.propertyType}}</label>
+            </div>
+        </div>
+    </form>
+</div>

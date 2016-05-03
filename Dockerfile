@@ -12,10 +12,10 @@ FROM jboss/base-jdk:7
 #
 #RUN chown -R jboss:jboss /opt/esper/.
 
-COPY files/esperee-5.3.0 /opt/jboss/esperee-5.3.0
-ADD espertech.license /opt/jboss/esperee-5.3.0/conf/
+COPY files/esperee-5.4.0 /opt/jboss/esperee-5.4.0
+
 USER root
-RUN chown -R jboss:jboss /opt/jboss/esperee-5.3.0/.
+RUN chown -R jboss:jboss /opt/jboss/esperee-5.4.0/.
 
 
 # Main Web console
@@ -24,7 +24,7 @@ EXPOSE 8400
 USER jboss
 
 # Use tail to keep the container running
-CMD /opt/jboss/esperee-5.3.0/bin/startup.sh && tail -f /opt/jboss/esperee-5.3.0/logs/esperee.out
+CMD /opt/jboss/esperee-5.4.0/bin/startup.sh && tail -f /opt/jboss/esperee-5.4.0/logs/esperee.out
 
 #ENTRYPOINT ["/opt/jboss/jws-3.0/bin/startup.sh"]
 

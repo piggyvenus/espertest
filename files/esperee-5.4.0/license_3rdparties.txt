@@ -1,0 +1,170 @@
+NOTICES RELATED TO CERTAIN THIRD PARTY MATERIALS:
+
+Apache 1.1 Licensed Products: 
+=============================
+
+This product includes software listed below that was developed by the Apache Software Foundation (http://www.apache.org/).  
+Such software is licensed under the Apache Software License, Version 1.1; you may obtain a copy of such license at  http://apache.org/licenses/LICENSE-1.1.
+
+- CGLib, see http://cglib.sourceforge.net/license.html
+  -- cglib-nodep-3.1.jar
+
+
+Apache 2.0 Licensed Products: 
+=============================
+
+This product includes software listed below that was developed by the Apache Software Foundation (http://www.apache.org/).  
+Such software is licensed under the Apache Software License, Version 2.0; you may obtain a copy of such license at  http://apache.org/licenses/LICENSE-2.0.
+
+- Apache Commons, see http://commons.apache.org/
+  -- commons-codec-<version>.jar
+  -- commons-lang-<version>.jar
+  -- commons-logging-<version>.jar
+  -- httpclient-<version>.jar
+  -- httpcore-<version>.jar
+- Apache Log4J, see http://logging.apache.org/log4j/1.2/
+  -- log4j-<version>.jar
+- Apache ActiveMQ, see http://activemq.apache.org
+  -- activemq-all-<version>.jar  
+- Apache Geronimo JMS and J2EE specification, http://geronimo.apache.org/license.html
+  -- geronimo-j2ee-management_1.1_spec-1.0.1.jar
+  -- geronimo-jms_1.1_spec-1.1.1.jar
+- Apache MINA, see http://mina.apache.org
+  -- mina-core-2.0.7.jar
+- Eclipse Jetty, see http://www.eclipse.org/jetty/ (dual licensed)
+  -- jetty-annotations-<version>.jar
+  -- jetty-client-<version>.jar
+  -- jetty-continuation-<version>.jar
+  -- jetty-deploy-<version>.jar
+  -- jetty-http-<version>.jar
+  -- jetty-io-<version>.jar
+  -- jetty-jaas-<version>.jar
+  -- jetty-jmx-<version>.jar
+  -- jetty-plus-<version>.jar
+  -- jetty-proxy-<version>.jar
+  -- jetty-rewrite-<version>.jar
+  -- jetty-security-<version>.jar
+  -- jetty-server-<version>.jar
+  -- jetty-servlet-<version>.jar
+  -- jetty-servlets-<version>.jar
+  -- jetty-util-<version>.jar
+  -- jetty-webapp-<version>.jar
+  -- jetty-xml-<version>.jar
+  -- websocket-api-<version>.jar
+  -- websocket-common-<version>.jar
+  -- websocket-server-<version>.jar
+  -- websocket-servlet-<version>.jar
+  -- servlet-api-<version>.jar
+- Enunciate, see https://github.com/stoicflame/enunciate (former site is http://enunciate.codehaus.org/)
+  -- enunciate-core-annotations-<version>.jar
+- GSON, see https://code.google.com/p/google-gson/
+  -- gson-<version>.jar
+- Groovy, see http://www.groovy-lang.org/download.html (former site is http://groovy.codehaus.org/)
+  -- groovy-all-<version>.jar
+- Restlet, see http://restlet.org/download/legal
+  -- org.restlet.ext.httpclient.jar
+  -- org.restlet.ext.jaxrs.jar
+  -- org.restlet.ext.servlet.jar
+  -- org.restlet.ext.slf4j.jar
+  -- org.restlet.jar  
+- Spring Framework, see http://www.springsource.org
+  -- org.springframework.aop-<version>.jar
+  -- org.springframework.asm-<version>.jar
+  -- org.springframework.aspects-<version>.jar
+  -- org.springframework.beans-<version>.jar
+  -- org.springframework.context-<version>.jar
+  -- org.springframework.context.support-<version>.jar
+  -- org.springframework.core-<version>.jar
+  -- org.springframework.expression-<version>.jar
+  -- spring-security-acl-<version>.jar
+  -- spring-security-cas-client-<version>.jar
+  -- spring-security-config-<version>.jar
+  -- spring-security-core-<version>.jar
+  -- spring-security-ldap-<version>.jar
+  -- spring-security-openid-<version>.jar
+  -- spring-security-taglibs-<version>.jar
+  -- spring-security-web-<version>.jar
+- Scannotation, see http://sourceforge.net/projects/scannotation
+- Twitter Bootstrap, see https://github.com/twbs/bootstrap/blob/master/LICENSE
+  -- bootstrap.min.css
+
+   
+GNU LGPLv.2.1 Licensed
+====================== 
+
+- JGroups, see http://www.jgroups.org. This software uses the JGroups toolkit library for reliable multicast communication (jgroups.jar).  Such JGroups library is licensed under  the GNU Lesser General Public License, Version 2.1, a copy of which is included with such library. You may also obtain a copy of such license at http://www.gnu.org/licenses/.   
+  -- jgroups-<version>.Final.jar
+- Javassist, see http://www.javassist.org. This software uses the Javassist (Java Programming Assistant) library for that performs Java bytecode manipulation. It is a class library for editing bytecodes in Java (javassist.jar).  Such Javassist library is licensed under  the GNU Lesser General Public License, Version 2.1, a copy of which is included with such library. You may also obtain a copy of such license at http://www.gnu.org/licenses/.
+  -- javassist.jar
+
+
+Common Development and Distribution (CDDL) Licensed
+=========================================
+
+- JAX-WS Reference Implementation, see http://jax-ws.java.net/ and http://glassfish.java.net/public/CDDL+GPL_1_1.html
+  -- javax.ws.rs.jar
+  -- javax.ws.rs-<version>.jar
+
+
+BSD License
+===========
+
+- ANTLR 4, see http://www.antlr.org/license.html
+  -- antlr-runtime-<version>.jar
+- XStream, see http://x-stream.github.io/ (former site is http://xstream.codehaus.org/license.html)
+  -- xstream-<version>.jar
+- Kryo, see https://code.google.com/p/kryo/
+  -- kryo-<version>.jar
+- Datatables, see https://datatables.net/ and https://datatables.net/license_bsd
+  -- jquery.dataTables.js
+  -- jquery.dataTables.css
+  -- jquery.dataTables_themeroller.css
+- sprintf JavaScript library, see https://code.google.com/p/sprintf/
+  -- sprintf.min.js
+  
+
+MIT and MIT-style License
+===========
+
+- AngularJS, see http://angularjs.org/ and https://github.com/angular/angular.js/blob/master/LICENSE
+  -- angular.min.js
+- Codemirror, see http://codemirror.net/LICENSE
+  -- codemirror.js
+  -- codemirror.css
+  -- codemirror_theme_neat.css
+- Data-Driven Documents D3.JS, see http://d3js.org/ and https://github.com/mbostock/d3/blob/master/LICENSE
+  -- d3.v3.min.js
+- Dynatree, see https://code.google.com/p/dynatree/
+  -- jquery.dynatree.min.js
+  -- ui.dynatree.css (additional images not listed)
+- EaselJS, see http://www.createjs.com/#!/EaselJS and https://github.com/CreateJS/EaselJS/
+  -- easeljs-0.6.1.min.js
+- Evol color picker, see https://github.com/evoluteur/colorpicker
+  -- evol.colorpicker.js
+  -- evol.colorpicker.css
+- Flot, see http://www.flotcharts.org/ and https://github.com/flot/flot/blob/master/LICENSE.txt
+  -- jquery.flot.axislabels.js
+  -- jquery.flot.categories.js
+  -- jquery.flot.js
+  -- jquery.flot.pie.js
+  -- jquery.flot.resize.js
+  -- jquery.flot.symbol.js (additional images not listed)
+  -- jquery.flot.time.js
+- jQuery, see https://jquery.org/license/
+  -- jquery-<version>.js
+- jQuery cookied plugin, see 
+  -- jquery.cookie.js, see https://github.com/carhartl/jquery-cookie
+- jQuery UI, see http://jqueryui.com/about/ and https://github.com/jquery/jquery-ui/blob/master/MIT-LICENSE.txt
+  -- jquery-ui-<version>.custom.min.js
+  -- jquery-ui-<version>.custom.css (additional images not listed)
+- SLF4J, see http://www.slf4j.org/license.html
+  -- slf4j-api-<version>.jar
+  -- slf4j-log4j12-<version>.jar
+
+
+Other
+============
+
+- Browser-Detect, http://www.quirksmode.org/js/detect.html and http://www.quirksmode.org/about/copyright.html
+  -- browserdetect.js
+  

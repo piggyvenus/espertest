@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<!--
+	    Listener to deploy all EPL files (.epl) packages with the WAR file.
+	-->
+	<listener>
+		<listener-class>com.espertech.esper.server.webapp.EsperPrepackagedServletContextListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>com.espertech.esper.context-param.uri</param-name>
+		<param-value>default</param-value>
+	</context-param>
+
+	<!--
+	    Use below settings to pass resources via servlet initialization parameters instead.
+	-->
+	<!--
+	<listener>
+		<listener-class>com.espertech.esper.server.webapp.EsperParameterizedServletContextListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>com.espertech.esper.context-param.modules</param-name>
+		<param-value>geoapp.epl</param-value>
+	</context-param>
+	-->
+
+	<!-- 
+	    Start the event simulator for sending in events.
+	-->
+	<listener>
+		<listener-class>com.espertech.esper.server.example.geoapp.SimulatorContextListener</listener-class>
+	</listener>
+</web-app>

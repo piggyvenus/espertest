@@ -1,0 +1,180 @@
+/**
+ * Eventlet Menu.
+ */
+.eventlet_menu_div {
+    float: right;
+    position:relative;
+    z-index:9000;
+    width: 15em;
+}
+
+/**
+ * Grid
+ */
+.eventlet-grid-inplace-highlighted {
+    font-weight:bold;
+}
+
+.eventlet_grid_divhfloat {
+    float:left;
+}
+
+.eventlet_grid_divveol {
+    clear:both;
+}
+
+.eventlet_grid_divvfloat {
+    clear:both;
+}
+
+.eventlet_grid_divvtitle {
+    float:left;
+}
+
+.eventlet_grid_divvdata {
+    float:left;
+    width: 500px;
+}
+
+
+/**
+ * Timeline
+ */
+
+/** Used to determine size of screen and draw axis and points */
+.eventlet-content-div {
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
+    position: absolute;
+}
+
+.timeline_item {
+    /** Just a marker */
+    text-align:center;
+    background-color: white;
+    opacity:1;
+}
+
+.timeline_item:hover {
+    border:2px solid;
+    border-radius:5px;
+}
+
+.timeline_item_tiny {
+    width: 55px;
+    height: 30px;   /** see HQ_TIMELINE_DISPLAY_TYPE.TINY */
+    border:1px solid;
+    border-radius:5px;
+    padding-top:3px;
+    padding-bottom:3px;
+    text-align:center;
+    opacity:1;
+}
+
+.timeline_item_small {
+    width: 80px;
+    height: 45px;   /** see HQ_TIMELINE_DISPLAY_TYPE.SMALL */
+    border:1px solid;
+    border-radius:5px;
+    padding-top:3px;
+    padding-bottom:3px;
+    text-align:center;
+    opacity:1;
+}
+
+.timeline_item_full {
+    width: 200px;
+    height: 150px;  /** see HQ_TIMELINE_DISPLAY_TYPE.FULL */
+    border:1px solid;
+    border-radius:5px;
+    padding-top:3px;
+    padding-bottom:3px;
+    text-align:center;
+    opacity:1;
+    overflow-y: auto;
+}
+
+.timeline_item_full_type {
+    float: left;
+    width: 70%;
+    text-align: left;
+    padding-left: 3px;
+}
+
+.timeline_item_full_rowid {
+    float: left;
+    width: 25%;
+    text-align: right;
+    padding-right: 3px;
+}
+
+.timeline_item_full_table {
+    position: relative;
+}
+
+.timeline_item_full_table_b
+{
+    font-size: 10px;
+    background: #fff;
+    border-collapse: collapse;
+    text-align: left;
+    padding-top: 8px;
+    width: 100%;
+}
+.timeline_item_full_table_b td
+{
+    border-bottom: 1px solid #ccc;
+    padding: 2px 4px;
+}
+.timeline_item_full_table_b tbody tr:hover td
+{
+    color: #009;
+}
+
+/** Axis: no width or height means scrollbar gets added when scale too large */
+.timeline_axis {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    position: absolute;
+    z-index: -1;
+}
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+/**
+ * About screen
+ */
+#eventletabout_trace {
+    width: 95%;
+}
+
+#eventletabout_activationxml {
+    width: 95%;
+}
+
+/**
+ * Chart eventlet
+ */
+.eventlet_chart_container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 95%;
+    padding: 20px 15px 15px 15px;
+    margin: 15px auto 30px auto;
+    border: 1px solid #ddd;
+    background: #fff;
+    position:absolute;
+}
+
+.eventlet_chart_placeholder {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.2em;
+}

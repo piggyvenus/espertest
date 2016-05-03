@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 3. Cookbook</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="connectivity.html" title="Chapter 2. Connectivity"/><link rel="next" href="eventletwizard.html" title="Chapter 4. Eventlet Wizard"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="connectivity.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="eventletwizard.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook"/>Chapter 3. Cookbook</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="cookbook.html#cookbook-historical">3.1. Integrating Historical and Real-time Data</a></span></dt><dt><span class="sect1"><a href="cookbook.html#cookbook-multiendpoint">3.2. Merging Streams of Multiple Endpoints</a></span></dt><dt><span class="sect1"><a href="cookbook.html#cookbook-unmap">3.3. Map Entries as Events</a></span></dt><dt><span class="sect1"><a href="cookbook.html#cookbook-drilldown">3.4. On-Click and Drill-Down</a></span></dt><dt><span class="sect1"><a href="cookbook.html#cookbook-timestamps">3.5. Display of Long-type Timestamps</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-historical"/>3.1. Integrating Historical and Real-time Data</h2></div></div></div><p>
+			All eventlet continuous displays allow multiple resources to be included in the composition. 
+			Each resource can use either data push or data pull as well as both together as described in <a class="xref" href="eventletwizard.html" title="Chapter 4. Eventlet Wizard">Chapter 4, <i>Eventlet Wizard</i></a>.
+		</p><p>
+			In Esper, an EPL statement may query historical or reference data via two means: First, by listing an SQL statement within the EPL statement. Second, by a method invocation join. Please consult the Esper documentation for details.
+			All EPL statements can be non-streaming queries called via the <code class="literal">iterator</code> pull API. 
+		</p><p>
+			In addition, Esper supports on-demand SQL-style fire-and-forget queries against named windows. On-demand queries can also be used as data sources along with real-time data in an eventlet composition. A refresh schedule can be attached via iterate instructions.
+		</p><p>
+		  You may combine historical and real-time data as follows:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Create an EPL statement to retrieve the historical or reference data.
+				</p></li><li><p>
+					Create an EPL statement to represent your real-time stream.
+				</p></li><li><p>
+					Create an eventlet with two resources: the historical data EPL statement and the real-time stream EPL statement. For the historical data EPL statement, use the <code class="literal">configure</code> option to set iterate on.
+				</p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-multiendpoint"/>3.2. Merging Streams of Multiple Endpoints</h2></div></div></div><p>
+			All eventlet continuous displays allow multiple resources to be included in the composition. Each resource may originate from a different CEP Push Services endpoint.
+			Each resource may explicitly name its endpoint, or may leave the endpoint out to indicate to use the default endpoint configured in Esper HQ.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-unmap"/>3.3. Map Entries as Events</h2></div></div></div><p>
+			If your event rows are within a map property of an event object, use the client un-map instruction under the <code class="literal">configure</code> option to un-map key-value pairs of a map property.
+		</p><p>
+			Continuous displays handle the un-map instruction at runtime. The chart display, for example, creates a series per key value when the pointsource is configured with a label
+			and the series does not have a value for label.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-drilldown"/>3.4. On-Click and Drill-Down</h2></div></div></div><p>
+			The eventlet composition XML allows registering a click callback function that is an external function. The click callback function gets invoked on a mouse click of an item in the eventlet display. The engine passes an Object with 
+			contextual information for the item clicked on. The object passed to the script function will contain the event properties or data points for the chart item, timeline, gauge or grid row clicked on. 
+		</p><p>
+			A sample JavaScript callback that simply prints all object properties is shown below:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;script language="JavaScript" type="text/javascript"&gt;
+  function clicked(obj) {
+    var str=""; //variable which will hold property values
+    str += "Value for object alone: " + obj + "\n\n";
+    str += "Properties are:\n";
+    for(prop in obj) {
+      str += " " + prop + "="+ obj[prop]+"\n";
+    }
+    alert(str); //Show all properties and their value
+  }
+&lt;/script&gt;</pre><p>
+			In response to a callback your JavaScript function may, for example, construct an eventlet composition XML or construct the name of a stored eventlet from the values passed.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-timestamps"/>3.5. Display of Long-type Timestamps</h2></div></div></div><p>
+		  Eventlets receive property metadata as part of their subscription(s) and when new event types are available. When eventlets recognize a <code class="literal">long</code>-type property the property value if it represents a valid date is automatically converted to the default date-time format for output, based on seconds since 1970. Therefore it is sufficient to simply select the <code class="literal">long</code>-type timestamp value in an EPL query.
+		</p><p>
+		  To perform custom formatting or timestamp conversion, consider defining a plug-in single-row function (see CEP engine documentation).
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="connectivity.html"><strong>Prev</strong>Chapter 2. Connectivity</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="eventletwizard.html"><strong>Next</strong>Chapter 4. Eventlet Wizard</a></li></ul></body></html>

@@ -1,0 +1,64 @@
+module com.espertech.esper.server.example.onlineshop;
+
+import com.espertech.esper.server.example.onlineshop.*;
+
+@Name('OnlineShopExample-CreateType UserBrowseEvent')
+create schema UserBrowseEvent UserBrowseEvent;
+
+@Name('OnlineShopExample-CreateType StockOrderEvent')
+create schema OrderEvent StockOrderEvent;
+
+@Name('OnlineShopExample-AllBrowseEvents')
+@Description('Simply selects all user-browse-page events')
+select * from UserBrowseEvent
+;
+
+@Name('OnlineShopExample-CreateVariablePrice')
+@Description('Sample statement simply creates a price threshold variable')
+create constant variable double varPriceThreshold = 100
+;
+
+@Name('OnlineShopExample-AllBrowseEventsExpensiveItem')
+@Description('All user-browse-events of a page with an item with a price tag over varPriceThreshold')
+select * from UserBrowseEvent(price > varPriceThreshold)
+;
+
+@Name('OnlineShopExample-CreateVariableQty')
+@Description('Sample statement simply creates a quantity threshold variable')
+create constant variable int varQuantityThreshold = 10
+;
+
+@Name('OnlineShopExample-AllBrowseEventsLowStock')
+@Description('All user-browse-events of a page with an item with a a low stock (under varQuantityThreshold items)')
+select * from UserBrowseEvent(stockQty < varQuantityThreshold)
+;
+
+@Name('OnlineShopExample-AvgStockQtyOverall')
+@Description('Average stock quantity of items on pages in the last 10 seconds')
+select Math.rint(coalesce(avg(stockQty), 0)) as avgStockQty from UserBrowseEvent.win:time(10)
+;
+
+@Name('OnlineShopExample-AvgStockQtyPerCategory')
+@Description('Average stock quantity per category over the last 60 seconds')
+select category, Math.rint(coalesce(avg(stockQty), 0)) as avgStockQty, count(*) as numPoints 
+from UserBrowseEvent.win:time(60) 
+group by category
+;
+
+@Name('OnlineShopExample-QtyAndPageViewMSec')
+@Description('Delta between page enter and page leave time')
+@Tag(name='PageAnalysis', value='true') 
+select MyUtilLib.deltaMSec(pageEnterTime, pageLeaveTime) as delta from UserBrowseEvent
+;
+
+@Name('OnlineShopExample-NamedWindow')
+@Description('Named window average stock qty per category and subcategory')
+create window ShopWindowPerCatSubcat.std:unique(category, subcategory) as (category string, subcategory string, avgStockQty double, numPoints long)
+;
+
+@Name('OnlineShopExample-NamedWindowPopulate')
+@Description('Populate window for querying with average stock quantity per category and subcategory over the last 60 seconds')
+insert into ShopWindowPerCatSubcat select category, subcategory, Math.rint(coalesce(avg(stockQty), 0)) as avgStockQty, count(*) as numPoints
+from UserBrowseEvent.win:time(60)
+group by category, subcategory
+;

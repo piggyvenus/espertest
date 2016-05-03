@@ -1,0 +1,57 @@
+<div id="browse_variables" ng-controller="VariableBrowseController">
+    <div class="pull-right">
+        <button ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <div id="variables_div">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Value</th>
+                    <th>Type</th>
+                    <th>Constant</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <fieldset>
+            <legend>Set Variable Value</legend>
+            <div class="control-group">
+                <label class="control-label">Variable Name:</label>
+                <div class="controls">
+                    <input type="text" class="predefined-50wide" ng-model="variable.variableName" readonly/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Current Value:</label>
+                <div class="controls">
+                    <input type="text" class="predefined-50wide" ng-model="variable.valueString" readonly/>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" ng-model="variable.isNull" disabled="disabled"/>
+                    <span class="margin-left">Null</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">New Value:</label>
+                <div class="controls">
+                    <input type="text" class="predefined-50wide" ng-model="newValue" ng-disabled="newValueNull"/>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" ng-model="newValueNull" ng-change="doNewValueNullChange()"/>
+                    <span class="margin-left">Null</span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <div class="pull-right">
+        <button ng-click="doApply()" ng-disabled="variable == null" class="btn">Apply</button>
+    </div>
+</div>

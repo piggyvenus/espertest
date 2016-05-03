@@ -1,0 +1,76 @@
+<div ng-controller="StatementMemoryBrowseController">
+    <div class="row-fluid">
+        <div class="span4">
+            <div class="btn-group button-bar-margin">
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(0)}" ng-click="setCurrentStep(0)">Statement Selection</button>
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(1)}" ng-click="setCurrentStep(1)" ng-disabled="!isStepAccessible(1)">Metrics</button>
+            </div>
+        </div>
+        <div class="span2">
+            <input type="checkbox" ng-model="confirmed" class="button-bar-margin"/>
+            <span>This action requires locking of each context partition</span>
+            <span ng-show="confirmedMsg != null && !confirmed" class="span-invalid">{{confirmedMsg}}</span>
+        </div>
+        <div class="span6">
+            <div class="pull-right">
+                <button class="btn button-bar-margin" ng-click="doShowHideOptions()">{{optionsButtonText}}</button>
+                <button class="btn button-bar-margin" ng-click="handlePrevious()" ng-disabled="isFirstStep()">Back</button>
+                <button class="btn btn-primary button-bar-margin" ng-disabled="stepAccessible == 0" ng-click="doHandleNext()">{{getNextLabel()}}</button>
+                <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" ng-show="optionsShown">
+        <div class="span12">
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend><small>Options</small></legend>
+                    <div>
+                        <input type="checkbox" ng-model="options.reportMemoryUse"/>
+                        <span>Report memory use</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        <input type="checkbox" ng-model="options.dataWindowContainedDetail"/>
+                        <span>For grouped data windows, report each group</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        <input type="checkbox" ng-model="options.groupByAggregationPerGroupDetail"/>
+                        <span>For any group-by clause, report each group</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        <input type="checkbox" ng-model="options.matchRecognizeStateAndPartitionDetail"/>
+                        <span>For match-recognize, report state count and partitions</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        <input type="checkbox" ng-model="options.patternSubexpressionCountDetail"/>
+                        <span>For patterns, report instance count and memory per subexpression</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        <input type="checkbox" ng-model="options.patternEveryDistinctDetail"/>
+                        <span>For patterns, report every-distinct operator key counts</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        <input type="checkbox" ng-model="options.tableRowDetail"/>
+                        <span>For tables, report for each table row</span>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div ng-switch="getCurrentStep()" ng-animate="'wave'" class="slide-frame">
+        <div ng-show="getCurrentStep() == 'one'">
+            <div data-ng-include data-src="'/esperhqapp/views/mgmt/statementmemorybrowse_stmtselect.html'"></div>
+        </div>
+        <div ng-show="getCurrentStep() == 'two'">
+            <div data-ng-include data-src="'/esperhqapp/views/mgmt/statementmemorybrowse_memory.html'"></div>
+        </div>
+    </div>
+</div>

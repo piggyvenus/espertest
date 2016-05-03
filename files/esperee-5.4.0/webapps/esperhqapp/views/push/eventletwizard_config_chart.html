@@ -1,0 +1,150 @@
+<div ng-controller="EventletWizardConfigChartController">
+    <div ng-show="!ready">
+        Loading resource information.
+    </div>
+    <div ng-show="ready">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend><small>Chart Configuration</small></legend>
+                <div class="control-group">
+                    <label class="control-label">Base Type:</label>
+                    <div class="controls">
+                        <select ng-model="cfg.type" ng-options="n.name for n in baseTypeItems"></select>
+                        <span class="margin-left">&nbsp;&nbsp;Stack&nbsp;&nbsp;</span>
+                        <input type="checkbox" ng-model="cfg.stack" class="margin-left"/>
+                        <span class="margin-left">&nbsp;&nbsp;Opacity&nbsp;&nbsp;</span>
+                        <input type="text" class="input-small" ng-model="cfg.opacity"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Legend:</label>
+                    <div class="controls">
+                        <select ng-model="cfg.legendPlacement" ng-options="n.name for n in legendPlacementItems"></select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">JavaScript Callback Function:</label>
+                    <div class="controls">
+                        <input type="text" ng-model="cfg.clickCallback"/>
+                    </div>
+                </div>
+
+                <legend><small>Horizontal Axis</small></legend>
+                <div class="control-group">
+                    <label class="control-label">Axis:</label>
+                    <div class="controls">
+                        <span>Type</span>
+                        <select ng-model="cfg.xaxis.type" ng-options="n.name for n in axisTypeItems"></select>
+                        <span>Label</span>
+                        <input type="text" ng-model="cfg.xaxis.label"/>
+                        <span>Placement</span>
+                        <select ng-model="cfg.xaxis.placement" ng-options="n.name for n in xaxisPlacementItems"></select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Range:</label>
+                    <div class="controls">
+                        <span>Minimum</span>
+                        <input type="text" ng-model="cfg.xaxis.minimum"/>
+                        <span>Maximum</span>
+                        <input type="text" ng-model="cfg.xaxis.maximum"/>
+                    </div>
+                </div>
+
+                <legend><small>Vertical Axis</small></legend>
+                <div class="control-group">
+                    <label class="control-label">Axis:</label>
+                    <div class="controls">
+                        <span>Type</span>
+                        <select ng-model="cfg.yaxis.type" ng-options="n.name for n in axisTypeItems"></select>
+                        <span>Label</span>
+                        <input type="text" ng-model="cfg.yaxis.label"/>
+                        <span>Placement</span>
+                        <select ng-model="cfg.yaxis.placement" ng-options="n.name for n in yaxisPlacementItems"></select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Range:</label>
+                    <div class="controls">
+                        <span>Minimum</span>
+                        <input type="text" ng-model="cfg.yaxis.minimum"/>
+                        <span>Maximum</span>
+                        <input type="text" ng-model="cfg.yaxis.maximum"/>
+                    </div>
+                </div>
+
+                <legend><small>Series</small></legend>
+            </fieldset>
+        </form>
+
+        <div class="row-fluid eventletwizard-fieldset-bordered" ng-repeat="seriesitem in seriesItems">
+            <div class="span12">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label">Type:</label>
+                            <div class="controls">
+                                <select ng-model="seriesitem.type" ng-options="n.name for n in seriesTypeItems"></select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Label:</label>
+                            <div class="controls">
+                                <input type="text" ng-model="seriesitem.label"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Marker Type:</label>
+                            <div class="controls">
+                                <select ng-model="seriesitem.markerType" ng-options="n.name for n in markerTypeItems"></select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Stroke:</label>
+                            <div class="controls">
+                                <span>Weight</span>
+                                <input type="number" class="input-small" ng-model="seriesitem.strokeWeight"/>
+                                <span>Color</span>
+                                <input type="text" class="input-small" ng-model="seriesitem.strokeColor"/>
+                                <span>Fill</span>
+                                <input type="text" class="input-small" ng-model="seriesitem.fillColor"/>
+                                <span>Opacity</span>
+                                <input type="text" class="input-small" ng-model="seriesitem.opacity"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset ng-repeat="pointsource in seriesitem.pointsources" class="eventletwizard-fieldset-bordered">
+                        <div class="control-group" >
+                            <label class="control-label">Origin:<span class="label-required">*</span></label>
+                            <div class="controls">
+                                Resource <select ng-model="pointsource.resourceItem" ng-options="r.resourceName for r in resourceItems" ng-click="doPointsourceSelectedResource($parent.$index, $index)"></select>
+                                <button type="submit" class="btn" ng-click="doPointsourceAddItem($parent.$index)">Add</button>
+                                <button type="submit" class="btn" ng-show="seriesitem.pointsources.length > 1" ng-click="doPointsourceRemoveItem($parent.$index, $index)">Remove</button>
+                            </div>
+                        </div>
+                        <div class="control-group" >
+                            <label class="control-label">X Value:<span class="label-required">*</span></label>
+                            <div class="controls">
+                                Property <select ng-model="pointsource.property" ng-options="p.propertyName for p in pointsource.properties" ng-click="doPointsourceSelectedXProperty($parent.$index, $index)"></select>
+                                or Name <input type="text" ng-model="pointsource.propertyName" ng-change="doPointsourceChangedXPropertyName($parent.$index, $index)"/>
+                            </div>
+                        </div>
+                        <div class="control-group" >
+                            <label class="control-label">Y Value:<span class="label-required">*</span></label>
+                            <div class="controls">
+                                Property <select ng-model="pointsource.y_property" ng-options="p.propertyName for p in pointsource.properties" ng-click="doPointsourceSelectedYProperty($parent.$index,$index)"></select>
+                                or Name <input type="text" ng-model="pointsource.y_propertyName" ng-change="doPointsourceChangedYPropertyName($parent.$index, $index)"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <div ng-show="seriesitem.seriesErrorMessage != null"><span class="span-invalid">{{seriesitem.seriesErrorMessage}}</span></div>
+                <div class="clear"></div>
+            </div>
+            <div>
+                <button type="submit" class="btn" ng-click="doSeriesAddItem()">Add Series</button>
+                <button type="submit" class="btn" ng-show="seriesItems.length > 1" ng-click="doSeriesRemoveItem($index)">Remove Series</button>
+            </div>
+        </div>
+    </div>
+</div>

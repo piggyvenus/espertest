@@ -1,0 +1,12 @@
+module com.espertech.example.enginejar.ModuleB;
+
+uses com.espertech.example.enginejar.ModuleA;
+
+@Name("Example - SimpleFilter")
+insert into PersonsWithCodeStream
+select *, 2 as rule 
+from PersonEvent
+( 
+   (sex = 'F' and containsAny(codes, {"GUR02", "GUR03"}))  or 
+   (sex = 'M' and containsAny(codes, {"FRE01", "FRE02", "FRE03"}))
+)

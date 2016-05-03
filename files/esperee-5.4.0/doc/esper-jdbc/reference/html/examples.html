@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 6. Examples</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper JDBC Driver"/><link rel="up" href="index.html" title="Esper JDBC Driver"/><link rel="prev" href="parameters.html" title="Chapter 5. Driver Parameters"/><link rel="next" href="compliance.html" title="Chapter 7. Compliance, Features and Limitations"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="parameters.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="compliance.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples"/>Chapter 6. Examples</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="examples.html#examples-slareport">6.1. SLA Reporting with the Eclipse BIRT Business Intelligence and Reporting Tools</a></span></dt><dd><dl><dt><span class="sect2"><a href="examples.html#examples-slareport-overview">6.1.1. Use Case Overview</a></span></dt><dt><span class="sect2"><a href="examples.html#examples-slareport-simulator">6.1.2. Simulator and JDBC Remote Network Server</a></span></dt><dt><span class="sect2"><a href="examples.html#examples-slareport-firstreport">6.1.3. Creating a Report with Eclipse BIRT</a></span></dt><dt><span class="sect2"><a href="examples.html#examples-slareport-faf">6.1.4. Dynamic EPL Query Example</a></span></dt><dt><span class="sect2"><a href="examples.html#examples-slareport-conclusion">6.1.5. Conclusion</a></span></dt></dl></dd></dl></div><p>
+		In order to compile and run the samples please follow the below instructions:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Make sure Java 1.5 or greater is installed and the JAVA_HOME environment variable is set.
+			</p></li><li><p>
+				Copy the Esper distribution jar file and its runtime dependencies to <code class="literal">jdbcserver/lib</code>.
+			</p></li><li><p>
+				Open a console window and change directory to examples/etc.
+			</p></li><li><p>
+				Run "setenv.bat" (Windows) or "setenv.sh" (Unix) to verify your environment settings.
+			</p></li><li><p>
+				Run "compile.bat" (Windows) or "compile.sh" (Unix) to compile the examples.
+			</p></li><li><p>
+				Now you are ready to run the examples. Further information to running
+				each example can be found in the "examples/etc" folder in file "readme.txt".
+			</p></li><li><p>
+				Modify the logger logging level in the "log4j.xml" configuration file 
+				changing DEBUG to INFO on a class or package level to reduce the volume of text output. 
+			</p></li></ol></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-slareport"/>6.1. SLA Reporting with the Eclipse BIRT Business Intelligence and Reporting Tools</h2></div></div></div><p>
+			This example generates reports and charts illustrating real-time information computed by Esper for monitoring a database search service.
+		</p><p>
+			The reporting framework used in this example is Eclipse BIRT, the Business Intelligence and Reporting Tool of the Eclipse project. The Esper JDBC remote driver allows BIRT to query Esper EPL metadata and statement results. 
+		</p><p>
+			The example requires prior knowledge of Esper and EPL. Please consult the introductory examples on the website and within the Esper distribution and documentation.
+		</p><p>
+			To run the complete example, a separate download of the Eclipse BIRT reporting software is required, available from <code class="literal">http://www.eclipse.org/birt</code>. The BIRT Report Designer <span class="emphasis"><em>RCP Designer</em></span> suffices.
+			The example has been tested with BIRT RCP Report Designer version 2.2.2.
+		</p><p>
+			The example first introduces the use case requirements, and then outlines how to run the simulator that also starts a JDBC remote server. After the simulator is running on your system, you are ready to follow the instructions to create a report using the BIRT Report Designer. 
+		</p><p>
+			The example previews reports in the BIRT designer studio. It does not include a BIRT runtime, server or deployment environment for continuous reporting.
+		</p><p>
+			In general, for scheduling reports to run at given intervals, consider defining an Esper EPL pattern that uses the <code class="literal">timer:at</code> or <code class="literal">timer:interval</code> observers. Please consult the documentation for more information on patterns.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-overview"/>6.1.1. Use Case Overview</h3></div></div></div><p>
+				The example is taken out of the domain of service level monitoring. The system under monitoring processes incoming client requests that are searches for documents in a large document database. 
+			</p><p>
+				Each search request is placed into a logical queue for processing by one of the search services. Each search service may have multiple service instances performing searches. A service instance takes a search request from the service's logical input queue and processes the search. When done, the service instance takes the next search request from the queue or waits if there are no further requests.
+			</p><p>
+				For monitoring, the system has been instrumented to send events to Esper as follows:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Every search request submitted by a user results in one event representing the request, by name <code class="literal">SubmittedWorkEvent</code>.
+					</p></li><li><p>
+						At the time a service instance takes a search request from its queue and starts to process the search request, the service instance generates a <code class="literal">StartWorkEvent</code> event.
+					</p></li><li><p>
+						When a service instance completes processing a search request then the service instance generates a <code class="literal">CompletionEvent</code> event.
+					</p></li><li><p>
+						Every 1 second interval we generate of event for each logical queue, with the queue name and the current queue depth of the queue. This event is termed <code class="literal">QueueReportEvent</code>.
+					</p></li></ol></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-simulator"/>6.1.2. Simulator and JDBC Remote Network Server</h3></div></div></div><p>
+				The example includes a simulator for search request generation, logical service queues and service instances.
+			</p><p>
+				Run "run_slareportserver.bat" (Windows) or "run_slareportserver.sh" (Unix) in the <code class="literal">examples/etc</code> folder 
+				to start the SLA traffic simulator. The classes for this example live in package <code class="literal">com.espertech.esper.jdbc.examples.slareport</code>. 
+			</p><p>
+				Upon startup, the simulator performs the following steps:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Acquires an Esper engine instance and creates EPL statements to analyze the event stream that the search service simulator produces.
+					</p></li><li><p>
+						Starts the search service simulator.
+					</p></li><li><p>
+						Starts the JDBC remote network server endpoint on the port configured in the property file <code class="literal">slareportserver_config.properties</code>, by default port 8450.
+					</p></li></ol></div><p>
+				The search service simulator creates 3 service queues (<code class="literal">java.util.concurrent.BlockingQueue</code>). For each of the 3 service queues the simulator starts 2 service instances (<code class="literal">java.lang.Thread</code>). A request generator thread starts producing requests at the speed of 10 search requests per second and places each search request into one of the queues (random selection).
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-firstreport"/>6.1.3. Creating a Report with Eclipse BIRT</h3></div></div></div><p>
+				This section is a step-by-step walkthrough to generating a simple report of real-time, search service monitoring data.
+			</p><p>
+				Prerequisite to completing the steps is that a Eclipse BIRT designer environment is installed and started. The steps outline how to create a simple listing of average processing time by service and service instance.
+			</p><div class="table"><a id="d0e830"/><p class="title"><b>Table 6.1. Steps </b></p><div class="table-contents"><table summary="Steps " border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Step</th><th>Description</th></tr></thead><tbody><tr><td>1. Create a New Report</td><td>In BIRT, create a new report and choose the Simple Listing report template.</td></tr><tr><td>2. Create a Data Source</td><td>			
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												In the Data Explorer view, right-click on Data Sources and create a new Data Source.
+											</p></li><li><p>
+												Select JDBC Data Source and enter the name <code class="literal">EsperEPLDataSource</code> in the field Data Source Name, click Next.
+											</p></li><li><p>
+												Click on Manage Drivers, and Add to add the Esper JDBC remote driver jar file from the distribution, by name <code class="literal">esper-jdbcdriver-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>. Click on ok.
+											</p></li><li><p>
+												As the Driver Class, enter <code class="literal">com.espertech.esper.jdbc.remote.EPLRemoteJdbcDriver</code>
+											</p></li><li><p>
+												As the Database URL, enter <code class="literal">jdbc:esper:remote:127.0.0.1:8450</code>, replacing within the URL the host (e.g. 127.0.0.1) and port (e.g. 8450 by default) as necessary.
+											</p></li><li><p>
+												Click on Test Connection. You should get a confirmation that the connection was successful.
+											</p></li><li><p>
+												Click on Finish to complete adding the Data Source.
+											</p></li></ol></div>
+							</td></tr><tr><td>3. Create a Data Set from an existing Esper EPL Statement</td><td>			
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												In the Data Explorer view, right-click on Data Sets and create a new Data Set.
+											</p></li><li><p>
+												Enter the Data Set Name as <code class="literal">EsperEPLDataSet</code> and make sure the Data Source <code class="literal">EsperEPLDataSource</code> is selected. Change the Data Set Type to SQL Stored Procedure Query and click on Next. 
+											</p></li><li><p>
+												BIRT now presents in the Available Items section of the dialog all stored procedures (EPL statements) and tables (named windows).
+											</p></li><li><p>
+												In the right hand text editor, clear the text and enter <code class="literal">default.CompletedPerInstance</code>, or double-click the stored procedure by name <code class="literal">CompletedPerInstance</code>. Click on Finish to add the Data Set.
+											</p></li><li><p>
+												The BIRT designer now presents the Edit Data Set dialog. Click on Preview Results on the left-hand side menu to view current query results. 
+											</p></li><li><p>
+												Click on OK to complete adding a Data Set.
+											</p></li></ol></div>
+							</td></tr><tr><td>4. Bind Data Set columns to columns in the Report</td><td>			
+								<p>
+									BIRT presents the report layout in the Layout tab of the main workbench editor view. Columns of a Data Set can be dragged and dropped onto the report layout.
+								</p>												
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												In the Data Explorer view, expand the <code class="literal">EsperEPLDataSet</code> Data Set. BIRT presents a list of columns of the EPL statement.
+											</p></li><li><p>
+												Click on the <code class="literal">serviceName</code> column of the <code class="literal">EsperEPLDataSet</code> Data Set and drag the column onto the report layout in the Layout tab of the main workbench window, into the first column of the row marked as Detail Row in the Layout.
+											</p></li><li><p>
+												Perform the step above for the <code class="literal">count(*)</code> column, dragging the column into the Layout tab to the same row and the next column to the right.
+											</p></li><li><p>
+												Click on the Preview tab of the main workbench editor view. BIRT fetches the current data from the continuously computing Esper engine via the JDBC remote driver, and generates the report.
+											</p></li></ol></div>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				The steps as outlined above walked through the design of a basic report. BIRT allows the new report design to be saved to disk as an XML document, for execution in the BIRT runtime environment (not included in example).
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-faf"/>6.1.4. Dynamic EPL Query Example</h3></div></div></div><p>
+				While the previous section obtained statement results of an existing EPL statement that the simulator had created upon startup, this sections creates a dynamic (non-continuous, fire-and-forget) EPL query that is not stored within the Esper engine, and that contains filter and grouping criteria that are provided through BIRT.
+			</p><p>
+				The next walkthrough creates a further Data Set in BIRT that performs a dynamic query against a named window which holds the last 1 minute of search criteria objects. The section does not create a further report or bind the new Data Set columns to report table columns. It simply creates the Data Set and previews the Data Set query results.
+			</p><div class="table"><a id="d0e972"/><p class="title"><b>Table 6.2. Steps </b></p><div class="table-contents"><table summary="Steps " border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Step</th><th>Description</th></tr></thead><tbody><tr><td>Create a Data Set specifying a dynamic EPL Query</td><td>			
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												Make sure the Layout tab is selected in the workbench editor.
+											</p></li><li><p>
+												In the Data Explorer view, right-click on Data Sets and create a new Data Set.
+											</p></li><li><p>
+												Enter the Data Set Name as <code class="literal">EsperEPLDataSetDyn</code> and make sure the Data Source <code class="literal">EsperEPLDataSource</code> is selected. Change the Data Set Type to SQL Select Query and click on Next.
+											</p></li><li><p>
+												On the right-hand side of the Query dialog for the Data Set, enter a query such as:
+													</p><pre xmlns="" class="">select * from SearchRequests 
+where searchCriteria like '%science%'</pre><p> and click on Finish to finish adding the Data Set. This sample query selects search criteria that contain the text "science" submitted in the last 60 seconds.
+											</p></li><li><p>
+												The BIRT designer now presents the Edit Data Set dialog. Click on Preview Results on the left-hand side menu to view current query results.
+											</p></li><li><p>
+												Click on OK to complete adding the Data Set.
+											</p></li></ol></div>
+							</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-conclusion"/>6.1.5. Conclusion</h3></div></div></div><p>
+				The Eclipse BIRT report and chart designer and also the BIRT runtime interact via the JDBC API with one or more Esper engine instances. 
+			</p><p>
+				Existing Esper EPL statements show in BIRT as stored procedures. Dynamic EPL statements can query named windows. 
+			</p><p>
+				Metadata provided by the JDBC driver and Esper is used by the designer to allow interactive design of queries as well as reports, while the BIRT preview capability fetches current computation results from Esper.
+			</p></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="parameters.html"><strong>Prev</strong>Chapter 5. Driver Parameters</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="compliance.html"><strong>Next</strong>Chapter 7. Compliance, Features and Limitations</a></li></ul></body></html>

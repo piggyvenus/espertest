@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 2. Getting Started</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper HQ Web Application Archive"/><link rel="up" href="index.html" title="Esper HQ Web Application Archive"/><link rel="prev" href="overview.html" title="Chapter 1. Overview"/><link rel="next" href="securing.html" title="Chapter 3. Securing the Web Application"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="overview.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="securing.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted"/>Chapter 2. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="gettingstarted.html#overview-webapp-plugin">2.1. Web Application Container Plug-in</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#overview-webapp-store">2.2. Esper HQ File System Access for Project Files</a></span></dt></dl></div><p>
+			Esper Enterprise Edition comes with Esper HQ prepackaged. Please simply follow the directions in file <code class="literal">RUNNING.txt</code> or the index web page to start the preconfigured server.
+		</p><p>
+			After starting the preconfigured server the web client application is available at <a class="link" href="http://localhost:8400/esperhqapp" target="">http://localhost:8400/esperhqapp</a>.
+		</p><p>
+			The Esper HQ web application and web client application consists of the following components:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The Esper HQ war file (war stands for web application archive, or WAR) can be found in <span class="emphasis"><em>installation_root</em></span><code class="literal">/webapps/esperhq</code>. The distribution provides the WAR file in unpacked form.
+				</p></li><li><p>
+					The Esper HQ configuration file named <code class="literal">esperhq-default.xml</code> in the <code class="literal">conf</code> folder of the distribution (the file name is referenced by the web.xml deployment descriptor in the war file).
+				</p></li><li><p>
+					The web client application files reside in the Esper HQ war file in <span class="emphasis"><em>installation_root</em></span><code class="literal">/webapps/esperhq/esperhq</code>.
+				</p></li><li><p>
+					A XML XSD schema defining static eventlet configuration. The schema file is provided in the <code class="literal">schema</code> folder of the distribution and is named <code class="literal">esper_eventlet_</code><span class="emphasis"><em>version</em></span><code class="literal">.xsd</code>.
+				</p></li></ol></div><p>
+			Esper HQ minimally requires the following for operation:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Java 6 or higher.
+				</p></li><li><p>
+					An Esper HQ configuration file.
+				</p></li><li><p>
+					At least one Esper Data Distribution Services endpoint.
+				</p></li><li><p>
+					A web browser.
+				</p></li></ol></div><p>
+			The Esper HQ web application requires a J2EE web application container. Esper Enterprise Edition ships with the Jetty web container (see http://www.mortbay.org/jetty/). We do not specifically recommend any particular web application container - you can deploy into any J2EE standard web container.
+		</p><p>
+			There are multiple options to deploy and start Esper HQ:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Start your favorite J2EE web application container and copy the Esper HQ war into its deployment directory or deploy via the container's web console.
+				</p><p>
+					For use when you already have a web container you would like to use.
+				</p></li><li><p>
+					As an Esper plug-in as part of an Esper configuration XML file or configuration API:
+				</p><p>
+					This requires your application to add the web container plug-in class to the Esper configuration (XML or API) as described next. The Jetty web container and Esper HQ are then started automatically as part of Esper engine initialization.
+				</p></li></ol></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-webapp-plugin"/>2.1. Web Application Container Plug-in</h2></div></div></div><p>
+				Esper Enterprise Edition provides the Jetty web application container and a plug-in class to start the container and deploy the Esper HQ war file.
+			</p><p>
+				The plug-in class is <code class="literal">com.espertech.esper.server.webapp.WebAppPlugin</code> and resides in the jar file <code class="literal">esper-server-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>.
+			</p><p>
+				Under this option the Jetty web container and Esper HQ is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				The Jetty web container and Esper HQ is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><p>
+				Configuration is described in detail in the Server documentation.
+			</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-webapp-store"/>2.2. Esper HQ File System Access for Project Files</h2></div></div></div><p>
+				EsperHQ presents a directory structure and files in the <code class="literal">Project Files</code> folder in the GUI. 
+				The files are located under the installation root in the folder <code class="literal">data/hqsvc</code>.
+			</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="overview.html"><strong>Prev</strong>Chapter 1. Overview</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="securing.html"><strong>Next</strong>Chapter 3. Securing the Web Application</a></li></ul></body></html>

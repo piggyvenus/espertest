@@ -1,0 +1,20 @@
+<div ng-controller="VariableSelectionSharedController">
+    <div>
+        <label>
+            Existing Variables:
+            <select ng-model="variable" ng-options="v.variableName for v in variables"></select>
+        </label>
+    </div>
+    <div>
+        <label>
+            Or Variable Name:
+            <input type="text" ng-model="variableName"/>
+        </label>
+    </div>
+    <div ng-show="variableErrorMsg != null"><span class="span-invalid">{{variableErrorMsg}}</span></div>
+    <div class="clear"></div>
+    <div>
+        <button type="submit" ng-click="doAdd()" class="btn">Add</button>
+        <button type="submit" ng-click="doRefresh()" class="btn">Refresh</button>
+    </div>
+</div>

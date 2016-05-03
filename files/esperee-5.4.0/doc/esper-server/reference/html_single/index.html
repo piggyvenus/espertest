@@ -1,0 +1,1215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Esper Enterprise Edition - Server</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><div class="book" lang="en-US"><div class="titlepage"><div><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><div><h1 class="title"><a id="d0e1"/>Esper Enterprise Edition - Server</h1></div><div><div xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="authorgroup"><div class="authors">by <span xmlns="http://www.w3.org/1999/xhtml" class="orgname"><a class="link" href="http://www.espertech.com" target="">EsperTech Inc.</a></span></div><div class="editors"/><div class="others"/></div></div><div><p class="releaseinfo">Version 5.4.0</p></div><div><p class="copyright">Copyright © 2016 EsperTech Inc.</p></div></div><hr/></div><div class="toc"><dl><dt><span class="preface"><a href="#d0e18">Preface</a></span></dt><dt><span class="chapter"><a href="#introduction">1. Introduction</a></span></dt><dt><span class="chapter"><a href="#gettingstarted">2. Getting Started</a></span></dt><dd><dl><dt><span class="sect1"><a href="#gettingstarted-pointers">2.1. Information Pointers</a></span></dt><dt><span class="sect1"><a href="#license">2.2. License Information</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-parameters">2.3. Server Command Line Parameters</a></span></dt><dd><dl><dt><span class="sect2"><a href="#gettingstarted-parameters-moreengines">2.3.1. Starting Additional CEP Engines</a></span></dt></dl></dd><dt><span class="sect1"><a href="#gettingstarted-esperha">2.4. Configuring EsperHA (High-Availability, not included)</a></span></dt><dd><dl><dt><span class="sect2"><a href="#gettingstarted-esperha-hotdeploy">2.4.1. High-Availability and Hot Deployment</a></span></dt><dt><span class="sect2"><a href="#gettingstarted-esperha-war">2.4.2. High-Availability and WAR File Deployment</a></span></dt></dl></dd><dt><span class="sect1"><a href="#gettingstarted-multiengine">2.5. Configuring Multiple CEP Engines</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-cluster">2.6. Configuring Cluster Operation</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-esperjdbc">2.7. Configuring the EsperJDBC JDBC Server</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-esperio">2.8. Configuring EsperIO Adapters</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-samehostmultiserver">2.9. Configuring Same Host Multiple Servers</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-poststartup">2.10. Running Post-Startup Scripts</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-runtimescript">2.11. Running Scripts At Runtime</a></span></dt></dl></dd><dt><span class="chapter"><a href="#architecture">3. Architecture Overview</a></span></dt><dd><dl><dt><span class="sect1"><a href="#architecture_components">3.1. Component Overview</a></span></dt><dd><dl><dt><span class="sect2"><a href="#architecture_components_gui">3.1.1. Client Tier: EsperHQ Rich Client GUI</a></span></dt><dt><span class="sect2"><a href="#architecture_components_webapp">3.1.2. Web Server Tier: EsperHQ Web Application</a></span></dt><dt><span class="sect2"><a href="#architecture_components_hqsvc">3.1.3. Web Server Tier: HQ Services REST Web Services</a></span></dt><dt><span class="sect2"><a href="#architecture_components_cepmgmt">3.1.4. CEP Server Tier: CEP Management REST Web Services</a></span></dt><dt><span class="sect2"><a href="#architecture_components_ceppush">3.1.5. CEP Server Tier: CEP Push Services REST web services</a></span></dt></dl></dd><dt><span class="sect1"><a href="#architecture_communication">3.2. Push Communication</a></span></dt><dd><dl><dt><span class="sect2"><a href="#architecture_communication_servertierpush">3.2.1. CEP Server Tier Data Push</a></span></dt><dt><span class="sect2"><a href="#architecture_communication_clienttierpush">3.2.2. Web Server Tier Data Push</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#clustering">4. Clustering, Scalability and High-Availability</a></span></dt><dd><dl><dt><span class="sect1"><a href="#clustering-related">4.1. Related Information</a></span></dt><dt><span class="sect1"><a href="#clustering-mirror">4.2. Mirrored Hot-Hot Pattern</a></span></dt><dt><span class="sect1"><a href="#clustering-hotstandbysharedstorage">4.3. Hot-Standby with Shared Storage Pattern</a></span></dt><dd><dl><dt><span class="sect2"><a href="#clustering-hotstandbysharedstorage-disaster">4.3.1. Disaster Recovery Scenario</a></span></dt></dl></dd><dt><span class="sect1"><a href="#clustering-hotstandbystateless">4.4. Hot-Standby Stateless Pattern</a></span></dt><dt><span class="sect1"><a href="#clustering-partitionedstream">4.5. Partitioned Stream Scalability Pattern</a></span></dt><dt><span class="sect1"><a href="#clustering-partitionedusecase">4.6. Partition by Use Case Scalability Pattern</a></span></dt></dl></dd><dt><span class="chapter"><a href="#hotdeploy">5. Hot Deployment of CEP Applications and CEP Engines</a></span></dt><dd><dl><dt><span class="sect1"><a href="#hotdeploy-epl">5.1. EPL Module Hot Deployment</a></span></dt><dt><span class="sect1"><a href="#hotdeploy-war">5.2. CEP Application WAR Hot Deployment</a></span></dt><dd><dl><dt><span class="sect2"><a href="#hotdeploy-war-opt1">5.2.1. Auto-Deploy of Packaged EPL Modules</a></span></dt><dt><span class="sect2"><a href="#hotdeploy-war-opt2">5.2.2. Configured Deploy of Packaged EPL Modules</a></span></dt></dl></dd><dt><span class="sect1"><a href="#hotdeploy-jar">5.3. CEP Engine Jar Hot Deployment</a></span></dt><dd><dl><dt><span class="sect2"><a href="#hotdeploy-jar-annotations">5.3.1. Annotations</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#servercookbook">6. Server And Deployment Cookbook</a></span></dt><dd><dl><dt><span class="sect1"><a href="#servercookbook-options">6.1. Deployment Options</a></span></dt><dd><dl><dt><span class="sect2"><a href="#servercookbook-options-oob">6.1.1. Out-of-the-Box Deployment</a></span></dt><dt><span class="sect2"><a href="#servercookbook-options-customizing">6.1.2. Other Deployment Options</a></span></dt><dt><span class="sect2"><a href="#servercookbook-deploywar-espercorewar">6.1.3. Esper Core WAR</a></span></dt><dt><span class="sect2"><a href="#servercookbook-deploywar-esperhq">6.1.4. EsperHQ Web Application WAR</a></span></dt></dl></dd><dt><span class="sect1"><a href="#servercookbook-jmsprovider">6.2. JMS Provider Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#servercookbook-jmsprovider-other">6.2.1. Other JMS Provider Configurations</a></span></dt><dt><span class="sect2"><a href="#servercookbook-jmsprovider-standaloneactivemq">6.2.2. ActiveMQ Stand-alone JMS Provider Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="#servercookbook-epl">6.3. EPL Module</a></span></dt><dt><span class="sect1"><a href="#servercookbook-eventtype">6.4. Configure Event Types</a></span></dt><dt><span class="sect1"><a href="#servercookbook-inputfeed">6.5. Setting up Input and Output Data Feeds</a></span></dt><dt><span class="sect1"><a href="#servercookbook-serverprocess">6.6. Integrating into an Existing Java Server Process</a></span></dt><dt><span class="sect1"><a href="#servercookbook-jettyconfig">6.7. Configuring Web Application Server Settings</a></span></dt><dd><dl><dt><span class="sect2"><a href="#servercookbook-jettyconfig-multiengine">6.7.1. Hot Deployer CEP Engine Targeting</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#sockettransport">7. Socket Transport</a></span></dt><dd><dl><dt><span class="sect1"><a href="#sockettransport-gettingstarted">7.1. Getting Started</a></span></dt><dt><span class="sect1"><a href="#sockettransport-configsink">7.2. SocketE2ESink Configuration</a></span></dt><dt><span class="sect1"><a href="#sockettransport-configsource">7.3. SocketE2ESource Configuration</a></span></dt><dt><span class="sect1"><a href="#sockettransport-jmx">7.4. JMX Monitoring</a></span></dt></dl></dd><dt><span class="chapter"><a href="#scriptexec">8. Runtime Script Execution</a></span></dt><dd><dl><dt><span class="sect1"><a href="#scriptexec-enable">8.1. Enabling Runtime Script Execution</a></span></dt><dt><span class="sect1"><a href="#scriptexec-sink">8.2. GroovySink - Execute Script Upon Event Arrival</a></span></dt><dt><span class="sect1"><a href="#scriptexec-once">8.3. GroovySource - Executing a Script Once</a></span></dt><dt><span class="sect1"><a href="#scriptexec-originate">8.4. GroovySource - Originating Events from Groovy</a></span></dt><dt><span class="sect1"><a href="#scriptexec-addtlparams">8.5. Operator Parameters</a></span></dt></dl></dd><dt><span class="chapter"><a href="#restservices">9. REST Services</a></span></dt><dd><dl><dt><span class="sect1"><a href="#restservices-errorhandling">9.1. Error Handling</a></span></dt><dt><span class="sect1"><a href="#restservices-security">9.2. Security</a></span></dt><dt><span class="sect1"><a href="#restservices-exposing">9.3. Exposing REST Services When Not Running Enterprise Edition Server</a></span></dt><dd><dl><dt><span class="sect2"><a href="#restservices-exposing-classpath">9.3.1. Classpath Requirements</a></span></dt><dt><span class="sect2"><a href="#restservices-exposing-http">9.3.2. JAX-RS Container</a></span></dt><dt><span class="sect2"><a href="#restservices-exposing-configureesperhq">9.3.3. EsperHQ Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="#restservices-example">9.4. Example Client and Server</a></span></dt></dl></dd><dt><span class="chapter"><a href="#examples">10. Examples</a></span></dt><dd><dl><dt><span class="sect1"><a href="#examples-dashboard">10.1. EsperHQ Dashboard Examples</a></span></dt><dd><dl><dt><span class="sect2"><a href="#examples-dashboard-pagebuilderexample">10.1.1. Example Dashboard Page Generated by Dashboard Page Builder GUI</a></span></dt><dt><span class="sect2"><a href="#examples-dashboard-iframefaceless">10.1.2. Example Dashboard Page Using HTML IFrames and Faceless Launcher</a></span></dt></dl></dd><dt><span class="sect1"><a href="#examples-geo">10.2. Geo Example</a></span></dt><dt><span class="sect1"><a href="#examples-onlineshop">10.3. Online Shop Example</a></span></dt><dt><span class="sect1"><a href="#examples-optiontrade">10.4. Option Trade Example</a></span></dt><dt><span class="sect1"><a href="#examples-esper">10.5. Installing Esper Distribution Examples</a></span></dt><dt><span class="sect1"><a href="#examples-enginejar">10.6. Hot Deploy Engine-Jar Example</a></span></dt></dl></dd></dl></div><div class="preface" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e18"/>Preface</h2></div></div></div><p>
+			This document describes the Esper Enterprise Edition server.
+        </p><p>
+			The <a class="xref" href="#introduction" title="Chapter 1. Introduction">Chapter 1, <i>Introduction</i></a> chapter is a brief high-level, overview of the Esper Enterprise Edition server.
+		</p><p>
+			The <a class="xref" href="#gettingstarted" title="Chapter 2. Getting Started">Chapter 2, <i>Getting Started</i></a> chapter provides information pointers, Enterprise Edition component communication overview and deployment options.
+		</p><p>
+			The <a class="xref" href="#clustering" title="Chapter 4. Clustering, Scalability and High-Availability">Chapter 4, <i>Clustering, Scalability and High-Availability</i></a> chapter explains how Enterprise Edition servers can work together in a cluster to achieve goals such as horizontal scalability, fail-over and disaster recovery.
+		</p><p>
+			The <a class="xref" href="#examples" title="Chapter 10. Examples">Chapter 10, <i>Examples</i></a> chapter overviews the examples that come with the server and how to install the examples of an Esper distribution.
+		</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="introduction"/>Chapter 1. Introduction</h2></div></div></div><p>
+		This document is an introduction to the concepts and terminology behind the Esper Enterprise server. Throughout the docs, references to files and folders are relative to the installation directory.
+    </p><p>
+		Esper Enterprise Edition contains the following important files in the installation directory:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+			<code class="literal">index.html</code> - Overview, documentation portal and quick start page.
+			</p></li><li><p>
+			<code class="literal">LICENSE.txt</code> - License.
+			</p></li><li><p>
+			<code class="literal">RUNNING.txt</code> - Instructions to run.
+			</p></li><li><p>
+			<code class="literal">license_3rdparties.txt</code> - License information pertaining to 3rd-party software packaged with Esper Enterprise Edition.
+			</p></li><li><p>
+			<code class="literal">changelog.txt</code> - Release notes with version change description and known issues.
+			</p></li></ol></div><p>
+		The Esper Enterprise Edition folders in the installation directory are as follows:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+			<code class="literal">bin</code> - Startup, shutdown, classpath and other scripts. The *.sh files (for Unix systems) are functional duplicates of the *.bat files (for Windows systems).
+			</p></li><li><p>
+			<code class="literal">conf</code> - Configuration files and related XSDs. The most important file in here is <code class="literal">esper-default.xml</code>. It is the main configuration file for the server.
+			</p></li><li><p>
+			<code class="literal">data</code> - Files describing example continuous displays are in the <code class="literal">hqsvc</code> subfolder, and default JMS broker binary files in the <code class="literal">jmsbroker-endpoint-default</code> subfolder.
+			</p></li><li><p>
+			<code class="literal">doc</code> - Documentation folder.
+			</p></li><li><p>
+			<code class="literal">examples-*</code> - Examples folders.
+			</p></li><li><p>
+			<code class="literal">lib-*</code> - Lib folder for distribution jar files, war files and their dependencies. The <code class="literal">lib-security</code> folder
+			can be used if securing EsperHQ using LDAP, Spring framework and/or Spring security (see EsperHQ documentation for security).
+			</p></li><li><p>
+			<code class="literal">logs</code> - By default logging is to the terminal. You may change the logging configuration file <code class="literal">conf/log4j.xml</code> to place log files in the folder.
+			</p></li><li><p>
+			<code class="literal">webapps</code> - Contains client application web application.
+			</p></li><li><p>
+			<code class="literal">hotdeploy</code> - For hot-deploying and un-deploying CEP applications with EPL modules.
+			</p></li><li><p>
+			<code class="literal">temp</code> - Folder for temporary files that may be created during deployment.
+			</p></li></ol></div><p>
+		The information in the configuration files is read at startup, meaning that any change to the files necessitates a restart of the server.
+	</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted"/>Chapter 2. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#gettingstarted-pointers">2.1. Information Pointers</a></span></dt><dt><span class="sect1"><a href="#license">2.2. License Information</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-parameters">2.3. Server Command Line Parameters</a></span></dt><dd><dl><dt><span class="sect2"><a href="#gettingstarted-parameters-moreengines">2.3.1. Starting Additional CEP Engines</a></span></dt></dl></dd><dt><span class="sect1"><a href="#gettingstarted-esperha">2.4. Configuring EsperHA (High-Availability, not included)</a></span></dt><dd><dl><dt><span class="sect2"><a href="#gettingstarted-esperha-hotdeploy">2.4.1. High-Availability and Hot Deployment</a></span></dt><dt><span class="sect2"><a href="#gettingstarted-esperha-war">2.4.2. High-Availability and WAR File Deployment</a></span></dt></dl></dd><dt><span class="sect1"><a href="#gettingstarted-multiengine">2.5. Configuring Multiple CEP Engines</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-cluster">2.6. Configuring Cluster Operation</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-esperjdbc">2.7. Configuring the EsperJDBC JDBC Server</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-esperio">2.8. Configuring EsperIO Adapters</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-samehostmultiserver">2.9. Configuring Same Host Multiple Servers</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-poststartup">2.10. Running Post-Startup Scripts</a></span></dt><dt><span class="sect1"><a href="#gettingstarted-runtimescript">2.11. Running Scripts At Runtime</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-pointers"/>2.1. Information Pointers</h2></div></div></div><p>
+		  If you are new to Complex Event Processing or the Esper CEP engine, please review the <a class="link" href="http://www.espertech.com/esper" target="">index page</a> and <a class="link" href="http://espertech.com/esper/quickstart.php" target="">quick start</a>.
+		  You need to be familiar with the concept of events, event processing language (EPL), statement and event stream.
+		</p><p>
+			 Enterprise Edition adds enterprise features including:
+		</p><div class="itemizedlist"><ul><li><p>
+                    A small and very lightweight server that loads a given Esper configuration.
+                </p></li><li><p>
+                    Hot deployment of text file EPL modules as well as packaged CEP applications with application code.
+                </p></li><li><p>
+                    Web application archives for deployment to a servlet container of your choice.
+                </p></li></ul></div><p>
+			The server includes startup and shutdown scripts as outlined in <code class="literal">RUNNING.txt</code> in the root folder of the distribution. The server reads configuration files as described in the next chapter.
+		</p><p>
+			 Esper Enterprise Edition provides the same Esper CEP engine component as the community version on the <a class="link" href="http://www.espertech.com/esper" target="">Esper project site</a>. 
+		</p><p>
+		 The <code class="literal">index.html</code> file in the top folder of the distribution overviews Esper Enterprise Edition and contains all documentation links.
+		</p><p>
+			Related documentation is:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    Please see the Esper reference manual for EPL language and CEP engine considerations.
+                </p></li><li><p>
+                    The Esper HQ web application client manual discusses continuously-updating displays, engine management GUI functions, JavaScript and HTML 5, jQuery plugin and faceless launcher.
+                </p></li><li><p>
+                    The Esper HQ web application server manual outlines client deployment and configuration options.
+                </p></li><li><p>
+                    The CEP Push Services manual instructs how the CEP engine data push and subscription management works.
+                </p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="license"/>2.2. License Information</h2></div></div></div><p>
+            The file <code class="literal">espertech.license</code> contains your license information and keys. This
+            file must not be edited as it is signed electronically. Existence, integrity and validity
+            checks of the license information are done at runtime.
+        </p><p>
+            EsperHQ and Enterprise Edition attempt to find the license file in your classpath under the name <code class="literal">espertech.license</code>. 
+        </p><p>
+            The license key file is placed in the product installation <code class="literal">conf</code> folder.
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-parameters"/>2.3. Server Command Line Parameters</h2></div></div></div><p>
+		  Esper Enterprise Edition comes with a custom, very small server. The scripts and command line options are described here.
+		</p><p>
+			The <code class="literal">esperee</code> (Windows) and <code class="literal">esperee.sh</code> (Linux) commands print the start options.
+		</p><p>
+			Additional command line parameters may be passed on the server command line. These are printed via the <code class="literal">esperee run -?</code> (Windows) and <code class="literal">esperee.sh run -?</code> (Linux) command line parameters.
+		</p><p>
+			To run from a configuration file other than the default <code class="literal">esper-default.xml</code> configuration, use the following command:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -config conf/myconfiguration.xml  (Windows)
+esperee.sh run -config conf/myconfiguration.xml  (Linux)</pre><p>
+			The <code class="literal">-name</code> parameter is followed by an identifier and can be used to provide an engine URI name, which is <code class="literal">default</code> if none is specified.
+		</p><p>
+			The <code class="literal">-config</code> parameter is followed by a file name and loads an Esper configuration. You may in addition load an EsperHA configuration.
+		</p><p>
+			The <code class="literal">-haconfig</code> parameter is followed by a file name and loads an EsperHA configuration. You may in addition load an Esper configuration.
+		</p><p>
+			The <code class="literal">-home</code> parameter is followed by a directory and overrides the Esper EE base directory.
+		</p><p>
+			The <code class="literal">-cluster</code> parameter if a flag to indicate clustered operation.
+		</p><p>
+			The <code class="literal">-cluster-config</code> parameter is followed by the cluster configuration file name, for use with the <code class="literal">-cluster</code> parameter.
+		</p><p>
+			The <code class="literal">-cluster-jmxport</code> parameter is followed by a JMX port number, for use with the <code class="literal">-cluster</code> parameter.
+		</p><p>
+			The <code class="literal">-cluster-name</code> parameter is followed by a name for the cluster, for use with the <code class="literal">-cluster</code> parameter.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="gettingstarted-parameters-moreengines"/>2.3.1. Starting Additional CEP Engines</h3></div></div></div><p>
+				By default the command line parameters instruct the server to start a single CEP engine with URI <code class="literal">default</code>. To start additional CEP engine you specify the <code class="literal">-more</code> parameter followed by a list of engine URIs, Esper and EsperHA configuration files.
+				Alternatively you may dynamically start and destroy additional CEP engines and related CEP application(s) via hot deployment.
+			</p><p>
+				The <code class="literal">-more</code> parameter is followed by a semicolon-separated list of engine URI, engine configuration file name and EsperHA configuration file name in the format:
+			</p><pre class="synopsis">-more <span class="emphasis"><em>engine_1_uri</em></span>[,<span class="emphasis"><em>engine_1_config_file</em></span> [,<span class="emphasis"><em>engine_1_HA_config_file</em></span>]] [;<span class="emphasis"><em>engine_2_uri</em></span>,...[;...]]</pre><p>
+				If the Esper configuration file name is not provided, the default configuration applies. If the EsperHA configuration file name is not provided, no EsperHA configuration is loaded. Configuration file names are relative to the installation root directory.
+			</p><p>
+				The bootstrap initializes any additional CEP engines before the default CEP engine. Note that since CEP Push Services, JDBC and JMX do not need to be started for additional CEP engines (all recognize multiple engines automatically), remove them from the configuration
+				file for any additional engines.
+			</p><p>
+				The following example command line initializes the <code class="literal">default</code> CEP engine and in addition initializes a second CEP engine by URI <code class="literal">cepone</code> using the default configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone</pre><p>
+				In the next sample command line the bootstrap initializes the second CEP engine by URI <code class="literal">cepone</code> and also loads its configuration from file <code class="literal">conf/cepone.cfg.xml</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone,conf/cepone.cfg.xml</pre><p>
+				In this third sample command line the bootstrap initializes the second CEP engine by URI <code class="literal">cepone</code> and also loads its configuration from file <code class="literal">conf/cepone.cfg.xml</code> and EsperHA configuration from file <code class="literal">conf/cepone.hacfg.xml</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone,conf/cepone.cfg.xml,conf/cepone.hacfg.xml</pre><p>
+				The following example command line initializes the <code class="literal">default</code> CEP engine and in addition initializes two more CEP engines by URI <code class="literal">cepone</code> and <code class="literal">ceptwo</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone,conf/cepone.cfg.xml;ceptwo,conf/ceptwo.cfg.xml,conf/ceptwo.hacfg.xml</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-esperha"/>2.4. Configuring EsperHA (High-Availability, not included)</h2></div></div></div><p>
+			EsperHA for high-availability is provided by a separate distribution. Please read the Getting Started section in the EsperHA documentation set to become familiar with the EsperHA configuration file and binaries.
+		</p><p>
+			Please copy the jar files that came with your EsperHA distribution to the empty <code class="literal">lib/esperha</code> folder of the Enterprise Edition distribution.
+		</p><p>
+			In the classpath scripts <code class="literal">setclasspath.sh</code> (Linux) or <code class="literal">setclasspath.bat</code> (Windows) in the <code class="literal">bin</code> folder of the distribution find the section that 
+			adds the EsperHA jar files. Remove the comments thus adding EsperHA jar files to the classpath.
+		</p><p>
+			Pick the relevant EsperHA default configuration file and drop the file into the <code class="literal">conf</code> folder of the installation.	
+		</p><p>
+			The start command that loads the EsperHA configuration file is:	
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -haconfig conf/esperha-default.xml (Windows)
+		
+esperee.sh run -haconfig conf/esperha-default.xml  (Linux)</pre><p>
+			 The EsperHA license file <code class="literal">espertech.license</code> should be placed into the <code class="literal">conf</code> folder under the installation root.
+		 </p><p>
+			 If using the default store with EsperHA, create a directory by name <code class="literal">esperha-default-store</code> under the <code class="literal">conf</code> folder of the installation root to hold the store files.
+		 </p><p>
+			 If using another provider for EsperHA store, please ensure that any additional jar files that may be required are added to the classpath scripts.
+		 </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="gettingstarted-esperha-hotdeploy"/>2.4.1. High-Availability and Hot Deployment</h3></div></div></div><p>
+			  EsperHA persists statement information as well as event type information for statements marked as durable or resilient (or for all statements if your EsperHA configuration sets the default to resilient). EsperHA also persists information
+			  about which modules have been deployed including the module name. The module name and statement name are both relevant information used to distinguish which modules to deploy or which statements to create and which modules or statements already exist.
+			</p><p>
+			  When the server process ends and is restarted, EsperHA recovers module information, event types and statements from the current store. To prevent recovery, you may set an EsperHA configuration flag to truncate the store when opened.
+			</p><p>
+			  During startup, the hot deploy service picks up all deployment files and undertakes a deployment process for each JAR, EPL and WAR file. The hot deploy service follows the steps discussed next to deploy modules and statements.
+			</p><p>
+				If your deployed EPL files (text and WAR files) specify a module name and a module by that name has already been deployed earlier, then the hot deploy service skips deployment for that module.
+			</p><p>
+			  If your deployed EPL files do not specify a module name, then the hot deploy service deploys and creates new statements even if the statement may already exist from a prior deployment. To prevent duplicate statement creation,
+			  you may assign a statement name to each statement via the <code class="literal">@Name</code> annotation and set the following setting in the EsperHA configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperha-settings ignore-duplicate-statements="true"/&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="gettingstarted-esperha-war"/>2.4.2. High-Availability and WAR File Deployment</h3></div></div></div><p>
+				EsperHA event type and statement recovery requires that any classes referenced as event types, library methods, annotation classes or other extensions are available in the classpath at CEP engine initialization time.
+				When using EsperHA with WAR file deployment, it is currently a requirement that such classes are added to the server classpath and not to the WAR file.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-multiengine"/>2.5. Configuring Multiple CEP Engines</h2></div></div></div><p>
+		  Your CEP application(s) design may include multiple separate CEP engines. One reason to use multiple CEP engines is for separating unrelated applications. A second reason is when CEP engines require different configurations such as when one engine runs providing external time and a second CEP engine runs using system time.
+		</p><p>
+		  Enterprise Edition allows running any number of CEP engines side-by-side in the same Java VM, each identified by a unique engine URI. When starting Enterprise Edition server in the default configuration, the server starts a single CEP engine with the URI <code class="literal">default</code>. When hot deploying EPL and WAR files the default configuration deploys to that <code class="literal">default</code> engine.
+		</p><p>
+		  You may initialize multiple CEP engines via two mechanisms: First, you may use the <code class="literal">-more</code> parameter on the command line to have the bootstrap start additional CEP engines as part of server startup and destroy each CEP engine when the server is shut down. Second, you may use hot-deploy engine jar files to start and destroy CEP engines including related EPL modules and Java code optionally with annotated classes, as described in <a class="xref" href="#hotdeploy-jar" title="5.3. CEP Engine Jar Hot Deployment">Section 5.3, “CEP Engine Jar Hot Deployment�?</a>.
+		</p><p>
+		  Each CEP engine must be assigned an engine URI, which is a unique identifier that can be any name. Each individual CEP engine can run with or without EsperHA configuration, independently of other CEP engines in the same JVM process.		  
+		</p><p>
+		  The CEP Push Services, JDBC and JMX adapters automatically recognize the multiple CEP engine in the single JVM process and should only be configured and started once per JVM process.
+		</p><p>
+			In Esper HQ client you can see multiple CEP engine URIs in the URI drop-down dialog box on the upper-right hand corner. You may set the CEP engine that the GUI currently operates on by changing the value of the drop down dialog box followed by selecting an operation. Eventlets also support receiving data from multiple CEP engines.
+		</p><p>
+			To use the hot-deployer with multiple CEP engine to target WAR or EPL deployment artifacts to a given CEP engine, please follow the hot deploy service configuration instructions below.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-cluster"/>2.6. Configuring Cluster Operation</h2></div></div></div><p>
+		  Use the <code class="literal">-cluster</code> parameter on the command line to have the server process coordinate cluster membership. Cluster operation automates fail-over by assigning primary and standby roles between server processes. We use the term <code class="literal">primary</code> to describe a single cluster member that is bootstrapped and active. We use the term <code class="literal">standby</code> to describe one or more cluster members that are waiting to become primary.
+		</p><p>
+			In clustered operation, each server joins a single named cluster before continuing the bootstrap. After the server joins the cluster the server is assigned either the primary or a standby role. Only after the server is elected to become primary within the cluster does the server continue the bootstrap process. When the server that was elected primary ends, one other server in the same cluster (a standby) is elected primary and that server continues its bootstrap process. 
+		</p><p>
+		  As clusters are identified by a cluster name, with the default cluster name being <code class="literal">esperee-cluster</code>, all server processes that participate in the same cluster must have the same cluster name assigned. In the default configuration, the failure detection protocol for cluster members is based on TCP sockets.
+		</p><p>
+		  To assign a unique JMX management port to each server process, provide a value for the <code class="literal">cluster-jmxport</code> parameter on the command line.
+		</p><p>
+		  When using EsperHA with clustered operation, each cluster member should have the same Esper and EsperHA configuration file. If using EsperHA with a shared file system, cluster members should have access to shared file system files to ensure that the current primary upon bootstrap and initialization can recover engine state.
+		</p><p>
+		  Enterprise Edition server uses the open source JGroups (<a class="link" href="http://www.jgroups.org/" target="">index page</a>) toolkit for reliable group membership management. 
+		  Enterprise Edition utilizes JGroups' TCP stack as configured by <code class="literal">espereeserver-jgroups-tcp.xml</code>, by default.
+		  Each host or server and port requires a customized copy of the <code class="literal">espereeserver-jgroups-tcp.xml</code> configuration.
+		</p><p>
+		  You may optionally configure the JGroups communication and failure detection protocol by adding the <code class="literal">-cluster-config</code> parameter followed by the configuration file name to the command line. Please consult the JGroups documentation for additional information. 
+		</p><p>
+			In the <code class="literal">bind_port</code> setting enter the port number for cluster heartbeats. When running multiple servers on the same host, please assign a unique port number to each server.
+		</p><p>
+			In the <code class="literal">bind_addr</code> setting enter the host name or IP address of the host.
+		</p><p>
+			In the <code class="literal">initial_hosts</code> setting enter a list of host and port combinations that send heartbeats to this server. The format of the entry is <span class="emphasis"><em>host</em></span><code class="literal">[</code><span class="emphasis"><em>port</em></span><code class="literal">]</code> for each such entry.
+		</p><p>
+			At the time of server startup, the primary server in a cluster displays startup messages similar to below:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Clustered operation, cluster name 'esperee-cluster'  configuration 'conf/espereeserver-jgroups-tcp__myhost.xml'
+-------------------------------------------------------------------
+GMS: address=myhost-num, cluster=esperee-cluster, physical address=x.y.z.a:7800
+-------------------------------------------------------------------
+Clustered operation elected the process as primary, continuing bootstrap.</pre><p>
+			Servers that are entering standby to the primary server display similar startup messages:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Clustered operation, cluster name 'esperee-cluster'  configuration 'conf/espereeserver-jgroups-tcp__mystandby.xml'
+-------------------------------------------------------------------
+GMS: address=mystandby-num, cluster=esperee-cluster, physical address=x.y.z.a:7800
+-------------------------------------------------------------------
+Clustered operation elected the process as standby, waiting to become primary.</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-esperjdbc"/>2.7. Configuring the EsperJDBC JDBC Server</h2></div></div></div><p>
+			EsperJDBC is part of Enterprise Edition and is useful for querying the CEP engine via the inward-facing JDBC driver. EsperJDBC includes a server component that accepts incoming client JDBC connection over the network. Please see the EsperJDBC documentation for more information.
+		</p><p>
+			In the default configuration the JDBC server component is not listening to a port. To enable the JDBC server, please change the default configuration file <code class="literal">esper-default.xml </code> in the <code class="literal">conf</code> folder and remove the comments around the JDBC plug-in loader section.
+		</p><p>
+			If using multiple CEP engines per process, please start the JDBC server only once. It is not necessary to start the JDBC server for each CEP engine separately and the server recognizes each CEP engine in the same process.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-esperio"/>2.8. Configuring EsperIO Adapters</h2></div></div></div><p>
+			EsperIO adapters are part of the Enterprise Edition distribution. For the purpose of brevity, the distribution package does not include all 3rd-party dependencies jar files for all EsperIO adapters.
+		</p><p>
+			To activate a particular EsperIO adapter in Enterprise Edition server, please follow these steps.
+		</p><p>
+			First, consult the EsperIO documentation for the <code class="literal">plugin-loader</code> adapter configuration. Add the configuration section to the configuration file <code class="literal">esper-default.xml </code> in the <code class="literal">conf</code> folder.
+		</p><p>
+			Second, please copy any jar files required by the adapter to the <code class="literal">esper-io</code> folder in the <code class="literal">lib</code> folder of the distribution.
+		</p><p>
+			Last, in the classpath scripts <code class="literal">setclasspath.sh</code> (Linux) or <code class="literal">setclasspath.bat</code> (Windows) in the <code class="literal">bin</code> folder of the distribution add the required EsperIO and dependent jar files to the classpath.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-samehostmultiserver"/>2.9. Configuring Same Host Multiple Servers</h2></div></div></div><p>
+			When configuring multiple servers for the same host, please follow the instructions herein to configure unique ports. 
+			All configuration files can be found in the <code class="literal">conf</code> folder under the installation root.
+		</p><p>
+			We recommend using a separate directory and installation per server.
+		</p><p>
+			The port number of the web application container can be found in the Esper configuration file <code class="literal">esper_default.xml</code>.
+			Locate the settings under the name <code class="literal">Webapp_Service</code> and change the <code class="literal">port</code> value to a unique port number.
+		</p><p>
+			The port number of the JMX RMI registry is also in the Esper configuration file. 
+			Locate the settings under the name <code class="literal">EsperJMX</code> and change the <code class="literal">rmi-registry-port</code> value to a unique port number.
+		</p><p>
+			The port number of the embedded JMS broker is also in the Esper configuration file. 
+			Locate the settings under the name <code class="literal">JMS_Provider_Bootstrap</code> and change the <code class="literal">connectorURL</code> value to a unique port number.
+			Also modify the CEP Push Services configuration file <code class="literal">ceppushsvc-default.xml</code> and assign the same URL to the setting <code class="literal">java.naming.provider.url</code>.
+			Also modify the EsperHQ web application configuration file <code class="literal">esperhq-default.xml</code> and assign the same URL to the setting <code class="literal">java.naming.provider.url</code>.
+		</p><p>
+			The default embedded ActiveMQ instance starts a JMX registery port 1099. If you are using the default embedded instance,
+			for multiple JMS servers on the same host, please disable ActiveMQ JMX by adding <code class="literal">&lt;init-arg name="useJmx" value="false" /&gt;</code> to the 
+			<code class="literal">JMS_Provider_Bootstrap</code> configuration.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-poststartup"/>2.10. Running Post-Startup Scripts</h2></div></div></div><p>
+			It can sometimes be useful to run a script after server startup completed and all deployments, including those in the <code class="literal">hotdeploy</code> folder, are done.
+		</p><p>
+			The server can be configured to run one or multiple Groovy scripts. Groovy is a scripting language very close to Java and is further described in <a class="link" href="http://www.groovy-lang.org/" target="">Groovy Home</a>. A sample script is provided under the installation root folder in file <code class="literal">bin/post_startup_script.groovy</code>.
+		</p><p>
+			By default, the engine does not execute any scripts. You must first enable the plugin for the script engine. Please edit <code class="literal">conf/esper-default.xml</code> under the installation
+			and comment-in <code class="literal">PostStartupScript</code> provided by the class <code class="literal">GroovyExecutorPlugin</code>.
+		</p><p>
+			Specify the script names by adding an <code class="literal">init</code> parameter for each script, appending the number of the script to the name.
+		</p><p>
+			The sample entry below executes the post-startup script:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="PostStartupScript" 
+    class-name="com.espertech.esper.server.groovy.GroovyExecutorPlugin"&gt;
+  &lt;init-arg name="script.0" 
+    value="${ESPEREE_BASE}/bin/post_startup_script.groovy"/&gt;
+&lt;/plugin-loader&gt;</pre><p>
+			The server executes <code class="literal">plugin-loader</code> entries in the order they are listed. Therefore, for executing post-startup scripts, we recommend 
+			placing <code class="literal">PostStartupScript</code> as the last entry in the configuration file.
+		</p><p>
+			The sample Groovy script provided with the distribution looks up a dataflow declaration and instantiates a dataflow.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-runtimescript"/>2.11. Running Scripts At Runtime</h2></div></div></div><p>
+			Enterprise Edition provides a dataflow operator to execute Groovy scripts at runtime. This is further explained in <a class="xref" href="#scriptexec" title="Chapter 8. Runtime Script Execution">Chapter 8, <i>Runtime Script Execution</i></a>. 
+			Groovy is a scripting language very close to Java and is further described in <a class="link" href="http://www.groovy-lang.org/" target="">Groovy Home</a>.
+		</p><p>
+			Scripts can be useful to dynamically interact with the CEP engine instance(s) such as for managing statement listeners or dataflow instances. 
+			Scripts can also execute when an event arrives: This allows interacting with an external resource or triggering an external process based on event data.
+		</p><p>
+			Script execution takes place within a dataflow instance. Therefore you can use the EsperHQ GUI or REST services to parameterize and manage script execution.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="architecture"/>Chapter 3. Architecture Overview</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#architecture_components">3.1. Component Overview</a></span></dt><dd><dl><dt><span class="sect2"><a href="#architecture_components_gui">3.1.1. Client Tier: EsperHQ Rich Client GUI</a></span></dt><dt><span class="sect2"><a href="#architecture_components_webapp">3.1.2. Web Server Tier: EsperHQ Web Application</a></span></dt><dt><span class="sect2"><a href="#architecture_components_hqsvc">3.1.3. Web Server Tier: HQ Services REST Web Services</a></span></dt><dt><span class="sect2"><a href="#architecture_components_cepmgmt">3.1.4. CEP Server Tier: CEP Management REST Web Services</a></span></dt><dt><span class="sect2"><a href="#architecture_components_ceppush">3.1.5. CEP Server Tier: CEP Push Services REST web services</a></span></dt></dl></dd><dt><span class="sect1"><a href="#architecture_communication">3.2. Push Communication</a></span></dt><dd><dl><dt><span class="sect2"><a href="#architecture_communication_servertierpush">3.2.1. CEP Server Tier Data Push</a></span></dt><dt><span class="sect2"><a href="#architecture_communication_clienttierpush">3.2.2. Web Server Tier Data Push</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="architecture_components"/>3.1. Component Overview</h2></div></div></div><p>
+		  You may use Enterprise Edition server to run all components in a single JVM or you may run multiple Enterprise Edition server or other JVMs with select components.
+		  Communication utilizes REST and JMS standards thereby allowing distribution of components. 
+		</p><p>
+			The table shown below discusses the logical tiers and associated components.
+		</p><div class="table"><a id="d0e745"/><p class="title"><b>Table 3.1. Logical Tiers</b></p><div class="table-contents"><table summary="Logical Tiers" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>Client Tier</td><td>
+							<p>
+								Web browser capable of running JavaScript, HTML 5, web sockets (client side), Ajax.
+							</p>
+							<p>
+								Runs EsperHQ Rich Client GUI web browser application, locally.
+							</p>
+						</td></tr><tr><td>Web Server Tier</td><td>
+							<p>
+								Java 7 server process providing the web application container for the EsperHQ Rich Client GUI application, for REST web services and for web sockets (server side).
+							</p>
+							<p>
+								Runs EsperHQ WAR file and HQ Services REST web services.
+							</p>
+						</td></tr><tr><td>CEP Server Tier</td><td>
+							<p>
+								Java 7 server process running Esper CEP and serving REST service requests.
+							</p>
+							<p>
+								Runs Esper, CEP Management REST web services and CEP Push REST web services.
+							</p>
+						</td></tr></tbody></table></div></div><br class="table-break"/><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="architecture_components_gui"/>3.1.1. Client Tier: EsperHQ Rich Client GUI</h3></div></div></div><p>
+				The EsperHQ rich client is a client application that runs solely within the web browser of the client hardware, and utilizes the client hardware CPU and memory. 
+			</p><p>
+				The client application is a JavaScript and HTML 5 application. It utilizes web sockets to receive streaming data from its originating server
+			</p><p>
+				The client application communicates with REST web services deployed on server hardware using HTTP or HTTPS, Ajax and JSON standards.
+				It solely requires and communicates with HQ Services provided by its originating server. 
+				It does not directly communicate with the CEP server tier.
+			</p><p>
+				Part of the EsperHQ JavaScript applications are also jQuery extensions to activate eventlet streaming displays.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="architecture_components_webapp"/>3.1.2. Web Server Tier: EsperHQ Web Application</h3></div></div></div><p>
+				The Esper HQ web application is the WAR file deployment unit that contains the web application and provides certain configurations.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="architecture_components_hqsvc"/>3.1.3. Web Server Tier: HQ Services REST Web Services</h3></div></div></div><p>
+				HQ Services provides REST web services for the EsperHQ Rich Client GUI.
+			</p><p>
+				HQ Services communicates to one or more servers hosting CEP engine(s) via CEP Management Services (REST) and CEP Push Services (REST).
+			</p><p>
+				HQ Services manages the communication with one or more CEP Push Services by utilizing an Java Message Service (JMS) bus architecture. 
+				Each web application instance is responsible for managing data subscriptions for multiple EsperHQ client applications.
+			</p><p>
+				When receiving streaming data from CEP server(s), HQ Services requires and connects to a JMS provider.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="architecture_components_cepmgmt"/>3.1.4. CEP Server Tier: CEP Management REST Web Services</h3></div></div></div><p>
+				CEP Management utilizes Esper APIs and provides REST web services for HQ Services.
+			</p><p>
+				CEP Management web services perform functions such as EPL statement, module deployment and dataflow instance management, browsing of engine information
+				and other design-time and runtime functionality.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="architecture_components_ceppush"/>3.1.5. CEP Server Tier: CEP Push Services REST web services</h3></div></div></div><p>
+				CEP Push Services provides REST web services for HQ Services.
+			</p><p>
+				CEP Push Services web services manage subscriptions and data exchange between CEP servers and web layer servers.
+			</p><p>
+				CEP Push Services requires a JMS provider.
+			</p><p>
+				If your application requires CEP Push Services for streaming data to EsperHQ web applications, Esper and a CEP Push Services must be present in the same process (JVM). 
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="architecture_communication"/>3.2. Push Communication</h2></div></div></div><p>
+			Enterprise Edition components work together to provide a multi-tier fan-out push-based architecture aimed at minimizing message traffic in terms of number of messages and message size.
+        </p><p>
+			All eventlet data streams are push-based all the way from the CEP server to the web browser client. 
+        </p><p>
+			Pull-based communication is used during eventlet activation only, in the default eventlet configuration, and can be disabled.
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="architecture_communication_servertierpush"/>3.2.1. CEP Server Tier Data Push</h3></div></div></div><p>
+				  The CEP server tier pushes streaming data to the web server tier. Within the CEP server tier the component CEP Push Services is responsible for managing subscriptions and pushing data out.
+				  Within the web server tier the component HQ Services is responsible for subscribing, heartbeats, receiving pushed data and fanning out to client tier web browsers.
+			</p><p>
+				  A CEP Push Services endpoint pushes CEP engine output to one or more JMS topics using non-persistent messaging and setting a short-lived message expiry. CEP Push Services is responsible for packaging multiple logical messages together into JMS messages according to defined service levels.
+			</p><p>
+				 HQ Services instances deployed in web application servers receive JMS topic messages and perform a transformation and routing step to individual web browser clients that we describe below under client tier fan-out. 
+			</p><p>
+				A CEP Push Service endpoint keeps track of all EsperHQ web application instances (web server tier) and their subscription interests. If subscription interests overlap, CEP Push Services ensures that logical messages are published only once and not duplicated.
+			</p><p>
+				A CEP Push Service endpoint is not aware by any means of EsperHQ clients, web browsers or activated eventlets. It is only indirectly aware of activated eventlets by the resources consumed by an eventlet as managed by EsperHQ web application instances that are clients to CEP Push Services endpoints.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="architecture_communication_clienttierpush"/>3.2.2. Web Server Tier Data Push</h3></div></div></div><p>
+				  The web server tier pushes streaming data to web browser clients. 
+				  Within the web server tier the component HQ Services is responsible for managing client activations, web sockets and pushing data out.
+				  Within the client tier the EsperHQ rich client JavaScript application is responsible for managing activations and its web socket connection, receiving pushed data and fanning out within the eventlets on the same web page.
+			</p><p>
+				 HQ Services receives JMS topic messages from servers in the CEP server tier. 
+				 HQ Services performs a message transformation and subscription lookup step and then a routing step to individual web browser clients. 
+			</p></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="clustering"/>Chapter 4. Clustering, Scalability and High-Availability</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#clustering-related">4.1. Related Information</a></span></dt><dt><span class="sect1"><a href="#clustering-mirror">4.2. Mirrored Hot-Hot Pattern</a></span></dt><dt><span class="sect1"><a href="#clustering-hotstandbysharedstorage">4.3. Hot-Standby with Shared Storage Pattern</a></span></dt><dd><dl><dt><span class="sect2"><a href="#clustering-hotstandbysharedstorage-disaster">4.3.1. Disaster Recovery Scenario</a></span></dt></dl></dd><dt><span class="sect1"><a href="#clustering-hotstandbystateless">4.4. Hot-Standby Stateless Pattern</a></span></dt><dt><span class="sect1"><a href="#clustering-partitionedstream">4.5. Partitioned Stream Scalability Pattern</a></span></dt><dt><span class="sect1"><a href="#clustering-partitionedusecase">4.6. Partition by Use Case Scalability Pattern</a></span></dt></dl></div><p>
+		We use the term clustering to mean multiple Enterprise Edition servers working together to achieve certain goals. For scalability, clustering technologies can be used to add processing power to event processing engines by adding servers that share the load. For high availability, a server cluster can be used to maximize uptime of event processing engines.
+    </p><p>
+		While Enterprise Edition components have clustering considerations integrated at the product design level, there is no single approach to clustering that is optimal for all use cases and implementation sites. Implementing a cluster is a matter of assembling components in different configurations.
+	</p><p>
+	   We provide a list of related information and an overview of common clustering patterns next.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="clustering-related"/>4.1. Related Information</h2></div></div></div><p>
+			  Please see the Enterprise Edition server documentation (this document) for configuring server failover.
+		</p><p>
+			Enterprise Edition includes a TCP socket-based transport for server-to-server communication. Please find more information in <a class="xref" href="#sockettransport" title="Chapter 7. Socket Transport">Chapter 7, <i>Socket Transport</i></a>.
+		</p><p>
+			  Please see the EsperIO documentation for configuring common server-to-server transports such as AMQP or JMS.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="clustering-mirror"/>4.2. Mirrored Hot-Hot Pattern</h2></div></div></div><p>
+          In this pattern there are two or more cluster members that both (or each) receive all input.
+        </p><p>
+          The following diagram illustrates this pattern:
+        </p><div class="mediaobject" align="center"><img src="images/esperhq_clustering_mirroredhothot.gif" align="middle"/></div><p>
+		  The characteristics of this pattern are:
+		</p><div class="itemizedlist"><ul><li><p>There are two servers per cluster and each server has identical EPL statements.</p></li><li><p>Each server receives all input events and performs all calculations.</p></li><li><p>All servers in the cluster are primary servers.</p></li><li><p>The downstream system receives output events from each server (two of everything).</p></li></ul></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="clustering-hotstandbysharedstorage"/>4.3. Hot-Standby with Shared Storage Pattern</h2></div></div></div><p>
+          In this pattern there are two cluster members that are in a hot-standby relationship. The EsperHA store (file system or db) is accessible to both servers. Only the primary server receives all input. The standby secondary server waits to take over from the primary server.
+        </p><p>
+          The following diagram illustrates this pattern:
+        </p><div class="mediaobject" align="center"><img src="images/esperhq_clustering_hotstandbysharedstorage.gif" align="middle"/></div><p>
+		  The characteristics of this pattern are:
+		</p><div class="itemizedlist"><ul><li><p>Critical event processing application state is written to a shared storage. This is functionality provided by EsperHA. The shared storage can be a disk, a disk on a storage area network (SAN), a disk on a network-attached storage (NAS) or can be a relational database.</p></li><li><p>The primary server receives all input events and performs all calculations.</p></li><li><p>When the primary server fails the secondary server takes over. This is detected by means of heartbeat or operationally. The secondary server recovers state from shared storage including event processing continuous queries.</p></li></ul></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="clustering-hotstandbysharedstorage-disaster"/>4.3.1. Disaster Recovery Scenario</h3></div></div></div><p>
+			  To implement a disaster recover scenario, an offsite implementation can combine the hot-standby with shared storage pattern. 
+			  The disaster recovery site can run an identical deployment by means of shared storage implemented over a network connection using either SAN or relational database and replication. 
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="clustering-hotstandbystateless"/>4.4. Hot-Standby Stateless Pattern</h2></div></div></div><p>
+          This pattern is easy to set up and most suitable for entirely stateless or nearly stateless event processing. In this pattern there are two cluster members that are in a hot-standby relationship. The two servers do not share storage. Only the primary server receives all input. The standby secondary server waits to take over from the primary server.
+        </p><p>
+          The following diagram illustrates this pattern:
+        </p><div class="mediaobject" align="center"><img src="images/esperhq_clustering_hotstandbystateless.gif" align="middle"/></div><p>
+		  The characteristics of this pattern are:
+		</p><div class="itemizedlist"><ul><li><p>The primary server receives all input events and performs all calculations.</p></li><li><p>When the primary server fails the secondary server takes over. This is detected by means of heartbeat or operationally.</p></li></ul></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="clustering-partitionedstream"/>4.5. Partitioned Stream Scalability Pattern</h2></div></div></div><p>
+          This pattern partitions the stream to scale an Enterprise Edition cluster from one to multiple servers. A stream is partitioned among the nodes in the cluster. Each server receives as input events a partition (a subset) of the stream. Operations applied to a stream are applied by each server in parallel across each partition.
+        </p><p>
+          The following diagram illustrates this pattern:
+        </p><div class="mediaobject" align="center"><img src="images/esperhq_clustering_partitionedstream.gif" align="middle"/></div><p>
+		  The characteristics of this pattern are:
+		</p><div class="itemizedlist"><ul><li><p>Consistent hashing is a common means to partitioning the stream. A second option is assigning individual keys or key ranges to servers.</p></li><li><p>An Esper Enterprise Edition server acts as a dispatcher of input stream events, wherein each input stream event is assigned to a single partition (substreams) and dispatched to servers.</p></li><li><p>Each server executes identical EPL statements on a subset of input stream events.</p></li></ul></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="clustering-partitionedusecase"/>4.6. Partition by Use Case Scalability Pattern</h2></div></div></div><p>
+          This pattern assigns use cases to servers to scale an Enterprise Edition cluster from one to multiple servers. Each server receives all input stream events and executes a subset of EPL statements.
+        </p><p>
+          The following diagram illustrates this pattern:
+        </p><div class="mediaobject" align="center"><img src="images/esperhq_clustering_partitionedusecase.gif" align="middle"/></div><p>
+		  The characteristics of this pattern are:
+		</p><div class="itemizedlist"><ul><li><p>Each server receives all input events and performs a subset of EPL statements specific to the use cases assigned to the server.</p></li><li><p>All servers in the cluster are primary servers.</p></li><li><p>The downstream system receives output events from each server (per use case).</p></li></ul></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy"/>Chapter 5. Hot Deployment of CEP Applications and CEP Engines</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#hotdeploy-epl">5.1. EPL Module Hot Deployment</a></span></dt><dt><span class="sect1"><a href="#hotdeploy-war">5.2. CEP Application WAR Hot Deployment</a></span></dt><dd><dl><dt><span class="sect2"><a href="#hotdeploy-war-opt1">5.2.1. Auto-Deploy of Packaged EPL Modules</a></span></dt><dt><span class="sect2"><a href="#hotdeploy-war-opt2">5.2.2. Configured Deploy of Packaged EPL Modules</a></span></dt></dl></dd><dt><span class="sect1"><a href="#hotdeploy-jar">5.3. CEP Engine Jar Hot Deployment</a></span></dt><dd><dl><dt><span class="sect2"><a href="#hotdeploy-jar-annotations">5.3.1. Annotations</a></span></dt></dl></dd></dl></div><p>
+	  Enterprise Edition offers runtime loading and starting as well as stopping and unloading of CEP applications and/or CEP engines. 
+	</p><p>
+		Enterprise Edition supports hot (runtime, dynamic) deployment of CEP applications. To summarize, you may hot deploy files:
+	</p><div class="itemizedlist"><ul><li><p>
+				You may simply create an EPL module text file with the <code class="literal">.epl</code> extension and drop the file into the <code class="literal">hotdeploy</code> directory. 
+			</p></li><li><p>
+				By packaging your CEP application into a J2EE-standard WAR file format you can deploy and undeploy EPL modules together with related Java classes at runtime without requiring a restart.
+			</p></li><li><p>
+				By packaging your CEP application into a JAR file format including Esper configuration files, EPL modules and related Java classes with class annotations you may deploy a new CEP engine without requiring a restart.
+			</p></li></ul></div><p>
+	  Your CEP application(s) design may include multiple separate CEP engines. Enterprise Edition allows running any number of CEP engines side-by-side in the same Java VM, each identified by a engine URI. When starting Enterprise Edition server in the default configuration, the server starts a single CEP engine with the URI <code class="literal">default</code>. When hot deploying EPL and WAR files the default configuration deploys to the <code class="literal">default</code> engine.
+	</p><p>
+	  One situation where you may want to use multiple CEP engines is when you require different and incompatible CEP engine configurations. For example, you can start one CEP engine with high-availability configuration and a second engine CEP engine without high-availability.
+	</p><p>
+	  When starting Enterprise Edition server in the default configuration, the server starts a CEP engine with the URI <code class="literal">default</code> and monitors the <code class="literal">hotdeploy</code> folder. The server registers any new files, changes to files or removed files and reacts by performing a new deployment for new files, an undeployment for deleted files or a redeployment (undeploy and deploy) for changed files.
+	</p><p>
+	  If your CEP application(s) consist of statements only and there is no Java application code or all application code is already present in the container, you may simply copy an EPL module text file with the extension <code class="literal">.epl</code> to the <code class="literal">hotdeploy</code> folder or delete the file to undeploy or change the file to redeploy.
+	</p><p>
+	  If your CEP application(s) consist of EPL statements and related Java application code, you can follow the web application archive (WAR) packaging standard to take advantage of hot deploy, or place the related application code into the classpath and deploy EPL module <code class="literal">.epl</code> files.
+	</p><p>
+	  If your CEP application(s) consist of Esper configuration files, EPL modules and custom Java classes with Java class method-level annotations you may package all into a JAR file and deploy to a dedicated CEP engine. We use the name <span class="emphasis"><em>CEP Engine Jar</em></span> for such JAR files.
+	</p><p>
+	  At time of server startup the server inspects the hot deployment directory for JAR, EPL and WAR files. The server startup processes all JAR files first.
+	</p><p>
+	  After processing any JAR files, at time of server startup the server inspects all EPL text files and all WAR files including their packaged EPL files. The server analyzes dependencies as declared via <code class="literal">uses</code>-clause between each EPL module. The server then deploys EPL text files and WAR files in the order as required by all <code class="literal">uses</code>-clauses, if any. If no <code class="literal">uses</code>-clauses are specified, the server deploys all EPL text files first and deploys any WAR files next.
+	</p><p>
+	  When hot deploying to a web application server such as Apache Tomcat instead of Esper Enterprise Edition server, you deployment unit is WAR as your application server will not understand <code class="literal">.epl</code> EPL module files or <code class="literal">.jar</code> engine JAR files.
+	</p><p>
+	  In the default configuration the hot deploy service deploys all files (WAR, EPL) to the default engine. If you have initialized and are running multiple CEP engines in the same JVM process, please see <a class="xref" href="#servercookbook-jettyconfig-multiengine" title="6.7.1. Hot Deployer CEP Engine Targeting">Section 6.7.1, “Hot Deployer CEP Engine Targeting�?</a> for information on how to target certain files to a given CEP engine.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy-epl"/>5.1. EPL Module Hot Deployment</h2></div></div></div><p>
+		  The EPL module file format is described in detail in the Esper documentation under packaging and deployment. The examples in the distribution all have <span class="emphasis"><em>example.epl</em></span> files that contain all 
+		  EPL statements for each example.
+		</p><p>
+		  To deploy a new EPL module to Enterprise Edition, create a new text file in the <code class="literal">hotdeploy</code> folder with the extension <code class="literal">.epl</code> or copy a file to the folder. As you save or copy the file the
+		  Enterprise Edition server deploys the EPL module file.
+		</p><p>
+		  To undeploy simply remove the <code class="literal">.epl</code> text file. To redeploy change the <code class="literal">.epl</code> text file in a text editor or copy a new file over the existing file. 
+		</p><p>
+		  You will see log entries on the console for deployment changes.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy-war"/>5.2. CEP Application WAR Hot Deployment</h2></div></div></div><p>
+		  When your CEP applications consists of EPL modules and related application code or only application code and dynamically registered EPL statements, use the web application archive (WAR) for hot deployment. Please consult J2EE web application standards for a description of the WAR standard.
+		</p><p>
+		  All Enterprise Edition examples are packaged as a WAR file and get deployed during startup, until you remove the example war files from the <code class="literal">hotdeploy</code> directory.
+		</p><p>
+		  To deploy a new CEP application to Enterprise Edition, create a WAR file in the <code class="literal">hotdeploy</code> folder with the extension <code class="literal">.war</code> or copy a file to the folder. After you save or copy the file the
+		  Enterprise Edition server deploys the WAR file.
+		</p><p>
+		  To undeploy simply remove the <code class="literal">.war</code> file. To redeploy copy a new file over the existing file. 
+		</p><p>
+		  When packaging into your WAR file any EPL module files (text files with EPL statements that carry the <code class="literal">.epl</code> extension), you have the following options:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Enterprise Edition server can automatically deploy all <code class="literal">.epl</code> files found in your WAR file. For this purpose declare the <code class="literal">EsperPrepackagedServletContextListener</code> in the <code class="literal">web.xml</code> descriptor.
+				</p></li><li><p>
+					Enterprise Edition server can deploy only the named <code class="literal">.epl</code> files from your WAR file. Declare the <code class="literal">EsperParameterizedServletContextListener</code> in your <code class="literal">web.xml</code> descriptor.
+				</p></li><li><p>
+					Load and start any EPL modules or EPL statements in your application code.
+				</p></li></ol></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="hotdeploy-war-opt1"/>5.2.1. Auto-Deploy of Packaged EPL Modules</h3></div></div></div><p>
+					Enterprise Edition server can automatically deploy all <code class="literal">.epl</code> EPL modules that are part of the WAR file.
+				</p><p>
+					Declare the following listener in the <code class="literal">web.xml</code> deployment descriptor:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app&gt;
+...
+  &lt;!--
+    Listener to deploy all EPL files (.epl) packaged with the WAR file.
+  --&gt;
+  &lt;listener&gt;
+    &lt;listener-class&gt;com.espertech.esper.server.webapp.EsperPrepackagedServletContextListener&lt;/listener-class&gt;
+  &lt;/listener&gt;
+...
+&lt;/web-app&gt;</pre><p>
+					There are no further context parameters needed. The deployment takes place to the configured default engine URI.
+				</p><p>
+					Use this option when deploying to Enterprise Edition server or use below options. Do not use this option when deploying to Apache Tomcat or another web application server.
+				</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="hotdeploy-war-opt2"/>5.2.2. Configured Deploy of Packaged EPL Modules</h3></div></div></div><p>
+					Enterprise Edition server can deploy the <code class="literal">.epl</code> EPL modules that are part of the WAR file and that are explicitly listed as context parameters.
+				</p><p>
+				  Use this option when deploying to Apache Tomcat or another web application server. We provide the servlet listener in the <code class="literal">lib</code> folder in jar <code class="literal">esper-server-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>.
+				</p><p>
+					Declare the following listener and context parameters in the <code class="literal">web.xml</code> deployment descriptor:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app&gt;
+...
+  &lt;listener&gt;
+    &lt;listener-class&gt;com.espertech.esper.server.webapp.EsperParameterizedServletContextListener&lt;/listener-class&gt;
+  &lt;/listener&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;com.espertech.esper.context-param.uri&lt;/param-name&gt;
+    &lt;param-value&gt;default&lt;/param-value&gt;   &lt;!-- The engine URI to use. --&gt;
+  &lt;/context-param&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;com.espertech.esper.context-param.modules&lt;/param-name&gt;
+    &lt;param-value&gt;sample.epl&lt;/param-value&gt;
+  &lt;/context-param&gt;
+...
+&lt;/web-app&gt;</pre><p>
+				The servlet context listener attempts to resolve the EPL file from the classpath and the servlet context real path (deployment directory) or via URL. Once successfully resolved the 
+				listener parses and deploys the EPL module statements. A comma-separate list of EPL files may be provided instead.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy-jar"/>5.3. CEP Engine Jar Hot Deployment</h2></div></div></div><p>
+			You may package CEP application(s) into a JAR file. The hot deploy service initializes a separate CEP engine for each JAR file. When you remove the JAR file, the hot deploy service destroys the associated CEP engine. The hot deploy service inspects Java classes packaged into the JAR file and acts upon annotations it finds.
+		</p><p>
+			Enterprise Edition ships with an example named <span class="emphasis"><em>EngineJar</em></span> that builds a JAR assembly in the format described here and that demonstrates the use of Java class annotations.
+		</p><p>
+		  The JAR file contents are all optional and are as follows:
+		</p><div class="itemizedlist"><ul><li><p>
+					Place the Esper configuration into the file <code class="literal">conf/esper.xml</code>.
+				</p></li><li><p>
+					Place the EsperHA configuration into the file <code class="literal">conf/esperha.xml</code>.
+				</p></li><li><p>
+					Place any EPL module files in any folder in the JAR file, preferably the root folder of the JAR, as the hot deploy service continues monitoring that folder for changes to EPL files.
+				</p></li><li><p>
+					Place any Java classes into the <code class="literal">classes</code> folder. These are added to the classpath for the CEP engine. The hot deploy service finds all annotated classes and acts upon each annotated method.
+				</p></li><li><p>
+					Place any additional jar files into the <code class="literal">lib</code> folder. These are added to the classpath for the CEP engine.
+				</p></li><li><p>
+					Place a <code class="literal">META-INF/MANIFEST.MF</code> file into the JAR file and add the <code class="literal">EsperEngineURI: </code><span class="emphasis"><em>engine_uri</em></span> entry that specifies the engine URI.
+				</p></li></ul></div><p>
+			For each such JAR file placed into the hot deploy directory the hot deploy service follows these steps:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					First, the hot deploy service assigns a CEP engine URI to the JAR file as follows: If the <code class="literal">META-INF/MANIFEST.MF</code> file exists in the JAR file the value of the <code class="literal">EsperEngineURI</code> entry is the engine URI. If the file does not exist or the <code class="literal">EsperEngineURI</code> entry is not found the hot deploy service
+					uses the file name of the JAR file as the engine URI. If a CEP engine with the same engine URI has already been initialized the hot deploy service cancels the engine jar deployment.
+				</p></li><li><p>
+					Next, the hot deploy service unpacks the JAR files to a directory on the same level as the hot deploy directory. The hot deploy service also monitors that directory for any changes to EPL files and automatically deploys, redeploys or undeploys any new, changed or removed EPL files (not recursive).
+				</p></li><li><p>
+					Next, the hot deploy service adds any Java classes in the <code class="literal">classes</code> directory and all JAR files in the directory path to the classpath.
+				</p></li><li><p>
+					Next the hot deploy service creates an engine configuration from the provided configuration files, if any are provided.
+				</p></li><li><p>
+					Next the hot deploy service inspects all Java classes packaged into the JAR file and acts upon annotations as described below. The hot deploy service finds methods marked with the <code class="literal">@SingleRowFunction</code> annotation in the Java code and adds each to the configuration as a plug-in single-row function.
+				</p></li><li><p>
+					Next, the hot deploy service initializes the CEP engine. 
+				</p></li><li><p>
+					Next, the hot deploy service deploys all EPL modules to that CEP engine in the order as indicated by the <code class="literal">uses</code>-clause, if present.
+				</p></li><li><p>
+					Finally, the hot deploy service finds methods marked with the <code class="literal">@EngineInitializer</code> annotation in the Java code and invokes each such initializer method.
+				</p></li></ol></div><p>
+			Consider the example <code class="literal">enginejar</code> JAR project shipped with the distribution as a starting point. The example contains Maven assembly instructions that creates a suitable JAR file. Please see <a class="xref" href="#examples-enginejar" title="10.6. Hot Deploy Engine-Jar Example">Section 10.6, “Hot Deploy Engine-Jar Example�?</a> for more information.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="hotdeploy-jar-annotations"/>5.3.1. Annotations</h3></div></div></div><p>
+				The hot deploy service recognizes annotated Java classes provided in the JAR file. 
+			</p><p>
+				Specify the <code class="literal">@SingleRowFunction</code> annotation for each method that provides a plug-in single-row EPL function as a public static method. Such a method may accept any number of parameters.
+			</p><p>
+				The next example declares a single-row function by name <code class="literal">containsAny</code> that takes two array parameters and that returns a boolean value:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@SingleRowFunction(name = "containsAny")
+public static boolean ContainsAny(Object[] lhs, Object[] rhs) {
+...	
+}</pre><p>
+				Specify the <code class="literal">@EngineInitializer</code> annotation for each method that should be called after the CEP engine initialization completed and all EPL modules are deployed. The purpose of this method typically is to look up statements by statement name and attach listeners or a subscriber. The method must be public static and accept a single String-type parameter that receives the engine URI.
+			</p><p>
+				The next example declares a method that takes the engine URI as a parameter and that the hot deploy service invokes after deployment completed:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@EngineInitializer
+public static void initEngine(String engineName) {
+...
+}</pre></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook"/>Chapter 6. Server And Deployment Cookbook</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#servercookbook-options">6.1. Deployment Options</a></span></dt><dd><dl><dt><span class="sect2"><a href="#servercookbook-options-oob">6.1.1. Out-of-the-Box Deployment</a></span></dt><dt><span class="sect2"><a href="#servercookbook-options-customizing">6.1.2. Other Deployment Options</a></span></dt><dt><span class="sect2"><a href="#servercookbook-deploywar-espercorewar">6.1.3. Esper Core WAR</a></span></dt><dt><span class="sect2"><a href="#servercookbook-deploywar-esperhq">6.1.4. EsperHQ Web Application WAR</a></span></dt></dl></dd><dt><span class="sect1"><a href="#servercookbook-jmsprovider">6.2. JMS Provider Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#servercookbook-jmsprovider-other">6.2.1. Other JMS Provider Configurations</a></span></dt><dt><span class="sect2"><a href="#servercookbook-jmsprovider-standaloneactivemq">6.2.2. ActiveMQ Stand-alone JMS Provider Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="#servercookbook-epl">6.3. EPL Module</a></span></dt><dt><span class="sect1"><a href="#servercookbook-eventtype">6.4. Configure Event Types</a></span></dt><dt><span class="sect1"><a href="#servercookbook-inputfeed">6.5. Setting up Input and Output Data Feeds</a></span></dt><dt><span class="sect1"><a href="#servercookbook-serverprocess">6.6. Integrating into an Existing Java Server Process</a></span></dt><dt><span class="sect1"><a href="#servercookbook-jettyconfig">6.7. Configuring Web Application Server Settings</a></span></dt><dd><dl><dt><span class="sect2"><a href="#servercookbook-jettyconfig-multiengine">6.7.1. Hot Deployer CEP Engine Targeting</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-options"/>6.1. Deployment Options</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-options-oob"/>6.1.1. Out-of-the-Box Deployment</h3></div></div></div><p>
+			  Esper Enterprise Edition comes with a server that you may start and stop via command line using scripts provided in the <code class="literal">bin</code> folder of the distribution.
+			</p><p>
+			  Enterprise Edition sets up classpath from <code class="literal">setclasspath</code> scripts and the server code loads the <code class="literal">conf/esper-default.xml</code> default configuration file. Change the classpath script to add or remove from classpath as the server does not automatically add all files in the <code class="literal">lib</code> folder to the classpath.
+			</p><p>
+				The default configuration file starts an embedded JMS provider, all REST services, web application server and deploys the examples:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The plug-in for CEP Push Services (endpoint config) which handles data push and subscription management from the CEP engine to clients or other consumers.
+					</p></li><li><p>
+					The plug-in that starts a JMS provider. Enterprise Edition starts Apache ActiveMQ as the JMS provider and any other JMS provider is also supported with minor configuration changes.
+					</p></li><li><p>
+					The web application container plug-in, hosting the web client application. Enterprise Edition starts embedded Jetty as the web application container.
+					</p></li><li><p>
+					The Esper JMX plug-in for remote server management and shutdown. You may remove this plug-in when deploying to another servlet container or web application server.
+					</p></li><li><p>
+					The examples are located in the <code class="literal">hotdeploy</code> folder of the distribution and are packaged as web application archive files.
+					</p></li></ol></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-options-customizing"/>6.1.2. Other Deployment Options</h3></div></div></div><p>
+				Most features of Enterprise Edition are also available to applications that embed Esper in their own code. It is therefore not always necessary to run Enterprise Edition server.
+				Enterprise Edition provides a set of REST-style web services that adhere to the JAX-RS standard. This enables your application to expose these services as part of your application.
+				The EsperHQ GUI application can communicate with your application via the services.
+			</p><p>
+				Enterprise Edition provides J2EE-standard WAR files that can be deployed to servlet containers or web application servers, running on same or different hosts, with minimal configuration changes.
+			</p><p>
+				We test deployment to the Apache Tomcat web container as part of each release. Other servlet containers may have limitations or additional configuration requirements.
+			</p><p>
+				The prepackaged WAR files can be found under the installation root in the <code class="literal">lib/webapp-war</code> folder.
+			</p><p>
+				Enterprise Edition provides the following two web application archives:
+			</p><div class="itemizedlist"><ul><li>
+					The Esper core WAR contains only Esper, CEP Management REST Services and CEP Push REST Services (no client, for the server tier).  The file is named <code class="literal">espercorewar.war</code>.
+				</li><li>
+					The EsperHQ web application contains the web-based client application and HQ Services REST Services (no CEP engine, for the web client tier) and is named <code class="literal">esperhqapp.war</code>.
+				</li></ul></div><p>
+				Before deploying either of the WAR files, please follow the configuration instructions below.
+			</p><p>
+				If using push services, the JMS provider (broker) for communication between EsperHQ web application and Esper+CEP Push Services can be any JMS provider. If you have an existing JMS provider in your architecture, point the configuration files to that provider. We give instructions for configuration in <a class="xref" href="#servercookbook-jmsprovider" title="6.2. JMS Provider Configuration">Section 6.2, “JMS Provider Configuration�?</a>. If you wish to use Apache ActiveMQ that ships with Enterprise Edition then the default configuration files already start the JMS provider for you.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-deploywar-espercorewar"/>6.1.3. Esper Core WAR</h3></div></div></div><p>
+				The <code class="literal">espercorewar</code> web application archive (WAR) packages Esper and configures a Push Services Endpoint. It exposes CEP Management REST services and CEP Push Services REST services. Deploy this WAR file to the servlet container that should act as a CEP server only. This WAR file does not contain a client.
+			</p><p>
+				The WAR file packages a <code class="literal">web.xml</code> configuration, an Esper configuration file by name <code class="literal">esper-default.xml</code> and an CEP Push Services configuration file by name <code class="literal">ceppushsvc-default.xml</code>.
+			</p><p>
+				In the WAR file <code class="literal">web.xml</code> you may list one or more engine URIs and configuration file URLs. The default web configuration is shown here:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app&gt;
+  &lt;listener&gt;
+    &lt;listener-class&gt;
+      com.espertech.esper.webapp.cepcore.CoreServletContextListener
+    &lt;/listener-class&gt;
+  &lt;/listener&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;com.espertech.esper.context-param.uris&lt;/param-name&gt;
+    &lt;param-value&gt;default=esper-default.xml&lt;/param-value&gt;
+  &lt;/context-param&gt;
+&lt;/web-app&gt;</pre><p>
+				The servlet context listener reads the <code class="literal">com.espertech.esper.context-param.uris</code> context parameter and initializes one or multiple Esper engines. The default configuration above initializes an Esper engine for URI <code class="literal">default</code> and reads the <code class="literal">esper-default.xml</code> configuration file from classpath (all files are packaged with the WAR).
+			</p><p>
+				The synopsis for the servlet context parameter value is:
+			</p><pre class="synopsis"><span class="emphasis"><em>engine_uri</em></span>[=<span class="emphasis"><em>configuration_file_url</em></span>][,...]</pre><p>
+				An example parameter value may looks as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;context-param&gt;
+&lt;param-name&gt;com.espertech.esper.context-param.uris&lt;/param-name&gt;
+&lt;param-value&gt;engineUriOne=esperee-one.xml,engineUriTwo=esperee-two.xml
+,engineUriThree=file://mydir/myconfigfile.xml&lt;/param-value&gt;
+&lt;/context-param&gt;</pre><p>
+				When deploying to Apache Tomcat, copy the WAR file to the <code class="literal">webapps</code> folder on your Tomcat installation. At WAR initialization time you should see log messages indicating that engines
+				are initialized and during WAR undeployment you should see log messages indicating that engines are destroyed.
+			</p><p>
+				Add IO adapters, event types, plug-ins to be loaded or any additional engine configuration to the <code class="literal">esper-default.xml</code> configuration file. 
+			</p><p>
+				Follow the JMS provider instructions below and change <code class="literal">ceppushsvc-default.xml</code> configuration file to point to the JMS provider of your choice. The default configuration expects that an Apache ActiveMQ JMS provider is running and listening at the default port.
+			</p><p>
+				For realtime streaming, the EsperHQ client application requires a web container that provides a web socket implementation. EsperHQ currently only supports the Jetty web socket implementation.
+				Therefore when deploying into Tomcat or another web application container the web socked communication is not available.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-deploywar-esperhq"/>6.1.4. EsperHQ Web Application WAR</h3></div></div></div><p>
+				The EsperHQ web application archive (WAR) packages the web client application and HQ Services REST services. 
+				Deploy this WAR file to the servlet container that should act as a web client.
+			</p><p>
+				Follow the JMS provider instructions below and change <code class="literal">esperhq-default.xml</code> configuration file to point to the JMS provider of your choice. The default configuration expects that an Apache ActiveMQ JMS provider is running and listening at the default port. We provide detailed information how to configure EsperHQ web application in a separate document in the <code class="literal">docs</code> folders of the distribution.
+			</p><p>
+				The EsperHQ client web application expects the context root of the web application to be <code class="literal">esperhqapp</code>.
+			</p><p>
+				When deploying to Apache Tomcat, copy the WAR file to the <code class="literal">webapps</code> folder on your Tomcat installation. If deploying a prepackaged WAR file with version number, rename the directory removing the version number from the directory name so the WAR directory is simply <code class="literal">esperhqapp</code>, to ensure Tomcat sets the context path to <code class="literal">esperhqapp</code> without the version number.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-jmsprovider"/>6.2. JMS Provider Configuration</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-jmsprovider-other"/>6.2.1. Other JMS Provider Configurations</h3></div></div></div><p>
+			  Herein we provide sample configuration entries for two additional JMS providers. For JMS providers not listed below please check with your JMS provider on JNDI context lookup settings.
+			</p><p>For Tibco EMS, use the following settings:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;context object-name="QueueConnectionFactory"&gt;
+	&lt;env name="java.naming.factory.initial" 
+      value="com.tibco.tibjms.naming.TibjmsInitialContextFactory"/&gt;
+	&lt;env name="java.naming.provider.url" value="tibjmsnaming://host:port"/&gt;
+	&lt;env name="java.naming.security.principal" value="jndiUsername"/&gt;
+	&lt;env name="java.naming.security.credentials" value="jndiPassword"/&gt;
+&lt;/context&gt;</pre><p>For Apache QPid, use the following settings:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;context object-name="qpidConnectionfactory"&gt;
+	&lt;env name="java.naming.factory.initial" 
+      value="org.apache.qpid.jndi.PropertiesFileInitialContextFactory"/&gt;
+	&lt;env name="connectionfactory.qpidConnectionfactory" 
+      value="amqp://guest:guest@clientid/prod-only?brokerlist='tcp://hostname:port'"/&gt;
+&lt;/context&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-jmsprovider-standaloneactivemq"/>6.2.2. ActiveMQ Stand-alone JMS Provider Configuration</h3></div></div></div><p>Please follow the step-by-step instructions for using an external ActiveMQ JMS provider as follows:</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Back up your production configuration files in the <code class="literal">conf</code> folder before making changes to production.
+					</p></li><li><p>
+						Download the latest stable ActiveMQ distribution version 5.x from <code class="literal">http://activemq.apache.org/download.html</code>, for your platform.
+					</p></li><li><p>
+						Install the distribution following the steps in <code class="literal">http://activemq.apache.org/getting-started.html</code>. Start the ActiveMQ JMS broker following the steps in "Starting ActiveMQ".						
+					</p></li><li><p>
+						Open the <code class="literal">conf/esper-default.xml</code> and remove or comment-out the plugin-loader for <code class="literal">JMS_Provider_Bootstrap</code>. This disables the embedded JMS broker. Start the server.
+					</p></li></ol></div><p>
+				The <code class="literal">jconsole</code> tool can help confirm the correct configuration. In <code class="literal">jconsole</code> you should not see an entry for <code class="literal">com.apache.activemq</code> when attaching to the server process. The ActiveMQ broker should show as a separate process.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-epl"/>6.3. EPL Module</h2></div></div></div><p>
+		  A good way to develop a CEP application is to externalize EPL statements into an EPL module file (a text file with the <code class="literal">.epl</code> extension) and use hot deployment to test and deploy the CEP application. The examples provide a template to start from.
+		</p><p>
+			The Esper packaging and deployment section describes EPL module files in detail. The Enterprise Edition server <code class="literal">hotdeploy</code> folder holds the currently deployed CEP applications: plain text files with the <code class="literal">.epl</code> extension for EPL modules or WAR archives for EPL packaged with application code.
+		</p><p>
+			Additional choices for creating EPL statements or CEP applications are:
+		</p><p>
+		  The first option is to write a Java class that implements the <code class="literal">PluginLoader</code> interface as described in the Esper reference manual, list the plugin loader in the Esper XML configuration file
+		  and use the provided Esper Enterprise Edition server to execute.
+		</p><p>
+		  The second option is to use any of the Esper provided examples or the benchmark tool and customize the example to handle your application needs.
+		</p><p>
+		  The third option is write a simple Java main that starts an Esper engine, reads EPL statements from your own source and sends events.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-eventtype"/>6.4. Configure Event Types</h2></div></div></div><p>
+			The <code class="literal">create schema</code> syntax allows registering event types. When using <code class="literal">create schema</code> the event type is dynamic and gets removed when the EPL module or statement declaring
+			the event type gets destroyed. 
+		</p><p>
+			To add a predefined event type, the Esper configuration file or by means of the API you may register event types for use by input and output adapters as well as EPL statements.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-inputfeed"/>6.5. Setting up Input and Output Data Feeds</h2></div></div></div><p>
+			For setting up input and output data feeds, we recommend to check the EsperIO prebuilt dataflow operators and input/output adapters.
+			Declare a dataflow that incorporates the input or output adapter in combination with the <code class="literal">EventBusSource</code> or <code class="literal">EventBusSink</code>
+			operators that allow you to send events into the engine. Use a post-startup script as outlined above to have the engine automatically execute dataflow
+			instances on startup.
+		</p><p>
+			If no prebuild dataflow operator or adapter can be found, we recommend writing an input or output adapter as a dataflow operator. 
+			Thus an adapter dataflow operator can easily be configured and dataflow runtime instances can be managed by the GUI.
+			Please see the Esper dataflow documentation for more information.
+		</p><p>
+			Alternatively to using dataflow operators your application could utilize the <code class="literal">PluginLoader</code> interface, 
+			which is designed for this purpose and discussed in the Esper reference manual API section, and the
+			plugin can be listed in the Esper XML configuration file to start at the time of server startup.
+		</p><p>
+			There are also a number of examples as part of the Esper distribution, in Esper JIRA or other web sites that may offer examples of an input or output adapter that suits your needs.
+		</p><p>
+			The Esper CEP engine produces easy-to-understand Java class, Map-based, XML-formatted or JSON-formatted output events (aka. renderers).
+			You can utilize a number of existing Java components available that can map a Java class to a certain transport or format.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-serverprocess"/>6.6. Integrating into an Existing Java Server Process</h2></div></div></div><p>
+			If you have an existing Java application and would like to integrate Esper and REST web services for use with the rich GUI client continuous displays then this section describes the steps to follow. 
+		</p><p>
+			First, determine if you want to use an existing JMS provider (aka. JMS broker) that your technical environment provides. You may use the Esper Enterprise Edition JMS provider as outlined in the CEP Push Services manual.				
+		</p><p>
+			Second, create an CEP Push Services configuration file to attach to the JMS provider of your choice. Incorporate the required dependent jar files of CEP Push Services (see <code class="literal">lib</code> folder) into your existing server process.
+		</p><p>
+			Third, CEP Push Services can be started either via Esper XML configuration or via its endpoint API as described in the CEP Push Services manual.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-jettyconfig"/>6.7. Configuring Web Application Server Settings</h2></div></div></div><p>
+			Enterprise Edition in the default configuration starts an embedded Jetty web application container. 
+			The plugin providing this functionality is <code class="literal">com.espertech.esper.server.webapp.WebAppPlugin</code>. This chapter outlines configuration options.
+		</p><p>
+			The web application container default port is <code class="literal">8400</code>.
+		</p><p>
+			 The embedded web application provider acts as a container for the following web applications and servlets: 
+		</p><div class="itemizedlist"><ul><li><p>
+					EsperHQ web application, a JavaScript and HTML 5 application found in the directory <code class="literal">webapps/esperhqapp</code> under the installation root.
+				</p></li><li><p>
+					REST Services: CEP Management, CEP Push services, HQ services; As further described in <a class="xref" href="#restservices" title="Chapter 9. REST Services">Chapter 9, <i>REST Services</i></a> 
+				</p></li><li><p>
+					Web Socket full-duplex communications channels over a single TCP connection, as standardized by the IETF.
+				</p></li></ul></div><p>
+			You may customize this configuration and add items or remove items that are not desired depending on your needs, for example to reduce startup time.
+		</p><p>
+			The default configuration is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="EsperHQ_Webapp_Service" 
+      class-name="com.espertech.esper.server.webapp.WebAppPlugin"&gt;
+  &lt;init-arg name="port" value="8400" /&gt;
+  &lt;init-arg name="webapps" value="esperhqapp@webapps/esperhqapp"/&gt;
+  &lt;init-arg name="rest" value=
+    "cepmgmtsvc@token=cepmgmtsvctoken;ceppushsvc@token=ceppushsvctoken"/&gt;
+  &lt;init-arg name="websocket" value="hqpush" /&gt;
+&lt;/plugin-loader&gt;</pre><p>
+			The <code class="literal">port</code> parameter value is an integer port number that applies to all web applications, REST services and web sockets that are listed.
+			You can change the port number.
+		</p><p>
+			The <code class="literal">webapps</code> entry is a list of comma-separated entries that name the web applications that the web container deploys.
+			Each entry in the list has the format <span class="emphasis"><em>context-root</em></span><code class="literal">@</code><span class="emphasis"><em>directory</em></span>. 
+			You can remove this entry to skip deployment of the web application. We require a context root of <code class="literal">esperhqapp</code> for the EsperHQ application.
+			You can add entries to deploy additional web applications. The <code class="literal">esperhqapp</code> web application includes HQ Services REST services.
+		</p><p>
+			The <code class="literal">rest</code> entry is a list of comma-separated entries that name the REST JAX-RS-standard services that the web container deploys.
+			Each entry in the list has the format <span class="emphasis"><em>name</em></span><code class="literal">@</code><span class="emphasis"><em>parameters</em></span>. 
+			You can remove entries to skip deployment of the respective REST services. The special <code class="literal">token</code> parameter defines a shared secret for the purpose of
+			authenticating HQ Services. Please see the REST services documentation below for more information.
+		</p><p>
+			The <code class="literal">websocket</code> entry lists the web socket endpoint. You can remove this entry to disable web socket communication. 
+			We require the name <code class="literal">hqpush</code>.
+		</p><p>
+			You may additionally configure page access log logging by providing the parameter:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="log" value="log_file_dir"/&gt;</pre><p>
+			The log file directory must already exist at startup time. Please create the directory when using this setting.
+			When the log file directory is a relative file path, the log file directory must be found in the <code class="literal">logs</code> directory under the installation root.				
+		</p><p>
+			You may configure whether hot deployment is enabled, disabled or startup-only. By default hot deployment is enabled.
+		</p><p>
+			If hot deployment is disabled, the server does not use the hot deployment directory. Please set as follows:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Disabled means the hotdeploy directory is not used at all
+&lt;init-arg name="hotdeploy" value="disabled"/&gt;</pre><p>
+			If hot deployment is set to startup, the server considers only those files present at server startup time and does not allow file update. 
+			Files added, removed or updated are not considered. Please set as follows:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Startup means only files present on server start are considered
+&lt;init-arg name="hotdeploy" value="startup"/&gt;</pre><p>
+			You may configure the name of the hot deployment directory:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="hotdeploy-dir" value="directory_name"/&gt;</pre><p>
+			You may configure the frequency in seconds for use in scanning the hot deployment directory.  By setting this value to zero the 
+			server scans the hot deployment directory only once at time of startup and does not scan thereafter. The default frequency is 3 seconds.
+		</p><p>
+			An example initialization parameter for the scan interval is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="scanInterval" value="3"/&gt;</pre><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-jettyconfig-multiengine"/>6.7.1. Hot Deployer CEP Engine Targeting</h3></div></div></div><p>
+				If you have initialized and are running multiple CEP engines in the same JVM process and intend to target certain files to a given CEP engine, the hot deploy service provides a setting that can be used to associate a file name to a CEP engine URI via regular expression matching on the file name.
+			</p><p>
+				The synopsis for the <code class="literal">hotdeploy-targets</code> parameter value is as follows:
+			</p><pre class="synopsis"><span class="emphasis"><em>engine-uri</em></span>=<span class="emphasis"><em>filename_regex</em></span>[;<span class="emphasis"><em>engine-uri</em></span>=<span class="emphasis"><em>filename_regex</em></span>[;...]]</pre><p>
+				Provide a semicolon-separated list of pairs of CEP engine URI and file name regular expression to define the CEP engine target URI for a given file name. The hot deploy service inspects each regular expression in the order provided and matches it against the deployment unit file name.
+				If the regular expression matches or no regular expression was provided, the hot deploy service stops at the first match and deploys to the given CEP engine identified by the URI. If no matches are found, the hot deploy service targets the default CEP engine.
+			</p><p>
+				The following example assigns all files starting with <code class="literal">cepone_</code> to deploy to a CEP engine with URI <code class="literal">cepone</code>, all files starting with <code class="literal">ceptwo_</code> to deploy to a CEP engine with URI <code class="literal">ceptwo</code> and all remaining files deploy to the CEP engine identified by the <code class="literal">default</code> URI:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="hotdeploy-targets" value="cepone=cepone_.*;ceptwo=cepone_.*"/&gt;</pre><p>
+				You may disable hot deployment for all or a subset of files by using the special URI <code class="literal">null</code>. When the engine URI <code class="literal">null</code> matches the file name the hot deploy service simply logs the deployment file and skips deployment.
+			</p><p>
+				The following example assigns all files to CEP engine URI <code class="literal">null</code>, causing the hot deploy service to skip deploying any files:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="hotdeploy-targets" value="null=.*"/&gt;</pre></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport"/>Chapter 7. Socket Transport</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#sockettransport-gettingstarted">7.1. Getting Started</a></span></dt><dt><span class="sect1"><a href="#sockettransport-configsink">7.2. SocketE2ESink Configuration</a></span></dt><dt><span class="sect1"><a href="#sockettransport-configsource">7.3. SocketE2ESource Configuration</a></span></dt><dt><span class="sect1"><a href="#sockettransport-jmx">7.4. JMX Monitoring</a></span></dt></dl></div><p>
+		Enterprise Edition includes a socket transport for use with scalability and high-availability patterns in which multiple Enterprise Edition servers
+		are configured in a cluster to achieve a common goal.
+    </p><p>
+      Socket transport is a point-to-point transport for sending events between server instances, for example when partitioning streams or partitioning use cases between servers.
+    </p><p>
+      The default protocol utilized by socket transport is polling, blocking and buffered. We use the abbreviation <code class="literal">PBB</code>.
+      The protocol has the receiving server poll the sending server asking for a given maximum number of events. 
+      If the last poll returned no messages, the receiving operator sleeps for a short interval. 
+      Blocking queues are utilized by the sending and receiving operators to provide backpressure and hand-off.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-gettingstarted"/>7.1. Getting Started</h2></div></div></div><p>
+			Socket transport consists of two dataflow operators, <code class="literal">SocketE2ESink</code> and <code class="literal">SocketE2ESource</code>.
+			Use <code class="literal">SocketE2ESink</code> on the originating server to send events to another server. 
+			Use <code class="literal">SocketE2ESource</code> on the receiving server to receive events sent from another server.
+		</p><p>
+			Before using socket transport, it is necessary to import the socket transport data flow operators and io package. No additional configuration is required in order to run socket transport.
+			The jar file for socket transport is <code class="literal">esper-dataflow-sockete2e-</code><span class="emphasis"><em>version</em></span> and is already part of the server classpath.
+		</p><p>
+			Please add the following two lines to the Esper configuration file <code class="literal">conf/esper-default.xml</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;       
+    &lt;auto-import import-name="com.espertech.esper.transport.sockete2e.*"/&gt;
+    &lt;auto-import import-name="com.espertech.esper.dataflow.io.*"/&gt;
+    ...
+&lt;/esper-configuration&gt;</pre><p>
+		    The examples below declare the originating and the receiving data flows. The next section explains configurations is greater detail.
+		    After declaring the data flows, simply instantiate and start the data flow on each server either through the GUI or Esper APIs such as through a post-startup script.		    
+		</p><p>
+			A sample minimal data flow declaration for use on the originating server is shown next:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Deploy on the originating server
+create dataflow OriginatingFlow
+  EventBusSource -&gt; stream&lt;OrderEvent&gt; {}
+  
+  SocketE2ESink(stream) {
+    settings: {
+      class: 'SocketE2ESinkSettings_PBB',
+      hosts : '10.0.0.1:60001',
+      collector: {class:'ObjectToDataOutputCollectorSerializable'}
+    }
+  }</pre><p>
+		  The sample data flow above specifies that any <code class="literal">OrderEvent</code> events received by Esper (operator <code class="literal">EventBusSource</code>)
+		  are forwarded to the socket transport sink for transmission to another server.
+		</p><p>
+			The next data flow declaration is for use on the receiving server:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Deploy on the receiving server
+create dataflow ReceivingFlow
+  SocketE2ESource -&gt; stream&lt;OrderEvent&gt; {
+    settings: {
+      class: 'SocketE2ESourceSettings_PBB',
+      hostname : '10.0.0.1',	// the interface bind address
+      port : 60001,
+      collector: {class:'DataInputToObjectCollectorSerializable'}
+    }
+  }
+  
+  EventBusSink(stream) {}</pre><p>
+		  The sample data flow above specifies that any <code class="literal">OrderEvent</code> events received by socket transport source 
+		  are forwarded to the Esper event bus (operator <code class="literal">EventBusSink</code>) for further processing.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-configsink"/>7.2. <code class="literal">SocketE2ESink</code> Configuration</h2></div></div></div><p>
+			Specify the <code class="literal">settings</code> property of the data flow operator to hold an instance of <code class="literal">SocketE2ESinkSettings_PBB</code>. 
+		</p><p>
+			Parameters are:
+		</p><div class="table"><a id="sockete2esink_params"/><p class="title"><b>Table 7.1. SocketE2ESinkSettings_PBB Parameters</b></p><div class="table-contents"><table summary="SocketE2ESinkSettings_PBB Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>hosts (required)</td><td>A comma-separated list of host names and port numbers.</td></tr><tr><td>collector (required)</td><td>The object responsible for serializing event objects to <code class="literal">DataOutput</code>.</td></tr><tr><td>socketTimeout</td><td>Double-type socket timeout in seconds, defaults to 5 seconds.</td></tr><tr><td>connectTimeout</td><td>Double-type connect timeout in seconds, defaults to 5 seconds.</td></tr><tr><td>queueSize</td><td>Int-type queue size, defaults to 10000.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			Provide a list of host names and ports to have the sink connect to the first listed and available host. 
+		</p><p>
+			In the below configuration the operator will attempt to connect to host <code class="literal">10.0.0.1</code> on port 60001. When the connection fails,
+			the operator attempts to connect to host <code class="literal">10.0.0.2</code> on port 60001. When that connection fails, the operator attempts to connect to the first listed host and port again.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">hosts : '10.0.0.1:60001,10.0.0.2:60001'</pre><p>
+		  The <code class="literal">collector</code> parameter is required and must provide the class name of an implementation of the <code class="literal">com.espertech.esper.client.dataflow.io.ObjectToDataOutputCollector</code> interface. The collector is responsible for serializing the event object to <code class="literal">java.io.DataOutput</code>.
+		</p><p>
+		  The <code class="literal">ObjectToDataOutputCollectorSerializable</code> serializes using Java serialization. For best performance, consider providing a collector implementation.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-configsource"/>7.3. <code class="literal">SocketE2ESource</code> Configuration</h2></div></div></div><p>
+			Specify the <code class="literal">settings</code> property of the data flow operator to hold an instance of <code class="literal">SocketE2ESourceSettings_PBB</code>. 
+		</p><p>
+			Parameters are:
+		</p><div class="table"><a id="sockete2esource_params"/><p class="title"><b>Table 7.2. SocketE2ESourceSettings_PBB Parameters</b></p><div class="table-contents"><table summary="SocketE2ESourceSettings_PBB Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>hostname (required)</td><td>The host name or ip address to use for providing the socket server i.e. bind interface.</td></tr><tr><td>port (required)</td><td>The port number to use for providing the socket server.</td></tr><tr><td>collector (required)</td><td>The object responsible for serializing event objects to <code class="literal">DataOutput</code>.</td></tr><tr><td>maxPoll</td><td>Int-type parameter setting the maximum number of events to receive in one round trip, defaults to 100.</td></tr><tr><td>maxLatency</td><td>Int-type parameter setting the wait time between polls when a poll returns no data, defaults to 100 milliseconds.</td></tr><tr><td>queueSize</td><td>Int-type queue size, defaults to 10000.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+		  The <code class="literal">collector</code> parameter is required and must provide the class name of an implementation of the <code class="literal">com.espertech.esper.client.dataflow.io.DataInputToObjectCollector</code> interface. The collector is responsible for de-serializing the event object from <code class="literal">java.io.DataInput</code>.
+		</p><p>
+		  The <code class="literal">DataInputToObjectCollectorSerializable</code> de-serializes using Java serialization. For best performance, consider providing a collector implementation.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-jmx"/>7.4. JMX Monitoring</h2></div></div></div><p>
+			Both source and sink operators register JMX MBeans with the platform MBean server that provide key statistics.
+		</p><p>
+			Please enable the platform MBean server access by setting <code class="literal">JAVA_OPTS=-Dcom.sun.management.jmxremote.port=9005 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false</code> on the command line before starting the server.
+		</p><p>
+			The source operator on the receiving side provides:
+		</p><div class="itemizedlist"><ul><li>
+				The <code class="literal">ServerMsgRecv</code> object provides count, one-minute, five-minute, 15-minute and mean rates of messages received.
+			</li><li>
+				The <code class="literal">ServerPollNumMsg</code> object provides count of polls and mean, minimum, maximum and x-percentile message count polled.
+			</li><li>
+				The <code class="literal">ServerPollTime</code> object provides information on time spent polling for more messages.
+			</li><li>
+				The <code class="literal">ServerQueueDepth</code> object provides current queue depth.
+			</li></ul></div><p>
+			The sink operator on the sending side provides:
+		</p><div class="itemizedlist"><ul><li>
+				The <code class="literal">ClientMsgSend</code> object provides count, one-minute, five-minute, 15-minute and mean rates of messages sent.
+			</li><li>
+				The <code class="literal">ClientPollNumMsg</code> object provides count of polls and mean, minimum, maximum and x-percentile message counts.
+			</li><li>
+				The <code class="literal">ClientQueueDepth</code> object provides current queue depth.
+			</li></ul></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec"/>Chapter 8. Runtime Script Execution</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#scriptexec-enable">8.1. Enabling Runtime Script Execution</a></span></dt><dt><span class="sect1"><a href="#scriptexec-sink">8.2. GroovySink - Execute Script Upon Event Arrival</a></span></dt><dt><span class="sect1"><a href="#scriptexec-once">8.3. GroovySource - Executing a Script Once</a></span></dt><dt><span class="sect1"><a href="#scriptexec-originate">8.4. GroovySource - Originating Events from Groovy</a></span></dt><dt><span class="sect1"><a href="#scriptexec-addtlparams">8.5. Operator Parameters</a></span></dt></dl></div><p>
+		Runtime script execution is disabled in the default configuration to prevent a possible security concern. Please first enable runtime script execution by following the steps below.
+	</p><p>
+		You can use a dataflow operator to execute Groovy scripts at runtime as described herein. 
+		Groovy is a scripting language very close to Java and is further described in <a class="link" href="http://www.groovy-lang.org/" target="">Groovy Home</a>.
+    </p><p>
+		Script execution takes place within a dataflow instance. The dataflow operators provided are <code class="literal">GroovySource</code> and <code class="literal">GroovySink</code>. Each operator takes either the inline script or a script filename as a required parameter. Additional parameters may be passed to the Groovy script.
+	</p><p>
+		Since script execution is as part of a dataflow instance, this allows you to use EsperHQ GUI as well as REST services as well as Esper APIs to manage script execution.		
+	</p><p>
+      Scripts may utilize the complete Esper API as well as any other class in the server classpath. Scripts can also receive parameters via GUI or REST services and from the 
+      dataflow declaration.
+    </p><p>
+		Scripts can be useful to dynamically interact with the CEP engine instance(s) such as for managing statement listeners and other dynamic behavior. 
+		Scripts can also execute when an event arrives: This allows interacting with an external resource or triggering an external process based on event data.
+	</p><p>
+		Please review the Esper documentation on dataflows for an overview and additional information. Please refer to Esper JavaDoc documentation for API questions.
+	</p><p>
+		Unrelated to what is described here, Esper provides JSR 223 script execution as part of EPL statement processing. Please see the Esper documentation for more information.
+    </p><p>
+		Also unrelated to what is described here, post-startup script execution is described in <a class="xref" href="#gettingstarted-poststartup" title="2.10. Running Post-Startup Scripts">Section 2.10, “Running Post-Startup Scripts�?</a>.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-enable"/>8.1. Enabling Runtime Script Execution</h2></div></div></div><p>
+			By default, runtime script execution is disabled. You must edit the classpath script adding the required jar file and 
+			add an import to the default configuration file.
+		</p><p>
+			The jar file <code class="literal">esper-dataflow-groovy-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> provides the functionality.
+			Please edit the classpath by editing the file <code class="literal">bin/setclasspath.sh</code> (Linux) or <code class="literal">bin/setclasspath.bat</code> (Windows)
+			and comment-in the jar file.
+		</p><p>
+			Please add the following line to the Esper configuration file <code class="literal">conf/esper-default.xml</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;       
+    &lt;auto-import import-name="com.espertech.esper.groovy.*"/&gt;
+    ...
+&lt;/esper-configuration&gt;</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-sink"/>8.2. <code class="literal">GroovySink</code> - Execute Script Upon Event Arrival</h2></div></div></div><p>
+			The Groovy script must provide an <code class="literal">onInput</code> method taking a single <code class="literal">Object</code> type parameter.
+		</p><p>
+			A sample dataflow that provides the script inline and that simply prints the provided event is shown below.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow ProcessEventInGroovyScript
+  EventBusSource -&gt; stream&lt;MyEvent&gt; {}
+  GroovySink(stream) {
+    script: '
+      public void onInput(Object event) {
+        System.out.println(event);
+      }
+      '
+}</pre><p>
+		  Implement the methods provided by the <code class="literal">DataFlowOpLifecycle</code> interface (see Esper docs) to have the engine invoke the Groovy script 
+		  on initialization, open and close of the operator.
+		</p><p>
+		  The next sample shows a minimal inline script that, in addition, provides all lifecycle methods:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow ProcessEventWithLifecycleCallbacks
+  EventBusSource -&gt; stream&lt;MyEvent&gt; {}
+  GroovySink(stream) {
+    script: '
+      import com.espertech.esper.dataflow.interfaces.*;
+      public void initialize(DataFlowOpInitializateContext initContext) {
+        System.out.println(initContext);
+      }
+      public void open(DataFlowOpOpenContext openContext) {
+        System.out.println(openContext);
+      }
+      public void onInput(Object event) {
+        System.out.println(event);
+      }
+      public void close(DataFlowOpCloseContext closeContext) {
+        System.out.println(closeContext);
+      }
+      '
+}</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-once"/>8.3. <code class="literal">GroovySource</code> - Executing a Script Once</h2></div></div></div><p>
+			You may execute a script once upon dataflow instantiation by using the <code class="literal">GroovySource</code> operator.
+			The dataflow instance transitions to completed, after the script completed executing.
+		</p><p>
+			It is not necessary to provide any particular method in the Groovy script. The engine runs from the start of the Groovy script.
+		</p><p>
+			The dataflow declaration shown next executes a script stored in a file only a single time, at the time the dataflow is instantiated.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow RunScriptOnce
+  GroovySource {
+    file: 'my_script.groovy'
+  }</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-originate"/>8.4. <code class="literal">GroovySource</code> - Originating Events from Groovy</h2></div></div></div><p>
+			You may originate events provided by a Groovy script with the <code class="literal">GroovySource</code> operator.
+		</p><p>
+			Your script must provide a method <code class="literal">next</code> that takes a <code class="literal">EPDataFlowEmitter</code> as its argument.
+			The script can use the <code class="literal">submit</code> method of the emitter to provide events to the dataflow.
+		</p><p>
+			In this example dataflow, the script is an inline script which instantiates <code class="literal">MyEvent</code> events. The <code class="literal">EventBusSink</code> operator
+			makes the new events available to EPL statements for processing.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow GroovyOriginatedEvents
+  GroovySource -&gt; mystream&lt;MyEvent&gt; {
+    script:'
+      import com.espertech.esper.dataflow.interfaces.*;
+      import com.mycompany.myevents.MyEvent;
+      public void next(EPDataFlowEmitter emitter) throws InterruptedException {
+        emitter.submit(new MyEvent("Event"));
+        Thread.sleep(1000);
+      }
+    '}
+  EventBusSink(mystream) {}</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-addtlparams"/>8.5. Operator Parameters</h2></div></div></div><p>
+			Either the <code class="literal">script</code> or the <code class="literal">file</code> property must be provided. All parameters can be provided at time of dataflow instantiation.
+		</p><p>
+			Any additional parameters to the dataflow operator are passed through to the Groovy script.
+		</p><p>
+			Parameters are:
+		</p><div class="table"><a id="d0e2255"/><p class="title"><b>Table 8.1. GroovySink Parameters</b></p><div class="table-contents"><table summary="GroovySink Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>script</td><td>The Groovy script, or specify the <code class="literal">file</code> parameter providing the script instead.</td></tr><tr><td>file</td><td>The file name of the Groovy script, or specify the <code class="literal">script</code> parameter providing the actual script instead.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			When a <code class="literal">file</code> is specified, the engine resolves the file as an absolute file path, and if not found then relative to the Enterprise Edition base directory, and if not found from classpath.
+		</p><p>
+			All parameters are passed through to the Groovy script. In the Groovy you can simply refer to such parameters as variables.
+		</p><p>
+			For example, the following dataflow declaration expects that either the file or script are provided at time of instantiation, and passes a value for <code class="literal">threshold</code> to the Groovy script:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow RunScriptOnce
+  GroovySource {
+    threshold: '100'
+  }</pre></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices"/>Chapter 9. REST Services</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#restservices-errorhandling">9.1. Error Handling</a></span></dt><dt><span class="sect1"><a href="#restservices-security">9.2. Security</a></span></dt><dt><span class="sect1"><a href="#restservices-exposing">9.3. Exposing REST Services When Not Running Enterprise Edition Server</a></span></dt><dd><dl><dt><span class="sect2"><a href="#restservices-exposing-classpath">9.3.1. Classpath Requirements</a></span></dt><dt><span class="sect2"><a href="#restservices-exposing-http">9.3.2. JAX-RS Container</a></span></dt><dt><span class="sect2"><a href="#restservices-exposing-configureesperhq">9.3.3. EsperHQ Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="#restservices-example">9.4. Example Client and Server</a></span></dt></dl></div><p>
+		Enterprise Edition ships with sets of RESTful web services utilizing JSON to allow easy integration. Web services are based on the JAX-RS standard for the Representational State Transfer (REST) architectural pattern.
+    </p><p>
+		The following table summarizes the REST services:
+	</p><div class="table"><a id="d0e2305"/><p class="title"><b>Table 9.1. REST Services</b></p><div class="table-contents"><table summary="REST Services" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th><th>Subcontext Root</th></tr></thead><tbody><tr><td>CEP Management Services</td><td>Administration of CEP and associated functionality.</td><td><code class="literal">cepmgmtapi/v1</code></td></tr><tr><td>CEP Push Services</td><td>Subscription management and data push.</td><td><code class="literal">ceppushapi/v1</code></td></tr><tr><td>HQ Services</td><td>Addressing multiple CEP engines (aka. endpoints); HQ web client services.</td><td><code class="literal">hqapi/v1</code></td></tr></tbody></table></div></div><br class="table-break"/><p>
+	  We provide detailed information about services as part of the REST services documentation set linked to the <code class="literal">index.html</code> file in the installation root and in the <code class="literal">doc</code> folder of the installation.
+	</p><p>
+		Individual or all REST services can be disabled by EsperHQ configuration.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-errorhandling"/>9.1. Error Handling</h2></div></div></div><p>
+			A successful service invocation returns HTTP status code 200 OK.
+		</p><p>
+			All service invocations that fail return any of the following HTTP status codes:
+		</p><div class="table"><a id="d0e2362"/><p class="title"><b>Table 9.2. HTTP Status Codes</b></p><div class="table-contents"><table summary="HTTP Status Codes" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>HTTP Status Code</th><th>Description</th></tr></thead><tbody><tr><td>404 Not Found</td><td>Returned when a resource was not found.</td></tr><tr><td>405 Method Not Allowed</td><td>Returned when an operation is not allowed on a resource.</td></tr><tr><td>400 Bad Request</td><td>Returned when the service fails or the data passed to the service is invalid.</td></tr><tr><td>500 Internal Server Error</td><td>Returned when there is an internal error. In this case, please inspect the server logs and report to us with as much information as possible so we can reproduce the issue.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			All error responses have a response body that contains a JSON-formatted object that has a <code class="literal">message</code> and a <code class="literal">details</code> property. 
+			The <code class="literal">message</code> property contains the reason text. 
+			The <code class="literal">details</code> property is for support and error handling. It contains a list of exceptions as additional information to the error.
+		</p><p>
+			A sample response body indicating an error is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">{
+   "message":".... service message here ....",
+   "details":[
+      {
+         "exceptionClass":"java.lang.SampleExceptionClass",
+         "exceptionMessage":"....same or additional message....",
+         "exceptionStackTrace":".... stack trace here...."
+      }
+   ]
+}</pre><p>
+			Each object under <code class="literal">details</code> may contain:
+		</p><div class="table"><a id="d0e2418"/><p class="title"><b>Table 9.3. REST Services</b></p><div class="table-contents"><table summary="REST Services" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody><tr><td>exceptionClass</td><td>The exception fully-qualified class name.</td></tr><tr><td>exceptionMessage</td><td>The exception message.</td></tr><tr><td>exceptionStackTrace</td><td>The exception stack trace, for support.</td></tr><tr><td>line</td><td>A line number, where applicable.</td></tr><tr><td>expression</td><td>Expression causing the exception, where applicable.</td></tr><tr><td>fieldName</td><td>The name of the JSON property that the exception refers to, where applicable.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-security"/>9.2. Security</h2></div></div></div><p>
+			The EsperHQ JavaScript application invokes only HQ Services (REST), and not CEP Management (REST) or CEP Push Services (REST). Please consult
+			the Esper HQ Web Application Archive documentation for information on securing the web application including HQ Services.
+		</p><p>
+			HQ Services REST invocations invoke CEP Management REST Services and CEP Push REST Services. 
+			This communication is secured by HQ Services passing a hashed token value as a query parameter for every REST service invocation. 
+		</p><p>
+			Please consult the Esper HQ Web Application Archive documentation for information on configuring the token shared secret that HQ Services passes to CEP Management and CEP Push Services,
+			specific to each endpoint.
+		</p><p>
+			Please review the section <a class="xref" href="#servercookbook-jettyconfig" title="6.7. Configuring Web Application Server Settings">Section 6.7, “Configuring Web Application Server Settings�?</a> in this document for information on configuring the token value expected and verified by CEP Management and CEP Push Services.
+			The token strings must match the HQ Services token strings.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-exposing"/>9.3. Exposing REST Services When Not Running Enterprise Edition Server</h2></div></div></div><p>
+			If you have an Esper-embedded application and would like to expose REST-style web services from that application, then this section provides the relevant instructions.
+		</p><p>
+			By having your application expose web services, the EsperHQ web client application can then invoke the web services. Thereby you can use EsperHQ to manage, monitor or debug
+			your application.			
+		</p><p>
+			Please follow these steps:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    Set up the application classpath.
+                </p></li><li><p>
+                    Register the REST JAX-RS application(s) and expose an HTTP server (unless already provided). 
+                </p></li><li><p>
+                    Configure EsperHQ for the new host and port.
+                </p></li></ol></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="restservices-exposing-classpath"/>9.3.1. Classpath Requirements</h3></div></div></div><p>
+				The following table outlines the classpath additional jar files that must be placed in your application classpath.
+			</p><div class="table"><a id="d0e2498"/><p class="title"><b>Table 9.4. Required Jar Files</b></p><div class="table-contents"><table summary="Required Jar Files" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Jar File</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">esper-eeutil-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code></td><td>The Enterprise Edition utility jar for handling REST-style communication essentials.</td></tr><tr><td><code class="literal">esper-cepmgmtsvc-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code></td><td>CEP management services.</td></tr><tr><td><code class="literal">gson-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code></td><td>Library to convert JSON to objects and objects to JSON. We recommend version 2.3.1 or newer.</td></tr><tr><td><code class="literal">javax.ws.rs.jar</code></td><td>JAX-RS web services apis. Required as our REST services adhere to JAX-RS standards.</td></tr><tr><td><code class="literal">org.restlet.jar</code></td><td>Restlet framework (see http://restlet.org). We recommend version 2.3.1 or newer.</td></tr><tr><td><code class="literal">org.restlet.ext.jaxrs.jar</code></td><td>Restlet framework JAX-RS support. We recommend version 2.3.1 or newer.</td></tr><tr><td><code class="literal">slf4j-api-1.7.2.jar</code></td><td>SLF4J Logging.</td></tr><tr><td><code class="literal">slf4j-log4j12-1.7.2.jar</code></td><td>SLF4J Logging for Log4j.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="restservices-exposing-http"/>9.3.2. JAX-RS Container</h3></div></div></div><p>
+				If you do not have an existing HTTP server or JAX-RS container as part of the application, please use the Restlet framework to expose an HTTP server that hosts the JAX-RS application.
+				We provide an example code snippet below.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String host = "localhost";
+int port = 8401;
+			
+// Restlet framework setup (assumes host and port defined)
+Component comp = new Component();
+Server server = new Server(Protocol.HTTP, host, port);
+comp.getServers().add(server);
+
+// Add JAX-RS application
+JaxRsApplication application = new CepMgmtJaxRsApplication(comp.getContext().createChildContext());
+
+// This example provides a null-token, disabling token authentication.
+application.getJaxRsRestlet().addSingleton(new TokenValidationServiceProvider(null));
+
+// Attach the application to the component and start it
+String attachPath = RestRoots.MGMT_V1.toAttachString();
+comp.getDefaultHost().attach(attachPath, application);
+comp.start();</pre><p>
+				If you do not have an existing JAX-RS container you can use <code class="literal">CepMgmtJaxRsApplication</code> which is a JAX-RS standard <code class="literal">JaxRsApplication</code> application.
+			</p><p>
+				For CEP push services, please register <code class="literal">CepPushJaxRsApplication</code>.
+			</p><p>
+				Your application may provide a string token value to <code class="literal">TokenValidationServiceProvider</code> to enable token authentication.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="restservices-exposing-configureesperhq"/>9.3.3. EsperHQ Configuration</h3></div></div></div><p>
+				The EsperHQ web application archive configuration is described in EsperHQ Web Application Archive manual in the documentation set.
+			</p><p>
+				Please edit the <code class="literal">conf/esperhq-default.xml</code> file and change to <code class="literal">&lt;restservice hosts="http://host:port"/&gt;</code>. Remove the token settings if no token was provided to
+				<code class="literal">TokenValidationServiceProvider</code>.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-example"/>9.4. Example Client and Server</h2></div></div></div><p>
+			The distribution contains a small REST web services client that invokes CEP Push Services web services using Apache Commons HTTP Client. 
+			The example is self-contained and does not run against the Enterprise Edition server but instead runs against a server also contained in the example,
+			which also demonstrates how to host REST services.
+		</p><p>
+			Please find the example code in <code class="literal">examples/examples-ceppushsvc</code> under the installation root. Further description on running the example is provided as part of Push Services documentation.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples"/>Chapter 10. Examples</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#examples-dashboard">10.1. EsperHQ Dashboard Examples</a></span></dt><dd><dl><dt><span class="sect2"><a href="#examples-dashboard-pagebuilderexample">10.1.1. Example Dashboard Page Generated by Dashboard Page Builder GUI</a></span></dt><dt><span class="sect2"><a href="#examples-dashboard-iframefaceless">10.1.2. Example Dashboard Page Using HTML IFrames and Faceless Launcher</a></span></dt></dl></dd><dt><span class="sect1"><a href="#examples-geo">10.2. Geo Example</a></span></dt><dt><span class="sect1"><a href="#examples-onlineshop">10.3. Online Shop Example</a></span></dt><dt><span class="sect1"><a href="#examples-optiontrade">10.4. Option Trade Example</a></span></dt><dt><span class="sect1"><a href="#examples-esper">10.5. Installing Esper Distribution Examples</a></span></dt><dt><span class="sect1"><a href="#examples-enginejar">10.6. Hot Deploy Engine-Jar Example</a></span></dt></dl></div><p>
+		Esper Enterprise Edition comes with additional examples. The source for the examples can be found in the <code class="literal">examples/examples-server</code> folder of the distribution and the jar files are in the <code class="literal">lib</code> folder.
+	</p><p>
+	  All Enterprise Edition samples are packaged for hot deployment and un-deployment (runtime deployment) as in the format of web application archive (WAR) and also as regular jar files.
+	</p><p>
+		The packaged example CEP applications are found in the <code class="literal">hotdeploy</code> folder of the distribution. Remove an example WAR file from the folder to un-deploy or copy additional WAR files into the folder to deploy.
+	</p><p>
+		Each example is also packaged as a JAR file so it can also be listed in an Esper configuration file and therefore started automatically when the Esper engine instances starts. List the examples as Esper <code class="literal">plugin-loader</code> configurations in the default configuration file <code class="literal">esper-default.xml</code> that ships with the distribution. Each example implements the Esper <code class="literal">PluginLoader</code> interface but can also be started via its public API. Use the following configuration to start each example as plug-in:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="ExampleForGeoEvents"
+      class-name="com.espertech.esper.server.example.geoapp.GeoExampleSimulatorPlugin"&gt;
+  &lt;init-arg name="engineURI" value="default" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleForOptionTrading" 
+      class-name="com.espertech.esper.server.example.optionstrade.OptionTradingExampleSimulatorPlugin"&gt;
+  &lt;init-arg name="engineURI" value="default" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleForOnlineShop" 
+      class-name="com.espertech.esper.server.example.onlineshop.OnlineShopExampleSimulatorPlugin"&gt;
+  &lt;init-arg name="engineURI" value="default" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleGeneric" 
+      class-name="com.espertech.esper.server.example.generic.GenericSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="default" /&gt;
+&lt;/plugin-loader&gt;</pre><p>
+		Additionally, you may deploy each Esper distribution example to Esper Enterprise Edition as outlined below.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-dashboard"/>10.1. EsperHQ Dashboard Examples</h2></div></div></div><p>
+			The dashboard examples display data generated by the online shop example which is outlined below. 
+		</p><p>
+			There are two dashboard examples: One example is an application page that is generated by the Dashboard Page Builder that is part of EsperHQ client GUI. 
+			The second example demonstrates launching eventlets scattered over an HTML page and uses HTML IFrames.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-dashboard-pagebuilderexample"/>10.1.1. Example Dashboard Page Generated by Dashboard Page Builder GUI</h3></div></div></div><p>
+			The file name for this example is <code class="literal">Example Dashboard JQuery Eventlet for Onlineshop.html</code> in the "examples" folder in the GUI itself, or in the <code class="literal">data/hqsvc/examples</code> folder
+			of the installation root.
+			</p><p>
+				This dashboard example demonstrates the output of the Dashboard Page Builder in EsperHQ client. 
+				The Dashboard Page Builder generates a complete HTML page including JavaScript utilizing the eventlet jQuery extension.
+			</p><p>
+				Please see the EsperHQ client documentation for more information on the eventlet jQuery extension. 
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-dashboard-iframefaceless"/>10.1.2. Example Dashboard Page Using HTML IFrames and Faceless Launcher</h3></div></div></div><p>
+				The HTML for this example is file <code class="literal">Example Dashboard With HTML IFrames And Launcher For Onlineshop.html</code> in the "examples" folder in the GUI itself, or in the <code class="literal">data/hqsvc/examples</code> folder of the installation root.
+			</p><p>
+				This example demonstrates launching eventlets as part of HTML content using the faceless launcher URL, which can be useful for portal environments or content management systems. 
+			</p><p>
+				Please see the EsperHQ client documentation for more information on the eventlet faceless launcher. 
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-geo"/>10.2. Geo Example</h2></div></div></div><p>
+			The Geo example is a simulator that analyzes movement of persons geographically and detects presence and vicinity.
+		</p><p>
+			The simulator sends person location events that have a person id and the current location in latitude and longitude of the person. The Geo example statements detect
+			when persons come near to each other and stay near to each other for a given time interval.
+		</p><p>
+			The sources for the Geo example are in the <code class="literal">examples-server/geo</code> folder, the class is <code class="literal">com.espertech.esper.server.example.geoapp.GeoExampleSimulatorPlugin</code> in the jar file by name <code class="literal">esper-example-geo.jar</code>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-onlineshop"/>10.3. Online Shop Example</h2></div></div></div><p>
+			The online shop example is an example out of the domain of customer experience management. It analyzes events generated by a web site when web site visitors view items for sale on the site. 
+		</p><p>
+			The simulator generates user browse events with user id, product information viewed by the user, page-enter and leave time and stock quantities and price displayed. It creates statements to obtain key statistics.
+		</p><p>
+			The sources for the online shop example are in the <code class="literal">examples-server/onlineshop</code> folder, the class is <code class="literal">com.espertech.esper.server.example.onlineshop.OnlineShopExampleSimulatorPlugin</code> in the jar file by name <code class="literal">esper-example-onlineshop.jar</code>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-optiontrade"/>10.4. Option Trade Example</h2></div></div></div><p>
+			The option trade example correlates a market data feed that contains bid and offer prices for instruments with order execution received from an exchange.
+		</p><p>
+			The simulator generates market price events and exchange execution events. It creates statements to compute a position and valuation.
+		</p><p>
+			The sources for the option trade example are in the <code class="literal">examples-server/optiontrade</code> folder, the class is <code class="literal">com.espertech.esper.server.example.optiontrade.OptionTradingExampleSimulatorPlugin</code> in the jar file by name <code class="literal">esper-example-optiontrade.jar</code>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-esper"/>10.5. Installing Esper Distribution Examples</h2></div></div></div><p>
+			First, copy the example jar file <code class="literal">esper-example-</code><span class="emphasis"><em>name</em></span>-<span class="emphasis"><em>version</em></span> to the <code class="literal">lib</code> directory of the distribution.
+		</p><p>
+			Second, copy the <code class="literal">etc</code> directory of the Esper example to the <code class="literal">lib</code> directory of the distribution.
+		</p><p>
+			For Windows environments, edit the <code class="literal">setclasspath.bat</code> in the <code class="literal">bin</code> directory of the distribution and add the following lines to the location of classpath setup:
+		</p><pre class="synopsis">set CLASSPATH=%CLASSPATH%;%LIB%\esper-<span class="emphasis"><em>name</em></span>-<span class="emphasis"><em>version</em></span>.jar
+set CLASSPATH=%CLASSPATH%;%LIB%\etc</pre><p>
+			For Linux environments, edit the <code class="literal">setclasspath.sh</code> in the <code class="literal">bin</code> directory of the distribution and add the following lines to the location of classpath setup:
+		</p><pre class="synopsis">CLASSPATH=$CLASSPATH:$LIB/esper-example-<span class="emphasis"><em>name</em></span>-<span class="emphasis"><em>version</em></span>.jar
+CLASSPATH=$CLASSPATH:$LIB/etc</pre><p>
+			Finally, edit the default engine configuration file <code class="literal">esper-default.xml</code> in the <code class="literal">conf</code> folder of the distribution to start the example
+			as part of the configuration.
+		</p><p>
+			For example:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="Example" class-name="com.espertech.esper.example.autoid.AutoIdSamplePlugin"&gt;
+	&lt;init-arg name="engineURI" value="autoid" /&gt;
+&lt;/plugin-loader&gt;</pre><p>
+			When deploying multiple examples, we would recommend using a different engine URI for each example to avoid conflicting configurations
+			between the examples.
+		</p><p>
+			Esper distribution examples send events during startup as well as include a simulator that continuously sends events. Some examples such as the named window fire-and-forget queries don't have a continuous event simulator therefore may not produce an event stream to see in the web client, however you can see the statements or named window in the web client.
+		</p><p> 
+			The complete list of examples is as follows:
+		</p><pre class="synopsis">esper-example-autoid-<span class="emphasis"><em>version</em></span>.jar
+esper-example-marketdatafeed-<span class="emphasis"><em>version</em></span>.jar
+esper-example-matchmaker-<span class="emphasis"><em>version</em></span>.jar
+esper-example-namedwinquery-<span class="emphasis"><em>version</em></span>.jar
+esper-example-ohlcpluginview-<span class="emphasis"><em>version</em></span>.jar
+esper-example-qossla-<span class="emphasis"><em>version</em></span>.jar
+esper-example-rfidassetzone-<span class="emphasis"><em>version</em></span>.jar
+esper-example-stockticker-<span class="emphasis"><em>version</em></span>.jar
+esper-example-transaction-<span class="emphasis"><em>version</em></span>.jar</pre><p> 
+			The complete list of plug-in configurations is as follows:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="ExampleAutoId" class-name="com.espertech.esper.example.autoid.AutoIdSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="autoid" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleMarketDataFeed" class-name="com.espertech.esper.example.marketdatafeed.MarketDataFeedSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="marketdatafeed" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleMatchMaker" class-name="com.espertech.esper.example.matchmaker.MatchMakerSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="matchmaker" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleNamedWindowQuery" class-name="com.espertech.esper.example.namedwinquery.NamedWindowQuerySamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="namedwinquery" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleOHLC" class-name="com.espertech.esper.example.ohlc.OHLCSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="ohlcsample" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleQualityOfService" class-name="com.espertech.esper.example.qos_sla.QualityOfServiceSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="qos_sla" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleRFIDAssetZone" class-name="com.espertech.esper.example.rfidassetzone.LRMovingSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="rfidassetzone" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleStockTicker" class-name="com.espertech.esper.example.stockticker.StockTickerSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="stockticker" /&gt;
+&lt;/plugin-loader&gt;
+&lt;plugin-loader name="ExampleTransaction" class-name="com.espertech.esper.example.transaction.TransactionSamplePlugin"&gt;
+  &lt;init-arg name="engineURI" value="transactionsample" /&gt;
+&lt;/plugin-loader&gt;</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-enginejar"/>10.6. Hot Deploy Engine-Jar Example</h2></div></div></div><p>
+			The distribution provides the <code class="literal">EngineJar</code> example to demonstrate how to build and hot deploy a CEP engine jar file. Please see <a class="xref" href="#hotdeploy-jar" title="5.3. CEP Engine Jar Hot Deployment">Section 5.3, “CEP Engine Jar Hot Deployment�?</a> for more information.
+		</p><p>
+			The <code class="literal">examples/examples-server/enginejar</code> directory contains two sub-projects. The <code class="literal">enginejar</code> sub-project builds a JAR file <code class="literal">example-enginejar-</code><span class="emphasis"><em>version</em></span><code class="literal">-assembly.jar</code> that you may 
+			copy to the hot deploy directory. The second sub-project <code class="literal">embeddedlib</code> builds a library JAR file that is included in the assembly for demonstrating annotations and classpath inclusion of jar files.
+		</p></div></div></div></body></html>

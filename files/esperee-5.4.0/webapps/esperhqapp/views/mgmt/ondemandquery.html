@@ -1,0 +1,56 @@
+<div id="ondemandquery" ng-controller="OnDemandQueryController">
+    <div class="pull-right">
+        <button ng-click="doPerformQuery()" class="btn btn-primary button-bar-margin">Submit</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <fieldset>
+            <legend><small>On-Demand Fire-And-Forget Query</small></legend>
+            <div class="control-group">
+                <label class="control-label">Query:<span class="label-required">*</span>
+                    <span class="valid" ng-show="form.epl.$valid">&#10004;</span>
+                </label>
+                <div class="controls">
+                    <div id="ondemandquery_editor_div">
+                        <textarea class="predefined-60wide"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group" ng-show="eplErrorMsg != null">
+                <div class="controls">
+                    <span class="span-invalid">Failed validation: {{eplErrorMsg}}</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Max Rows:</label>
+                <div class="controls">
+                    <input ng-model="maxRows"/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="maxRowsInvalid">
+                <div class="controls">
+                    <span class="span-invalid">Max rows requires an integer number, when provided</span>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+    <form novalidate="">
+        <fieldset>
+            <legend><small>Query Results:</small></legend>
+            <div id="ondemandquery_table">
+                <table width="100%" id="">
+                    <thead>
+                    <tr>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>

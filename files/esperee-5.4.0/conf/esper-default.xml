@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<esper-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.espertech.com/schema/esper"
+    xsi:noNamespaceSchemaLocation="esper-configuration-5-0.xsd">
+
+	<!--
+		JMS Provider.
+		
+        This entry starts an embedded Apache ActiveMQ JMS broker. Remove this entry if running an external JMS broker.
+        The below connector URL binds only to "localhost". To allow external clients to connect to the broker, add a binding with hostname and port. 
+        For example:
+		  <init-arg name="connectorURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0,tcp://myhostname:myport?wireFormat.maxInactivityDuration=0" />
+	-->
+	<plugin-loader name="JMS_Provider_Bootstrap" class-name="com.espertech.esper.ceppushsvc.jmsbroker.JMSProviderMgmtPlugin">
+		<init-arg name="type" value="ApacheActiveMQ" />
+		<init-arg name="connectorURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0" />
+		<init-arg name="dataDirectory" value="${ESPEREE_BASE}/data/jmsbroker-endpoint-default" />
+	</plugin-loader>
+	
+	<!--
+		CEP Push Services Endpoint..
+	-->
+	<plugin-loader name="CEPPushServices" class-name="com.espertech.esper.ceppushsvc.client.EndpointMgmtPlugin">
+	 	<init-arg name="esperceppushsvc.configuration.file" value="conf/ceppushsvc-default.xml" />
+	</plugin-loader>
+
+	<!--
+		Web Application Service.
+	-->
+	<plugin-loader name="Webapp_Service" class-name="com.espertech.esper.server.webapp.WebAppPlugin">
+		<init-arg name="port" value="8400" />
+		<init-arg name="webapps" value="esperhqapp@webapps/esperhqapp" />
+		<init-arg name="rest" value="cepmgmtsvc@token=cepmgmtsvctoken,ceppushsvc@token=ceppushsvctoken" />
+		<init-arg name="websocket" value="hqpush" />
+	</plugin-loader>
+
+	<!-- 
+		Server shutdown via JMX.
+	  -->
+	<plugin-loader name="EsperJMX" class-name="com.espertech.esper.jmx.client.EsperJMXPlugin">
+		<init-arg name="use-platform-mbean-server" value="false"/>
+		<init-arg name="rmi-registry-port" value="1099"/>
+		<init-arg name="server-mgmt-only" value="true"/>
+	</plugin-loader>
+
+	<!-- 
+		Post-Startup Groovy Script Execution. Add this as the last plugin.
+		This gets invoked after all deployments have completed, including "hotdeploy" folder deployments.
+		Please enable by removing the comments below.
+	  -->
+	<!--
+	<plugin-loader name="PostStartupScript" class-name="com.espertech.esper.server.groovy.GroovyExecutorPlugin">
+		<init-arg name="script.1" value="${ESPEREE_BASE}/bin/post_startup_script.groovy"/>
+	</plugin-loader>
+	-->
+
+	<!-- 
+		EsperJDBC.
+		Please enable by removing the comments below.
+        Note: Enabling the JDBC driver requires a change to classpath scripts in "setclasspath" in the "bin" folder.
+	  -->
+	<!--
+	<plugin-loader name="EsperJDBC"
+	  	class-name="com.espertech.esper.jdbc.server.remote.JDBCServerPlugin">
+	  	<init-arg name="port" value="8450" />
+	  	<init-arg name="processorCount" value="1" />
+	  	<init-arg name="sessionIdleTimeout" value="600" />
+	</plugin-loader>
+	-->
+
+	<!--
+		Example Simulators.
+		These examples each create a few statements and simulate an event stream.
+        	Remove or comment-out the simulators below to start from an empty engine instance.
+        	All examples are also built as WAR files that contain event classes and simulation code,
+        	and are shipped in the "hotdeploy" folder for automatic deployment during startup, and
+        	therefore are commented out here.
+        -->
+        <!-- 
+          Commented out, comment-in when activating an example and after the example was removed from the "hotdeploy" folder.
+        
+	<plugin-loader name="ExampleForGeoEvents" class-name="com.espertech.esper.server.example.geoapp.GeoExampleSimulatorPlugin">
+		<init-arg name="engineURI" value="default" />
+	</plugin-loader>
+	<plugin-loader name="ExampleForOptionTrading" class-name="com.espertech.esper.server.example.optionstrade.OptionTradingExampleSimulatorPlugin">
+		<init-arg name="engineURI" value="default" />
+	</plugin-loader>
+	<plugin-loader name="ExampleForOnlineShop" class-name="com.espertech.esper.server.example.onlineshop.OnlineShopExampleSimulatorPlugin">
+		<init-arg name="engineURI" value="default" />
+	</plugin-loader>
+	-->
+	
+	<!--
+	<event-type name="MyEvent">
+		<objectarray>
+		  	<objectarray-property name="p0" class="string"/>
+	  		<objectarray-property name="p1" class="int"/>
+	  	</objectarray>
+	</event-type>
+	-->
+
+</esper-configuration>

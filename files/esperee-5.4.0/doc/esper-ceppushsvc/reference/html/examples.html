@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 5. Examples</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="CEP Push Services"/><link rel="up" href="index.html" title="CEP Push Services"/><link rel="prev" href="configuration.html" title="Chapter 4. Configuration"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="configuration.html"><strong>Prev</strong></a></li><li class="next"/></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples"/>Chapter 5. Examples</h2></div></div></div><p>
+		Enterprise Edition comes with a Java example for CEP push services. The example is completely standalone, thereby please shut down any existing server process
+		to avoid overlapping ports.
+	</p><p>
+		The example can be found in the root folder of the installation under <code class="literal">examples/examples-ceppushsvc</code>.
+	</p><p>
+		The example consists of two parts:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				A tiny server that starts Esper, an embedded JMS broker, Push Services as well as a HTTP/REST container.
+			</p></li><li><p>
+				A tiny client that uses an HTTP client to subscribe to a statement by invoking REST services, and that receives messages pushed over a JMS destination.
+			</p></li></ol></div><p>
+		To run the examples, change directory to the <code class="literal">traffic/etc</code> folder and build first by invoking the <code class="literal">compile</code> script in the <code class="literal">etc</code> folder. The server startup script is <code class="literal">run_traffic_server</code>
+		and the client startup script is <code class="literal">run_traffic_client</code>.
+	</p></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="configuration.html"><strong>Prev</strong>Chapter 4. Configuration</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li></ul></body></html>

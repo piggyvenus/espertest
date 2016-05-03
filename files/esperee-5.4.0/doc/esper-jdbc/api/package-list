@@ -1,0 +1,3 @@
+com.espertech.esper.jdbc.local
+com.espertech.esper.jdbc.remote
+com.espertech.esper.jdbc.server.remote

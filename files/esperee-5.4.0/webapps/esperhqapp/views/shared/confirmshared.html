@@ -1,0 +1,18 @@
+<div ng-controller="ConfirmSharedController">
+
+    <div style="height: 150px; vertical-align: middle;">
+        <div class="float-left" style="width:15%; margin-top: 30px">
+            <img src="/esperhqapp/assets/alert_confirm.gif">
+        </div>
+        <div class="float-left" style="width:65%; margin-left: 20px; margin-top: 20px">
+            <div>
+                <span>{{title}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="text-center">
+        <button type="submit" class="btn button-bar-margin btn-primary" ng-click="doOk()">{{okButtonTitle}}</button>
+        <button type="submit" class="btn button-bar-margin" ng-click="doCancel()">Cancel</button>
+    </div>
+</div>

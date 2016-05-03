@@ -1,0 +1,136 @@
+            ===================================================
+            Running The Esper Enterprise Edition Server
+            ===================================================
+
+Esper Enterprise Edition requires the Java 2 Standard Edition Runtime
+Environment (JRE) version 7.0 or later.
+
+Please open index.html for introduction and all documentation links.
+
+Review the LICENSE.txt file before running. By following below instructions 
+you agree to accept the provided license terms.
+
+=========================================================
+Running With JRE (Java Runtime Env.) version 7.0 Or Later
+=========================================================
+
+(1) Download and Install the J2SE Runtime Environment (JRE)
+
+(1.1) Download the Java 2 Standard Edition Runtime Environment (JRE),
+      release version 7.0 or later, from http://java.sun.com/j2se.
+
+(1.2) Install the JRE (or JDK) according to the instructions included with the
+      release.
+(1.3) Set an environment variable named JRE_HOME to the pathname of
+      the directory into which you installed the JRE, e.g. c:\jre7.0
+      or /usr/local/java/jre7.0.
+
+NOTE: You may also use the full JDK rather than just the JRE. In this
+      case set your JAVA_HOME environment variable to the pathname of
+      the directory into which you installed the JDK, e.g. c:\j2sdk7.0
+      or /usr/local/java/j2sdk7.0. Please ensure JAVA_HOME points to a JDK 
+      and not a JRE.
+
+(2) Download and Install the Esper Enterprise Edition
+
+(2.1) Download a binary distribution of EEE from:
+
+      http://www.espertech.com/community
+
+(2.2) Unpack the binary distribution into a convenient location so that the
+      distribution resides in its own directory (conventionally named
+      "esperee-[version]").  For the purposes of the remainder of this document,
+      the symbolic name "$ESPEREE_HOME" is used to refer to the full
+      pathname of the release directory.
+
+
+(3) Start Up Esper Enterprise Edition Server
+
+(3.1) Esper Enterprise Edition Server can be started by executing the following commands:
+
+      $ESPEREE_HOME\bin\startup.bat          (Windows)
+
+      $ESPEREE_HOME/bin/startup.sh           (Unix)	
+
+(3.2) After startup, the default web applications included with Esper Enterprise Edition will be
+      available by visiting:
+
+      http://localhost:8400/esperhqapp/index.html
+
+(3.3) Further information about configuring and running Esper Enterprise Edition can be found in
+      the documentation included here in the "docs" folder.
+      
+(4) Esper Enterprise Edition Server
+
+(4.1) Esper Enterprise Edition Server can be shut down by executing the following command:
+
+      $ESPEREE_HOME\bin\shutdown            (Windows)	
+
+      $ESPEREE_HOME/bin/shutdown.sh         (Unix)
+
+(4.2) Additional command line options can be printed:
+
+      $ESPEREE_HOME\bin\esperee 	    (Windows)	
+
+      $ESPEREE_HOME/bin/esperee.sh          (Unix)
+
+(4.3) Additional run-command options can be printed:
+
+      $ESPEREE_HOME\bin\esperee run -? 	    (Windows)	
+
+      $ESPEREE_HOME/bin/esperee.sh run -?   (Unix)
+
+================
+Troubleshooting
+================
+
+There are only really 2 things likely to go wrong during the stand-alone
+Esper Enterprise Edition install:
+
+(1) The most common hiccup is when another web server (or any process for that
+    matter) has laid claim to one of the ports that is used by Esper Enterprise Edition.  
+    
+    (A) Check the web server port: By default this port is 8400.
+        Esper Enterprise Edition attempts to bind to that port at startup.  To change this, open the file:
+
+           $ESPEREE_HOME/conf/esper-default.xml
+
+        and search for '8400'.  Change it to a port that isn't in use, and is
+        greater than 1024, as ports less than or equal to 1024 require superuser
+        access to bind under UNIX.
+
+    (B) Check the JMX port: By default this port is 1099.
+        Esper Enterprise Edition uses this port to allow remote shutdown. It attempts to bind to that port at startup.  
+        To change this, open the file:
+
+           $ESPEREE_HOME/conf/esper-default.xml
+
+    (C) Check the JMS provider port: By default this port is 61616.
+        Esper Enterprise Edition uses this port for messaging. It attempts to bind to that port at startup.  
+        To change this, open these three files:
+
+           $ESPEREE_HOME/conf/esper-default.xml (starts JMS provider, an Esper config file)
+           $ESPEREE_HOME/conf/ceppushsvc-default.xml (push services config file)
+           $ESPEREE_HOME/conf/esperhq-default.xml (web application config file)
+
+   Restart Esper Enterprise Edition.  Be sure that you replace the "8400"
+   in the URL you're using to access the Esper Enterprise Edition web client.
+
+(2) The 'localhost' machine isn't found.  This could happen if you're behind a
+    proxy.  If that's the case, make sure the proxy configuration for your
+    browser knows that you shouldn't be going through the proxy to access the
+    "localhost".
+
+================
+Browser Requirements
+================
+
+Your browser must support HTML 5 and CSS 3. 
+
+We recommend any of the following browsers and versions:
+- Chrome 28
+- Firefox 22 
+- Safari 6
+- Opera 12
+- Internet Explorer 10
+

@@ -1,0 +1,76 @@
+<div ng-controller="EventletWizardConfigGaugeController">
+    <form class="form-horizontal">
+        <fieldset>
+            <legend><small>Gauge Configuration</small></legend>
+            <div class="control-group" ng-repeat="ps in pointsources">
+                <label class="control-label" ng-show="$index == 0">Values From: <span class="label-required">*</span></label>
+                <div class="controls">
+                    Resource <select ng-model="ps.resourceItem" ng-options="r.resourceName for r in resourceItems" ng-click="doSelectedResource($index)"></select>
+                    &nbsp;&nbsp;Property <select ng-model="ps.property" ng-options="p.propertyName for p in ps.properties" ng-click="doSelectedProperty($index)"></select>
+                    or Name <input type="text" ng-model="ps.propertyName" ng-change="doChangedPropertyName($index)"/>
+                    <button type="submit" class="btn" ng-click="doAddPointsource()">Add</button>
+                    <button type="submit" class="btn" ng-show="pointsources.length > 1" ng-click="doRemovePointsource($index)">Remove</button>
+                </div>
+            </div>
+            <div class="control-group" ng-show="pointsourcesErrorMsg != null">
+                <div class="controls">
+                    <span class="span-invalid">{{pointsourcesErrorMsg}}</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">JavaScript Callback Function:</label>
+                <div class="controls">
+                    <input type="text" ng-model="cfg.clickCallback"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Caption:</label>
+                <div class="controls">
+                    <input type="text" ng-model="cfg.caption" class="input-medium"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Range:</label>
+                <div class="controls">
+                    <span>From</span>
+                    <input type="number" ng-model="cfg.minimum"/>
+                    <span>To</span>
+                    <input type="number" ng-model="cfg.maximum"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Range Yellow:</label>
+                <div class="controls">
+                    <span>From</span>
+                    <input type="number" ng-model="cfg.yellowFrom"/>
+                    <span>To</span>
+                    <input type="number" ng-model="cfg.yellowTo"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Range Red:</label>
+                <div class="controls">
+                    <span>From</span>
+                    <input type="number" ng-model="cfg.redFrom"/>
+                    <span>To</span>
+                    <input type="number" ng-model="cfg.redTo"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Display Size Pixels:</label>
+                <div class="controls">
+                    <input type="number" ng-model="cfg.size"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Ticks:</label>
+                <div class="controls">
+                    <span>Number of Major Ticks:</span>
+                    <input type="number" ng-model="cfg.majorTicks" class="input-small"/>
+                    <span>Number of Minor Tickets between Major Ticks:</span>
+                    <input type="number" ng-model="cfg.minorTicks" class="input-small"/>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

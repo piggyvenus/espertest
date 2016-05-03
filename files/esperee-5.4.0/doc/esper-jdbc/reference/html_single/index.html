@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Esper JDBC Driver</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><div class="book" lang="en-US"><div class="titlepage"><div><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><div><h1 class="title"><a id="d0e1"/>Esper JDBC Driver</h1></div><div><div xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="authorgroup"><div class="authors">by <span xmlns="http://www.w3.org/1999/xhtml" class="orgname"><a class="link" href="http://www.espertech.com" target="">EsperTech Inc.</a></span></div><div class="editors"/><div class="others"/></div></div><div><p class="releaseinfo">Version 5.4.0</p></div><div><p class="copyright">Copyright © 2016 EsperTech Inc.</p></div></div><hr/></div><div class="toc"><dl><dt><span class="preface"><a href="#d0e18">Preface</a></span></dt><dt><span class="chapter"><a href="#overview">1. Overview</a></span></dt><dt><span class="chapter"><a href="#concepts">2. Concepts</a></span></dt><dd><dl><dt><span class="sect1"><a href="#concepts-engineuritocatalog">2.1. Catalogs</a></span></dt><dt><span class="sect1"><a href="#concepts-storedproc">2.2. Stored Procedures</a></span></dt><dt><span class="sect1"><a href="#concepts-namedwindow">2.3. Tables</a></span></dt></dl></dd><dt><span class="chapter"><a href="#local">3. Local Driver</a></span></dt><dt><span class="chapter"><a href="#remote">4. Remote Server and Driver</a></span></dt><dd><dl><dt><span class="sect1"><a href="#overview-remote-server">4.1. Remote Network Server</a></span></dt><dd><dl><dt><span class="sect2"><a href="#overview-remote-server-configuration">4.1.1. Endpoint API</a></span></dt><dt><span class="sect2"><a href="#overview-remote-server-plugin">4.1.2. Plugin Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="#overview-remote-client">4.2. JDBC Remote Client</a></span></dt><dd><dl><dt><span class="sect2"><a href="#overview-remote-client-params">4.2.1. JDBC Remote Driver Parameters</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#parameters">5. Driver Parameters</a></span></dt><dt><span class="chapter"><a href="#examples">6. Examples</a></span></dt><dd><dl><dt><span class="sect1"><a href="#examples-slareport">6.1. SLA Reporting with the Eclipse BIRT Business Intelligence and Reporting Tools</a></span></dt><dd><dl><dt><span class="sect2"><a href="#examples-slareport-overview">6.1.1. Use Case Overview</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-simulator">6.1.2. Simulator and JDBC Remote Network Server</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-firstreport">6.1.3. Creating a Report with Eclipse BIRT</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-faf">6.1.4. Dynamic EPL Query Example</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-conclusion">6.1.5. Conclusion</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#compliance">7. Compliance, Features and Limitations</a></span></dt><dd><dl><dt><span class="sect1"><a href="#compliance-jdbc">7.1. Compliance</a></span></dt><dt><span class="sect1"><a href="#compliance-features">7.2. Features</a></span></dt><dt><span class="sect1"><a href="#compliance-limitations">7.3. Limitations</a></span></dt></dl></dd></dl></div><div class="preface" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e18"/>Preface</h2></div></div></div><p>
+			This document describes the Esper JDBC driver.  The document assumes that the reader has prior knowledge of Esper.
+        </p><p>
+			If you are new to Esper, please study some of the tutorials and case studies available on the public web site at <code class="literal">http://www.espertech.com/esper</code>, and skim over the reference documentation.
+		</p><p>
+			The <a class="xref" href="#overview" title="Chapter 1. Overview">Chapter 1, <i>Overview</i></a> chapter is the best place to start.
+		</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>Chapter 1. Overview</h2></div></div></div><p>
+		The Esper JDBC driver provides programmatic access to the information computed by Esper through the standardized JDBC API. 
+	</p><p>
+		One goal of the JDBC driver is to allow reporting and charting software to present information derived by EPL continues queries. A second goal is to provide a familiar API to programmers.
+	</p><p>
+		Via the JDBC driver your favorite JDBC-capable tool and your application can perform the following functions:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Query an existing Esper EPL statement to obtain the current results of the statement and metadata.
+			</p></li><li><p>
+				Dynamically execute non-continuous, fire-and-forget queries against named windows held by an Esper engine instance.
+			</p></li></ol></div><p>
+		In the next section, <a class="xref" href="#concepts" title="Chapter 2. Concepts">Chapter 2, <i>Concepts</i></a>, we explain Esper EPL statements in the terminology of JDBC, assuming the reader has prior knowledge of Esper.
+	</p><p>
+		The JDBC driver is a type IV driver that supports both <span class="emphasis"><em>local</em></span> (embedded) and <span class="emphasis"><em>remote</em></span> (network) operation.
+	</p><p>
+		In <span class="emphasis"><em>local</em></span> operation, your application, the JDBC driver and the Esper engine instance(s) reside in the same Java virtual machine on the same host. This mode is further described in <a class="xref" href="#local" title="Chapter 3. Local Driver">Chapter 3, <i>Local Driver</i></a>.		
+	</p><p>
+		Via <span class="emphasis"><em>remote</em></span> operation, your application and the JDBC driver can reside on a different Java VM and host then the Esper engine instance(s). Please consult <a class="xref" href="#remote" title="Chapter 4. Remote Server and Driver">Chapter 4, <i>Remote Server and Driver</i></a> for use of the remote network server and remote JDBC driver.	
+	</p><p>
+		The section <a class="xref" href="#parameters" title="Chapter 5. Driver Parameters">Chapter 5, <i>Driver Parameters</i></a> explains common driver parameters.
+	</p><p>
+		<a class="xref" href="#examples" title="Chapter 6. Examples">Chapter 6, <i>Examples</i></a> creates a report using Eclipse BIRT for reporting and charting, Esper for computing continuous query results, and both communicating via JDBC.
+	</p><p>
+		The last chapter is a reference of compliance to JDBC API standards; See <a class="xref" href="#compliance" title="Chapter 7. Compliance, Features and Limitations">Chapter 7, <i>Compliance, Features and Limitations</i></a>. The JDBC driver is compliant to the JDBC 3 API standard with exceptions. Please make sure to review driver limitations.
+	</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts"/>Chapter 2. Concepts</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#concepts-engineuritocatalog">2.1. Catalogs</a></span></dt><dt><span class="sect1"><a href="#concepts-storedproc">2.2. Stored Procedures</a></span></dt><dt><span class="sect1"><a href="#concepts-namedwindow">2.3. Tables</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-engineuritocatalog"/>2.1. Catalogs</h2></div></div></div><p>
+			As documented for Esper, multiple Esper engine instances can co-exist within the same JVM. A provider URI uniquely identifies each Esper provider (engine) instance. The JDBC driver represents each available
+			(initialized) Esper engine instance URI as a catalog name, and the Esper default provider instance (no provider URI) as the catalog name <code class="literal">"default"</code>.
+		</p><p>
+			At connection time, your application can specify a provider URI via a driver URL parameter or property on the data source. Setting the catalog at the time you obtain a connection is equivalent to setting the catalog name on an existing connection.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-storedproc"/>2.2. Stored Procedures</h2></div></div></div><p>
+			Your application creates EPL statements within an Esper engine instance typically via the Esper administrative API. Each started EPL statement is visible as a stored procedure through JDBC.
+		</p><p>
+			The query result of a stored procedure is the events returned by the <code class="literal">safeIterator</code> method on <code class="literal">EPStatement</code>. 
+		</p><p>
+			Any type of EPL statement can be invoked as a stored procedure via the JDBC driver. EPL statements that return query results include <code class="literal">select</code> and <code class="literal">insert into</code> clauses as well as <code class="literal">create variable</code> and <code class="literal">create window</code> clauses.
+		</p><p>
+			To retrieve results of started Esper EPL statements (stored procedures in JDBC terminology), your application may use either of the following syntax:
+		</p><div class="itemizedlist"><ul compact="compact"><li><p>
+					The shortcut notation: </p><pre class="synopsis">[<span class="emphasis"><em>provider_URI</em></span>.]&lt;esper_statement_name&gt;</pre><p>. 
+				</p></li><li><p>
+					The standard escape syntax : </p><pre class="synopsis">{call [provider_URI.]&lt;esper_statement_name&gt;}</pre><p>. 
+				</p></li></ul></div><p>
+			The <span class="emphasis"><em>provider_URI</em></span> is equivalent to the JDBC catalog name and may optionally prefix the statement name.
+		</p><p>
+			For example, suppose your application creates an EPL statement:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String epl = "select symbol, avg(price) as avp from Tick group by symbol";
+String name = "avgPriceBySymbol";
+epAdministrator.createEPL(epl, name);</pre><p>
+			The code for the JDBC call via <code class="literal">PreparedStatement</code> may look like this:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String eplStmtName = "avgPriceBySymbol";
+PreparedStatement stmt = connection.prepareStatement(eplStmtName);
+ResultSet = stmt.executeQuery();
+//... code to interrogate the result set
+//... rs.next(); rs.getDouble("avp");</pre><p>
+			The equivalent call using the JDBC escape syntax is show here, and this example specifies a provider URI:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String query = "{call default.avgPriceBySymbol}";
+PreparedStatement stmt = connection.prepareStatement(query);</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-namedwindow"/>2.3. Tables</h2></div></div></div><p>
+			Your application may create named windows via the <code class="literal">create window</code> clause. Such named windows are listed as tables in JDBC metadata. Your application can 
+			prepare and execute dynamic (non-continuous, fire-and-forget) EPL against named windows.
+		</p><p>
+			To demonstrate, assume your application creates a named window in an Esper engine instance:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String epl = "create window TickSummary.win:time(60 sec) as select symbol, price from Tick";
+epAdministrator.createEPL(epl);
+// ... more statements here to populate the named window from a stream</pre><p>
+			Via the JDBC driver the name window can be queried using a <code class="literal">java.sql.Statement</code> or <code class="literal">java.sql.PreparedStatement</code> as shown here:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String query = "select * from TickSummary";
+PreparedStatement stmt = connection.prepareStatement(query);
+ResultSet rs = stmt.executeQuery();
+//... code to interrogate the result set
+//... rs.next(); rs.getDouble("price");</pre><p>
+			The dynamic EPL query can contain all elements of the Esper EPL query language, including joins.
+		</p><p>
+			The following limitations apply to dynamic EPL queries:
+		</p><div class="itemizedlist"><ul compact="compact"><li><p>
+					There is no support for subqueries.
+				</p></li><li><p>
+					Views are not allowed within dynamic EPL queries.
+				</p></li><li><p>
+					The <code class="literal">prev</code> and <code class="literal">prior</code> operators are not allowed.
+				</p></li><li><p>
+					The output rate limiting clause and insert-into clause are not honored by dynamic queries.
+				</p></li></ul></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="local"/>Chapter 3. Local Driver</h2></div></div></div><p>
+		The local JDBC driver requires that your application JDBC code, Esper engine instances and the driver reside in the same Java VM.
+	</p><p>
+		The following table outlines the connection information for the local driver:
+	</p><div class="table"><a id="d0e216"/><p class="title"><b>Table 3.1. Local Driver</b></p><div class="table-contents"><table summary="Local Driver" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Item</th><th>Description</th></tr></thead><tbody><tr><td>Jar file</td><td>esper-jdbcserver-<span class="emphasis"><em>version</em></span>.jar</td></tr><tr><td>Jar dependencies</td><td>Same as Esper dependencies</td></tr><tr><td><code class="literal">java.sql.Driver</code> class</td><td>com.espertech.esper.jdbc.local.EPLLocalJdbcDriver</td></tr><tr><td>URL</td><td><pre class="synopsis">jdbc:esper:local[/<span class="emphasis"><em>Esper_provider_URI</em></span>][&amp;<span class="emphasis"><em>parameter</em></span>=<span class="emphasis"><em>value</em></span>[&amp;...]]</pre></td></tr><tr><td><code class="literal">javax.sql.DataSource</code> class</td><td>com.espertech.esper.jdbc.local.EPLLocalDataSource</td></tr></tbody></table></div></div><br class="table-break"/><p>
+		The driver connection URL may specify a provider URI as part of the connection URL. If your application does not specify a provider URI as part of the URL, the driver connects to the 
+		Esper default provider instance. The literal <code class="literal">default</code> can also be specified to connect to the default provider instance.			
+	</p><p>
+		Note that the JDBC driver does not allocate a new Esper engine instance, it only returns existing, already-allocated engine instances. Therefore, if the Esper engine instance by the name has not been initialized beforehand, the driver returns an error upon connecting.
+	</p><p>
+		The next code snippet connects to the default Esper engine instance using the <code class="literal">DriverManager</code> class:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPServiceProvider service = EPServiceProviderManager.getDefaultProvider();
+// ... create statements here ...
+Class.forName("com.espertech.esper.jdbc.local.EPLLocalJdbcDriver");
+String url = "jdbc:esper:local";
+Connection connection = DriverManager.getConnection(url);</pre><p>
+		This example specifies the Esper engine instance named "primary" in the URL:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPServiceProvider service = EPServiceProviderManager.getProvider("primary");
+// ... create statements here ...
+Class.forName("com.espertech.esper.jdbc.local.EPLLocalJdbcDriver");
+String url = "jdbc:esper:local/primary";
+Connection connection = DriverManager.getConnection(url);</pre><p>
+		An example that connects via <code class="literal">DataSource</code> to obtain a connection is:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPLLocalDataSource localDataSource = new EPLLocalDataSource();
+localDataSource.setProviderURI("primary");
+Connection connection = localDataSource.getConnection();</pre></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="remote"/>Chapter 4. Remote Server and Driver</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#overview-remote-server">4.1. Remote Network Server</a></span></dt><dd><dl><dt><span class="sect2"><a href="#overview-remote-server-configuration">4.1.1. Endpoint API</a></span></dt><dt><span class="sect2"><a href="#overview-remote-server-plugin">4.1.2. Plugin Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="#overview-remote-client">4.2. JDBC Remote Client</a></span></dt><dd><dl><dt><span class="sect2"><a href="#overview-remote-client-params">4.2.1. JDBC Remote Driver Parameters</a></span></dt></dl></dd></dl></div><p>
+		The JDBC remote network server and the JDBC remote driver allow your application JDBC code and driver to reside in a different Java VM and host as Esper engine instance(s). As part of the remote JDBC driver package, a remote server class acts as a socket server for incoming JDBC connections. Your application must first start a remote network server before connecting via the remote driver.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-remote-server"/>4.1. Remote Network Server</h2></div></div></div><p>
+			The remote network server requires the following dependent libraries in the classpath:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Apache MINA (mina-core-2.0.0-M1.jar) and its dependencies (slf4j-api-1.5.0.jar and slf4j-log4j12-1.5.0.jar).
+				</p></li><li><p>
+					The driver <code class="literal">esper-jdbc-driver-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> and server <code class="literal">esper-jdbc-server-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> jar files.
+				</p></li></ol></div><p>
+			There are two options to start the EsperJDBC network server endpoint:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					As a JDBC endpoint via the EsperJDBC endpoint API:
+				</p><p>
+					Allows JDBC to be added to an already running Esper engine instance and provides more options for JDBC connectivity.
+				</p></li><li><p>
+					As an Esper plug-in:
+				</p><p>
+					This requires your application to add EsperJDBC to the Esper configuration (XML or API). EsperJDBC is then started automatically as part of Esper engine initialization.
+				</p></li></ol></div><p>
+			The above options are mutually exclusive.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="overview-remote-server-configuration"/>4.1.1. Endpoint API</h3></div></div></div><p>
+				The class that provides an endpoint for JDBC connections thus acting as a remote network server for JDBC, is <code class="literal">com.espertech.esper.jdbc.server.remote.JDBCEndpoint</code>.
+			</p><p>
+				Your application can start a JDBC endpoint to listen on a given port, without any additional configuration, as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JDBCEndpoint endpoint = new JDBCEndpoint(8450); // using port 8450
+endpoint.start();	// this is a non-blocking call
+... 
+endpoint.destroy();  // stop accepting connections</pre><p>
+				The endpoint can be configured further using the <code class="literal">JDBCEndpointConfiguration</code> class. 
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JDBCEndpointConfiguration config = new JDBCEndpointConfiguration();
+config.setListenPort(8450);
+config.setSessionIdleTimeout(600); // 10-miinute idle timeout
+
+JDBCEndpoint endpoint = new JDBCEndpoint(config);
+endpoint.start();</pre><p>
+				The next section outlines each remote network server configuration option:
+			</p><div class="table"><a id="d0e363"/><p class="title"><b>Table 4.1. JDBC Endpoint Configuration</b></p><div class="table-contents"><table summary="JDBC Endpoint Configuration" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Listen port</td><td>8450</td><td>The port the remote network server listens to for client connections.</td></tr><tr><td>Processor Count</td><td>1</td><td>The number of threads dedicated to handling client connections and query processing.</td></tr><tr><td>Session Idle Timeout</td><td>600 seconds (10 minutes)</td><td>The number of seconds that a client connection can be idle before the remote network server closes the connection and flushes the cache for the connection.</td></tr><tr><td>Filters</td><td>none</td><td>Filters can be registered with the remote network server to implement custom logic pertaining to client connections, such as authentication.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				As part of the JDBC endpoint configuration, a filter implementation may be registered that is applied to new connections by the endpoint connection handler. The filter interface is <code class="literal">JDBCEndpointConnectionFilter</code>. By returning a value of <code class="literal">true</code> an incoming connection is accepted:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JDBCEndpointConfiguration config = new JDBCEndpointConfiguration();
+config.setNewConnectionFilter(new JDBCEndpointConnectionFilter() {
+  public boolean filter(ConnectionInformation connectionInformation) {
+      String user = connectionInformation.getUser();
+      String pwd = connectionInformation.getPassword();
+      if (user.equals("myuser")) &amp;&amp; (pwd.equals("mypassword"))) {
+        return true;
+      }
+      return false;
+  }
+}</pre><p>
+				Additional filters that implement the Apache MINA interface <code class="literal">org.apache.mina.common.IOFilter</code> can be registered through the endpoint configuration, please check the Apache MINA documentation for available filters.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="overview-remote-server-plugin"/>4.1.2. Plugin Configuration</h3></div></div></div><p>
+				In alternative to the endpoint API as described above, you may use EsperJDBC as a plug-in adapter to an Esper configuration. The Esper engine initialization then also initializes and starts the EsperJDBC endpoint.
+			</p><p>
+				Under this option EsperJDBC is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				EsperJDBC is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><p>
+				This option configures the JDBC endpoint via properties passed in XML or <code class="literal">Properties</code> object.
+			</p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="configuration-plugin-api"/>4.1.2.1. Via Esper Configuration API</h4></div></div></div><p>
+					This section shows how to register EsperJDBC as part of Esper configuration using the Esper configuration API.
+				</p><p>
+					Your application must populate a <code class="literal">Properties</code> object to set EsperJDBC configuration options.
+				</p><p>
+					The sample code here sets the properties to use an JDBC server port 8450:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration configuration = new Configuration();     // Esper Configuration class
+		
+// Properties are used to pass EsperJMX configuration 
+Properties properties = new Properties();
+properties.put("port", "8450");
+properties.put("processorCount", "1");
+properties.put("sessionIdleTimeout", "600");
+
+configuration.addPluginLoader(
+		"EsperJDBC",
+		"com.espertech.esper.jdbc.server.remote.JDBCServerPlugin",
+		properties);</pre><p>
+						Note that is is not possible to add filters via the properties object configuration as above.
+					</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="configuration-plugin-xml"/>4.1.2.2. Via Esper Configuration XML</h4></div></div></div><p>
+						The XML as below configures an engine instance with EsperJDBC. It specifies the same configuration options as outlined above.
+					</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;
+  &lt;plugin-loader name="EsperJDBC" 
+		class-name="com.espertech.esper.jdbc.server.remote.JDBCServerPlugin"&gt;
+	 &lt;init-arg name="port" value="8450" /&gt;
+	 &lt;init-arg name="processorCount" value="1" /&gt;
+	 &lt;init-arg name="sessionIdleTimeout" value="600" /&gt;
+   &lt;/plugin-loader&gt;		
+&lt;/esper-configuration&gt;</pre></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-remote-client"/>4.2. JDBC Remote Client</h2></div></div></div><p>
+			The following table outlines the connection information for the remote network driver:
+		</p><div class="table"><a id="d0e483"/><p class="title"><b>Table 4.2. Remote Driver</b></p><div class="table-contents"><table summary="Remote Driver" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Item</th><th>Description</th></tr></thead><tbody><tr><td>Jar file</td><td>esper-jdbcdriver-<span class="emphasis"><em>version</em></span>.jar</td></tr><tr><td>Jar dependencies</td><td>none</td></tr><tr><td><code class="literal">java.sql.Driver</code> class</td><td>com.espertech.esper.jdbc.remote.EPLRemoteJdbcDriver</td></tr><tr><td>URL</td><td><pre class="synopsis">jdbc:esper:remote:<span class="emphasis"><em>host</em></span>:<span class="emphasis"><em>port</em></span>[/<span class="emphasis"><em>Esper_provider_URI</em></span>]
+[&amp;<span class="emphasis"><em>parameter</em></span>=<span class="emphasis"><em>value</em></span>[&amp;...]]</pre></td></tr><tr><td><code class="literal">javax.sql.DataSource</code> class</td><td>com.espertech.esper.jdbc.remote.EPLRemoteDataSource</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			Similar to the local driver, the remote driver connection URL may specify a provider URI as part of the URL.
+		</p><p>
+			The next code snippet connects using the <code class="literal">DriverManager</code> class:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Class.forName("com.espertech.esper.jdbc.remote.EPLRemoteJdbcDriver");
+// Using localhost (127.0.0.1) as hostname and default port
+String url = "jdbc:esper:remote:127.0.01:8450";  
+Connection connection = DriverManager.getConnection(url);</pre><p>
+			An example that connects via <code class="literal">DataSource</code> to obtain a connection is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPLRemoteDataSource remoteDataSource = new EPLRemoteDataSource();
+remoteDataSource.setServer("myhostname");
+remoteDataSource.setPortNumber(8450);
+Connection connection = remoteDataSource.getConnection();</pre><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="overview-remote-client-params"/>4.2.1. JDBC Remote Driver Parameters</h3></div></div></div><p>
+				This section outlines optional parameters specific to the remote JDBC driver only. Common JDBC driver parameters applicable to both remote and local JDBC drivers are 
+				listed in <a class="xref" href="#parameters" title="Chapter 5. Driver Parameters">Chapter 5, <i>Driver Parameters</i></a>.
+			</p><div class="table"><a id="d0e567"/><p class="title"><b>Table 4.3. Remote Driver Parameters</b></p><div class="table-contents"><table summary="Remote Driver Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>socketTimeout</td><td>
+								<p>An integer-type parameter to define the socket timeout, default is 0 (zero).</p>
+								<p>The amount of time to wait (in seconds) for network activity before timing out.</p>
+								<p>Use with care! A zero value is an infinite timeout. If a non-zero value is supplied this must be greater than the maximum time that the server will take to answer any query. 
+								Once the timeout value is exceeded the network connection will be closed. This parameter may be useful for detecting dead network connections in a pooled environment.</p>
+							</td></tr><tr><td>user</td><td>
+								<p>An string-type parameter to specify a user name for the connection.</p>
+								<p>For use with the <code class="literal">JDBCEndpointConnectionFilter</code> that may perform authentication and accept or reject incoming connections.</p>
+							</td></tr><tr><td>password</td><td>
+								<p>An string-type parameter to specify a password for the connection.</p>
+								<p>For use with the <code class="literal">JDBCEndpointConnectionFilter</code>.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				This sample code connects via <code class="literal">DriverManager</code> and specifies a new socket timeout of 60 seconds:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String url = "jdbc:esper:remote:myhostname:8450&amp;socketTimeout=60";  
+Connection connection = DriverManager.getConnection(url);</pre><p>
+				The next code snippet connects via <code class="literal">DataSource</code> and also specifies a new socket timeout:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPLRemoteDataSource remoteDataSource = new EPLRemoteDataSource();
+remoteDataSource.setServer("myhostname");
+remoteDataSource.setPortNumber(8450);
+remoteDataSource.setSocketTimeout(60);
+Connection connection = remoteDataSource.getConnection();</pre></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="parameters"/>Chapter 5. Driver Parameters</h2></div></div></div><p>
+		This section documents driver parameters that are common to both the local and the remote JDBC drivers.
+	</p><div class="table"><a id="d0e641"/><p class="title"><b>Table 5.1. Driver Parameters</b></p><div class="table-contents"><table summary="Driver Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>log.debug</td><td>
+						<p>By default this setting is <code class="literal">false</code>. Set to <code class="literal">true</code> to enable driver debug-level logging, and set the <code class="literal">log.file</code> setting to a writable URL or file name.</p>
+					</td></tr><tr><td>log.file</td><td>
+						<p>If <code class="literal">log.debug</code> is set to <code class="literal">true</code>, this setting is the URL of the log file, or the log file name, to use for logging messages (remote driver only). For example, set <code class="literal">"&amp;log.debug=true&amp;log.file=/tmp/logs/epljdbc.log"</code> or <code class="literal">"&amp;log.debug=true&amp;log.file=c://tmp//logs/epljdbc.log"</code>. The log directory must exist for logging to take place, the driver appends log entries to given file.</p>
+						<p>For the local driver, the logging destination is supplied by the Log4J configuration file instead.</p>
+					</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples"/>Chapter 6. Examples</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#examples-slareport">6.1. SLA Reporting with the Eclipse BIRT Business Intelligence and Reporting Tools</a></span></dt><dd><dl><dt><span class="sect2"><a href="#examples-slareport-overview">6.1.1. Use Case Overview</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-simulator">6.1.2. Simulator and JDBC Remote Network Server</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-firstreport">6.1.3. Creating a Report with Eclipse BIRT</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-faf">6.1.4. Dynamic EPL Query Example</a></span></dt><dt><span class="sect2"><a href="#examples-slareport-conclusion">6.1.5. Conclusion</a></span></dt></dl></dd></dl></div><p>
+		In order to compile and run the samples please follow the below instructions:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Make sure Java 1.5 or greater is installed and the JAVA_HOME environment variable is set.
+			</p></li><li><p>
+				Copy the Esper distribution jar file and its runtime dependencies to <code class="literal">jdbcserver/lib</code>.
+			</p></li><li><p>
+				Open a console window and change directory to examples/etc.
+			</p></li><li><p>
+				Run "setenv.bat" (Windows) or "setenv.sh" (Unix) to verify your environment settings.
+			</p></li><li><p>
+				Run "compile.bat" (Windows) or "compile.sh" (Unix) to compile the examples.
+			</p></li><li><p>
+				Now you are ready to run the examples. Further information to running
+				each example can be found in the "examples/etc" folder in file "readme.txt".
+			</p></li><li><p>
+				Modify the logger logging level in the "log4j.xml" configuration file 
+				changing DEBUG to INFO on a class or package level to reduce the volume of text output. 
+			</p></li></ol></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-slareport"/>6.1. SLA Reporting with the Eclipse BIRT Business Intelligence and Reporting Tools</h2></div></div></div><p>
+			This example generates reports and charts illustrating real-time information computed by Esper for monitoring a database search service.
+		</p><p>
+			The reporting framework used in this example is Eclipse BIRT, the Business Intelligence and Reporting Tool of the Eclipse project. The Esper JDBC remote driver allows BIRT to query Esper EPL metadata and statement results. 
+		</p><p>
+			The example requires prior knowledge of Esper and EPL. Please consult the introductory examples on the website and within the Esper distribution and documentation.
+		</p><p>
+			To run the complete example, a separate download of the Eclipse BIRT reporting software is required, available from <code class="literal">http://www.eclipse.org/birt</code>. The BIRT Report Designer <span class="emphasis"><em>RCP Designer</em></span> suffices.
+			The example has been tested with BIRT RCP Report Designer version 2.2.2.
+		</p><p>
+			The example first introduces the use case requirements, and then outlines how to run the simulator that also starts a JDBC remote server. After the simulator is running on your system, you are ready to follow the instructions to create a report using the BIRT Report Designer. 
+		</p><p>
+			The example previews reports in the BIRT designer studio. It does not include a BIRT runtime, server or deployment environment for continuous reporting.
+		</p><p>
+			In general, for scheduling reports to run at given intervals, consider defining an Esper EPL pattern that uses the <code class="literal">timer:at</code> or <code class="literal">timer:interval</code> observers. Please consult the documentation for more information on patterns.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-overview"/>6.1.1. Use Case Overview</h3></div></div></div><p>
+				The example is taken out of the domain of service level monitoring. The system under monitoring processes incoming client requests that are searches for documents in a large document database. 
+			</p><p>
+				Each search request is placed into a logical queue for processing by one of the search services. Each search service may have multiple service instances performing searches. A service instance takes a search request from the service's logical input queue and processes the search. When done, the service instance takes the next search request from the queue or waits if there are no further requests.
+			</p><p>
+				For monitoring, the system has been instrumented to send events to Esper as follows:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Every search request submitted by a user results in one event representing the request, by name <code class="literal">SubmittedWorkEvent</code>.
+					</p></li><li><p>
+						At the time a service instance takes a search request from its queue and starts to process the search request, the service instance generates a <code class="literal">StartWorkEvent</code> event.
+					</p></li><li><p>
+						When a service instance completes processing a search request then the service instance generates a <code class="literal">CompletionEvent</code> event.
+					</p></li><li><p>
+						Every 1 second interval we generate of event for each logical queue, with the queue name and the current queue depth of the queue. This event is termed <code class="literal">QueueReportEvent</code>.
+					</p></li></ol></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-simulator"/>6.1.2. Simulator and JDBC Remote Network Server</h3></div></div></div><p>
+				The example includes a simulator for search request generation, logical service queues and service instances.
+			</p><p>
+				Run "run_slareportserver.bat" (Windows) or "run_slareportserver.sh" (Unix) in the <code class="literal">examples/etc</code> folder 
+				to start the SLA traffic simulator. The classes for this example live in package <code class="literal">com.espertech.esper.jdbc.examples.slareport</code>. 
+			</p><p>
+				Upon startup, the simulator performs the following steps:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Acquires an Esper engine instance and creates EPL statements to analyze the event stream that the search service simulator produces.
+					</p></li><li><p>
+						Starts the search service simulator.
+					</p></li><li><p>
+						Starts the JDBC remote network server endpoint on the port configured in the property file <code class="literal">slareportserver_config.properties</code>, by default port 8450.
+					</p></li></ol></div><p>
+				The search service simulator creates 3 service queues (<code class="literal">java.util.concurrent.BlockingQueue</code>). For each of the 3 service queues the simulator starts 2 service instances (<code class="literal">java.lang.Thread</code>). A request generator thread starts producing requests at the speed of 10 search requests per second and places each search request into one of the queues (random selection).
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-firstreport"/>6.1.3. Creating a Report with Eclipse BIRT</h3></div></div></div><p>
+				This section is a step-by-step walkthrough to generating a simple report of real-time, search service monitoring data.
+			</p><p>
+				Prerequisite to completing the steps is that a Eclipse BIRT designer environment is installed and started. The steps outline how to create a simple listing of average processing time by service and service instance.
+			</p><div class="table"><a id="d0e830"/><p class="title"><b>Table 6.1. Steps </b></p><div class="table-contents"><table summary="Steps " border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Step</th><th>Description</th></tr></thead><tbody><tr><td>1. Create a New Report</td><td>In BIRT, create a new report and choose the Simple Listing report template.</td></tr><tr><td>2. Create a Data Source</td><td>			
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												In the Data Explorer view, right-click on Data Sources and create a new Data Source.
+											</p></li><li><p>
+												Select JDBC Data Source and enter the name <code class="literal">EsperEPLDataSource</code> in the field Data Source Name, click Next.
+											</p></li><li><p>
+												Click on Manage Drivers, and Add to add the Esper JDBC remote driver jar file from the distribution, by name <code class="literal">esper-jdbcdriver-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>. Click on ok.
+											</p></li><li><p>
+												As the Driver Class, enter <code class="literal">com.espertech.esper.jdbc.remote.EPLRemoteJdbcDriver</code>
+											</p></li><li><p>
+												As the Database URL, enter <code class="literal">jdbc:esper:remote:127.0.0.1:8450</code>, replacing within the URL the host (e.g. 127.0.0.1) and port (e.g. 8450 by default) as necessary.
+											</p></li><li><p>
+												Click on Test Connection. You should get a confirmation that the connection was successful.
+											</p></li><li><p>
+												Click on Finish to complete adding the Data Source.
+											</p></li></ol></div>
+							</td></tr><tr><td>3. Create a Data Set from an existing Esper EPL Statement</td><td>			
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												In the Data Explorer view, right-click on Data Sets and create a new Data Set.
+											</p></li><li><p>
+												Enter the Data Set Name as <code class="literal">EsperEPLDataSet</code> and make sure the Data Source <code class="literal">EsperEPLDataSource</code> is selected. Change the Data Set Type to SQL Stored Procedure Query and click on Next. 
+											</p></li><li><p>
+												BIRT now presents in the Available Items section of the dialog all stored procedures (EPL statements) and tables (named windows).
+											</p></li><li><p>
+												In the right hand text editor, clear the text and enter <code class="literal">default.CompletedPerInstance</code>, or double-click the stored procedure by name <code class="literal">CompletedPerInstance</code>. Click on Finish to add the Data Set.
+											</p></li><li><p>
+												The BIRT designer now presents the Edit Data Set dialog. Click on Preview Results on the left-hand side menu to view current query results. 
+											</p></li><li><p>
+												Click on OK to complete adding a Data Set.
+											</p></li></ol></div>
+							</td></tr><tr><td>4. Bind Data Set columns to columns in the Report</td><td>			
+								<p>
+									BIRT presents the report layout in the Layout tab of the main workbench editor view. Columns of a Data Set can be dragged and dropped onto the report layout.
+								</p>												
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												In the Data Explorer view, expand the <code class="literal">EsperEPLDataSet</code> Data Set. BIRT presents a list of columns of the EPL statement.
+											</p></li><li><p>
+												Click on the <code class="literal">serviceName</code> column of the <code class="literal">EsperEPLDataSet</code> Data Set and drag the column onto the report layout in the Layout tab of the main workbench window, into the first column of the row marked as Detail Row in the Layout.
+											</p></li><li><p>
+												Perform the step above for the <code class="literal">count(*)</code> column, dragging the column into the Layout tab to the same row and the next column to the right.
+											</p></li><li><p>
+												Click on the Preview tab of the main workbench editor view. BIRT fetches the current data from the continuously computing Esper engine via the JDBC remote driver, and generates the report.
+											</p></li></ol></div>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				The steps as outlined above walked through the design of a basic report. BIRT allows the new report design to be saved to disk as an XML document, for execution in the BIRT runtime environment (not included in example).
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-faf"/>6.1.4. Dynamic EPL Query Example</h3></div></div></div><p>
+				While the previous section obtained statement results of an existing EPL statement that the simulator had created upon startup, this sections creates a dynamic (non-continuous, fire-and-forget) EPL query that is not stored within the Esper engine, and that contains filter and grouping criteria that are provided through BIRT.
+			</p><p>
+				The next walkthrough creates a further Data Set in BIRT that performs a dynamic query against a named window which holds the last 1 minute of search criteria objects. The section does not create a further report or bind the new Data Set columns to report table columns. It simply creates the Data Set and previews the Data Set query results.
+			</p><div class="table"><a id="d0e972"/><p class="title"><b>Table 6.2. Steps </b></p><div class="table-contents"><table summary="Steps " border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Step</th><th>Description</th></tr></thead><tbody><tr><td>Create a Data Set specifying a dynamic EPL Query</td><td>			
+								<div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+												Make sure the Layout tab is selected in the workbench editor.
+											</p></li><li><p>
+												In the Data Explorer view, right-click on Data Sets and create a new Data Set.
+											</p></li><li><p>
+												Enter the Data Set Name as <code class="literal">EsperEPLDataSetDyn</code> and make sure the Data Source <code class="literal">EsperEPLDataSource</code> is selected. Change the Data Set Type to SQL Select Query and click on Next.
+											</p></li><li><p>
+												On the right-hand side of the Query dialog for the Data Set, enter a query such as:
+													</p><pre xmlns="" class="">select * from SearchRequests 
+where searchCriteria like '%science%'</pre><p> and click on Finish to finish adding the Data Set. This sample query selects search criteria that contain the text "science" submitted in the last 60 seconds.
+											</p></li><li><p>
+												The BIRT designer now presents the Edit Data Set dialog. Click on Preview Results on the left-hand side menu to view current query results.
+											</p></li><li><p>
+												Click on OK to complete adding the Data Set.
+											</p></li></ol></div>
+							</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-slareport-conclusion"/>6.1.5. Conclusion</h3></div></div></div><p>
+				The Eclipse BIRT report and chart designer and also the BIRT runtime interact via the JDBC API with one or more Esper engine instances. 
+			</p><p>
+				Existing Esper EPL statements show in BIRT as stored procedures. Dynamic EPL statements can query named windows. 
+			</p><p>
+				Metadata provided by the JDBC driver and Esper is used by the designer to allow interactive design of queries as well as reports, while the BIRT preview capability fetches current computation results from Esper.
+			</p></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance"/>Chapter 7. Compliance, Features and Limitations</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#compliance-jdbc">7.1. Compliance</a></span></dt><dt><span class="sect1"><a href="#compliance-features">7.2. Features</a></span></dt><dt><span class="sect1"><a href="#compliance-limitations">7.3. Limitations</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance-jdbc"/>7.1. Compliance</h2></div></div></div><p>
+			The local and remote JDBC drivers are JDBC 3.0 API compliant by providing all the required interface implementations.
+		</p><p>
+			The following exceptions apply to full JDBC compliance:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The driver does not support SQL92 commands for data definition, including <code class="literal">create table</code>, <code class="literal">drop table</code>, <code class="literal">create index</code> and <code class="literal">drop index</code>
+				</p></li><li><p>
+					The driver supports only a subset of SQL92 commands for data manipulation; It does not support the SQL <code class="literal">UPDATE</code> statement and the SQL <code class="literal">DELETE</code> statement. The driver does also not support <code class="literal">executeUpdate</code>.
+				</p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance-features"/>7.2. Features</h2></div></div></div><p>
+			Other notable features supported by the driver are:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The driver supports SQL <code class="literal">SELECT</code> and <code class="literal">INSERT INTO</code> statements, and all aspects of Esper EPL with limitations for dynamic EPL queries as listed in <a class="xref" href="#concepts-namedwindow" title="2.3. Tables">Section 2.3, “Tables�?</a>.
+				</p></li><li><p>
+					The driver supports escape syntax for stored procedures to retrieve results of Esper EPL statements. 
+				</p></li><li><p>
+					<code class="literal">ResultSet</code> returned by the driver are always scrollable and positionable.
+				</p></li><li><p>
+					Query execution is multithread-safe, i.e. an Esper engine instance can process events while queries are being executed.
+				</p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance-limitations"/>7.3. Limitations</h2></div></div></div><p>
+			Features not supported by the driver or other known limitations are noted below:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					All transactions are read-only; Methods to affect transaction boundaries such as <code class="literal">commit</code> and <code class="literal">rollback</code> do not take effect. Distributed transactions are not supported.
+				</p></li><li><p>
+					Stored procedure calls and prepated statement EPL queries do not allow parameterization via IN, OUT and INOUT parameters.
+				</p></li><li><p>
+					Result sets cannot be updated via any of the <code class="literal">update</code> methods.
+				</p></li><li><p>
+					There is no support for batching via <code class="literal">addBatch</code> and <code class="literal">executeBatch</code>.
+				</p></li><li><p>
+					There is no support for authentication or authorization by the JDBC driver and endpoint.
+				</p></li><li><p>
+					The driver package does not provide implementations for <code class="literal">ConnectionPoolDataSource</code> and <code class="literal">XADataSource</code>.
+				</p></li><li><p>
+					The drivers do not support escape syntax other then for stored procedure calls.
+				</p></li><li><p>
+					The drivers do not support the rowset API, namely not support packages <code class="literal">javax.sql.rowset</code>, <code class="literal">javax.sql.rowset.serial</code> and <code class="literal">javax.sql.rowset.spi</code>.
+				</p></li><li><p>
+					The drivers do not support advanced data types.
+				</p></li></ol></div></div></div></div></body></html>

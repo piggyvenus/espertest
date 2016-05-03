@@ -1,0 +1,205 @@
+<div id="browse_weblayer" ng-controller="WebLayerBrowseController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <div id="weblayer_monitoring_tabs">
+        <ul>
+            <li><a href="#tabs-1">Clients</a></li>
+            <li><a href="#tabs-2">Clients History</a></li>
+            <li><a href="#tabs-3">Client Activations (CA)</a></li>
+            <li><a href="#tabs-4">CA History</a></li>
+            <li><a href="#tabs-5">Client Resources</a></li>
+            <li><a href="#tabs-6">Server Resources (SR)</a></li>
+            <li><a href="#tabs-7">SR History</a></li>
+            <li><a href="#tabs-8">Audit</a></li>
+            <li><a href="#tabs-9">Log Messages</a></li>
+            <li><a href="#tabs-10">Stats Total</a></li>
+            <li><a href="#tabs-11">Stats Per Client</a></li>
+        </ul>
+        <div id="tabs-1">
+            <div id="currclients_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Client Id</th>
+                        <th>Created</th>
+                        <th>Opened</th>
+                        <th>Closed</th>
+                        <th>Deleted</th>
+                        <th>Browser</th>
+                        <th>IP Address</th>
+                        <th>Secure</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-2">
+            <div id="histclients_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Client Id</th>
+                        <th>Created</th>
+                        <th>Opened</th>
+                        <th>Closed</th>
+                        <th>Deleted</th>
+                        <th>Browser</th>
+                        <th>IP Address</th>
+                        <th>Secure</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-3">
+            <div id="curractivations_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Client Id</th>
+                        <th>Activation Id</th>
+                        <th>Activated Date</th>
+                        <th>Activation Name</th>
+                        <th>Activation XML</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-4">
+            <div id="histactivations_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Client Id</th>
+                        <th>Activation Id</th>
+                        <th>Activated Date</th>
+                        <th>Activation Name</th>
+                        <th>Activation XML</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-5">
+            <div id="clientresources_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Client Id</th>
+                        <th>Activation Id</th>
+                        <th>Activated Date</th>
+                        <th>Endpoint</th>
+                        <th>Resource Id</th>
+                        <th>Resource</th>
+                        <th>Subscription Id</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-6">
+            <div id="currserverresources_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Endpoint Name</th>
+                        <th>Subscription Id</th>
+                        <th>Resource Id</th>
+                        <th>Resource</th>
+                        <th>Subscribed Date</th>
+                        <th>Unsubscribed Date</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-7">
+            <div id="histserverresources_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Endpoint Name</th>
+                        <th>Subscription Id</th>
+                        <th>Resource Id</th>
+                        <th>Resource</th>
+                        <th>Subscribed Date</th>
+                        <th>Unsubscribed Date</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-8">
+            <div id="audit_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Audited</th>
+                        <th>Action</th>
+                        <th>Id</th>
+                        <th>Audit Detail</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-9">
+            <div id="logmsg_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Log Level</th>
+                        <th>Log Message</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-10">
+            <div id="stattotal_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Last Update</th>
+                        <th>Messages</th>
+                        <th>Logical Messages</th>
+                        <th>Event Messages</th>
+                        <th>Events</th>
+                        <th>Manifests</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id="tabs-11">
+            <div id="stats_table_div" class="margin-bottom">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Client Id</th>
+                        <th>Last Update</th>
+                        <th>Messages</th>
+                        <th>Logical Messages</th>
+                        <th>Event Messages</th>
+                        <th>Events</th>
+                        <th>Manifests</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

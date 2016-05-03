@@ -1,0 +1,86 @@
+Esper Enterprise Edition Software License Agreement
+
+To complete the download process, please read the following Software License Agreement. Once you have read it, please either accept or decline it.
+
+END USER LICENSE AGREEMENT
+
+USE OF SOFTWARE ORDERED FROM ESPERTECH, INC. ("EsperTech") IS PROVIDED ONLY UNDER LICENSE FROM ESPERTECH. PLEASE READ THE FOLLOWING TERMS AND CONDITIONS CAREFULLY BEFORE DOWNLOADING, INSTALLING OR USING THE SOFTWARE. YOU INDICATE YOUR ACCEPTANCE BY CLICKING THE ACCEPTANCE BOX.
+
+THE TERMS AND CONDITIONS OF THIS END USER LICENSE AGREEMENT ("AGREEMENT") GOVERN YOUR USE OF THE SOFTWARE UNLESS YOU AND ESPERTECH HAVE EXECUTED A SEPARATE WRITTEN LICENSE AGREEMENT GOVERNING YOUR USE OF THE SOFTWARE.
+
+EsperTech, Inc., a New Jersey corporation ("EsperTech"), is willing to license the Software to you only upon the condition that you accept all the terms contained in this Agreement. By clicking on the "I accept" button below or by downloading, installing or using the Software, you have indicated that you understand this Agreement and accept all of its terms. If you do not accept all the terms of this Agreement, then EsperTech is unwilling to license the Software to you, and you may not download, install or use the Software.
+
+Definitions for capitalized terms not otherwise defined herein appear at the end of this Agreement.
+
+1. GRANT OF LICENSE(S)
+a. No-Fee Evaluation Use and Development Use License. Subject to your compliance with the terms and conditions of this Agreement, EsperTech grants to you a personal, non-exclusive, non-transferable license, without the right to sublicense, for the term of this Agreement, for a single user (you) to internally use the Software solely for Evaluation Use and Development Use to create applications for your non-commercial purposes ("Developer Application"). Third party software products or modules supplied by EsperTech, if any, may be used solely with the Software, and may be subject to your acceptance of terms and conditions provided by such third parties. When the license terminates you must stop using the Software. All rights not specifically granted to you herein are retained by EsperTech. Developer shall make no commercial use of the Software, Developer Application, or any derivative work thereof (including for Developer's own internal business purposes). Copying and redistributing, in any form, the Software or Developer Application to your direct or indirect customers is prohibited. In the event that you commence your use of the Software under the license set forth under this Section 1(a) and subsequently pay a license fee for a commercial license, the license set forth under Section 1(b) below shall thereafter apply to your use automatically without the need to enter into a separate end user license agreement.
+
+For further information regarding commercial licensing of the Software Product, please contact:
+EsperTech Inc.
+PO Box 3129
+Wayne, NJ 07470
+USA
+
+(phone) (877) 994 7368
+(email) info@espertech.com
+
+b. Fee-Based Commercial License. Subject to your compliance with the terms and conditions of this Agreement including the payment of the applicable license fee, EsperTech grants to you a non-exclusive and non-transferable license, without the right to sublicense, for the term of this Agreement, to: (a) embed the Software into Commercial Applications; (b) use and reproduce the Software as part of such Commercial Applications solely for your own internal business purposes ("Production Use"); and (c) make a reasonable number of copies of the Software solely for back-up purposes. Such license is limited to the specific computer(s) and number of CPUs (if licensed by CPU) or instances of Java Virtual Machines (if licenses by virtual machine) for which you have paid a license fee. Use of the Software on a greater number of CPUs or instances of Java Virtual Machines will require the payment of an additional license fee, unless EsperTech has provided you with the Software for beta, evaluation, testing or demonstration purposes. Third party software products or modules supplied by EsperTech, if any, may be used solely with the Software. For information regarding license fees for commercial licenses, please email info@espertech.com.
+
+c. No Other Rights. Your rights in, and to make use of, the Software are limited to those expressly granted in this Section 1. You will make no other use of the Software. Except as expressly licensed in this Section, EsperTech grants you no other rights or licenses, by implication, estoppel or otherwise. ALL RIGHTS NOT EXPRESSLY GRANTED HEREIN ARE RESERVED BY ESPERTECH OR ITS SUPPLIERS.
+
+2. RESTRICTIONS. Except as expressly provided in Section 1, you will not: (a) modify, translate, reverse engineer, decompile, disassemble, create derivative works of the Software or copy the Software; (b) rent, lend, transfer, distribute or grant any rights in the Software in any form to any person; (c) provide, disclose, divulge or make available to, or permit use of the Software, by any third party; (d) perform or publish any benchmark or performance tests run on the Software or any portion thereof; or (e) remove any proprietary notices, labels or markings on the Software. For clarity and not by way of limitation, you will not distribute the Software to any person on a standalone basis or on an original equipment manufacturer (OEM) basis. Derivative works include but are not limited to translations. Additional restrictions, if any, with respect to third party software will be delivered to you along with your license key. You are forbidden from using Evaluation Software or Development Software for Production Use.
+
+3. OWNERSHIP. As between the parties, the Software is and will remain the sole and exclusive property of EsperTech, including all intellectual property rights therein, even when integrated with a Developer Application, a Commercial Application or any other product.
+
+4. TERM. In the event you use the Software under the license set forth under Section 1(a), this Agreement will remain in effect for a term of one year after the date that you install the Software. In the event you use the Software under the license set forth under Section 1(b), this Agreement will remain in effect either (a) for a term of one year after the date that you install the Software or (b) perpetually, depending on the license fee paid by you. You may terminate this Agreement any time by ceasing to use the Software and destroying all copies of the Software in your possession or control, including as embedded in a Developer Application or in a Commercial Application. This Agreement will automatically terminate without notice if you breach any term of this Agreement. Upon termination, you must promptly destroy all copies of the Software in your possession or control.
+
+5. SUPPORT. EsperTech shall not be responsible for providing any maintenance and support for the Software except to the extent you have paid applicable support fees. For information regarding support fees, please email info@espertech.com.
+
+6. WARRANTY
+a. Warranty for Developer License. If the Software is licensed to you pursuant to Section 1(a) above, the Software is provided to you "AS IS" without warranty of any kind.
+
+b. Warranty for Commercial License. If the Software is licensed to you pursuant to Section 1(b) above, EsperTech warrants that the Software will be capable of performing in all material respects in accordance with the functional specifications set forth in the applicable documentation for a period of 90 days after the date that you install the Software. In the event of a breach of such warranty, EsperTech shall, at its option, correct the Software or replace such Software free of charge. In addition, if the Software is distributed to you on physical media, EsperTech warrants that the media on which the Software is distributed will be free from defects in materials and workmanship under normal use for a period of 90 days after the date that you install the Software. In the event of a breach of such warranty, EsperTech shall replace any defective media returned to EsperTech within such 90-day period. The foregoing are your sole and exclusive remedies and EsperTech 's sole liability for breach of these warranties. The warranties set forth above are made to and for the benefit of you only. The warranties will apply only if (a) the Software has been properly installed and used at all times and in accordance with the instructions for use; and (b) no modification, alteration or addition has been made to the Software by persons other than EsperTech or EsperTech's authorized representative.
+
+7. DISCLAIMER. EXCEPT AS MAY BE PROVIDED UNDER SECTION 5(b), ESPERTECH EXPRESSLY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT, AND ANY WARRANTIES ARISING OUT OF COURSE OF DEALING OR USAGE OF TRADE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED FROM ESPERTECH OR ELSEWHERE WILL CREATE ANY WARRANTY NOT EXPRESSLY STATED IN THIS AGREEMENT. All warranties implied by statute are limited ten (10) days.
+
+EsperTech makes no warranty that the Software Product will meet your requirements or operate under your specific conditions of use. EsperTech makes no warranty that operation of the Software Product will be secure, error free, or free from interruption.
+
+YOU MUST DETERMINE WHETHER THE SOFTWARE PRODUCT SUFFICIENTLY MEETS YOUR REQUIREMENTS FOR SECURITY AND UNINTERRUPTABILITY. YOU BEAR SOLE RESPONSIBILITY AND ALL LIABILITY FOR ANY LOSS INCURRED DUE TO FAILURE OF THE SOFTWARE PRODUCT TO MEET YOUR REQUIREMENTS. ESPERTECH WILL NOT, UNDER ANY CIRCUMSTANCES, BE RESPONSIBLE OR LIABLE FOR THE LOSS OF DATA ON ANY COMPUTER OR INFORMATION STORAGE DEVICE.
+
+8. LIMITATION OF LIABILITY. ESPERTECH'S TOTAL LIABILITY TO YOU FROM ALL CAUSES OF ACTION AND UNDER ALL THEORIES OF LIABILITY WILL BE LIMITED TO AND WILL NOT EXCEED $100 (IN THE CASE OF A DEVELOPER LICENSE) OR THE LICENSE FEE PAID BY YOU TO ESPERTECH FOR THE SOFTWARE (IN THE CASE OF A COMMERCIAL LICENSE). IN NO EVENT WILL ESPERTECH BE LIABLE TO YOU FOR ANY SPECIAL, INCIDENTAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL DAMAGES (INCLUDING LOSS OF USE, DATA, BUSINESS OR PROFITS) OR FOR THE COST OF PROCURING SUBSTITUTE PRODUCTS ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT OR THE USE OR PERFORMANCE OF THE SOFTWARE, WHETHER SUCH LIABILITY ARISES FROM ANY CLAIM BASED UPON CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, AND WHETHER OR NOT ESPERTECH HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LOSS OR DAMAGE. THE FOREGOING LIMITATIONS WILL SURVIVE AND APPLY EVEN IF ANY LIMITED REMEDY SPECIFIED IN THIS AGREEMENT IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE. TO THE EXTENT THAT THE APPLICABLE JURISDICTION LIMITS ESPERTECH'S ABILITY TO DISCLAIM ANY IMPLIED WARRANTIES, THIS DISCLAIMER SHALL BE EFFECTIVE TO THE MAXIMUM EXTENT PERMITTED.
+
+9. COMPLIANCE WITH LAW
+U.S. Government Restricted Rights. The Software is provided with RESTRICTED RIGHTS. Use, duplication or disclosure of the Software by the Government is subject to restrictions as set forth in subparagraph (c)(1)(ii) of the Rights clause in Technical Data and Computer Software clause at DFARS 252.227-7013 or in subparagraphs (c)(1) and (2) of the Commercial Computer Software -- Restricted Rights at 48 CFR 52.227-19, as applicable. Contractor/Manufacturer is EsperTech, Inc. at PO Box 3129, Wayne, NJ 07470, USA or at (877) 994 7368.
+
+Export Control. You agree that you do not intend to, and will not, directly or indirectly, export or re-export: (a) any Software; or (b) any product (or any part thereof), process or service that is the direct product of any Software, to any country, person, entity or end user without the appropriate United States and foreign government export licenses. Restricted countries currently include, but are not necessarily limited to, Cuba, Iran, Iraq, Libya, North Korea, Sudan and Syria. You warrant and represent that neither the U.S.A. Bureau of Export Administration nor any other federal agency has suspended, revoked or denied your export privileges.
+
+Dangerous Activity. The Software is not developed or licensed for use in the planning, construction, maintenance, operation or other use of any nuclear facility, or for the flight, navigation or communication of aircraft or ground support equipment, or for military or national security use, medical use or in any other inherently dangerous activity.
+
+10. GENERAL. This Agreement will be governed by and construed in accordance with the laws of the State of New Jersey without regard to its conflict of laws rules. The United Nations Convention on Contracts for the International Sale of Goods will not apply. The parties agree that the Uniform Computer Transaction Information Act ("UCITA"), or any version of UCITA enacted by any state, will not govern or be used to interpret this Agreement. Any action arising out of any dispute between any of the parties to this Agreement shall be brought in Superior Court of New Jersey, Passaic County vicinage, or the United States District Court for the District of New Jersey, Newark vicinage, and each of the parties hereto hereby submits itself to the jurisdiction of such courts for purposes of any such action. You may not assign or transfer this Agreement or any rights granted hereunder, by operation of law or otherwise, without EsperTech's prior written consent, and any attempt by you to do so, without such consent, will be void and of no effect.
+
+If any provision of this Agreement shall be held to be invalid or unenforceable, the remainder of this Agreement shall remain in full force and effect. To the extent any express or implied restrictions are not permitted by applicable laws, these express or implied restrictions shall remain in force and effect to the maximum extent permitted by such applicable laws.
+
+This Agreement is the complete and exclusive agreement between the parties with respect to the subject matter hereof, superseding and replacing any and all prior agreements, communications and understandings (both written and oral) regarding such subject matter hereof. The parties to this Agreement are independent contractors, and neither has to power to bind the other or to incur obligations on the other's behalf. No failure of either party to exercise or enforce any of its rights under this Agreement will act as a waiver of such rights. Any terms or conditions contained in any purchase order or other ordering document that are inconsistent with or in addition to the terms and conditions of this Agreement are hereby rejected by EsperTech and will be deemed null and of no effect.
+
+11. CONTACT. If you have any questions regarding this Agreement, please contact:
+EsperTech Inc.
+PO Box 3129
+Wayne, NJ 07470
+USA
+
+(phone) (877) 994 7368
+(email) info@espertech.com
+
+12. DEFINITIONS.
+
+"Evaluation Use" means use of the Software solely for evaluation and trial for new applications intended for your Production Use.
+
+"Commercial Application" means your commercial software application, as modified by your use of the Software as permitted by this Agreement.
+
+"Development Use" means use of the Software to design, develop and/or test new applications for Production Use.
+
+"Developer Application" means your non-commercial software application, as modified by your use of the Software as permitted by this Agreement.
+
+"Production Use" means using the Software in your application for internal business purposes only which may include third party customers' access to or use of such applications. Production Use does not include the right to reproduce the Software for sublicensing, resale, or distribution, including without limitation, operation on a time sharing or service bureau basis or distributing the Software as part of an ASP, VAR, OEM, distributor or reseller arrangement.
+
+"Software" means the EsperTech software and all its components, documentation and examples included by EsperTech and downloaded by you, in object code only.

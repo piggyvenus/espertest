@@ -1,0 +1,71 @@
+<div ng-controller="EventTypeDetailController">
+    <div class="pull-right">
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Event Type Name:</label>
+            <div class="controls">
+                <input type="text" ng-model="eventtype.eventTypeName" class="predefined-50wide" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Use:</label>
+            <div class="controls">
+                <input type="text" ng-model="eventtype.typeClass" class="predefined-50wide" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Underlying Class:</label>
+            <div class="controls">
+                <input type="text" ng-model="eventtype.underlyingClassName" class="predefined-50wide" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Super-Types:</label>
+            <div class="controls">
+                <input type="text" ng-model="typeSupertypes" class="predefined-50wide" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Referred To By Statements:</label>
+            <div class="controls">
+                <div id="eventtypebrowse_statementdiv">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Statement Name</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Properties:</label>
+            <div class="controls">
+                <div id="eventtypebrowse_properties">
+                    <div id="eventtypebrowse_propsdiv">
+                        <table width="100%">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Indexed/Mapped</th>
+                                <th>Fragment Type</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

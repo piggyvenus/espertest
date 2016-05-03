@@ -1,0 +1,32 @@
+<div id="statementiterate" ng-controller="StatementIterateController">
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Max Rows:</label>
+            <div class="controls">
+                <input ng-model="maxRows"/>
+                <button ng-click="doPerformQuery()" class="btn btn-primary button-bar-margin">Submit</button>
+                <div class="pull-right">
+                    <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="maxRowsInvalid">
+                <div class="controls">
+                    <span class="span-invalid">Max rows requires an integer number, when provided</span>
+                </div>
+            </div>
+        </div>
+
+        <fieldset>
+            <legend><small>Query Results</small></legend>
+            <div id="statementiterate_table">
+                <table width="100%" id="">
+                    <thead>
+                    <tr>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>

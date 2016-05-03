@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. Introduction</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="prev" href="pr01.html" title="Preface"/><link rel="next" href="gettingstarted.html" title="Chapter 2. Getting Started"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="gettingstarted.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="introduction"/>Chapter 1. Introduction</h2></div></div></div><p>
+		This document is an introduction to the concepts and terminology behind the Esper Enterprise server. Throughout the docs, references to files and folders are relative to the installation directory.
+    </p><p>
+		Esper Enterprise Edition contains the following important files in the installation directory:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+			<code class="literal">index.html</code> - Overview, documentation portal and quick start page.
+			</p></li><li><p>
+			<code class="literal">LICENSE.txt</code> - License.
+			</p></li><li><p>
+			<code class="literal">RUNNING.txt</code> - Instructions to run.
+			</p></li><li><p>
+			<code class="literal">license_3rdparties.txt</code> - License information pertaining to 3rd-party software packaged with Esper Enterprise Edition.
+			</p></li><li><p>
+			<code class="literal">changelog.txt</code> - Release notes with version change description and known issues.
+			</p></li></ol></div><p>
+		The Esper Enterprise Edition folders in the installation directory are as follows:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+			<code class="literal">bin</code> - Startup, shutdown, classpath and other scripts. The *.sh files (for Unix systems) are functional duplicates of the *.bat files (for Windows systems).
+			</p></li><li><p>
+			<code class="literal">conf</code> - Configuration files and related XSDs. The most important file in here is <code class="literal">esper-default.xml</code>. It is the main configuration file for the server.
+			</p></li><li><p>
+			<code class="literal">data</code> - Files describing example continuous displays are in the <code class="literal">hqsvc</code> subfolder, and default JMS broker binary files in the <code class="literal">jmsbroker-endpoint-default</code> subfolder.
+			</p></li><li><p>
+			<code class="literal">doc</code> - Documentation folder.
+			</p></li><li><p>
+			<code class="literal">examples-*</code> - Examples folders.
+			</p></li><li><p>
+			<code class="literal">lib-*</code> - Lib folder for distribution jar files, war files and their dependencies. The <code class="literal">lib-security</code> folder
+			can be used if securing EsperHQ using LDAP, Spring framework and/or Spring security (see EsperHQ documentation for security).
+			</p></li><li><p>
+			<code class="literal">logs</code> - By default logging is to the terminal. You may change the logging configuration file <code class="literal">conf/log4j.xml</code> to place log files in the folder.
+			</p></li><li><p>
+			<code class="literal">webapps</code> - Contains client application web application.
+			</p></li><li><p>
+			<code class="literal">hotdeploy</code> - For hot-deploying and un-deploying CEP applications with EPL modules.
+			</p></li><li><p>
+			<code class="literal">temp</code> - Folder for temporary files that may be created during deployment.
+			</p></li></ol></div><p>
+		The information in the configuration files is read at startup, meaning that any change to the files necessitates a restart of the server.
+	</p></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="gettingstarted.html"><strong>Next</strong>Chapter 2. Getting Started</a></li></ul></body></html>

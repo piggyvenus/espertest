@@ -1,0 +1,14 @@
+.cell {
+    height: 200px;
+    border: 1px solid #F2F2F2;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+}
+
+.title {
+    font-size: 1.5em;
+}
+
+.spacer {
+    height: 10px;
+}

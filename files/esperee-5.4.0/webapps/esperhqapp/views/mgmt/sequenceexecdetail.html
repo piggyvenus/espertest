@@ -1,0 +1,68 @@
+<div id="sequenceexec_detail_div" ng-controller="SequenceExecDetailController">
+    <div class="pull-right">
+        <button ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+        <button ng-click="doUpdateState('STOPPED')" ng-disabled="sequence.state != 'STARTED'" class="btn button-bar-margin">Stop</button>
+        <button ng-click="doUpdateState('STARTED')" ng-disabled="sequence.state != 'STOPPED'" class="btn button-bar-margin">Start</button>
+        <button ng-click="doRemove(true)" class="btn button-bar-margin">Edit And Remove</button>
+        <button ng-click="doRemove(false)" class="btn button-bar-margin">Remove</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Sequence Name:</label>
+            <div class="controls">
+                <input type="text" ng-model="sequence.sequenceExecutionName" class="predefined-60wide" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Description:</label>
+            <div class="controls">
+                <input type="text" ng-model="sequence.description" class="predefined-60wide" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="checkbox" readonly ng-model="sequence.loop" disabled/>
+                <span class="margin-left">Loop</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">State:</label>
+            <div class="controls">
+                <input type="text" ng-model="sequence.state" class="predefined-15wide" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Sequence:</label>
+            <div class="controls">
+                <div id="sequenceexec_editor_div">
+                    <textarea class="predefined-60wide"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Past Activity:</label>
+            <div class="controls">
+                <div id="sequencelogentry_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Entry</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

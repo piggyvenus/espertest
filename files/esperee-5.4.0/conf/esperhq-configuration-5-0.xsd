@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.espertech.com/schema/esperhq" elementFormDefault="qualified" xmlns:esperhq="http://www.espertech.com/schema/esperhq" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="esperhq-configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:client" minOccurs="0"/>
+				<xs:element ref="esperhq:endpoints"/>
+				<xs:element ref="esperhq:store"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="client">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:authentication" minOccurs="0"/>
+				<xs:element ref="esperhq:filters" minOccurs="0"/>
+				<xs:element ref="esperhq:languages" minOccurs="0"/>
+				<xs:element ref="esperhq:session" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="captive" type="xs:boolean" use="optional"/>
+			<xs:attribute name="websocketurl" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="session">
+		<xs:complexType>
+			<xs:attribute name="secRenewal" type="xs:long" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="authentication">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:password-encoder" minOccurs="0"/>
+				<xs:element ref="esperhq:users" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="provider-type" type="esperhq:authProviderEnum" use="required"/>
+			<xs:attribute name="remember-me" type="xs:boolean" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="authProviderEnum">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="none"/>
+			<xs:enumeration value="local"/>
+			<xs:enumeration value="spring"/>
+			<!-- No authentication and authorization required or performed. -->
+			<!-- Authentication and authorization by lookup in user list as defined herein. -->
+			<!-- Authentication and authorization by Spring web application context and spring security. -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="users">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:user" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="user">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="password" type="xs:string" use="required"/>
+			<xs:attribute name="authorities" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="filters">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:filter" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="filter">
+		<xs:complexType>
+			<xs:attribute name="class-name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="languages">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:language" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="language">
+		<xs:complexType>
+			<xs:attribute name="code" type="xs:string" use="required"/>
+			<xs:attribute name="url" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="password-encoder">
+		<xs:complexType>
+			<xs:attribute name="hash" type="esperhq:hashTypeEnum" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="hashTypeEnum">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="md5"/>
+			<xs:enumeration value="none"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="endpoints">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:endpoint" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="endpoint">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:context" minOccurs="0"/>
+				<xs:element ref="esperhq:controlbus" minOccurs="0"/>
+				<xs:element ref="esperhq:restservice" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="default" type="xs:boolean" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="restservice">
+		<xs:complexType>
+			<xs:attribute name="hosts" type="xs:string" use="required"/>
+			<xs:attribute name="cepmgmtsvc-token" type="xs:string" use="optional"/>
+			<xs:attribute name="ceppushsvc-token" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="context">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:env" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="object-name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="controlbus">
+		<xs:complexType>
+			<xs:attribute name="destination" type="xs:string" use="required"/>
+			<xs:attribute name="msecTimeout" type="xs:long" use="optional"/>
+			<xs:attribute name="request-response-style" type="esperhq:requestResponseStyleEnum" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="env">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="store">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperhq:directory"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="directory">
+		<xs:complexType>
+			<xs:attribute name="path" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="requestResponseStyleEnum">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="correlid"/>
+			<xs:enumeration value="tempqueue"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

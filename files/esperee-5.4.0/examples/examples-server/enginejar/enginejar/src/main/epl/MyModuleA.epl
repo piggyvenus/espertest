@@ -1,0 +1,4 @@
+module com.espertech.example.enginejar.ModuleA;
+
+@Name("Example - Schemas - PersonEvent")
+create schema PersonEvent (name string, sex string, codes string[]);

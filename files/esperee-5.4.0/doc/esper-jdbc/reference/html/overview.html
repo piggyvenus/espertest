@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. Overview</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper JDBC Driver"/><link rel="up" href="index.html" title="Esper JDBC Driver"/><link rel="prev" href="pr01.html" title="Preface"/><link rel="next" href="concepts.html" title="Chapter 2. Concepts"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="concepts.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>Chapter 1. Overview</h2></div></div></div><p>
+		The Esper JDBC driver provides programmatic access to the information computed by Esper through the standardized JDBC API. 
+	</p><p>
+		One goal of the JDBC driver is to allow reporting and charting software to present information derived by EPL continues queries. A second goal is to provide a familiar API to programmers.
+	</p><p>
+		Via the JDBC driver your favorite JDBC-capable tool and your application can perform the following functions:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Query an existing Esper EPL statement to obtain the current results of the statement and metadata.
+			</p></li><li><p>
+				Dynamically execute non-continuous, fire-and-forget queries against named windows held by an Esper engine instance.
+			</p></li></ol></div><p>
+		In the next section, <a class="xref" href="concepts.html" title="Chapter 2. Concepts">Chapter 2, <i>Concepts</i></a>, we explain Esper EPL statements in the terminology of JDBC, assuming the reader has prior knowledge of Esper.
+	</p><p>
+		The JDBC driver is a type IV driver that supports both <span class="emphasis"><em>local</em></span> (embedded) and <span class="emphasis"><em>remote</em></span> (network) operation.
+	</p><p>
+		In <span class="emphasis"><em>local</em></span> operation, your application, the JDBC driver and the Esper engine instance(s) reside in the same Java virtual machine on the same host. This mode is further described in <a class="xref" href="local.html" title="Chapter 3. Local Driver">Chapter 3, <i>Local Driver</i></a>.		
+	</p><p>
+		Via <span class="emphasis"><em>remote</em></span> operation, your application and the JDBC driver can reside on a different Java VM and host then the Esper engine instance(s). Please consult <a class="xref" href="remote.html" title="Chapter 4. Remote Server and Driver">Chapter 4, <i>Remote Server and Driver</i></a> for use of the remote network server and remote JDBC driver.	
+	</p><p>
+		The section <a class="xref" href="parameters.html" title="Chapter 5. Driver Parameters">Chapter 5, <i>Driver Parameters</i></a> explains common driver parameters.
+	</p><p>
+		<a class="xref" href="examples.html" title="Chapter 6. Examples">Chapter 6, <i>Examples</i></a> creates a report using Eclipse BIRT for reporting and charting, Esper for computing continuous query results, and both communicating via JDBC.
+	</p><p>
+		The last chapter is a reference of compliance to JDBC API standards; See <a class="xref" href="compliance.html" title="Chapter 7. Compliance, Features and Limitations">Chapter 7, <i>Compliance, Features and Limitations</i></a>. The JDBC driver is compliant to the JDBC 3 API standard with exceptions. Please make sure to review driver limitations.
+	</p></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="concepts.html"><strong>Next</strong>Chapter 2. Concepts</a></li></ul></body></html>

@@ -1,0 +1,38 @@
+<div id="statementcreate" ng-controller="StatementCreateController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doValidate()" class="btn button-bar-margin">Validate</button>
+        <button type="submit" ng-click="doCreate()" ng-disabled="form.$invalid" class="btn btn-primary button-bar-margin">Create</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Statement Name:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="statement.statementName"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Description:</label>
+            <div class="controls">
+                <textarea class="predefined-60wide" rows="2" ng-model="statement.description"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Expression:<span class="label-required">*</span></label>
+            <div class="controls">
+                <div id="statementcreate_editor_div">
+                    <textarea></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="control-group" ng-show="eplErrorMsg != null">
+            <div class="controls">
+                <span class="span-invalid">Failed validation: {{eplErrorMsg}}</span>
+            </div>
+        </div>
+    </form>
+</div>

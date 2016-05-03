@@ -1,0 +1,762 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>pushInfoDetail</title>
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS: implied media="all" -->
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/prettify.css">
+
+  <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+  <script src="js/libs/modernizr-1.7.min.js"></script>
+
+</head>
+
+<body class="home">
+
+  <div class="container">
+    <header>
+      <div id="header" class="column first last span-20">
+        <div id="site-name" class="column span-18 append-1 prepend-1 first last"><a href="index.html">pushInfoDetail</a></div>
+        <div id="primary" class="column span-18 append-1 prepend-1 first last">
+          <ul class="navigation">
+            <li id="nav-rest"><a href="rest.html">REST</a></li>
+            <li id="nav-data"><a href="model.html">Data Model</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="xbreadcrumbs" id="breadcrumbs">
+            <li>
+              <a href="index.html" class="home">Home</a> &gt;
+            </li>
+            <li>
+              <a href="model.html">Data Model</a> &gt;
+              <ul>
+                <li><a href="model.html">Data Model</a></li>
+                <li><a href="rest.html">REST</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="hqapi.html">hqapi</a> &gt;
+              <ul>
+                <li><a href="ns0.html">ns0</a></li>
+                <li><a href="cepmgmtapi.html">cepmgmtapi</a></li>
+                <li><a href="cepcommonapi.html">cepcommonapi</a></li>
+                <li><a href="ceppushapi.html">ceppushapi</a></li>
+                <li><a href="hqapi.html">hqapi</a></li>
+              </ul>
+            </li>
+            <li class="current">
+              <a href="el_hqapi_pushInfoDetail.html">pushInfoDetail element</a>
+              <ul>
+                <li><a href="el_hqapi_authenticationRequest.html">authenticationRequest element</a></li>
+                <li><a href="el_hqapi_clientDetail.html">clientDetail element</a></li>
+                <li><a href="el_hqapi_eventletDetail.html">eventletDetail element</a></li>
+                <li><a href="el_hqapi_fileAbstract.html">fileAbstract element</a></li>
+                <li><a href="el_hqapi_fileDetail.html">fileDetail element</a></li>
+                <li><a href="el_hqapi_fileDetailList.html">fileDetailList element</a></li>
+                <li><a href="el_hqapi_HQConfiguration.html">HQConfiguration element</a></li>
+                <li><a href="el_hqapi_moduleTemplateList.html">moduleTemplateList element</a></li>
+                <li><a href="el_hqapi_pushInfoDetail.html">pushInfoDetail element</a></li>
+                <li><a href="el_hqapi_userDetail.html">userDetail element</a></li>
+                <li><a href="el_hqapi_xmlDocument.html">xmlDocument element</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div id="main" class="column first last span-20">
+      <h1>pushInfoDetail element</h1>
+      <table>
+        <tr>
+          <td align="right">Type:</td>
+          <td><a href="hqapi_pushInfoDetail.html">pushInfoDetail</a></td>
+        </tr>
+        <tr>
+          <td align="right">Namespace:</td>
+          <td>http://www.espertech.com/hqapi</td>
+        </tr>
+      </table>
+      <p>
+            Web layer push detailed information about clients, activations, subscriptions and statistics.
+          </p>
+      <h2>Example JSON</h2>
+      <code class="prettyprint lang-js">{
+  &quot;clients&quot; : [ {
+    &quot;clientId&quot; : &quot;...&quot;,
+    &quot;browser&quot; : &quot;...&quot;,
+    &quot;createdDate&quot; : &quot;...&quot;,
+    &quot;remoteAddress&quot; : &quot;...&quot;,
+    &quot;secure&quot; : false,
+    &quot;state&quot; : &quot;...&quot;,
+    &quot;closedDate&quot; : &quot;...&quot;,
+    &quot;openedDate&quot; : &quot;...&quot;,
+    &quot;deletedDate&quot; : &quot;...&quot;,
+    &quot;websocketURL&quot; : &quot;...&quot;
+  }, ... ],
+  &quot;clientActivations&quot; : [ {
+    &quot;activationId&quot; : &quot;...&quot;,
+    &quot;clientId&quot; : &quot;...&quot;,
+    &quot;activationName&quot; : &quot;...&quot;,
+    &quot;activationXML&quot; : &quot;...&quot;,
+    &quot;subtopic&quot; : &quot;...&quot;,
+    &quot;state&quot; : &quot;...&quot;,
+    &quot;activationSources&quot; : [ {
+      &quot;sourceId&quot; : &quot;...&quot;,
+      &quot;resourceId&quot; : ...,
+      &quot;manifest&quot; : {
+        &quot;typeId&quot; : ...,
+        &quot;formatType&quot; : &quot;ETFBAS&quot;,
+        &quot;definition&quot; : {
+          &quot;properties&quot; : [ {
+            &quot;propertyName&quot; : &quot;...&quot;,
+            &quot;propertyType&quot; : &quot;...&quot;,
+            &quot;componentType&quot; : &quot;...&quot;,
+            &quot;writable&quot; : false,
+            &quot;requiresIndex&quot; : false,
+            &quot;requiresMapkey&quot; : false,
+            &quot;indexed&quot; : false,
+            &quot;mapped&quot; : false,
+            &quot;fragmentTypeName&quot; : &quot;...&quot;,
+            &quot;fragmentIsIndexed&quot; : false,
+            &quot;fragmentIsNative&quot; : false,
+            &quot;fragmentProperties&quot; : [ {
+              &quot;...&quot; : ...
+            }, ... ],
+            &quot;serializerClass&quot; : &quot;...&quot;,
+            &quot;fragmentTypeUnd&quot; : &quot;...&quot;
+          }, ... ]
+        },
+        &quot;target&quot; : {
+          &quot;variable&quot; : {
+            &quot;engineURI&quot; : &quot;...&quot;,
+            &quot;variableName&quot; : &quot;...&quot;
+          },
+          &quot;statement&quot; : {
+            &quot;statement&quot; : {
+              &quot;engineURI&quot; : &quot;...&quot;,
+              &quot;statementName&quot; : &quot;...&quot;,
+              &quot;epl&quot; : &quot;...&quot;,
+              &quot;state&quot; : &quot;...&quot;,
+              &quot;lastStateChange&quot; : &quot;...&quot;,
+              &quot;pattern&quot; : false,
+              &quot;description&quot; : &quot;...&quot;,
+              &quot;type&quot; : &quot;...&quot;,
+              &quot;properties&quot; : [ {
+                &quot;propertyName&quot; : &quot;...&quot;,
+                &quot;propertyType&quot; : &quot;...&quot;,
+                &quot;componentType&quot; : &quot;...&quot;,
+                &quot;writable&quot; : false,
+                &quot;requiresIndex&quot; : false,
+                &quot;requiresMapkey&quot; : false,
+                &quot;indexed&quot; : false,
+                &quot;mapped&quot; : false,
+                &quot;fragmentTypeName&quot; : &quot;...&quot;,
+                &quot;fragmentIsIndexed&quot; : false,
+                &quot;fragmentIsNative&quot; : false,
+                &quot;fragmentProperties&quot; : [ {
+                  &quot;...&quot; : ...
+                }, ... ],
+                &quot;serializerClass&quot; : &quot;...&quot;,
+                &quot;fragmentTypeUnd&quot; : &quot;...&quot;
+              }, ... ],
+              &quot;eplNoAnnotation&quot; : &quot;...&quot;,
+              &quot;annotations&quot; : &quot;...&quot;
+            }
+          },
+          &quot;engine&quot; : {
+            &quot;engineURI&quot; : &quot;...&quot;,
+            &quot;type&quot; : &quot;ENGINEMETRICS&quot;
+          },
+          &quot;onDemandQuery&quot; : {
+            &quot;engineURI&quot; : &quot;...&quot;,
+            &quot;maxRows&quot; : ...,
+            &quot;query&quot; : &quot;...&quot;
+          }
+        }
+      },
+      &quot;transformations&quot; : [ {
+        &quot;unmap&quot; : {
+          &quot;property&quot; : &quot;...&quot;,
+          &quot;key&quot; : &quot;...&quot;,
+          &quot;keyType&quot; : &quot;...&quot;,
+          &quot;value&quot; : &quot;...&quot;,
+          &quot;valueType&quot; : &quot;...&quot;
+        }
+      }, ... ]
+    }, ... ],
+    &quot;composition&quot; : {
+      &quot;compositegrid&quot; : {
+        &quot;atomicType&quot; : &quot;...&quot;,
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;ckeys&quot; : [ {
+          &quot;nestingType&quot; : &quot;...&quot;,
+          &quot;pointsources&quot; : [ {
+            &quot;sourceId&quot; : &quot;...&quot;,
+            &quot;x&quot; : &quot;...&quot;,
+            &quot;y&quot; : &quot;...&quot;,
+            &quot;label&quot; : &quot;...&quot;,
+            &quot;incremental&quot; : false
+          }, ... ]
+        }, ... ],
+        &quot;displayTime&quot; : false,
+        &quot;displayRowNum&quot; : false,
+        &quot;displayEventNum&quot; : false,
+        &quot;displayUpdNum&quot; : false,
+        &quot;displaySource&quot; : false
+      },
+      &quot;chart&quot; : {
+        &quot;type&quot; : &quot;...&quot;,
+        &quot;xaxis&quot; : {
+          &quot;type&quot; : &quot;...&quot;,
+          &quot;maximum&quot; : &quot;...&quot;,
+          &quot;minimum&quot; : &quot;...&quot;,
+          &quot;label&quot; : &quot;...&quot;,
+          &quot;placement&quot; : &quot;...&quot;
+        },
+        &quot;yaxis&quot; : {
+          &quot;type&quot; : &quot;...&quot;,
+          &quot;maximum&quot; : &quot;...&quot;,
+          &quot;minimum&quot; : &quot;...&quot;,
+          &quot;label&quot; : &quot;...&quot;,
+          &quot;placement&quot; : &quot;...&quot;
+        },
+        &quot;data&quot; : {
+          &quot;series&quot; : [ {
+            &quot;type&quot; : &quot;...&quot;,
+            &quot;label&quot; : &quot;...&quot;,
+            &quot;pointsources&quot; : [ {
+              &quot;sourceId&quot; : &quot;...&quot;,
+              &quot;x&quot; : &quot;...&quot;,
+              &quot;y&quot; : &quot;...&quot;,
+              &quot;label&quot; : &quot;...&quot;,
+              &quot;incremental&quot; : false
+            }, ... ],
+            &quot;markerType&quot; : &quot;...&quot;,
+            &quot;strokeWeight&quot; : ...,
+            &quot;strokeColor&quot; : &quot;...&quot;,
+            &quot;fillColor&quot; : &quot;...&quot;,
+            &quot;opacity&quot; : ...
+          }, ... ]
+        },
+        &quot;legendPlacement&quot; : &quot;...&quot;,
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;stack&quot; : false,
+        &quot;opacity&quot; : ...
+      },
+      &quot;appendgrid&quot; : {
+        &quot;dummy&quot; : false,
+        &quot;clickCallback&quot; : &quot;...&quot;
+      },
+      &quot;inplacegrid&quot; : {
+        &quot;keys&quot; : [ &quot;...&quot;, ... ],
+        &quot;clickCallback&quot; : &quot;...&quot;
+      },
+      &quot;timeline&quot; : {
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;detail&quot; : &quot;...&quot;,
+        &quot;timelineSeries&quot; : {
+          &quot;pointsources&quot; : [ {
+            &quot;sourceId&quot; : &quot;...&quot;,
+            &quot;x&quot; : &quot;...&quot;,
+            &quot;y&quot; : &quot;...&quot;,
+            &quot;label&quot; : &quot;...&quot;,
+            &quot;incremental&quot; : false
+          }, ... ]
+        }
+      },
+      &quot;gauge&quot; : {
+        &quot;caption&quot; : &quot;...&quot;,
+        &quot;minimum&quot; : ...,
+        &quot;maximum&quot; : ...,
+        &quot;size&quot; : ...,
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;redFrom&quot; : ...,
+        &quot;redTo&quot; : ...,
+        &quot;yellowFrom&quot; : ...,
+        &quot;yellowTo&quot; : ...,
+        &quot;minorTicks&quot; : ...,
+        &quot;majorTicks&quot; : ...,
+        &quot;pointsources&quot; : [ {
+          &quot;sourceId&quot; : &quot;...&quot;,
+          &quot;x&quot; : &quot;...&quot;,
+          &quot;y&quot; : &quot;...&quot;,
+          &quot;label&quot; : &quot;...&quot;,
+          &quot;incremental&quot; : false
+        }, ... ]
+      },
+      &quot;plugin&quot; : {
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;url&quot; : &quot;...&quot;,
+        &quot;classname&quot; : &quot;...&quot;,
+        &quot;configuration&quot; : &quot;...&quot;
+      }
+    },
+    &quot;activatedDate&quot; : &quot;...&quot;,
+    &quot;completedDate&quot; : &quot;...&quot;,
+    &quot;eventletSettings&quot; : {
+      &quot;retainCount&quot; : ...,
+      &quot;retainUnit&quot; : &quot;...&quot;,
+      &quot;menu&quot; : false
+    }
+  }, ... ],
+  &quot;statTotals&quot; : {
+    &quot;clientId&quot; : &quot;...&quot;,
+    &quot;numMsg&quot; : ...,
+    &quot;numLogicalMsg&quot; : ...,
+    &quot;manifests&quot; : ...,
+    &quot;eventMessages&quot; : ...,
+    &quot;newEvents&quot; : ...
+  },
+  &quot;statsPerClient&quot; : [ {
+    &quot;clientId&quot; : &quot;...&quot;,
+    &quot;numMsg&quot; : ...,
+    &quot;numLogicalMsg&quot; : ...,
+    &quot;manifests&quot; : ...,
+    &quot;eventMessages&quot; : ...,
+    &quot;newEvents&quot; : ...
+  }, ... ],
+  &quot;clientActivationResources&quot; : [ {
+    &quot;clientId&quot; : &quot;...&quot;,
+    &quot;activationId&quot; : &quot;...&quot;,
+    &quot;endpointName&quot; : &quot;...&quot;,
+    &quot;resourceId&quot; : ...,
+    &quot;subscriptionId&quot; : &quot;...&quot;,
+    &quot;resource&quot; : {
+      &quot;engineURI&quot; : &quot;...&quot;,
+      &quot;engine&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;type&quot; : &quot;ENGINEMETRICS&quot;
+      },
+      &quot;statement&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;statementName&quot; : &quot;...&quot;,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      },
+      &quot;statementSet&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;filterExpression&quot; : &quot;...&quot;
+      },
+      &quot;onDemandQuery&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;query&quot; : &quot;...&quot;,
+        &quot;maxRows&quot; : ...,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      },
+      &quot;variable&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;variableName&quot; : &quot;...&quot;,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      }
+    },
+    &quot;activatedDate&quot; : &quot;...&quot;
+  }, ... ],
+  &quot;auditLogs&quot; : [ {
+    &quot;activationAudit&quot; : {
+      &quot;clientId&quot; : &quot;...&quot;,
+      &quot;activationId&quot; : &quot;...&quot;,
+      &quot;action&quot; : &quot;NEW&quot;
+    },
+    &quot;clientAudit&quot; : {
+      &quot;clientId&quot; : &quot;...&quot;,
+      &quot;action&quot; : &quot;REGISTER&quot;
+    },
+    &quot;messageAudit&quot; : {
+      &quot;level&quot; : &quot;ERROR&quot;,
+      &quot;message&quot; : &quot;...&quot;
+    },
+    &quot;subscriptionAudit&quot; : {
+      &quot;endpointName&quot; : &quot;...&quot;,
+      &quot;subscriptionId&quot; : &quot;...&quot;,
+      &quot;action&quot; : &quot;SUBSCRIBE&quot;
+    }
+  }, ... ],
+  &quot;serverSubscriptions&quot; : [ {
+    &quot;endpointName&quot; : &quot;...&quot;,
+    &quot;subscriptionId&quot; : &quot;...&quot;,
+    &quot;resource&quot; : {
+      &quot;engineURI&quot; : &quot;...&quot;,
+      &quot;engine&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;type&quot; : &quot;ENGINEMETRICS&quot;
+      },
+      &quot;statement&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;statementName&quot; : &quot;...&quot;,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      },
+      &quot;statementSet&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;filterExpression&quot; : &quot;...&quot;
+      },
+      &quot;onDemandQuery&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;query&quot; : &quot;...&quot;,
+        &quot;maxRows&quot; : ...,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      },
+      &quot;variable&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;variableName&quot; : &quot;...&quot;,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      }
+    },
+    &quot;resourceId&quot; : ...,
+    &quot;subscribedDate&quot; : &quot;...&quot;,
+    &quot;unsubscribedDate&quot; : &quot;...&quot;,
+    &quot;state&quot; : &quot;...&quot;
+  }, ... ],
+  &quot;clientsHistorical&quot; : [ {
+    &quot;clientId&quot; : &quot;...&quot;,
+    &quot;browser&quot; : &quot;...&quot;,
+    &quot;createdDate&quot; : &quot;...&quot;,
+    &quot;remoteAddress&quot; : &quot;...&quot;,
+    &quot;secure&quot; : false,
+    &quot;state&quot; : &quot;...&quot;,
+    &quot;closedDate&quot; : &quot;...&quot;,
+    &quot;openedDate&quot; : &quot;...&quot;,
+    &quot;deletedDate&quot; : &quot;...&quot;,
+    &quot;websocketURL&quot; : &quot;...&quot;
+  }, ... ],
+  &quot;clientActivationsHistorical&quot; : [ {
+    &quot;activationId&quot; : &quot;...&quot;,
+    &quot;clientId&quot; : &quot;...&quot;,
+    &quot;activationName&quot; : &quot;...&quot;,
+    &quot;activationXML&quot; : &quot;...&quot;,
+    &quot;subtopic&quot; : &quot;...&quot;,
+    &quot;state&quot; : &quot;...&quot;,
+    &quot;activationSources&quot; : [ {
+      &quot;sourceId&quot; : &quot;...&quot;,
+      &quot;resourceId&quot; : ...,
+      &quot;manifest&quot; : {
+        &quot;typeId&quot; : ...,
+        &quot;formatType&quot; : &quot;ETFBAS&quot;,
+        &quot;definition&quot; : {
+          &quot;properties&quot; : [ {
+            &quot;propertyName&quot; : &quot;...&quot;,
+            &quot;propertyType&quot; : &quot;...&quot;,
+            &quot;componentType&quot; : &quot;...&quot;,
+            &quot;writable&quot; : false,
+            &quot;requiresIndex&quot; : false,
+            &quot;requiresMapkey&quot; : false,
+            &quot;indexed&quot; : false,
+            &quot;mapped&quot; : false,
+            &quot;fragmentTypeName&quot; : &quot;...&quot;,
+            &quot;fragmentIsIndexed&quot; : false,
+            &quot;fragmentIsNative&quot; : false,
+            &quot;fragmentProperties&quot; : [ {
+              &quot;...&quot; : ...
+            }, ... ],
+            &quot;serializerClass&quot; : &quot;...&quot;,
+            &quot;fragmentTypeUnd&quot; : &quot;...&quot;
+          }, ... ]
+        },
+        &quot;target&quot; : {
+          &quot;variable&quot; : {
+            &quot;engineURI&quot; : &quot;...&quot;,
+            &quot;variableName&quot; : &quot;...&quot;
+          },
+          &quot;statement&quot; : {
+            &quot;statement&quot; : {
+              &quot;engineURI&quot; : &quot;...&quot;,
+              &quot;statementName&quot; : &quot;...&quot;,
+              &quot;epl&quot; : &quot;...&quot;,
+              &quot;state&quot; : &quot;...&quot;,
+              &quot;lastStateChange&quot; : &quot;...&quot;,
+              &quot;pattern&quot; : false,
+              &quot;description&quot; : &quot;...&quot;,
+              &quot;type&quot; : &quot;...&quot;,
+              &quot;properties&quot; : [ {
+                &quot;propertyName&quot; : &quot;...&quot;,
+                &quot;propertyType&quot; : &quot;...&quot;,
+                &quot;componentType&quot; : &quot;...&quot;,
+                &quot;writable&quot; : false,
+                &quot;requiresIndex&quot; : false,
+                &quot;requiresMapkey&quot; : false,
+                &quot;indexed&quot; : false,
+                &quot;mapped&quot; : false,
+                &quot;fragmentTypeName&quot; : &quot;...&quot;,
+                &quot;fragmentIsIndexed&quot; : false,
+                &quot;fragmentIsNative&quot; : false,
+                &quot;fragmentProperties&quot; : [ {
+                  &quot;...&quot; : ...
+                }, ... ],
+                &quot;serializerClass&quot; : &quot;...&quot;,
+                &quot;fragmentTypeUnd&quot; : &quot;...&quot;
+              }, ... ],
+              &quot;eplNoAnnotation&quot; : &quot;...&quot;,
+              &quot;annotations&quot; : &quot;...&quot;
+            }
+          },
+          &quot;engine&quot; : {
+            &quot;engineURI&quot; : &quot;...&quot;,
+            &quot;type&quot; : &quot;ENGINEMETRICS&quot;
+          },
+          &quot;onDemandQuery&quot; : {
+            &quot;engineURI&quot; : &quot;...&quot;,
+            &quot;maxRows&quot; : ...,
+            &quot;query&quot; : &quot;...&quot;
+          }
+        }
+      },
+      &quot;transformations&quot; : [ {
+        &quot;unmap&quot; : {
+          &quot;property&quot; : &quot;...&quot;,
+          &quot;key&quot; : &quot;...&quot;,
+          &quot;keyType&quot; : &quot;...&quot;,
+          &quot;value&quot; : &quot;...&quot;,
+          &quot;valueType&quot; : &quot;...&quot;
+        }
+      }, ... ]
+    }, ... ],
+    &quot;composition&quot; : {
+      &quot;compositegrid&quot; : {
+        &quot;atomicType&quot; : &quot;...&quot;,
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;ckeys&quot; : [ {
+          &quot;nestingType&quot; : &quot;...&quot;,
+          &quot;pointsources&quot; : [ {
+            &quot;sourceId&quot; : &quot;...&quot;,
+            &quot;x&quot; : &quot;...&quot;,
+            &quot;y&quot; : &quot;...&quot;,
+            &quot;label&quot; : &quot;...&quot;,
+            &quot;incremental&quot; : false
+          }, ... ]
+        }, ... ],
+        &quot;displayTime&quot; : false,
+        &quot;displayRowNum&quot; : false,
+        &quot;displayEventNum&quot; : false,
+        &quot;displayUpdNum&quot; : false,
+        &quot;displaySource&quot; : false
+      },
+      &quot;chart&quot; : {
+        &quot;type&quot; : &quot;...&quot;,
+        &quot;xaxis&quot; : {
+          &quot;type&quot; : &quot;...&quot;,
+          &quot;maximum&quot; : &quot;...&quot;,
+          &quot;minimum&quot; : &quot;...&quot;,
+          &quot;label&quot; : &quot;...&quot;,
+          &quot;placement&quot; : &quot;...&quot;
+        },
+        &quot;yaxis&quot; : {
+          &quot;type&quot; : &quot;...&quot;,
+          &quot;maximum&quot; : &quot;...&quot;,
+          &quot;minimum&quot; : &quot;...&quot;,
+          &quot;label&quot; : &quot;...&quot;,
+          &quot;placement&quot; : &quot;...&quot;
+        },
+        &quot;data&quot; : {
+          &quot;series&quot; : [ {
+            &quot;type&quot; : &quot;...&quot;,
+            &quot;label&quot; : &quot;...&quot;,
+            &quot;pointsources&quot; : [ {
+              &quot;sourceId&quot; : &quot;...&quot;,
+              &quot;x&quot; : &quot;...&quot;,
+              &quot;y&quot; : &quot;...&quot;,
+              &quot;label&quot; : &quot;...&quot;,
+              &quot;incremental&quot; : false
+            }, ... ],
+            &quot;markerType&quot; : &quot;...&quot;,
+            &quot;strokeWeight&quot; : ...,
+            &quot;strokeColor&quot; : &quot;...&quot;,
+            &quot;fillColor&quot; : &quot;...&quot;,
+            &quot;opacity&quot; : ...
+          }, ... ]
+        },
+        &quot;legendPlacement&quot; : &quot;...&quot;,
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;stack&quot; : false,
+        &quot;opacity&quot; : ...
+      },
+      &quot;appendgrid&quot; : {
+        &quot;dummy&quot; : false,
+        &quot;clickCallback&quot; : &quot;...&quot;
+      },
+      &quot;inplacegrid&quot; : {
+        &quot;keys&quot; : [ &quot;...&quot;, ... ],
+        &quot;clickCallback&quot; : &quot;...&quot;
+      },
+      &quot;timeline&quot; : {
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;detail&quot; : &quot;...&quot;,
+        &quot;timelineSeries&quot; : {
+          &quot;pointsources&quot; : [ {
+            &quot;sourceId&quot; : &quot;...&quot;,
+            &quot;x&quot; : &quot;...&quot;,
+            &quot;y&quot; : &quot;...&quot;,
+            &quot;label&quot; : &quot;...&quot;,
+            &quot;incremental&quot; : false
+          }, ... ]
+        }
+      },
+      &quot;gauge&quot; : {
+        &quot;caption&quot; : &quot;...&quot;,
+        &quot;minimum&quot; : ...,
+        &quot;maximum&quot; : ...,
+        &quot;size&quot; : ...,
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;redFrom&quot; : ...,
+        &quot;redTo&quot; : ...,
+        &quot;yellowFrom&quot; : ...,
+        &quot;yellowTo&quot; : ...,
+        &quot;minorTicks&quot; : ...,
+        &quot;majorTicks&quot; : ...,
+        &quot;pointsources&quot; : [ {
+          &quot;sourceId&quot; : &quot;...&quot;,
+          &quot;x&quot; : &quot;...&quot;,
+          &quot;y&quot; : &quot;...&quot;,
+          &quot;label&quot; : &quot;...&quot;,
+          &quot;incremental&quot; : false
+        }, ... ]
+      },
+      &quot;plugin&quot; : {
+        &quot;clickCallback&quot; : &quot;...&quot;,
+        &quot;url&quot; : &quot;...&quot;,
+        &quot;classname&quot; : &quot;...&quot;,
+        &quot;configuration&quot; : &quot;...&quot;
+      }
+    },
+    &quot;activatedDate&quot; : &quot;...&quot;,
+    &quot;completedDate&quot; : &quot;...&quot;,
+    &quot;eventletSettings&quot; : {
+      &quot;retainCount&quot; : ...,
+      &quot;retainUnit&quot; : &quot;...&quot;,
+      &quot;menu&quot; : false
+    }
+  }, ... ],
+  &quot;serverSubscriptionsHistorical&quot; : [ {
+    &quot;endpointName&quot; : &quot;...&quot;,
+    &quot;subscriptionId&quot; : &quot;...&quot;,
+    &quot;resource&quot; : {
+      &quot;engineURI&quot; : &quot;...&quot;,
+      &quot;engine&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;type&quot; : &quot;ENGINEMETRICS&quot;
+      },
+      &quot;statement&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;statementName&quot; : &quot;...&quot;,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      },
+      &quot;statementSet&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;filterExpression&quot; : &quot;...&quot;
+      },
+      &quot;onDemandQuery&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;query&quot; : &quot;...&quot;,
+        &quot;maxRows&quot; : ...,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      },
+      &quot;variable&quot; : {
+        &quot;engineURINormalized&quot; : &quot;...&quot;,
+        &quot;variableName&quot; : &quot;...&quot;,
+        &quot;iterate&quot; : {
+          &quot;realtime&quot; : false,
+          &quot;iterateNow&quot; : false,
+          &quot;iteratePattern&quot; : &quot;...&quot;,
+          &quot;uniquenessIdentity&quot; : &quot;...&quot;
+        }
+      }
+    },
+    &quot;resourceId&quot; : ...,
+    &quot;subscribedDate&quot; : &quot;...&quot;,
+    &quot;unsubscribedDate&quot; : &quot;...&quot;,
+    &quot;state&quot; : &quot;...&quot;
+  }, ... ]
+}</code>
+
+      <div class="clear" />
+    </div>
+    <footer>
+      <div id="footer">
+        Copyright &copy; <script type="text/javascript" language="javascript">d = new Date;document.write(d.getFullYear());</script> <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">EsperTech</span><br/>
+        Generated by <a href="http://enunciate.codehaus.org">Enunciate</a>.
+      </div>
+    </footer>
+  </div> <!--! end of #container -->
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+  <script>window.jQuery || document.write("<script src='js/libs/jquery-1.5.1.min.js'>\x3C/script>")</script>
+
+  <!--manage the navigation menu-->
+  <script src="js/libs/xbreadcrumbs.js"></script>
+  <script>
+    $(function() {
+      $('#breadcrumbs').xBreadcrumbs();
+    });
+  </script>
+
+
+  <!-- prettify code blocks. see http://code.google.com/p/google-code-prettify/ -->
+  <script src="js/libs/prettify/prettify.js"></script>
+  <script>
+    $(function() {
+      prettyPrint();
+    });
+  </script>
+
+  <!--[if lt IE 7 ]>
+    <script src="js/libs/dd_belatedpng.js"></script>
+    <script>DD_belatedPNG.fix("img, .png_bg"); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>
+  <![endif]-->
+
+</body>
+</html>

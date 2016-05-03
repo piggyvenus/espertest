@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 6. Server And Deployment Cookbook</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="prev" href="hotdeploy.html" title="Chapter 5. Hot Deployment of CEP Applications and CEP Engines"/><link rel="next" href="sockettransport.html" title="Chapter 7. Socket Transport"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="hotdeploy.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="sockettransport.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook"/>Chapter 6. Server And Deployment Cookbook</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="servercookbook.html#servercookbook-options">6.1. Deployment Options</a></span></dt><dd><dl><dt><span class="sect2"><a href="servercookbook.html#servercookbook-options-oob">6.1.1. Out-of-the-Box Deployment</a></span></dt><dt><span class="sect2"><a href="servercookbook.html#servercookbook-options-customizing">6.1.2. Other Deployment Options</a></span></dt><dt><span class="sect2"><a href="servercookbook.html#servercookbook-deploywar-espercorewar">6.1.3. Esper Core WAR</a></span></dt><dt><span class="sect2"><a href="servercookbook.html#servercookbook-deploywar-esperhq">6.1.4. EsperHQ Web Application WAR</a></span></dt></dl></dd><dt><span class="sect1"><a href="servercookbook.html#servercookbook-jmsprovider">6.2. JMS Provider Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="servercookbook.html#servercookbook-jmsprovider-other">6.2.1. Other JMS Provider Configurations</a></span></dt><dt><span class="sect2"><a href="servercookbook.html#servercookbook-jmsprovider-standaloneactivemq">6.2.2. ActiveMQ Stand-alone JMS Provider Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="servercookbook.html#servercookbook-epl">6.3. EPL Module</a></span></dt><dt><span class="sect1"><a href="servercookbook.html#servercookbook-eventtype">6.4. Configure Event Types</a></span></dt><dt><span class="sect1"><a href="servercookbook.html#servercookbook-inputfeed">6.5. Setting up Input and Output Data Feeds</a></span></dt><dt><span class="sect1"><a href="servercookbook.html#servercookbook-serverprocess">6.6. Integrating into an Existing Java Server Process</a></span></dt><dt><span class="sect1"><a href="servercookbook.html#servercookbook-jettyconfig">6.7. Configuring Web Application Server Settings</a></span></dt><dd><dl><dt><span class="sect2"><a href="servercookbook.html#servercookbook-jettyconfig-multiengine">6.7.1. Hot Deployer CEP Engine Targeting</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-options"/>6.1. Deployment Options</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-options-oob"/>6.1.1. Out-of-the-Box Deployment</h3></div></div></div><p>
+			  Esper Enterprise Edition comes with a server that you may start and stop via command line using scripts provided in the <code class="literal">bin</code> folder of the distribution.
+			</p><p>
+			  Enterprise Edition sets up classpath from <code class="literal">setclasspath</code> scripts and the server code loads the <code class="literal">conf/esper-default.xml</code> default configuration file. Change the classpath script to add or remove from classpath as the server does not automatically add all files in the <code class="literal">lib</code> folder to the classpath.
+			</p><p>
+				The default configuration file starts an embedded JMS provider, all REST services, web application server and deploys the examples:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The plug-in for CEP Push Services (endpoint config) which handles data push and subscription management from the CEP engine to clients or other consumers.
+					</p></li><li><p>
+					The plug-in that starts a JMS provider. Enterprise Edition starts Apache ActiveMQ as the JMS provider and any other JMS provider is also supported with minor configuration changes.
+					</p></li><li><p>
+					The web application container plug-in, hosting the web client application. Enterprise Edition starts embedded Jetty as the web application container.
+					</p></li><li><p>
+					The Esper JMX plug-in for remote server management and shutdown. You may remove this plug-in when deploying to another servlet container or web application server.
+					</p></li><li><p>
+					The examples are located in the <code class="literal">hotdeploy</code> folder of the distribution and are packaged as web application archive files.
+					</p></li></ol></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-options-customizing"/>6.1.2. Other Deployment Options</h3></div></div></div><p>
+				Most features of Enterprise Edition are also available to applications that embed Esper in their own code. It is therefore not always necessary to run Enterprise Edition server.
+				Enterprise Edition provides a set of REST-style web services that adhere to the JAX-RS standard. This enables your application to expose these services as part of your application.
+				The EsperHQ GUI application can communicate with your application via the services.
+			</p><p>
+				Enterprise Edition provides J2EE-standard WAR files that can be deployed to servlet containers or web application servers, running on same or different hosts, with minimal configuration changes.
+			</p><p>
+				We test deployment to the Apache Tomcat web container as part of each release. Other servlet containers may have limitations or additional configuration requirements.
+			</p><p>
+				The prepackaged WAR files can be found under the installation root in the <code class="literal">lib/webapp-war</code> folder.
+			</p><p>
+				Enterprise Edition provides the following two web application archives:
+			</p><div class="itemizedlist"><ul><li>
+					The Esper core WAR contains only Esper, CEP Management REST Services and CEP Push REST Services (no client, for the server tier).  The file is named <code class="literal">espercorewar.war</code>.
+				</li><li>
+					The EsperHQ web application contains the web-based client application and HQ Services REST Services (no CEP engine, for the web client tier) and is named <code class="literal">esperhqapp.war</code>.
+				</li></ul></div><p>
+				Before deploying either of the WAR files, please follow the configuration instructions below.
+			</p><p>
+				If using push services, the JMS provider (broker) for communication between EsperHQ web application and Esper+CEP Push Services can be any JMS provider. If you have an existing JMS provider in your architecture, point the configuration files to that provider. We give instructions for configuration in <a class="xref" href="servercookbook.html#servercookbook-jmsprovider" title="6.2. JMS Provider Configuration">Section 6.2, “JMS Provider Configuration�?</a>. If you wish to use Apache ActiveMQ that ships with Enterprise Edition then the default configuration files already start the JMS provider for you.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-deploywar-espercorewar"/>6.1.3. Esper Core WAR</h3></div></div></div><p>
+				The <code class="literal">espercorewar</code> web application archive (WAR) packages Esper and configures a Push Services Endpoint. It exposes CEP Management REST services and CEP Push Services REST services. Deploy this WAR file to the servlet container that should act as a CEP server only. This WAR file does not contain a client.
+			</p><p>
+				The WAR file packages a <code class="literal">web.xml</code> configuration, an Esper configuration file by name <code class="literal">esper-default.xml</code> and an CEP Push Services configuration file by name <code class="literal">ceppushsvc-default.xml</code>.
+			</p><p>
+				In the WAR file <code class="literal">web.xml</code> you may list one or more engine URIs and configuration file URLs. The default web configuration is shown here:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app&gt;
+  &lt;listener&gt;
+    &lt;listener-class&gt;
+      com.espertech.esper.webapp.cepcore.CoreServletContextListener
+    &lt;/listener-class&gt;
+  &lt;/listener&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;com.espertech.esper.context-param.uris&lt;/param-name&gt;
+    &lt;param-value&gt;default=esper-default.xml&lt;/param-value&gt;
+  &lt;/context-param&gt;
+&lt;/web-app&gt;</pre><p>
+				The servlet context listener reads the <code class="literal">com.espertech.esper.context-param.uris</code> context parameter and initializes one or multiple Esper engines. The default configuration above initializes an Esper engine for URI <code class="literal">default</code> and reads the <code class="literal">esper-default.xml</code> configuration file from classpath (all files are packaged with the WAR).
+			</p><p>
+				The synopsis for the servlet context parameter value is:
+			</p><pre class="synopsis"><span class="emphasis"><em>engine_uri</em></span>[=<span class="emphasis"><em>configuration_file_url</em></span>][,...]</pre><p>
+				An example parameter value may looks as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;context-param&gt;
+&lt;param-name&gt;com.espertech.esper.context-param.uris&lt;/param-name&gt;
+&lt;param-value&gt;engineUriOne=esperee-one.xml,engineUriTwo=esperee-two.xml
+,engineUriThree=file://mydir/myconfigfile.xml&lt;/param-value&gt;
+&lt;/context-param&gt;</pre><p>
+				When deploying to Apache Tomcat, copy the WAR file to the <code class="literal">webapps</code> folder on your Tomcat installation. At WAR initialization time you should see log messages indicating that engines
+				are initialized and during WAR undeployment you should see log messages indicating that engines are destroyed.
+			</p><p>
+				Add IO adapters, event types, plug-ins to be loaded or any additional engine configuration to the <code class="literal">esper-default.xml</code> configuration file. 
+			</p><p>
+				Follow the JMS provider instructions below and change <code class="literal">ceppushsvc-default.xml</code> configuration file to point to the JMS provider of your choice. The default configuration expects that an Apache ActiveMQ JMS provider is running and listening at the default port.
+			</p><p>
+				For realtime streaming, the EsperHQ client application requires a web container that provides a web socket implementation. EsperHQ currently only supports the Jetty web socket implementation.
+				Therefore when deploying into Tomcat or another web application container the web socked communication is not available.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-deploywar-esperhq"/>6.1.4. EsperHQ Web Application WAR</h3></div></div></div><p>
+				The EsperHQ web application archive (WAR) packages the web client application and HQ Services REST services. 
+				Deploy this WAR file to the servlet container that should act as a web client.
+			</p><p>
+				Follow the JMS provider instructions below and change <code class="literal">esperhq-default.xml</code> configuration file to point to the JMS provider of your choice. The default configuration expects that an Apache ActiveMQ JMS provider is running and listening at the default port. We provide detailed information how to configure EsperHQ web application in a separate document in the <code class="literal">docs</code> folders of the distribution.
+			</p><p>
+				The EsperHQ client web application expects the context root of the web application to be <code class="literal">esperhqapp</code>.
+			</p><p>
+				When deploying to Apache Tomcat, copy the WAR file to the <code class="literal">webapps</code> folder on your Tomcat installation. If deploying a prepackaged WAR file with version number, rename the directory removing the version number from the directory name so the WAR directory is simply <code class="literal">esperhqapp</code>, to ensure Tomcat sets the context path to <code class="literal">esperhqapp</code> without the version number.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-jmsprovider"/>6.2. JMS Provider Configuration</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-jmsprovider-other"/>6.2.1. Other JMS Provider Configurations</h3></div></div></div><p>
+			  Herein we provide sample configuration entries for two additional JMS providers. For JMS providers not listed below please check with your JMS provider on JNDI context lookup settings.
+			</p><p>For Tibco EMS, use the following settings:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;context object-name="QueueConnectionFactory"&gt;
+	&lt;env name="java.naming.factory.initial" 
+      value="com.tibco.tibjms.naming.TibjmsInitialContextFactory"/&gt;
+	&lt;env name="java.naming.provider.url" value="tibjmsnaming://host:port"/&gt;
+	&lt;env name="java.naming.security.principal" value="jndiUsername"/&gt;
+	&lt;env name="java.naming.security.credentials" value="jndiPassword"/&gt;
+&lt;/context&gt;</pre><p>For Apache QPid, use the following settings:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;context object-name="qpidConnectionfactory"&gt;
+	&lt;env name="java.naming.factory.initial" 
+      value="org.apache.qpid.jndi.PropertiesFileInitialContextFactory"/&gt;
+	&lt;env name="connectionfactory.qpidConnectionfactory" 
+      value="amqp://guest:guest@clientid/prod-only?brokerlist='tcp://hostname:port'"/&gt;
+&lt;/context&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-jmsprovider-standaloneactivemq"/>6.2.2. ActiveMQ Stand-alone JMS Provider Configuration</h3></div></div></div><p>Please follow the step-by-step instructions for using an external ActiveMQ JMS provider as follows:</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Back up your production configuration files in the <code class="literal">conf</code> folder before making changes to production.
+					</p></li><li><p>
+						Download the latest stable ActiveMQ distribution version 5.x from <code class="literal">http://activemq.apache.org/download.html</code>, for your platform.
+					</p></li><li><p>
+						Install the distribution following the steps in <code class="literal">http://activemq.apache.org/getting-started.html</code>. Start the ActiveMQ JMS broker following the steps in "Starting ActiveMQ".						
+					</p></li><li><p>
+						Open the <code class="literal">conf/esper-default.xml</code> and remove or comment-out the plugin-loader for <code class="literal">JMS_Provider_Bootstrap</code>. This disables the embedded JMS broker. Start the server.
+					</p></li></ol></div><p>
+				The <code class="literal">jconsole</code> tool can help confirm the correct configuration. In <code class="literal">jconsole</code> you should not see an entry for <code class="literal">com.apache.activemq</code> when attaching to the server process. The ActiveMQ broker should show as a separate process.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-epl"/>6.3. EPL Module</h2></div></div></div><p>
+		  A good way to develop a CEP application is to externalize EPL statements into an EPL module file (a text file with the <code class="literal">.epl</code> extension) and use hot deployment to test and deploy the CEP application. The examples provide a template to start from.
+		</p><p>
+			The Esper packaging and deployment section describes EPL module files in detail. The Enterprise Edition server <code class="literal">hotdeploy</code> folder holds the currently deployed CEP applications: plain text files with the <code class="literal">.epl</code> extension for EPL modules or WAR archives for EPL packaged with application code.
+		</p><p>
+			Additional choices for creating EPL statements or CEP applications are:
+		</p><p>
+		  The first option is to write a Java class that implements the <code class="literal">PluginLoader</code> interface as described in the Esper reference manual, list the plugin loader in the Esper XML configuration file
+		  and use the provided Esper Enterprise Edition server to execute.
+		</p><p>
+		  The second option is to use any of the Esper provided examples or the benchmark tool and customize the example to handle your application needs.
+		</p><p>
+		  The third option is write a simple Java main that starts an Esper engine, reads EPL statements from your own source and sends events.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-eventtype"/>6.4. Configure Event Types</h2></div></div></div><p>
+			The <code class="literal">create schema</code> syntax allows registering event types. When using <code class="literal">create schema</code> the event type is dynamic and gets removed when the EPL module or statement declaring
+			the event type gets destroyed. 
+		</p><p>
+			To add a predefined event type, the Esper configuration file or by means of the API you may register event types for use by input and output adapters as well as EPL statements.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-inputfeed"/>6.5. Setting up Input and Output Data Feeds</h2></div></div></div><p>
+			For setting up input and output data feeds, we recommend to check the EsperIO prebuilt dataflow operators and input/output adapters.
+			Declare a dataflow that incorporates the input or output adapter in combination with the <code class="literal">EventBusSource</code> or <code class="literal">EventBusSink</code>
+			operators that allow you to send events into the engine. Use a post-startup script as outlined above to have the engine automatically execute dataflow
+			instances on startup.
+		</p><p>
+			If no prebuild dataflow operator or adapter can be found, we recommend writing an input or output adapter as a dataflow operator. 
+			Thus an adapter dataflow operator can easily be configured and dataflow runtime instances can be managed by the GUI.
+			Please see the Esper dataflow documentation for more information.
+		</p><p>
+			Alternatively to using dataflow operators your application could utilize the <code class="literal">PluginLoader</code> interface, 
+			which is designed for this purpose and discussed in the Esper reference manual API section, and the
+			plugin can be listed in the Esper XML configuration file to start at the time of server startup.
+		</p><p>
+			There are also a number of examples as part of the Esper distribution, in Esper JIRA or other web sites that may offer examples of an input or output adapter that suits your needs.
+		</p><p>
+			The Esper CEP engine produces easy-to-understand Java class, Map-based, XML-formatted or JSON-formatted output events (aka. renderers).
+			You can utilize a number of existing Java components available that can map a Java class to a certain transport or format.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-serverprocess"/>6.6. Integrating into an Existing Java Server Process</h2></div></div></div><p>
+			If you have an existing Java application and would like to integrate Esper and REST web services for use with the rich GUI client continuous displays then this section describes the steps to follow. 
+		</p><p>
+			First, determine if you want to use an existing JMS provider (aka. JMS broker) that your technical environment provides. You may use the Esper Enterprise Edition JMS provider as outlined in the CEP Push Services manual.				
+		</p><p>
+			Second, create an CEP Push Services configuration file to attach to the JMS provider of your choice. Incorporate the required dependent jar files of CEP Push Services (see <code class="literal">lib</code> folder) into your existing server process.
+		</p><p>
+			Third, CEP Push Services can be started either via Esper XML configuration or via its endpoint API as described in the CEP Push Services manual.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="servercookbook-jettyconfig"/>6.7. Configuring Web Application Server Settings</h2></div></div></div><p>
+			Enterprise Edition in the default configuration starts an embedded Jetty web application container. 
+			The plugin providing this functionality is <code class="literal">com.espertech.esper.server.webapp.WebAppPlugin</code>. This chapter outlines configuration options.
+		</p><p>
+			The web application container default port is <code class="literal">8400</code>.
+		</p><p>
+			 The embedded web application provider acts as a container for the following web applications and servlets: 
+		</p><div class="itemizedlist"><ul><li><p>
+					EsperHQ web application, a JavaScript and HTML 5 application found in the directory <code class="literal">webapps/esperhqapp</code> under the installation root.
+				</p></li><li><p>
+					REST Services: CEP Management, CEP Push services, HQ services; As further described in <a class="xref" href="restservices.html" title="Chapter 9. REST Services">Chapter 9, <i>REST Services</i></a> 
+				</p></li><li><p>
+					Web Socket full-duplex communications channels over a single TCP connection, as standardized by the IETF.
+				</p></li></ul></div><p>
+			You may customize this configuration and add items or remove items that are not desired depending on your needs, for example to reduce startup time.
+		</p><p>
+			The default configuration is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="EsperHQ_Webapp_Service" 
+      class-name="com.espertech.esper.server.webapp.WebAppPlugin"&gt;
+  &lt;init-arg name="port" value="8400" /&gt;
+  &lt;init-arg name="webapps" value="esperhqapp@webapps/esperhqapp"/&gt;
+  &lt;init-arg name="rest" value=
+    "cepmgmtsvc@token=cepmgmtsvctoken;ceppushsvc@token=ceppushsvctoken"/&gt;
+  &lt;init-arg name="websocket" value="hqpush" /&gt;
+&lt;/plugin-loader&gt;</pre><p>
+			The <code class="literal">port</code> parameter value is an integer port number that applies to all web applications, REST services and web sockets that are listed.
+			You can change the port number.
+		</p><p>
+			The <code class="literal">webapps</code> entry is a list of comma-separated entries that name the web applications that the web container deploys.
+			Each entry in the list has the format <span class="emphasis"><em>context-root</em></span><code class="literal">@</code><span class="emphasis"><em>directory</em></span>. 
+			You can remove this entry to skip deployment of the web application. We require a context root of <code class="literal">esperhqapp</code> for the EsperHQ application.
+			You can add entries to deploy additional web applications. The <code class="literal">esperhqapp</code> web application includes HQ Services REST services.
+		</p><p>
+			The <code class="literal">rest</code> entry is a list of comma-separated entries that name the REST JAX-RS-standard services that the web container deploys.
+			Each entry in the list has the format <span class="emphasis"><em>name</em></span><code class="literal">@</code><span class="emphasis"><em>parameters</em></span>. 
+			You can remove entries to skip deployment of the respective REST services. The special <code class="literal">token</code> parameter defines a shared secret for the purpose of
+			authenticating HQ Services. Please see the REST services documentation below for more information.
+		</p><p>
+			The <code class="literal">websocket</code> entry lists the web socket endpoint. You can remove this entry to disable web socket communication. 
+			We require the name <code class="literal">hqpush</code>.
+		</p><p>
+			You may additionally configure page access log logging by providing the parameter:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="log" value="log_file_dir"/&gt;</pre><p>
+			The log file directory must already exist at startup time. Please create the directory when using this setting.
+			When the log file directory is a relative file path, the log file directory must be found in the <code class="literal">logs</code> directory under the installation root.				
+		</p><p>
+			You may configure whether hot deployment is enabled, disabled or startup-only. By default hot deployment is enabled.
+		</p><p>
+			If hot deployment is disabled, the server does not use the hot deployment directory. Please set as follows:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Disabled means the hotdeploy directory is not used at all
+&lt;init-arg name="hotdeploy" value="disabled"/&gt;</pre><p>
+			If hot deployment is set to startup, the server considers only those files present at server startup time and does not allow file update. 
+			Files added, removed or updated are not considered. Please set as follows:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Startup means only files present on server start are considered
+&lt;init-arg name="hotdeploy" value="startup"/&gt;</pre><p>
+			You may configure the name of the hot deployment directory:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="hotdeploy-dir" value="directory_name"/&gt;</pre><p>
+			You may configure the frequency in seconds for use in scanning the hot deployment directory.  By setting this value to zero the 
+			server scans the hot deployment directory only once at time of startup and does not scan thereafter. The default frequency is 3 seconds.
+		</p><p>
+			An example initialization parameter for the scan interval is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="scanInterval" value="3"/&gt;</pre><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="servercookbook-jettyconfig-multiengine"/>6.7.1. Hot Deployer CEP Engine Targeting</h3></div></div></div><p>
+				If you have initialized and are running multiple CEP engines in the same JVM process and intend to target certain files to a given CEP engine, the hot deploy service provides a setting that can be used to associate a file name to a CEP engine URI via regular expression matching on the file name.
+			</p><p>
+				The synopsis for the <code class="literal">hotdeploy-targets</code> parameter value is as follows:
+			</p><pre class="synopsis"><span class="emphasis"><em>engine-uri</em></span>=<span class="emphasis"><em>filename_regex</em></span>[;<span class="emphasis"><em>engine-uri</em></span>=<span class="emphasis"><em>filename_regex</em></span>[;...]]</pre><p>
+				Provide a semicolon-separated list of pairs of CEP engine URI and file name regular expression to define the CEP engine target URI for a given file name. The hot deploy service inspects each regular expression in the order provided and matches it against the deployment unit file name.
+				If the regular expression matches or no regular expression was provided, the hot deploy service stops at the first match and deploys to the given CEP engine identified by the URI. If no matches are found, the hot deploy service targets the default CEP engine.
+			</p><p>
+				The following example assigns all files starting with <code class="literal">cepone_</code> to deploy to a CEP engine with URI <code class="literal">cepone</code>, all files starting with <code class="literal">ceptwo_</code> to deploy to a CEP engine with URI <code class="literal">ceptwo</code> and all remaining files deploy to the CEP engine identified by the <code class="literal">default</code> URI:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="hotdeploy-targets" value="cepone=cepone_.*;ceptwo=cepone_.*"/&gt;</pre><p>
+				You may disable hot deployment for all or a subset of files by using the special URI <code class="literal">null</code>. When the engine URI <code class="literal">null</code> matches the file name the hot deploy service simply logs the deployment file and skips deployment.
+			</p><p>
+				The following example assigns all files to CEP engine URI <code class="literal">null</code>, causing the hot deploy service to skip deploying any files:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;init-arg name="hotdeploy-targets" value="null=.*"/&gt;</pre></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="hotdeploy.html"><strong>Prev</strong>Chapter 5. Hot Deployment of CEP Applications and...</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="sockettransport.html"><strong>Next</strong>Chapter 7. Socket Transport</a></li></ul></body></html>

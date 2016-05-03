@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 5. Hot Deployment of CEP Applications and CEP Engines</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="prev" href="clustering.html" title="Chapter 4. Clustering, Scalability and High-Availability"/><link rel="next" href="servercookbook.html" title="Chapter 6. Server And Deployment Cookbook"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="clustering.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="servercookbook.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy"/>Chapter 5. Hot Deployment of CEP Applications and CEP Engines</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="hotdeploy.html#hotdeploy-epl">5.1. EPL Module Hot Deployment</a></span></dt><dt><span class="sect1"><a href="hotdeploy.html#hotdeploy-war">5.2. CEP Application WAR Hot Deployment</a></span></dt><dd><dl><dt><span class="sect2"><a href="hotdeploy.html#hotdeploy-war-opt1">5.2.1. Auto-Deploy of Packaged EPL Modules</a></span></dt><dt><span class="sect2"><a href="hotdeploy.html#hotdeploy-war-opt2">5.2.2. Configured Deploy of Packaged EPL Modules</a></span></dt></dl></dd><dt><span class="sect1"><a href="hotdeploy.html#hotdeploy-jar">5.3. CEP Engine Jar Hot Deployment</a></span></dt><dd><dl><dt><span class="sect2"><a href="hotdeploy.html#hotdeploy-jar-annotations">5.3.1. Annotations</a></span></dt></dl></dd></dl></div><p>
+	  Enterprise Edition offers runtime loading and starting as well as stopping and unloading of CEP applications and/or CEP engines. 
+	</p><p>
+		Enterprise Edition supports hot (runtime, dynamic) deployment of CEP applications. To summarize, you may hot deploy files:
+	</p><div class="itemizedlist"><ul><li><p>
+				You may simply create an EPL module text file with the <code class="literal">.epl</code> extension and drop the file into the <code class="literal">hotdeploy</code> directory. 
+			</p></li><li><p>
+				By packaging your CEP application into a J2EE-standard WAR file format you can deploy and undeploy EPL modules together with related Java classes at runtime without requiring a restart.
+			</p></li><li><p>
+				By packaging your CEP application into a JAR file format including Esper configuration files, EPL modules and related Java classes with class annotations you may deploy a new CEP engine without requiring a restart.
+			</p></li></ul></div><p>
+	  Your CEP application(s) design may include multiple separate CEP engines. Enterprise Edition allows running any number of CEP engines side-by-side in the same Java VM, each identified by a engine URI. When starting Enterprise Edition server in the default configuration, the server starts a single CEP engine with the URI <code class="literal">default</code>. When hot deploying EPL and WAR files the default configuration deploys to the <code class="literal">default</code> engine.
+	</p><p>
+	  One situation where you may want to use multiple CEP engines is when you require different and incompatible CEP engine configurations. For example, you can start one CEP engine with high-availability configuration and a second engine CEP engine without high-availability.
+	</p><p>
+	  When starting Enterprise Edition server in the default configuration, the server starts a CEP engine with the URI <code class="literal">default</code> and monitors the <code class="literal">hotdeploy</code> folder. The server registers any new files, changes to files or removed files and reacts by performing a new deployment for new files, an undeployment for deleted files or a redeployment (undeploy and deploy) for changed files.
+	</p><p>
+	  If your CEP application(s) consist of statements only and there is no Java application code or all application code is already present in the container, you may simply copy an EPL module text file with the extension <code class="literal">.epl</code> to the <code class="literal">hotdeploy</code> folder or delete the file to undeploy or change the file to redeploy.
+	</p><p>
+	  If your CEP application(s) consist of EPL statements and related Java application code, you can follow the web application archive (WAR) packaging standard to take advantage of hot deploy, or place the related application code into the classpath and deploy EPL module <code class="literal">.epl</code> files.
+	</p><p>
+	  If your CEP application(s) consist of Esper configuration files, EPL modules and custom Java classes with Java class method-level annotations you may package all into a JAR file and deploy to a dedicated CEP engine. We use the name <span class="emphasis"><em>CEP Engine Jar</em></span> for such JAR files.
+	</p><p>
+	  At time of server startup the server inspects the hot deployment directory for JAR, EPL and WAR files. The server startup processes all JAR files first.
+	</p><p>
+	  After processing any JAR files, at time of server startup the server inspects all EPL text files and all WAR files including their packaged EPL files. The server analyzes dependencies as declared via <code class="literal">uses</code>-clause between each EPL module. The server then deploys EPL text files and WAR files in the order as required by all <code class="literal">uses</code>-clauses, if any. If no <code class="literal">uses</code>-clauses are specified, the server deploys all EPL text files first and deploys any WAR files next.
+	</p><p>
+	  When hot deploying to a web application server such as Apache Tomcat instead of Esper Enterprise Edition server, you deployment unit is WAR as your application server will not understand <code class="literal">.epl</code> EPL module files or <code class="literal">.jar</code> engine JAR files.
+	</p><p>
+	  In the default configuration the hot deploy service deploys all files (WAR, EPL) to the default engine. If you have initialized and are running multiple CEP engines in the same JVM process, please see <a class="xref" href="servercookbook.html#servercookbook-jettyconfig-multiengine" title="6.7.1. Hot Deployer CEP Engine Targeting">Section 6.7.1, “Hot Deployer CEP Engine Targeting�?</a> for information on how to target certain files to a given CEP engine.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy-epl"/>5.1. EPL Module Hot Deployment</h2></div></div></div><p>
+		  The EPL module file format is described in detail in the Esper documentation under packaging and deployment. The examples in the distribution all have <span class="emphasis"><em>example.epl</em></span> files that contain all 
+		  EPL statements for each example.
+		</p><p>
+		  To deploy a new EPL module to Enterprise Edition, create a new text file in the <code class="literal">hotdeploy</code> folder with the extension <code class="literal">.epl</code> or copy a file to the folder. As you save or copy the file the
+		  Enterprise Edition server deploys the EPL module file.
+		</p><p>
+		  To undeploy simply remove the <code class="literal">.epl</code> text file. To redeploy change the <code class="literal">.epl</code> text file in a text editor or copy a new file over the existing file. 
+		</p><p>
+		  You will see log entries on the console for deployment changes.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy-war"/>5.2. CEP Application WAR Hot Deployment</h2></div></div></div><p>
+		  When your CEP applications consists of EPL modules and related application code or only application code and dynamically registered EPL statements, use the web application archive (WAR) for hot deployment. Please consult J2EE web application standards for a description of the WAR standard.
+		</p><p>
+		  All Enterprise Edition examples are packaged as a WAR file and get deployed during startup, until you remove the example war files from the <code class="literal">hotdeploy</code> directory.
+		</p><p>
+		  To deploy a new CEP application to Enterprise Edition, create a WAR file in the <code class="literal">hotdeploy</code> folder with the extension <code class="literal">.war</code> or copy a file to the folder. After you save or copy the file the
+		  Enterprise Edition server deploys the WAR file.
+		</p><p>
+		  To undeploy simply remove the <code class="literal">.war</code> file. To redeploy copy a new file over the existing file. 
+		</p><p>
+		  When packaging into your WAR file any EPL module files (text files with EPL statements that carry the <code class="literal">.epl</code> extension), you have the following options:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Enterprise Edition server can automatically deploy all <code class="literal">.epl</code> files found in your WAR file. For this purpose declare the <code class="literal">EsperPrepackagedServletContextListener</code> in the <code class="literal">web.xml</code> descriptor.
+				</p></li><li><p>
+					Enterprise Edition server can deploy only the named <code class="literal">.epl</code> files from your WAR file. Declare the <code class="literal">EsperParameterizedServletContextListener</code> in your <code class="literal">web.xml</code> descriptor.
+				</p></li><li><p>
+					Load and start any EPL modules or EPL statements in your application code.
+				</p></li></ol></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="hotdeploy-war-opt1"/>5.2.1. Auto-Deploy of Packaged EPL Modules</h3></div></div></div><p>
+					Enterprise Edition server can automatically deploy all <code class="literal">.epl</code> EPL modules that are part of the WAR file.
+				</p><p>
+					Declare the following listener in the <code class="literal">web.xml</code> deployment descriptor:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app&gt;
+...
+  &lt;!--
+    Listener to deploy all EPL files (.epl) packaged with the WAR file.
+  --&gt;
+  &lt;listener&gt;
+    &lt;listener-class&gt;com.espertech.esper.server.webapp.EsperPrepackagedServletContextListener&lt;/listener-class&gt;
+  &lt;/listener&gt;
+...
+&lt;/web-app&gt;</pre><p>
+					There are no further context parameters needed. The deployment takes place to the configured default engine URI.
+				</p><p>
+					Use this option when deploying to Enterprise Edition server or use below options. Do not use this option when deploying to Apache Tomcat or another web application server.
+				</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="hotdeploy-war-opt2"/>5.2.2. Configured Deploy of Packaged EPL Modules</h3></div></div></div><p>
+					Enterprise Edition server can deploy the <code class="literal">.epl</code> EPL modules that are part of the WAR file and that are explicitly listed as context parameters.
+				</p><p>
+				  Use this option when deploying to Apache Tomcat or another web application server. We provide the servlet listener in the <code class="literal">lib</code> folder in jar <code class="literal">esper-server-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>.
+				</p><p>
+					Declare the following listener and context parameters in the <code class="literal">web.xml</code> deployment descriptor:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app&gt;
+...
+  &lt;listener&gt;
+    &lt;listener-class&gt;com.espertech.esper.server.webapp.EsperParameterizedServletContextListener&lt;/listener-class&gt;
+  &lt;/listener&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;com.espertech.esper.context-param.uri&lt;/param-name&gt;
+    &lt;param-value&gt;default&lt;/param-value&gt;   &lt;!-- The engine URI to use. --&gt;
+  &lt;/context-param&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;com.espertech.esper.context-param.modules&lt;/param-name&gt;
+    &lt;param-value&gt;sample.epl&lt;/param-value&gt;
+  &lt;/context-param&gt;
+...
+&lt;/web-app&gt;</pre><p>
+				The servlet context listener attempts to resolve the EPL file from the classpath and the servlet context real path (deployment directory) or via URL. Once successfully resolved the 
+				listener parses and deploys the EPL module statements. A comma-separate list of EPL files may be provided instead.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="hotdeploy-jar"/>5.3. CEP Engine Jar Hot Deployment</h2></div></div></div><p>
+			You may package CEP application(s) into a JAR file. The hot deploy service initializes a separate CEP engine for each JAR file. When you remove the JAR file, the hot deploy service destroys the associated CEP engine. The hot deploy service inspects Java classes packaged into the JAR file and acts upon annotations it finds.
+		</p><p>
+			Enterprise Edition ships with an example named <span class="emphasis"><em>EngineJar</em></span> that builds a JAR assembly in the format described here and that demonstrates the use of Java class annotations.
+		</p><p>
+		  The JAR file contents are all optional and are as follows:
+		</p><div class="itemizedlist"><ul><li><p>
+					Place the Esper configuration into the file <code class="literal">conf/esper.xml</code>.
+				</p></li><li><p>
+					Place the EsperHA configuration into the file <code class="literal">conf/esperha.xml</code>.
+				</p></li><li><p>
+					Place any EPL module files in any folder in the JAR file, preferably the root folder of the JAR, as the hot deploy service continues monitoring that folder for changes to EPL files.
+				</p></li><li><p>
+					Place any Java classes into the <code class="literal">classes</code> folder. These are added to the classpath for the CEP engine. The hot deploy service finds all annotated classes and acts upon each annotated method.
+				</p></li><li><p>
+					Place any additional jar files into the <code class="literal">lib</code> folder. These are added to the classpath for the CEP engine.
+				</p></li><li><p>
+					Place a <code class="literal">META-INF/MANIFEST.MF</code> file into the JAR file and add the <code class="literal">EsperEngineURI: </code><span class="emphasis"><em>engine_uri</em></span> entry that specifies the engine URI.
+				</p></li></ul></div><p>
+			For each such JAR file placed into the hot deploy directory the hot deploy service follows these steps:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					First, the hot deploy service assigns a CEP engine URI to the JAR file as follows: If the <code class="literal">META-INF/MANIFEST.MF</code> file exists in the JAR file the value of the <code class="literal">EsperEngineURI</code> entry is the engine URI. If the file does not exist or the <code class="literal">EsperEngineURI</code> entry is not found the hot deploy service
+					uses the file name of the JAR file as the engine URI. If a CEP engine with the same engine URI has already been initialized the hot deploy service cancels the engine jar deployment.
+				</p></li><li><p>
+					Next, the hot deploy service unpacks the JAR files to a directory on the same level as the hot deploy directory. The hot deploy service also monitors that directory for any changes to EPL files and automatically deploys, redeploys or undeploys any new, changed or removed EPL files (not recursive).
+				</p></li><li><p>
+					Next, the hot deploy service adds any Java classes in the <code class="literal">classes</code> directory and all JAR files in the directory path to the classpath.
+				</p></li><li><p>
+					Next the hot deploy service creates an engine configuration from the provided configuration files, if any are provided.
+				</p></li><li><p>
+					Next the hot deploy service inspects all Java classes packaged into the JAR file and acts upon annotations as described below. The hot deploy service finds methods marked with the <code class="literal">@SingleRowFunction</code> annotation in the Java code and adds each to the configuration as a plug-in single-row function.
+				</p></li><li><p>
+					Next, the hot deploy service initializes the CEP engine. 
+				</p></li><li><p>
+					Next, the hot deploy service deploys all EPL modules to that CEP engine in the order as indicated by the <code class="literal">uses</code>-clause, if present.
+				</p></li><li><p>
+					Finally, the hot deploy service finds methods marked with the <code class="literal">@EngineInitializer</code> annotation in the Java code and invokes each such initializer method.
+				</p></li></ol></div><p>
+			Consider the example <code class="literal">enginejar</code> JAR project shipped with the distribution as a starting point. The example contains Maven assembly instructions that creates a suitable JAR file. Please see <a class="xref" href="examples.html#examples-enginejar" title="10.6. Hot Deploy Engine-Jar Example">Section 10.6, “Hot Deploy Engine-Jar Example�?</a> for more information.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="hotdeploy-jar-annotations"/>5.3.1. Annotations</h3></div></div></div><p>
+				The hot deploy service recognizes annotated Java classes provided in the JAR file. 
+			</p><p>
+				Specify the <code class="literal">@SingleRowFunction</code> annotation for each method that provides a plug-in single-row EPL function as a public static method. Such a method may accept any number of parameters.
+			</p><p>
+				The next example declares a single-row function by name <code class="literal">containsAny</code> that takes two array parameters and that returns a boolean value:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@SingleRowFunction(name = "containsAny")
+public static boolean ContainsAny(Object[] lhs, Object[] rhs) {
+...	
+}</pre><p>
+				Specify the <code class="literal">@EngineInitializer</code> annotation for each method that should be called after the CEP engine initialization completed and all EPL modules are deployed. The purpose of this method typically is to look up statements by statement name and attach listeners or a subscriber. The method must be public static and accept a single String-type parameter that receives the engine URI.
+			</p><p>
+				The next example declares a method that takes the engine URI as a parameter and that the hot deploy service invokes after deployment completed:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@EngineInitializer
+public static void initEngine(String engineName) {
+...
+}</pre></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="clustering.html"><strong>Prev</strong>Chapter 4. Clustering, Scalability and High-Avail...</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="servercookbook.html"><strong>Next</strong>Chapter 6. Server And Deployment Cookbook</a></li></ul></body></html>

@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Distribution Cache Integration for Esper</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><div class="book" lang="en-US"><div class="titlepage"><div><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><div><h1 class="title"><a id="d0e1"/>Distribution Cache Integration for Esper</h1></div><div><div xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="authorgroup"><div class="authors">by <span xmlns="http://www.w3.org/1999/xhtml" class="orgname"><a class="link" href="http://www.espertech.com" target="">EsperTech Inc.</a></span></div><div class="editors"/><div class="others"/></div></div><div><p class="releaseinfo">Version 5.4.0</p></div><div><p class="copyright">Copyright © 2016 EsperTech Inc.</p></div></div><hr/></div><div class="toc"><dl><dt><span class="preface"><a href="#d0e18">Preface</a></span></dt><dt><span class="chapter"><a href="#introduction">1. Introduction</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro_why">1.1. Key Capabilities</a></span></dt><dt><span class="sect1"><a href="#intro_limitations">1.2. Known Limitations</a></span></dt><dd><dl><dt><span class="sect2"><a href="#intro_limitations_gigaspaces">1.2.1. GigaSpaces Support - Known Limitations</a></span></dt><dt><span class="sect2"><a href="#intro_limitations_websphere">1.2.2. Websphere Support - Known Limitations</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#getting_started">2. Getting Started</a></span></dt><dd><dl><dt><span class="sect1"><a href="#start_how">2.1. Quick Start</a></span></dt><dt><span class="sect1"><a href="#start_plug_in">2.2. Required Esper Configurations</a></span></dt><dt><span class="sect1"><a href="#start_createwindow">2.3. EPL Create Window Syntax</a></span></dt></dl></dd><dt><span class="chapter"><a href="#reference">3. Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#ref_obtaining">3.1. Associating a Cache Instance</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_obtaining_name">3.1.1. Cache Instance Association by Name</a></span></dt><dt><span class="sect2"><a href="#ref_obtaining_function">3.1.2. Cache Instance Association by Function</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_keyvalue">3.2. Determine Cache Key Objects</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_keyvalue_property">3.2.1. Cache Key based on Event Property</a></span></dt><dt><span class="sect2"><a href="#ref_keyvalue_function">3.2.2. Cache Key based on Function</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_valuevalue">3.3. Determine Cache Value Object</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_valuevalue_underlying">3.3.1. Cache Value is Event Underlying Object</a></span></dt><dt><span class="sect2"><a href="#ref_valuevalue_function">3.3.2. Cache Value Conversion Functions</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_query">3.4. Cache Query Considerations</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_query_language">3.4.1. Cache Lookup per Distributed Cache Software</a></span></dt><dt><span class="sect2"><a href="#ref_query_function">3.4.2. Cache Lookup Strategy Override</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_listen">3.5. Cache Listener</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_listen_detail">3.5.1. Cache Listener per Distributed Cache Software</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_lateconsume">3.6. Late Consumers</a></span></dt><dt><span class="sect1"><a href="#ref_unique">3.7. Achieving Unique Semantics Without Cache Listener</a></span></dt></dl></dd><dt><span class="chapter"><a href="#performance">4. Performance</a></span></dt><dd><dl><dt><span class="sect1"><a href="#performance-tips">4.1. Performance Tips</a></span></dt><dd><dl><dt><span class="sect2"><a href="#performance-tips-1">4.1.1. Locking</a></span></dt></dl></dd></dl></dd></dl></div><div class="preface" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e18"/>Preface</h2></div></div></div><p>
+			This document describes the Distribution Cache Integration for Esper Complex Event Processing.  
+        </p><p>
+			This documents targets software architects and developers. Some understanding and knowledge of Esper is assumed.
+        </p><p>
+			If you are new to Esper, the Esper reference manual as well as the tutorials, case studies and solution patterns available on the Esper public web site at <a class="link" href="http://www.espertech.com/esper" target="">http://www.espertech.com/esper</a> provide the overall Esper documentation set
+		</p><p>
+			If you are new to the Distributed Cache Integration, please follow these steps:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    Read <a class="xref" href="#introduction" title="Chapter 1. Introduction">Chapter 1, <i>Introduction</i></a> for an overview of concepts and capabilities.
+                </p></li><li><p>
+                    Read <a class="xref" href="#getting_started" title="Chapter 2. Getting Started">Chapter 2, <i>Getting Started</i></a> for the quick start instructions.
+                </p></li></ol></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="introduction"/>Chapter 1. Introduction</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#intro_why">1.1. Key Capabilities</a></span></dt><dt><span class="sect1"><a href="#intro_limitations">1.2. Known Limitations</a></span></dt><dd><dl><dt><span class="sect2"><a href="#intro_limitations_gigaspaces">1.2.1. GigaSpaces Support - Known Limitations</a></span></dt><dt><span class="sect2"><a href="#intro_limitations_websphere">1.2.2. Websphere Support - Known Limitations</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="intro_why"/>1.1. Key Capabilities</h2></div></div></div><p>
+		  The Distributed Cache Integration integrates distributed caching software with Esper Complex Event Processing in order to seamlessly query, insert, update, delete and listen to cache changes using EPL.
+		</p><p>
+          The Distributed Cache Integration is available for use with the following distributed caching products listed below in alphabetic order of product name:
+        </p><div class="itemizedlist"><ul compact="compact"><li><p>
+					Oracle Coherence. Coherence is a regististered trademark of Oracle Corporation. Please visit <a class="link" href="http://www.oracle.com" target="">http://www.oracle.com</a>.
+					We require version 12.1.2 or above.
+                </p></li><li><p>
+				  VMware vFabric GemFire. The names vFabric and GemFire are regististered trademarks of VMWare. Please visit <a class="link" href="http://www.vmware.com" target="">http://www.vmware.com</a>.
+				  We test against version 8.1.0 of GemFire.
+				</p></li><li><p>
+					GigaSpaces XAP. GigaSpaces and eXtreme Application Platform (XAP) are registered trademarks of GigaSpaces Technologies. Please visit <a class="link" href="http://www.gigaspaces.com" target="">http://www.gigaspaces.com</a>. The GigaSpaces version we test against is version 10.0.1 of GemFire.
+                </p></li><li><p>
+					Hazelcast. Hazelcast is a trademark of Hazelcast Software. Please visit <a class="link" href="http://www.hazelcast.com" target="">http://www.hazelcast.com</a>.
+					We require version 3.1.6 or above.
+                </p></li><li><p>
+					Infinispan. Infinispan is a JBoss project. Please visit <a class="link" href="http://www.jboss.org/infinispan" target="">http://www.jboss.org/infinispan</a>.
+                </p></li><li><p>
+					Terracotta. Terracotta is a registered trademark of Software AG. Please visit <a class="link" href="http://www.terracotta.org" target="">http://www.terracotta.org</a>.
+					We require version 3.7.7 or above.
+                </p></li><li><p>
+					IBM WebSphere eXtreme Scale. WebSphere and eXtreme scale are registered trademarks of IBM. Please visit <a class="link" href="http://www.ibm.com" target="">http://www.ibm.com</a>.
+                </p></li></ul></div><p>
+		  Please let us know if the distributed cache software you are using is not on this list.
+		</p><p>
+		  The Distributed Cache Integration provides the capability to declare a named window backed by a specific cache instance that is managed by the distributed caching software. This document uses the term <span class="emphasis"><em>cache instance</em></span> to mean the cache, map, grid, region or space instance, as the term is used by the specific distributed caching software.
+		</p><p>
+		  EPL statements that join, subquery or perform fire-and-forget queries against named windows backed by a distributed cache execute the query against the cache instance. The Distributed Cache Integration analyses join, subquery or fire-and-forget where-clauses and performs key-based lookups, filter query lookups or full cache scan lookups to find matching rows. For the filter queries the Distributed Cache Integration uses the cache query language (if any) specific to the distributed caching software.
+		</p><p>
+          The Distributed Cache Integration can listen to changes in the cache instance. When unrelated applications add new entries to a cache instance, or update entries in a cache instance or delete entries from a cache instance then the Distributed Cache Integration can accordingly update EPL statements that
+          refer to the named window. By refer we mean EPL statements that consume a named window stream for example to join, aggregate or detect patterns.
+        </p><p>
+           Any EPL statement that uses <code class="literal">insert into</code> to insert into a named window backed by a distributed cache inserts directly into the cache instance.
+        </p><p>
+           The EPL <code class="literal">on-merge</code>, <code class="literal">on-delete</code>, <code class="literal">on-update</code> statements when used against a named window backed by a distributed cache apply the respective change to the cache instance.
+        </p><p>
+           Statements that refer to the named window (consume its stream) and that use aggregations or detect patterns via match-recognize have the aggregation or pattern state initialized, at time of EPL statement creation, from the data available in a cache instance managed by the distributed cache software.
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="intro_limitations"/>1.2. Known Limitations</h2></div></div></div><p>
+			This section lists known limitations.
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="intro_limitations_gigaspaces"/>1.2.1. GigaSpaces Support - Known Limitations</h3></div></div></div><p>
+				You may not insert Map-type or XML-type events into a GigaSpaces-managed cache instance (a space).
+			</p><p>
+				You may not use cache listeners with GigaSpaces.
+			</p><p>
+				You may not use the unique-flag to achieve unique semantics with Gigaspaces.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="intro_limitations_websphere"/>1.2.2. Websphere Support - Known Limitations</h3></div></div></div><p>
+				You may not use cache listeners with Websphere eXtreme Scale.
+			</p></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="getting_started"/>Chapter 2. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#start_how">2.1. Quick Start</a></span></dt><dt><span class="sect1"><a href="#start_plug_in">2.2. Required Esper Configurations</a></span></dt><dt><span class="sect1"><a href="#start_createwindow">2.3. EPL Create Window Syntax</a></span></dt></dl></div><p>
+		This chapter is a step-by-step guide to get your application started using Distributed Cache Integration.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="start_how"/>2.1. Quick Start</h2></div></div></div><p>
+			 The quick start steps to Distributed Cache Integration are as follows:
+        </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Add the following files to your classpath:
+				</p><div class="itemizedlist"><ul compact="compact"><li><p>
+								The Distributed Cache Integration "common" jar file named <code class="literal">lib/esper-distcache-common-x.y.z.jar</code> (x.y.z being the release version number)
+						</p></li><li><p>
+								The Distributed Cache Integration jar file specific to the distributed caching software in use. The jar file name is <code class="literal">lib/esper-distcache-</code><span class="emphasis"><em>distcachename</em></span><code class="literal">-x.y.z.jar</code>, with <span class="emphasis"><em>distcachename</em></span> being the product name of the distributed caching software.
+						</p></li><li><p>
+								Any jar files required by the distributed caching software. The distribution provides a <code class="literal">readme</code> file for each distributed caching software that lists the jar files.
+						</p></li></ul></div></li><li><p>
+					Add to the Esper engine configuration the plug-in for the distributed caching software (here shown for Coherence):
+				</p><pre xmlns="" class="">Configuration config = new Configuration();
+config.addPluginLoader("coherence", CoherencePluginLoader.class.getName());
+EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider(config);</pre></li><li><p>
+					In EPL, declare a named window that is backed by the distributed cache as follows:
+				</p><pre xmlns="" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre></li></ol></div><p>
+		  After following the steps above, you are now ready to query the named window and insert, update or delete from the named window using EPL statements and fire-and-forget queries.
+		</p><p>
+		  By default, the Distributed Cache Integration does not listen to cache changes. Please enable cache change listener as described below.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="start_plug_in"/>2.2. Required Esper Configurations</h2></div></div></div><p>
+			As briefly discussed before, your application must add the plug-in class for use with the distributed cache software to the Esper configuration.
+		</p><p>
+		  The next programming example adds the Coherence plug-in to the Esper configuration via configuration API:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPluginLoader("coherence", CoherencePluginLoader.class.getName());
+EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider(config);</pre><p>
+		  The example below is a snippet of Esper XML configuration that adds the Terracotta cache configuration to the Esper configuration XML. 
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="terracotta"
+  class-name="com.espertech.esper.distcache.terracotta.TerracottaPluginLoader"/&gt;</pre><p>
+		  The next table outlines, for each distributed caching software, the plug-in class and example code as well as example XML for use in the Esper configuration.
+		</p><div class="table"><a id="start_plugin_table"/><p class="title"><b>Table 2.1. Esper Configuration and Example</b></p><div class="table-contents"><table summary="Esper Configuration and Example" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Cache Type</th><th>Class</th><th>Example</th></tr></thead><tbody><tr><td>Coherence</td><td><code class="literal">CoherencePluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("coherence",
+  CoherencePluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="coherence"
+  class-name="com.espertech.esper.distcache.
+  coherence.CoherencePluginLoader"/&gt;</pre>
+						</td></tr><tr><td>GemFire</td><td><code class="literal">GemfirePluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("gemfire", 
+  GemfirePluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="gemfire"
+  class-name="com.espertech.esper.distcache.
+  gemfire.GemfirePluginLoader" /&gt;</pre>
+						</td></tr><tr><td>GigaSpaces</td><td><code class="literal">GigaspacesPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("gigaspaces", 
+  GigaspacesPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="gigaspaces" 
+  class-name="com.espertech.esper.distcache.
+  gigaspaces.GigaspacesPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Hazelcast</td><td><code class="literal">HazelcastPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("hazelcast", 
+  HazelcastPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="hazelcast"
+  class-name="com.espertech.esper.distcache.
+  hazelcast.HazelcastPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Infinispan</td><td><code class="literal">InfinispanPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("infinispan", 
+  InfinispanPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="Infinispan"
+  class-name="com.espertech.esper.distcache.
+  infinispan.InfinispanPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Terracotta</td><td><code class="literal">TerracottaPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("terracotta", 
+  TerracottaPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="terracotta"
+  class-name="com.espertech.esper.distcache.
+  terracotta.TerracottaPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Websphere</td><td><code class="literal">WebspherePluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("websphere",
+  WebspherePluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="websphere"
+  class-name="com.espertech.esper.distcache.
+  websphere.WebspherePluginLoader" /&gt;</pre>
+						</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="start_createwindow"/>2.3. EPL Create Window Syntax</h2></div></div></div><p>
+			Use the EPL <code class="literal">create window</code> syntax with a data window view name as <span class="emphasis"><em>namespace</em></span>:<code class="literal">cache</code> to declare a named window backed by a distributed cache.
+		</p><p>
+		  The following EPL statement declares a named window backed by a Coherence cache by name <code class="literal">OrderCache</code> wherein the event property <code class="literal">orderId</code> 
+		  is the key and the value is <code class="literal">OrderEvent</code> events.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre><p>
+		  The table below outlines, for each distributed caching software, the view namespace as well as example EPL to create a named window.
+		</p><div class="table"><a id="start_createwindow_table"/><p class="title"><b>Table 2.2. EPL Create-Window Examples</b></p><div class="table-contents"><table summary="EPL Create-Window Examples" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Cache Type</th><th>Namespace</th><th>Example</th></tr></thead><tbody><tr><td>Coherence</td><td><code class="literal">coherence</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.coherence:cache() as OrderEvent</pre>
+						</td></tr><tr><td>GemFire</td><td><code class="literal">gemfire</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.gemfire:cache() as OrderEvent</pre>
+						</td></tr><tr><td>GigaSpaces</td><td><code class="literal">gigaspaces</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.gigaspaces:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Hazelcast</td><td><code class="literal">hazelcast</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.hazelcast:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Infinispan</td><td><code class="literal">infinispan</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.infinispan:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Terracotta</td><td><code class="literal">terracotta</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.terracotta:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Websphere</td><td><code class="literal">websphere</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.websphere:cache() as OrderEvent</pre>
+						</td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="reference"/>Chapter 3. Guide</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#ref_obtaining">3.1. Associating a Cache Instance</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_obtaining_name">3.1.1. Cache Instance Association by Name</a></span></dt><dt><span class="sect2"><a href="#ref_obtaining_function">3.1.2. Cache Instance Association by Function</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_keyvalue">3.2. Determine Cache Key Objects</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_keyvalue_property">3.2.1. Cache Key based on Event Property</a></span></dt><dt><span class="sect2"><a href="#ref_keyvalue_function">3.2.2. Cache Key based on Function</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_valuevalue">3.3. Determine Cache Value Object</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_valuevalue_underlying">3.3.1. Cache Value is Event Underlying Object</a></span></dt><dt><span class="sect2"><a href="#ref_valuevalue_function">3.3.2. Cache Value Conversion Functions</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_query">3.4. Cache Query Considerations</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_query_language">3.4.1. Cache Lookup per Distributed Cache Software</a></span></dt><dt><span class="sect2"><a href="#ref_query_function">3.4.2. Cache Lookup Strategy Override</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_listen">3.5. Cache Listener</a></span></dt><dd><dl><dt><span class="sect2"><a href="#ref_listen_detail">3.5.1. Cache Listener per Distributed Cache Software</a></span></dt></dl></dd><dt><span class="sect1"><a href="#ref_lateconsume">3.6. Late Consumers</a></span></dt><dt><span class="sect1"><a href="#ref_unique">3.7. Achieving Unique Semantics Without Cache Listener</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ref_obtaining"/>3.1. Associating a Cache Instance</h2></div></div></div><p>
+		  You must provide the <code class="literal">@ExternalDW</code> annotation with <code class="literal">create window</code> to associate a named window to a cache instance that is managed by the distributed caching software.
+		</p><p>
+		  The <code class="literal">@ExternalDW</code> annotation requires a value for the <code class="literal">name</code> attribute. The cache name is a required value: The Distributed Cache Integration uses the cache name for logging 
+		  and can also use the cache name to obtain a cache instance from the distributed caching software.
+		</p><p>
+		  There are two choices for associating a named window to a cache instance:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    You provide only a cache name with the <code class="literal">@ExternalDW</code> annotation: The Distributed Cache Integration uses that cache name to obtain the cache instance.
+                </p></li><li><p>
+                    You provide a cache name and a cache open function name with the <code class="literal">@ExternalDW</code> annotation: The Distributed Cache Integration uses the cache open function to obtain a cache instance.
+                </p></li></ol></div><p>
+		  You may specify the optional <code class="literal">functionOpen</code> and <code class="literal">functionClose</code> attributes of the <code class="literal">@ExternalDW</code> annotation to have your application provide the cache instance. If you provide a value
+		  for <code class="literal">functionOpen</code> the Distributed Cache Integration does not use the cache name to obtain a cache instance, and instead invokes the plug-in single-row function as provided to obtain the cache instance.
+		</p><p>
+			The instructions below refer to the following example <code class="literal">create window</code> EPL statement:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre><p>
+			Please replace the <code class="literal">coherence</code> namespace with the namespace of the distributed cache software that is in use by your application.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_obtaining_name"/>3.1.1. Cache Instance Association by Name</h3></div></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_obtaining_name_coherence"/>3.1.1.1. Coherence</h4></div></div></div><p>
+					For Coherence, a cache instance is a <code class="literal">com.tangosol.net.NamedCache</code> cache. The cache name provided as part of the <code class="literal">@ExternalDW</code> annotation is the Coherence cache name, or can be any value if the <code class="literal">functionOpen</code> attribute is provided instead.
+				</p><p>
+				  If your <code class="literal">@ExternalDW</code> annotation only provides a cache name, the Distributed Cache Integration uses the <code class="literal">com.tangosol.net.CacheFactory.getCache(cacheName)</code> method to obtain a <code class="literal">NamedCache</code> instance.
+				</p><p>
+					If your <code class="literal">@ExternalDW</code> annotation provides the <code class="literal">functionOpen</code> attribute, the function your application provides must return a <code class="literal">NamedCache</code> instance.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_obtaining_name_gemfire"/>3.1.1.2. GemFire</h4></div></div></div><p>
+					For GemFire, a cache instance is a <code class="literal">com.gemstone.gemfire.cache.Region</code> region. The cache name provided as part of the <code class="literal">@ExternalDW</code> annotation is the GemFire region name, or can be any value if the <code class="literal">functionOpen</code> attribute is provided instead.
+				</p><p>
+				  If your <code class="literal">@ExternalDW</code> annotation only provides a cache name, the Distributed Cache Integration first instantiates a <code class="literal">com.gemstone.gemfire.cache.CacheFactory</code> by invoking <code class="literal">new CacheFactory()</code>. It then passes all properties that 
+				  were provided by the plug-in loader configuration by calling <code class="literal">cacheFactory.set(key, value)</code>. It then invokes the <code class="literal">cacheFactory.create()</code> method to obtain an instance of <code class="literal">com.gemstone.gemfire.cache.Cache</code>.
+				  Finally, it obtains the <code class="literal">Region</code> instance by calling <code class="literal">cacheManager.getRegion(cacheName)</code>.
+				</p><p>
+					If your <code class="literal">@ExternalDW</code> annotation provides the <code class="literal">functionOpen</code> attribute, the function your application provides must return a <code class="literal">com.espertech.esper.distcache.gemfire.GemfireConnectionDescriptor</code> instance.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_obtaining_name_gigaspaces"/>3.1.1.3. GigaSpaces</h4></div></div></div><p>
+					For GigaSpaces, a cache instance is a <code class="literal">org.openspaces.core.GigaSpace</code> space. The cache name provided as part of the <code class="literal">@ExternalDW</code> annotation is the GigaSpaces space URL, or can be any value if the <code class="literal">functionOpen</code> attribute is provided instead.
+				</p><p>
+				  If your <code class="literal">@ExternalDW</code> annotation only provides a cache name, the Distributed Cache Integration first obtains a <code class="literal">com.j_spaces.core.IJSpace</code> by calling <code class="literal">IJSpace space = new UrlSpaceConfigurer(cacheName).space()</code>. 
+				  It then calls <code class="literal">new GigaSpaceConfigurer(space).create()</code> to obtain a <code class="literal">GigaSpace</code> instance.
+				</p><p>
+					If your <code class="literal">@ExternalDW</code> annotation provides the <code class="literal">functionOpen</code> attribute, the function your application provides must return a <code class="literal">GigaSpace</code> instance.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_obtaining_name_hazelcast"/>3.1.1.4. Hazelcast</h4></div></div></div><p>
+					For Hazelcast, a cache instance is a <code class="literal">com.hazelcast.core.IMap</code> map. The cache name provided as part of the <code class="literal">@ExternalDW</code> annotation is the Hazelcast map name, or can be any value if the <code class="literal">functionOpen</code> attribute is provided instead.
+				</p><p>
+				  If your <code class="literal">@ExternalDW</code> annotation only provides a cache name, the Distributed Cache Integration obtains a <code class="literal">IMap</code> instance by calling <code class="literal">Hazelcast.getMap(cacheName)</code>. 
+				</p><p>
+					If your <code class="literal">@ExternalDW</code> annotation provides the <code class="literal">functionOpen</code> attribute, the function your application provides must return a <code class="literal">IMap</code> instance.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_obtaining_name_infinispan"/>3.1.1.5. Infinispan</h4></div></div></div><p>
+					For Infinispan, a cache instance is a <code class="literal">org.infinispan.Cache</code> instance. The cache name provided as part of the <code class="literal">@ExternalDW</code> annotation is the DefaultCacheManager cache name, or can be any value if the <code class="literal">functionOpen</code> attribute is provided instead.
+				</p><p>
+				  If your <code class="literal">@ExternalDW</code> annotation only provides a cache name, the Distributed Cache Integration obtains a <code class="literal">org.infinispan.manager.DefaultCacheManager</code> instance by calling <code class="literal">new DefaultCacheManager()</code> and obtains a cache instance by calling <code class="literal">defaultCacheManager.getCache(cacheName)</code>. 
+				</p><p>
+					If your <code class="literal">@ExternalDW</code> annotation provides the <code class="literal">functionOpen</code> attribute, the function your application provides must return a <code class="literal">Cache</code> instance.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_obtaining_name_terracotta"/>3.1.1.6. Terracotta</h4></div></div></div><p>
+					For Terracotta, a cache instance is a <code class="literal">net.sf.ehcache.Cache</code> cache. The cache name provided as part of the <code class="literal">@ExternalDW</code> annotation is the Terracotta cache name, or can be any value if the <code class="literal">functionOpen</code> attribute is provided instead.
+				</p><p>
+				  If your <code class="literal">@ExternalDW</code> annotation only provides a cache name, the Distributed Cache Integration first obtains a <code class="literal">net.sf.ehcache.CacheManager</code> by calling <code class="literal">new CacheManager()</code>. It then invokes <code class="literal">cacheManager.getCache(cacheName)</code> on the Terracotta EHCache cache manager
+				  to obtain the <code class="literal">Cache</code>.
+				</p><p>
+					If your <code class="literal">@ExternalDW</code> annotation provides the <code class="literal">functionOpen</code> attribute, the function your application provides must return a <code class="literal">Cache</code> instance.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_obtaining_name_websphere"/>3.1.1.7. Websphere</h4></div></div></div><p>
+					For Websphere, a cache instance is a <code class="literal">com.ibm.websphere.objectgrid.ObjectMap</code> cache. The cache name provided as part of the <code class="literal">@ExternalDW</code> annotation is the Websphere map name, or can be any value if the <code class="literal">functionOpen</code> attribute is provided instead.
+				</p><p>
+				  If your <code class="literal">@ExternalDW</code> annotation only provides a cache name, the Distributed Cache Integration first obtains an <code class="literal">com.ibm.websphere.objectgrid.ObjectGrid</code> by calling <code class="literal">ObjectGridManagerFactory.getObjectGridManager().createObjectGrid()</code>. The actual <code class="literal">ObjectMap</code> instance
+				  is obtained by the Distributed Cache Integration at runtime.
+				</p><p>
+					If your <code class="literal">@ExternalDW</code> annotation provides the <code class="literal">functionOpen</code> attribute, the function your application provides must return a <code class="literal">ObjectGrid</code> instance.
+				</p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_obtaining_function"/>3.1.2. Cache Instance Association by Function</h3></div></div></div><p>
+			  In this example we outline how to create a function that returns the cache instance. Use this mechanism when the default association using cache name is not sufficient for your needs or when your application requires complete control over cache instances. The example below assumes Coherence as the distributed cache for the purpose of illustration. 
+			</p><p>
+			  Provide a static method that takes a single <code class="literal">CacheOpenContext</code> as a parameter and that returns a cache instance. In this example the function returns <code class="literal">NamedCache</code> in the case of Coherence. We have instructions above that are specific to each distributed cache software.
+			</p><p>
+			  A sample method providing a cache instance is shown below.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">public class ExampleCoherenceCacheProvider {
+  public static NamedCache getCacheInstance(CacheOpenContext cacheOpenContext) {
+    return CacheFactory.getCache(cacheOpenContext.getCacheName());
+  }
+}</pre><p>
+			  Next, register the function as a plug-in single-row function as part of the Esper configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPlugInSingleRowFunction("getCacheInstance", 
+  ExampleCoherenceCacheProvider.class.getName(), "getCacheInstance");</pre><p>
+			  Finally, provide the function name in the <code class="literal">functionOpen</code> attribute of the <code class="literal">@ExternalDW</code> annotation:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache', functionOpen='getCacheInstance') ...</pre><p>
+			  When the named window gets destroyed, the Distributed Cache Integration invokes the function registered in the <code class="literal">functionClose</code> attribute of the <code class="literal">@ExternalDW</code> annotation, if a function name was provided.
+			</p><p>
+			  A sample method for closing a cache instance is shown below.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">public class ExampleCoherenceCacheProvider {
+  public static void closeCacheInstance(CacheCloseContext cacheCloseContext) {
+    // add logic to close the cache instance here
+  }
+}</pre><p>
+			  Register the function as a plug-in single-row function as part of the Esper configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPlugInSingleRowFunction("closeCacheInstance", 
+  ExampleCoherenceCacheProvider.class.getName(), "closeCacheInstance");</pre><p>
+			  Provide the function name in the <code class="literal">functionClose</code> attribute of the <code class="literal">@ExternalDW</code> annotation:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache', 
+  functionOpen='getCacheInstance', functionClose='closeCacheInstance') ...</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ref_keyvalue"/>3.2. Determine Cache Key Objects</h2></div></div></div><p>
+		  Use the <code class="literal">@ExternalDWKey</code> annotation with <code class="literal">create window</code> to identify key objects of entries managed by the cache instance. The <code class="literal">@ExternalDWKey</code> annotation is required in conjunction with the <code class="literal">@ExternalDW</code> annotation.
+		</p><p>
+		  When an EPL statement inserts an event into the named window backed by a distributed cache it populates the cache with a key object and a value object by performing a <code class="literal">put(key, value)</code> operation. 
+		</p><p>
+		  When an EPL statement updates a named window backed by a distributed cache the statement identifies the rows to update by performing a query (see queries below)  and by applying the <code class="literal">where</code>-clause. For each updated event the engine also performs a <code class="literal">put(key, value)</code> operation.
+		</p><p>
+		  When an EPL statement deletes from a named window backed by a distributed cache the statement identifies the rows to delete by performing a query (see queries below) and by applying the <code class="literal">where</code>-clause. For each deleted event the engine also performs a <code class="literal">remove(key)</code> operation.
+		</p><p>
+		  There are two choices for the engine to obtain the key object for each event that is inserted, updated or deleted:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    You may provide an event property name in the <code class="literal">property</code> attribute of the <code class="literal">@ExternalDWKey</code> annotation: The Distributed Cache Integration uses the event property name to obtain the key object for the cache entry.
+                </p></li><li><p>
+                    You may provide a function name in the <code class="literal">function</code> attribute of the <code class="literal">@ExternalDWKey</code> annotation: The Distributed Cache Integration invokes the function passing the event object and the function is expected to return the key object to use for the cache entry.
+                </p></li></ol></div><p>
+		    For GigaSpaces as the distributed cache software there is no explicit key associated to each GigaSpace space entry. It is therefore not necessary to use the <code class="literal">@ExternalDWKey</code> annotation.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_keyvalue_property"/>3.2.1. Cache Key based on Event Property</h3></div></div></div><p>
+			  Place the name of the event property that provides the value for the cache key into the <code class="literal">property</code> attribute of the <code class="literal">CacheKey</code> annotation.
+			</p><p>
+			  For example, assume that you have an event that represents an order and is defined as a class as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">public class OrderEvent {
+  private String orderId;
+  private double price;
+
+  public String getOrderId() {
+    return orderId;
+  }
+  ...
+}</pre><p>
+			  In this example we assume that the <code class="literal">orderId</code> is a primary key for each order that uniquely identifies each order. You could thus organize the distributed cache such that the value of <code class="literal">orderId</code> is the key and the value is the <code class="literal">OrderEvent</code> itself. The cache <code class="literal">put</code> operation thus is <code class="literal">put(orderId, orderEvent)</code>.
+			  You only need to specify <code class="literal">@ExternalDWKey(property='orderId')</code> to instruct the Distributed Cache Integration to use the value of <code class="literal">orderId</code> as the cache key when putting entries into the cache.
+			</p><p>
+				The EPL example below specifies that the <code class="literal">orderId</code> property of the <code class="literal">OrderEvent</code> event type contains the value to use as the cache key:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre><p>
+				The type of object provided by the event property can be any application class or Java primitive or other type. If using an application class the class should implement the <code class="literal">hashCode</code> and <code class="literal">equals</code> methods.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_keyvalue_function"/>3.2.2. Cache Key based on Function</h3></div></div></div><p>
+			  If an event property cannot be used to provide the cache key object, you may provide an application function as described here. Place the function name that provides the value for the cache key into the <code class="literal">function</code> attribute of the <code class="literal">CacheKey</code> annotation.
+			</p><p>
+			  Provide a static method that takes a single <code class="literal">Object</code> as a parameter and that returns the cache key object. In this example the function returns the <code class="literal">orderId</code> value. 
+			</p><p>
+			  A sample method providing a cache key object is shown below.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">public class ExampleCacheKeyGetter {
+  public static Object getCacheKey(Object event) {
+    OrderEvent orderEvent = (OrderEvent) event;
+    return orderEvent.getOrderId();	// simply return order id as cache key
+  }
+}</pre><p>
+			  Next, register the function as a plug-in single-row function as part of the Esper configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPlugInSingleRowFunction("getCacheKey",
+  ExampleCacheKeyGetter.class.getName(), "getCacheKey");</pre><p>
+			  Finally, provide the function name in the <code class="literal">function</code> attribute of the <code class="literal">@ExternalDWKey</code> annotation:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(function='getCacheKey')
+create window OrderWindow.coherence:cache() as OrderEvent</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ref_valuevalue"/>3.3. Determine Cache Value Object</h2></div></div></div><p>
+		  Use the optional <code class="literal">@ExternalDWValue</code> annotation with <code class="literal">create window</code> to instruct the engine how events map to value objects of cache entries and how value objects of cache entries map to events. 
+		</p><p>
+		  The <code class="literal">@ExternalDWValue</code> annotation is not required in conjunction with the <code class="literal">@ExternalDW</code> annotation. If no <code class="literal">@ExternalDWValue</code> annotation is provided the value object is the underlying event object.		  
+		</p><p>
+		  There are two choices for the engine to obtain the value object for each event that is inserted, updated or deleted, and for each value object that a cache listener may indicate:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    If you provide no <code class="literal">@ExternalDWValue</code> annotation the event underlying object is the value object.
+                </p></li><li><p>
+                    If you provide a <code class="literal">@ExternalDWValue</code> annotation you must specify both the <code class="literal">functionBeanToValue</code> and the <code class="literal">functionValueToBean</code>. The <code class="literal">functionBeanToValue</code> converts an event to a value object and <code class="literal">functionValueToBean</code> converts a value object obtained from a cache instance to an event.
+                </p></li></ol></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_valuevalue_underlying"/>3.3.1. Cache Value is Event Underlying Object</h3></div></div></div><p>
+				If you provide no <code class="literal">@ExternalDWValue</code> annotation (the default) the event underlying object is the value object.
+			</p><p>
+			  When an EPL statement inserts or updates an event into the named window backed by a distributed cache it populates the cache with a key object and a value object by performing a <code class="literal">put(key, value)</code> operation. By default the value object is <code class="literal">EventBean.getUnderlying()</code>.
+			</p><p>
+			  For example, lets assume the <code class="literal">OrderEvent</code> event type is the underlying class <code class="literal">com.mycompany.OrderEvent</code>. The following <code class="literal">create schema</code> declares the <code class="literal">OrderEvent</code> event type:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create schema OrderEvent as com.mycompany.OrderEvent</pre><p>
+			  The next EPL statement creates a named window wherein the cache value object is the <code class="literal">OrderEvent</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre><p>
+			  The following EPL statement inserts all OrderEvent events into the named window:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">insert into OrderWindow select * from OrderEvent</pre><p>
+			  In the example above, as the cache key object is the value of order id, when a new <code class="literal">OrderEvent</code> event arrives the Distributed Cache Integration performs a <code class="literal">put(orderId, OrderEvent)</code> operation.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_valuevalue_function"/>3.3.2. Cache Value Conversion Functions</h3></div></div></div><p>
+			  Use the <code class="literal">@ExternalDWValue</code> annotation and provide the <code class="literal">functionBeanToValue</code> and <code class="literal">functionValueToBean</code> attributes to convert events to value objects and value objects to events.
+			  When the event underlying object is not the same class as the value object, or when different events map to different value objects or different value objects map to different events, the functions can be used to make a conversion as described here. 
+			</p><p>
+			  To convert an <code class="literal">EventBean</code> event instance to a value object for writing to the cache in a <code class="literal">put(key, value)</code> operation, provide a static method that takes a single <code class="literal">EventBean</code> parameter and returns the cache value object. This function is relevant for all writes to the cache instance.
+			</p><p>
+			  To convert a cache value object to an <code class="literal">EventBean</code> event instance, provide a static method that takes a two parameters: An <code class="literal">Object</code> parameter that is the value object and an <code class="literal">EventBeanFactory</code> parameter that can be used to instantiate an event bean. This function is relevant for listening to new entries, updated entries and deleted entries by means of cache listener.
+			</p><p>
+			  The sample methods below assumes that a class <code class="literal">OrderCacheValue</code> is defined that represents the value objects in the cache instance and that the event object is <code class="literal">OrderEvent</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">public class ExampleCacheValueConvertor {
+  public static Object convertBeanToValue(EventBean event) {
+    OrderEvent orderEvent = (OrderEvent) event.getUnderlying();
+    return new OrderCacheValue(orderEvent);
+  }
+
+  public static EventBean convertValueToBean(Object valueObject, EventBeanFactory factory) {
+    OrderCacheValue orderCacheValue = (OrderCacheValue) valueObject;
+    return factory.wrap(new OrderEvent(orderCacheValue.getOrderId(), ...));
+  }
+}</pre><p>
+			  Next, register the functions as plug-in single-row functions as part of the Esper configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPlugInSingleRowFunction("convertBeanToValue", 
+  ExampleCacheValueConvertor.class.getName(), "convertBeanToValue");
+config.addPlugInSingleRowFunction("convertValueToBean", 
+  ExampleCacheValueConvertor.class.getName(), "convertValueToBean");</pre><p>
+			  Finally, provide the functions name as part of the <code class="literal">@ExternalDWValue</code> annotation:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+@ExternalDWValue(functionBeanToValue='convertBeanToValue', functionValueToBean='convertValueToBean')
+create window OrderWindow.coherence:cache() as OrderEvent</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ref_query"/>3.4. Cache Query Considerations</h2></div></div></div><p>
+		  When an EPL statement performs a join or subquery against the named window backed by a distributed cache, the Esper engine analyzes the join or subquery <code class="literal">where</code>-clause and the Distributed Cache Integration uses this information to determine a cache lookup strategy. 
+		  The same is true for fire-and-forget queries that have a named window backed by a distributed cache in the <code class="literal">from</code>-clause.
+		</p><p>
+		  The Distributed Cache Integration performs cache lookups according to the chosen strategy and applies the <code class="literal">where</code>-clause criteria to the resulting cache rows.
+		</p><p>
+		  Enable debug-level logging to have the Distributed Cache Integration output the query strategy, query text (if any) and detailed statistics on execution times and number of rows returned by the cache lookup.
+		</p><p>
+		  There are four strategies for the Distributed Cache Integration to perform value object lookups:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    If the <code class="literal">where</code>-clause contains the key property declared in <code class="literal">@ExternalDWKey(property='</code><span class="emphasis"><em>property_name</em></span><code class="literal">')</code> the Distributed Cache Integration executes a cache <code class="literal">get(key)</code> operation (implementation details are listed below).
+                </p></li><li><p>
+                    If the <code class="literal">where</code>-clause contains properties of the named window and eligible operators, the Distributed Cache Integration executes a cache query using the distributed caching software's query language (see below for cache software-specific details and limitations).
+                </p></li><li><p>
+                    If the <code class="literal">where</code>-clause does not contain any properties of the named window or all expressions are ineligible for query planning, 
+                    the Distributed Cache Integration performs a full cache scan (see below for cache software-specific implementation detail).
+                </p></li><li><p>
+                    In any case, if the querying statement specifies the <code class="literal">@ExternalDWQuery</code> annotation the Distributed Cache Integration overrides the cache lookup strategy and instead invokes the given application function passing a context object.
+                </p></li></ol></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_query_language"/>3.4.1. Cache Lookup per Distributed Cache Software</h3></div></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_language_coherence"/>3.4.1.1. Coherence</h4></div></div></div><p>
+				  The following applies when using the Coherence distributed cache software.
+				</p><p>
+				  The lookup strategy that employs a cache query to find cache values follows these steps: It instantiates a set of <code class="literal">com.tangosol.util.Filter</code> filters and passe the filters to <code class="literal">namedCache.entrySet(filters)</code>.
+				</p><p>
+				  The lookup strategy that performs a full cache scan is implemented as <code class="literal">namedCache.entrySet()</code>.
+				</p><p>
+				  The lookup strategy that performs a key-based lookup is implemented as <code class="literal">namedCache.get(key)</code>.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_language_gemfire"/>3.4.1.2. GemFire</h4></div></div></div><p>
+				  The following applies when using the GemFire distributed cache software.
+				</p><p>
+					The lookup strategy that employs a cache query to find cache values follows these steps: It obtains a <code class="literal">com.gemstone.gemfire.cache.query.QueryService</code> by invoking <code class="literal">Cache.getQueryService()</code>. It then
+					composes a query in the Gemfire query language and execute the query by calling <code class="literal">queryService.newQuery(queryText)</code>.
+				</p><p>
+				  The lookup strategy that performs a full cache scan is implemented as <code class="literal">region.entrySet()</code>.
+				</p><p>
+				  The lookup strategy that performs a key-based lookup is implemented as <code class="literal">region.get(key)</code>.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_language_gigaspaces"/>3.4.1.3. GigaSpaces</h4></div></div></div><p>
+				  The following applies when using the GigaSpaces distributed cache software.
+				</p><p>
+				  The lookup strategy that employs a cache query to find cache values follows these steps: It composes a query in the GigaSpaces query language and execute the query by calling <code class="literal">gigaSpace.readMultiple(new SQLQuery(underlyingClass, queryText))</code>.
+				</p><p>
+				  The lookup strategy that performs a full cache scan is implemented as <code class="literal">gigaSpace.readMultiple(new SQLQuery(underlyingClass, "")</code>.
+				</p><p>
+				  The lookup strategy that performs a key-based lookup is impleted as <code class="literal">gigaSpace.readMultiple(template)</code> and only available for use with the <code class="literal">@ExternalDWQuery</code> annotation.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_language_hazelcast"/>3.4.1.4. Hazelcast</h4></div></div></div><p>
+				  The following applies when using the Hazelcast distributed cache software.
+				</p><p>
+				  The lookup strategy that employs a cache query to find cache values follows these steps: It composes a query in the Hazelcast query language and execute the query by calling <code class="literal">map.values(new SqlPredicate(queryText))</code>. 
+				</p><p>
+				  The lookup strategy that performs a full cache scan is implemented as <code class="literal">map.entrySet()</code>.
+				</p><p>
+				  The lookup strategy that performs a key-based lookup is implemented as <code class="literal">map.get(key)</code>.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_language_infinispan"/>3.4.1.5. Infinispan</h4></div></div></div><p>
+				  The following applies when using the Infinispan distributed cache software.
+				</p><p>
+				  As Infinispan does not provide a cache query language, there is no implementation of a lookup strategy that employs a cache query to find cache values. The query planner indicates an exception for queries that require a cache query. 
+				</p><p>
+				  The lookup strategy that performs a full cache scan is implemented as <code class="literal">cache.entrySet()</code>.
+				</p><p>
+				  The lookup strategy that performs a key-based lookup is implemented as <code class="literal">cache.get(key)</code>.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_language_terracotta"/>3.4.1.6. Terracotta</h4></div></div></div><p>
+				  The following applies when using the Terracotta distributed cache software.
+				</p><p>
+				  The lookup strategy that employs a cache query to find cache values follows these steps: It obtains a <code class="literal">net.sf.ehcache.search.Query</code> by invoking <code class="literal">cache.createQuery()</code>. It then calls <code class="literal">query.includeValues()</code> to include only cache value objects in the result, adds attributes to the query and executes the query by calling <code class="literal">query.execute()</code>. 
+				</p><p>
+				  The lookup strategy that performs a full cache scan is implemented as <code class="literal">cache.getKeys()</code> and individual operations of <code class="literal">cache.get(key)</code> for each key.
+				</p><p>
+				  The lookup strategy that performs a key-based lookup is implemented as <code class="literal">cache.get(key)</code>.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_language_websphere"/>3.4.1.7. Websphere</h4></div></div></div><p>
+				  The following applies when using the WebSphere distributed cache software.
+				</p><p>
+				  The lookup strategy that employs a cache query to find cache values follows these steps: It composes a query in the WebSphere query language. For execution of the query, it first obtains a <code class="literal">Session</code> from the <code class="literal">ObjectGrid</code> 
+				  using a thread-local session cache. It then begins the session via <code class="literal">session.begin()</code> and fires the query by calling <code class="literal">session.createObjectQuery(queryText)</code> and <code class="literal">query.getResultIterator()</code>. 
+				  Finally it commits the session via <code class="literal">session.commit()</code>.
+				</p><p>
+				  The lookup strategy that performs a full cache scan is implemented as <code class="literal">session.createObjectQuery("select m from cacheName m")</code>.
+				</p><p>
+				  The lookup strategy that performs a key-based lookup is implemented as <code class="literal">objectMap.get(key)</code>.
+				</p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_query_function"/>3.4.2. Cache Lookup Strategy Override</h3></div></div></div><p>
+			  If the default lookup strategy is not optimal or your application requires complete control over cache lookup, specify the <code class="literal">@ExternalDWQuery</code> annotation on the EPL statement that performs the query against the named window (not the create-window statement).
+			</p><p>
+			  There are two ways to override the cache lookup strategy with <code class="literal">@ExternalDWQuery</code>:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						The <code class="literal">functionKeys</code> attribute of the annotation can point to the name of the application-provided function that receives a lookup context as a parameter and that returns a collection of cache keys objects.
+					</p></li><li><p>
+						The <code class="literal">functionValues</code> attribute of the annotation can point to the name of the application-provided function that receives a lookup context as a parameter and that returns a collection of cache value objects.
+					</p></li></ol></div><p>
+			  Use the <code class="literal">functionKeys</code> attribute when you want to provide an application function that returns only key values and wherein the Distributed Cache Integration performs a cache lookup for each key object returned by the function.
+			</p><p>
+			  Use the <code class="literal">functionValues</code> attribute when you want to provide an application function that returns cache values. The Distributed Cache Integration does not perform a cache lookup in this case.
+			</p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_function_functionkeys"/>3.4.2.1. Lookup Function Returning Keys</h4></div></div></div><p>
+				  Specify the <code class="literal">functionKeys</code> annotation attribute for the <code class="literal">@ExternalDWQuery</code> annotation to provide a function that, given a lookup context, returns a set of cache keys objects.
+				</p><p>
+				  A sample implementation is provided below:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">public class ExampleCacheLookupKeyResolver {
+  public static Collection getLookupKeys(CacheLookupContext context) {
+    // the context contains lookup values and more
+    // this sample returns a simple order id as a key
+    return Collections.singleton("123");
+  }
+}</pre><p>
+				  Next, register the function as a plug-in single-row function as part of the Esper configuration:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPlugInSingleRowFunction("getLookupKeys", 
+  ExampleCacheLookupKeyResolver.class.getName(), "getLookupKeys");</pre><p>
+				  Finally, provide the function name as part of the <code class="literal">@ExternalDWQuery</code> annotation:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDWQuery(functionKeys='getLookupKeys')
+select * from OrderWindow where orderId = '123'</pre><p>
+				  In above simple query against the named window backed by a distributed cache, the <code class="literal">where</code>-clause looks for a given order id value of <code class="literal">123</code>.
+				  The value <code class="literal">123</code> is passed to the function as part of the lookup context. The function may then return a collection of keys that are the cache key objects for order id <code class="literal">123</code>.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_query_function_functionvalues"/>3.4.2.2. Lookup Function Returning Values</h4></div></div></div><p>
+				  Specify the <code class="literal">functionValues</code> annotation attribute for the <code class="literal">@ExternalDWQuery</code> annotation to provide a function that, given a lookup context, returns a set of value objects.
+				</p><p>
+				  A sample implementation is provided below:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">public class ExampleCacheLookupValueResolver {
+  public static Collection getLookupKeys(CacheLookupContext context) {
+    // the context contains lookup values and more
+    // this sample returns an OrderEvent instance as value object
+    return Collections.singleton(new OrderEvent(...));
+  }
+}</pre><p>
+				  Next, register the function as a plug-in single-row function as part of the Esper configuration:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPlugInSingleRowFunction("getLookupValues", 
+  ExampleCacheLookupValueResolver.class.getName(), "getLookupValues");</pre><p>
+				  Finally, provide the function name as part of the <code class="literal">@ExternalDWQuery</code> annotation:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDWQuery(functionValues='getLookupValues')
+select * from OrderWindow where orderId = '123'</pre><p>
+				  In above simple query against the named window backed by a distributed cache, the <code class="literal">where</code>-clause looks for a given order id value of <code class="literal">123</code>.
+				  The value <code class="literal">123</code> is passed to the function as part of the lookup context. The function may then return a collection of value objects, for example instances of <code class="literal">OrderEvent</code>.
+				</p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ref_listen"/>3.5. Cache Listener</h2></div></div></div><p>
+			Most distributed cache software allows to register a listener that gets notified when cache operations take place. The cache listener gets invoked by the distributed cache software when a new cache entry is created, or an existing entry is updated or
+			when an entry is deleted.
+        </p><p>
+          By default, the Distributed Cache Integration does not register a listener to cache operations. Use the <code class="literal">@ExternalDWListener</code> annotation and the <code class="literal">create window</code> syntax to have the Distributed Cache Integration listen to cache operations.
+        </p><p>
+			An example <code class="literal">create window</code> EPL statement that enables cache listening is shown next. Replace the <code class="literal">coherence</code> namespace with the namespace of the distributed cache software that is in use by your application:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId') 
+@ExternalDWListener
+create window OrderWindow.coherence:cache() as OrderEvent</pre><p>
+		  When your application code adds a new entry to the cache the cache listener receives the new value, converts the new value into an event and make the event available as an insert stream event for statements that consume the stream of the named window.
+		</p><p>
+		  When your application code updates an entry in the cache the cache listener receives the new value and old value. It converts the new and old value into an event. It pushes the new-value event as an insert stream event and the old-value event as a remove stream event to statements that consume the stream of the named window.
+		</p><p>
+		  When your application code deletes an entry in the cache the cache listener receives the old value. It converts the old value into an event and pushes the event  as a remove stream event to statements that consume the stream of the named window.
+		</p><p>
+			For example, your EPL statement may select from the named window as follows. This statement employs the <code class="literal">irstream</code> keyword to select both the insert stream and remove stream:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">select irstream * from OrderWindow</pre><p>
+		   The statement above receives all new, updated and deleted entries, as each cache operation is performed by your unrelated application code, as events.
+		</p><p>
+		  When specifying <code class="literal">@ExternalDWListener</code>, the Distributed Cache Integration allocates one thread to handle cache listener events. This design makes sure that the cache listener thread is free to continue its work.
+		</p><p>
+		  You may disable the thread creation and use the thread provided by the distributed cache software instead by setting the <code class="literal">threaded</code> attribute to false, for example via <code class="literal">@ExternalDWListener(threaded=false)</code>.
+		</p><p>
+		  You may also allocate more then 1 threads to handle cache listener events. Set the <code class="literal">numThreads</code> attribute to the desired number of threads, for example via <code class="literal">@ExternalDWListener(numThreads=2)</code>.
+		</p><p>
+		  Please review the implementation notes regarding each of the distributed cache softwares below.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="ref_listen_detail"/>3.5.1. Cache Listener per Distributed Cache Software</h3></div></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_listen_detail_coherence"/>3.5.1.1. Coherence</h4></div></div></div><p>
+				  The following applies when using the Coherence distributed cache software.
+				</p><p>
+				  The implementation adds a cache listener to the <code class="literal">NamedCache</code> instance by calling <code class="literal">namedCache.addMapListener(...)</code>. There are no known limitations to the map listener.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_listen_detail_gemfire"/>3.5.1.2. GemFire</h4></div></div></div><p>
+				  The following applies when using the GemFire distributed cache software.
+				</p><p>
+				  The implementation adds a cache listener to the <code class="literal">Region</code> instance by calling <code class="literal">region.getAttributesMutator().addCacheListener(...)</code>. There are no known limitations to the entry listener.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_listen_detail_gigaspaces"/>3.5.1.3. GigaSpaces</h4></div></div></div><p>
+				  The following applies when using the GigaSpaces distributed cache software.
+				</p><p>
+				  The <code class="literal">@ExternalDWListener</code> annotation is not supported with GigaSpaces.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_listen_detail_hazelcast"/>3.5.1.4. Hazelcast</h4></div></div></div><p>
+				  The following applies when using the Hazelcast distributed cache software.
+				</p><p>
+				  The implementation adds an entry listener to the <code class="literal">IMap</code> instance by calling <code class="literal">imap.cache.addEntryListener(..., true)</code>. There are no known limitations to the region cache listener.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_listen_detail_infinispan"/>3.5.1.5. Infinispan</h4></div></div></div><p>
+				  The following applies when using the Infinispan distributed cache software.
+				</p><p>
+				  The implementation adds an cache listener to the <code class="literal">Cache</code> instance by calling <code class="literal">cache.addListener(...)</code>.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_listen_detail_terracotta"/>3.5.1.6. Terracotta</h4></div></div></div><p>
+				  The following applies when using the Terracotta distributed cache software.
+				</p><p>
+				  The implementation adds an cache event listener to the <code class="literal">Cache</code> instance by calling <code class="literal">cache.getCacheEventNotificationService().registerListener(this)</code>. Please note that the Terracotta cache event listener does make the old value available when cache entries are updated by application code.
+				</p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="ref_listen_detail_websphere"/>3.5.1.7. Websphere</h4></div></div></div><p>
+				  The following applies when using the WebSphere distributed cache software.
+				</p><p>
+				  The <code class="literal">@ExternalDWListener</code> annotation is not supported with WebSphere.
+				</p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ref_lateconsume"/>3.6. Late Consumers</h2></div></div></div><p>
+			When EPL statements perform insert, update and delete operations against the named window and therefore the cache instance managed by the distributed cache software, then statements that consume from the named window receive such changes as insert and remove stream events.
+		</p><p>
+			In addition, if you specify the <code class="literal">@ExternalDWListener</code> annotation, the Distributed Cache Integration enables listening to cache operations. This means that statements that consume from the named window receive any changes that application code may perform to the cache in addition to any change EPL statements may make to the cache.
+		</p><p>
+		   When the cache is already populated with data and not empty, any EPL statements that aggregate upon the named window get initialized by performing a full cache scan (the default behavior).
+		</p><p>
+		  For example, consider the following EPL statement that returns the total quantity per product code:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">select productCode, sum(qty) from OrderWindow</pre><p>
+		  At time of statement creation, the Distributed Cache Integration performs a full cache read to build the initial state of the above statement, namely the product code and total quantity per product code.
+		  Please see the full scan lookup strategy description for information specific to the distributed caching software in use.
+		</p><p>
+		  You may use the <code class="literal">@ExternalDWSetting</code> annotation to turn off full cache scans for statement initialization. Set the <code class="literal">iterable</code> attribute to false to instruct the Distributed Cache Integration to not perform a full scan.
+		</p><p>
+		  For example:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+@ExternalDWSetting(iterable=false)
+create window OrderWindow.coherence:cache() as OrderEvent</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ref_unique"/>3.7. Achieving Unique Semantics Without Cache Listener</h2></div></div></div><p>
+		  This section applies when not using a cache listener, since a distributed cache's cache listener receives old and new value as follows. When your application code updates an entry in the cache the cache listener receives the new value and old
+value. It converts the new and old value into an event. It pushes the new-value event as an insert stream event and the old-value event as a remove stream event to statements that consume the stream of the named window.		  
+		</p><p>
+		  By default and without cache listener the named window backed by a distributed cache does not exhibit the same behavior as a <code class="literal">std:unique</code> data window. 
+		  By default, when events are inserted, the engine does not check whether any existing event(s) exist in the cache for the same key.
+		  The default behavior therefore does not read cache values that are being overwritten and posts the old cache values as remove stream events to consumers.
+		</p><p>
+		  The Distributed Cache Integration provides a <code class="literal">unique</code> flag as part of the <code class="literal">ExternalDW</code> annotation to instruct the engine to read the old value for a given key from the cache before inserting data into the cache, and post the previous value as an event into the remove stream.
+		</p><p>
+		  For example, consider the following two statements:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache', unique=true) @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">insert into OrderWindow select * from OrderEvent</pre><p>
+		  In the above example, assume an OrderEvent arrives for order id "00012". The engine reads the cache to find an existing OrderEvent for order id "00012". The engine then writes the new OrderEvent into cache. If a previous OrderEvent is found, the engine posts the previous OrderEvent as a remove stream event and the new OrderEvent as insert stream event. This allows consumers of the named window to receive insert and remove stream events.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="performance"/>Chapter 4. Performance</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#performance-tips">4.1. Performance Tips</a></span></dt><dd><dl><dt><span class="sect2"><a href="#performance-tips-1">4.1.1. Locking</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="performance-tips"/>4.1. Performance Tips</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="performance-tips-1"/>4.1.1. Locking</h3></div></div></div><p>
+				By default the named window backed by a distributed cache is protected by a read-write lock, allowing any number of threads for reading and only one thread for writing to the named window.
+			</p><p>
+				You may specify the <code class="literal">@NoLock</code> annotation as part of the <code class="literal">create window</code> statement to remove the read-write lock and operate without locks.
+			</p></div></div></div></div></body></html>

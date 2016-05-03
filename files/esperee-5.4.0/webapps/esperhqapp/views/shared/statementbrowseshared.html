@@ -1,0 +1,34 @@
+<div id="browse_statements" ng-controller="StatementBrowseSharedController">
+
+    <div class="row-fluid">
+        <div class="span2">
+            <button type="submit" ng-click="doGet(true)" class="btn btn-primary button-bar-margin">Get All</button>
+        </div>
+        <div class="span10">
+            <div class="pull-right">
+                <button type="submit" ng-click="doNew()" class="btn button-bar-margin">New</button>
+                <button type="submit" ng-click="doOpenCriteria()" class="btn button-bar-margin">Selection Criteria...</button>
+                <span class="margin-top">Selection Expression:</span>
+                <input type="text" ng-model="selectionExpr" class="input-xlarge button-bar-margin"/>
+                <button type="submit" ng-click="doGet(false)" class="btn button-bar-margin">Find</button>
+                <button type="submit" ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+                <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+            </div>
+        </div>
+    </div>
+
+    <div id="statements_div">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Expression</th>
+                    <th>State</th>
+                    <th>Last Change</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

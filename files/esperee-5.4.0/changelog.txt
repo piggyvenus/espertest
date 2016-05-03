@@ -1,0 +1,162 @@
+Esper Enterprise Edition Changelog
+===================
+
+Changes in version 5.4.0
+------------------------
+- Support for all Esper 5.4.0 new features
+- For a complete list of changes please contact EsperTech
+
+Changes in version 5.3.0
+------------------------
+- Support for all Esper 5.3.0 new features
+- For a complete list of changes please contact EsperTech
+
+Changes in version 5.2.0
+------------------------
+- Support for all Esper 5.2.0 new features
+- For a complete list of changes please contact EsperTech
+
+Changes in version 5.1.0
+------------------------
+- Support for all Esper 5.1.0 new features
+- For a complete list of changes please contact EsperTech
+
+Changes in version 5.0.0
+------------------------
+- Support for all Esper 5.0.0 new features
+- For a complete list of changes please contact EsperTech
+
+Changes in version 4.11.0
+------------------------
+- Support for EPL debugging
+- Support for reporting detailed memory consumption information per statement, and other metrics
+- For a complete list of changes please contact EsperTech
+
+Changes in version 4.10.0
+------------------------
+- Support for REST-style web services
+- Support for JavaScript and HTML 5 GUI
+- Support for jQuery eventlet plugin
+- Support for websocket communication
+- Support for JavaScript eventlet extension API
+- Requires a Java 7 runtime
+- Deprecates all Flex client technology 
+
+Changes in version 4.9.0
+------------------------
+- The product now requires a license key. Please place in "conf" folder or classpath.
+- Support for all new Esper 4.9.0 and EsperHA features
+
+Known limitations:
+- When hot deploying a WAR web application the EsperHQ client may not come up in the case when the client has not been brought up at least once after server start.
+  Workaround: Bring up EsperHQ client before deploying new WAR files.  
+
+Changes in version 4.8.0
+------------------------
+- Support for all new Esper 4.8.0 and EsperHA features
+
+Changes in version 4.7.0
+------------------------
+- Support for all new Esper 4.7.0 and EsperHA features
+
+
+Changes in version 4.6.0
+------------------------
+- Support for all new Esper 4.6.0 and EsperHA features
+
+
+Changes in version 4.5.0
+------------------------
+- Support for all new Esper 4.5.0 and EsperHA features
+
+
+Changes in version 4.4.0
+------------------------
+- Support for distributed caches
+- Support for all new Esper 4.4.0 and EsperHA features
+
+
+Changes in version 4.3.0
+------------------------
+- Support for all new Esper 4.3.0 and EsperHA features
+
+
+Changes in version 4.2.0
+------------------------
+- Support for all new Esper 4.2.0 and EsperHA features
+
+
+Changes in version 4.1.0
+------------------------
+- Support for all new Esper 4.1.0 and EsperHA features
+- Support for standby-mode start of server process (clustering). 
+- Support for JAR file format for hot deployment; A jar file may include EPL, further classes and jar files; Support for annotations to set up listeners or configure single-row functions
+- Many user interface and documentation improvements
+
+
+Changes in version 4.0.0
+------------------------
+- Please review the core CEP engine release changes at http://esper.codehaus.org/about/news/news.html
+- Support for all new Esper 4.0.0 and EsperHA features
+- Support for launching eventlets passing a URL; For example, "url=file:my_eventlet.xml" to launch from a stored definition file on the file system data directory.
+
+
+Changes in version 3.5.1
+------------------------
+- A plug-in eventlet may now be an SWF module. We thus simplified loading eventlets as SWF modules are supported by the IDE.
+- When launching eventlets via URL parameters (aka. faceless launch) applications must now use the esperhqlaunch.swf object or esperhqlaunch.html page. 
+  The esperhqlaunch application is optimized to load minimal resources for launching an eventlet in a browser window or iframe.
+- Control panels for eventlets are now modeless pop-ups that closes when the eventlet window closes and may be toggled from the MDI window menu or right-click.
+  This prevents the eventlet to resize and the control panel to require scroll bars.
+- The grid eventlet now features nesting and additional configuration options.
+- Added style property configuration to eventlets and accordingly style edit dialog to eventlet wizard.
+- Added application builder: A drag and drop page builder for organizing a page of eventlets and text/HTML to a composite application page.
+- Added EventletDisplay ActionScript component to the "eventletsvc" Flex library for use with applications that want to compile against BlazeDS services descriptor.
+- The distribution now delivers the WAR file exploded in the webapps directory.
+- Upgrade to Flex SDK 4.1.0 and BlazeDS 4.0.1
+- Bug fix release for Esper 3.5.1, not certified with EsperHA 3.5.0
+
+Known limitations:
+- When hot deploying a WAR web application the EsperHQ client may not come up in the case when the client has not been brought up at least once after server start.
+  Workaround: Bring up EsperHQ client before deploying new WAR files.  
+
+
+Changes in version 3.5.0
+------------------------
+- Support for all new Esper 3.5 features, certified with Esper and EsperHA 3.5
+- Support for deployment to Apache Tomcat servlet container
+- Support for hot deployment of EPL text files to hotdeploy directory; support for CEP application WAR file deployment to hotdeploy directory
+- Update to Adobe Flex 4 SDK, Flash Player 10 and BlazeDS 4
+- Support for localization
+- Added module editor that allows editing EPL module text files with syntax highlighting, click-edit, on-the-fly validation and deployment
+- Added deployments management dialogs that can be used to add new deployments, un-deploy or remove deployments and view deployed modules
+- Added simulation runner, for running simulations sending events to an engine following a schedule. 
+- Rewrite of Timeline eventlet to make use of new Flex 4 skinning and layout architecture, now offers horizontal display, enhanced controls and more options
+- Rewrite of Gauge eventlet to also use Flex 4 skinning and remove an external library dependency
+- Many bug fixes, additional documentation and minor enhancements
+
+Known limitations:
+- When hot deploying a WAR web application the EsperHQ client may not come up in the case when the client has not been brought up at least once after server start.
+  Workaround: Bring up EsperHQ client before deploying new WAR files.  
+
+Changes in version 3.4.0
+------------------------
+- Certified for Esper version 3.5.1
+- New design dialog allows composing EPL statements from templates or existing statements and presents a form-based dialog and expression builder
+- Eventlet continuous displays now accept the definition of a style to customize coloring, fonts, layout based on CSS
+- Support for JavaScript or VBScript integration of EsperHQ client application:
+  - scripts may direct-load eventlets or the management GUI, disconnect and logoff.
+  - scripts may receive callbacks from eventlets when an item is clicked
+- Support for authentication and authorization provision through local and integratable outside providers
+
+Changes in version 3.3.0
+------------------------
+- Certified for Esper version 3.3.0
+- Support for continuous displays (eventlets)
+- EsperStudio is deprecated at release 3.2. Please consider the web-enable multi-window EsperHQ instead.
+- We have moved to zip and tar file packaging of the distribution and away from an installer.
+
+Changes in version 3.2.0
+------------------------
+- Certified for Esper version 3.2.0
+

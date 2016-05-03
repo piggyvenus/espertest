@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 10. jQuery Plugin for Eventlets</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="eventletmenu.html" title="Chapter 9. Eventlet Menu Dialogs"/><link rel="next" href="eventletlauncher.html" title="Chapter 11. Eventlet Launcher"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletmenu.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="eventletlauncher.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery"/>Chapter 10. jQuery Plugin for Eventlets</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="eventletjquery.html#eventletjquery-introduction">10.1. Introduction and Usage</a></span></dt><dt><span class="sect1"><a href="eventletjquery.html#eventletjquery-examples">10.2. Examples</a></span></dt><dt><span class="sect1"><a href="eventletjquery.html#eventletjquery-api">10.3. API</a></span></dt><dd><dl><dt><span class="sect2"><a href="eventletjquery.html#eventletjquery-api-eventletplugin">10.3.1. Plugin API</a></span></dt><dt><span class="sect2"><a href="eventletjquery.html#eventletjquery-api-initialization">10.3.2. Initialization Object</a></span></dt><dt><span class="sect2"><a href="eventletjquery.html#eventletjquery-api-eventletcontrol">10.3.3. Eventlet Control API</a></span></dt></dl></dd><dt><span class="sect1"><a href="eventletjquery.html#eventletjquery-scripts">10.4. Required Script and CSS Files</a></span></dt><dt><span class="sect1"><a href="eventletjquery.html#eventletjquery-parameters">10.5. Additional Eventlet Parameters</a></span></dt><dd><dl><dt><span class="sect2"><a href="eventletjquery.html#eventletjquery-parameters-chart">10.5.1. Chart Eventlet Parameters</a></span></dt><dt><span class="sect2"><a href="eventletjquery.html#eventletjquery-parameters-timeline">10.5.2. Timeline Eventlet Parameters</a></span></dt></dl></dd></dl></div><p>
+		The jQuery plugin for eventlets lets you create eventlets using jQuery.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-introduction"/>10.1. Introduction and Usage</h2></div></div></div><p>
+			The jQuery plugin operates on a placeholder DOM element. Based on the initialization object provided, it enhances the DOM structure under the DOM placeholder element 
+			to load and display the eventlet. 
+		</p><p>
+			The plugin operates in conjunction with Enterprise Edition push services to manage the flow of data to eventlet(s). Multiple eventlets on the same page share a websocket connection.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-examples"/>10.2. Examples</h2></div></div></div><p>
+		  The web page can declare a <code class="literal">div</code> element with an id:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;div id="example"&gt;&lt;/div&gt;</pre><p>
+			  The jQuery plugin enhances the <code class="literal">div</code> element and activates the eventlet: 
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$(document).ready(function() {
+  var startEventlets = function() {
+    $("#example").eventlet({eventlet_filename: "SampleEventlet.eventlet"});
+  };
+  $.eventletLoad({success:startEventlets});
+} );</pre><p>
+			The <code class="literal">eventletLoad</code> function must be called to set up the eventlet client. Pass a success callback function that activates eventlets by calling the <code class="literal">eventlet</code> function.
+		</p><p>
+		  The example above passes the filename <code class="literal">SampleEventlet.eventlet</code> to the jQuery eventlet plugin, thereby the plugin loads the eventlet from the file system.
+		</p><p>
+			An example file that incorporates multiple eventlets into a single page can be found in <code class="literal">example/Example Dashboard JQuery Eventlet for Onlineshop.html</code> in the <code class="literal">data/hqsvc</code> folder.
+		</p><p>
+			You can also use the GUI Dashboard Page Builder to build an HTML page that incorporates eventlets and that uses the jQuery eventlet plugin.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-api"/>10.3. API</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-api-eventletplugin"/>10.3.1. Plugin API</h3></div></div></div><p>
+				  The following functions are available from the <code class="literal">jQuery</code> eventlet plugin:
+			</p><div class="table"><a id="d0e1701"/><p class="title"><b>Table 10.1. jQuery Eventlet Plugin API</b></p><div class="table-contents"><table summary="jQuery Eventlet Plugin API" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">eventletLoad(</code><span class="emphasis"><em>load object</em></span><code class="literal">)</code></td><td>
+							  <p>
+								  Prepare for loading and activating eventlets. Must be called before <code class="literal">eventlet()</code> calls.
+								  Pass a callback function to wait for successful load.
+							  </p>
+							</td></tr><tr><td><code class="literal">eventlet(</code><span class="emphasis"><em>initialization object</em></span><code class="literal">)</code></td><td>
+							  <p>Activate an eventlet.</p>
+							</td></tr><tr><td><code class="literal">eventletUnload()</code></td><td>
+							  <p>Deactivate all eventlets for this web page.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				The <code class="literal">eventletLoad</code> function must be called at least once before activating any eventlets, to allocate client resources.
+				In the <code class="literal">success</code> property of the object passed to <code class="literal">eventletLoad</code>, provide a
+				callback function that the eventlet runtime invokes when completed:
+			</p><p>
+				The typical sequence of function calls is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">var startEventlets = function() {
+  $("#example").eventlet({eventlet_filename: "SampleEventlet.eventlet"});
+};
+$.eventletLoad({success:startEventlets});</pre><p>
+				The <code class="literal">eventletUnload</code> function should be called before a web page unloads, to release the server and client-side resources:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$.eventletUnload();</pre><p>
+				The following example assigns a function to <code class="literal">window.onbeforeunload</code> that unloads all eventlets:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">var unloadPageEventlets = function() {
+	$.eventletUnload();
+};
+window.onbeforeunload=unloadPageEventlets;</pre><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>
+					We recommend adding code to your web page to unload all eventlets or destroy each eventlet, at the time the web page unloads.
+					This allows for a clean disconnect of the eventlet container from the web layer push service.
+				</p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-api-initialization"/>10.3.2. Initialization Object</h3></div></div></div><p>
+				You must specify either the <code class="literal">eventlet_filename</code>, or the <code class="literal">eventlet_xml</code> or the <code class="literal">eventlet_url</code> property of the initialization object.
+				The next table outlines the initialization object properties.
+			</p><div class="table"><a id="d0e1798"/><p class="title"><b>Table 10.2. jQuery Eventlet Plugin Initialization Parameters</b></p><div class="table-contents"><table summary="jQuery Eventlet Plugin Initialization Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>URL Parameter Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">eventlet_filename</code> : <span class="emphasis"><em>filename</em></span></td><td>
+							  <p>Assign <code class="literal">eventlet_filename</code> to the file name of an eventlet file in the file system.</p>
+							</td></tr><tr><td><code class="literal">eventlet_xml</code> : <span class="emphasis"><em>xml document</em></span></td><td>
+							  <p>Assign <code class="literal">eventlet_xml</code> to the XML document that defines the eventlet.</p>
+							</td></tr><tr><td><code class="literal">eventlet_url</code> : <span class="emphasis"><em>URL</em></span></td><td>
+							  <p>Assign <code class="literal">eventlet_url</code> to the URL of the web resource that originates the eventlet.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				  Pass an eventlet XML document to provide the eventlet definition without reading from a file: 
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#example").eventlet({eventlet_xml: 
+  '&lt;eventlet xmlns="http://www.espertech.com/esper-eventletxml"&gt;\
+    &lt;composition&gt;\
+      &lt;timeline detail="full"/&gt;\
+    &lt;/composition&gt;\
+    &lt;sources&gt;\
+      &lt;source sourceId="0"&gt;\
+        &lt;statement name="MyStatement" 
+            engineUri="default" endpoint="defaultendpoint"/&gt;\
+      &lt;/source&gt;\
+    &lt;/sources&gt;\
+  &lt;/eventlet&gt;'});</pre><p>
+				  Or pass a URL that points to a web resource that returns the eventlet definition: 
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#example").eventlet(
+  {eventlet_url: "http://myserver:port/path/to/file/MySampleEventlet.xml"}
+);</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-api-eventletcontrol"/>10.3.3. Eventlet Control API</h3></div></div></div><p>
+				  Although most of the time your Javascript interaction with the jQuery eventlet plugin will be done using the initialization object as described earlier,
+				  you might find it useful to have some external control of the eventlet.
+			</p><p>
+				  The following functions are available from the <code class="literal">jQuery.eventlet</code> object:
+			</p><div class="table"><a id="d0e1874"/><p class="title"><b>Table 10.3. jQuery Eventlet Instance API</b></p><div class="table-contents"><table summary="jQuery Eventlet Instance API" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">destroy</code></td><td>
+							  <p>Destroys the eventlet.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				Pass the literal <code class="literal">destroy</code> to the <code class="literal">eventlet</code> function to destroy a specific eventlet:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#example").eventlet('destroy'));</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-scripts"/>10.4. Required Script and CSS Files</h2></div></div></div><p>
+			Please include the following script files:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;script src="scripts/release/vendor.min.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/release/common.min.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/release/eventlet.min.js"&gt;&lt;/script&gt;</pre><p>
+			Please include the following CSS files:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;link rel="stylesheet" href="styles/release/vendor.css"&gt;
+&lt;link rel="stylesheet" href="styles/common.css"&gt;
+&lt;link rel="stylesheet" href="styles/eventlet.css"&gt;</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-parameters"/>10.5. Additional Eventlet Parameters</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-parameters-chart"/>10.5.1. Chart Eventlet Parameters</h3></div></div></div><p>
+				  The chart eventlet can be parameterized by height and width.
+			</p><div class="table"><a id="d0e1925"/><p class="title"><b>Table 10.4. Chart Eventlet Parameters</b></p><div class="table-contents"><table summary="Chart Eventlet Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">width</code></td><td>
+							  <p>The width in pixels as an int value or the CSS width as a string-typed value.</p>
+							</td></tr><tr><td><code class="literal">height</code></td><td>
+							  <p>The height in pixels as an int value or the CSS height as a string-typed value.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				For example:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#eventlet").eventlet( {eventlet_filename: "mychart.eventlet", height:400, width:400});</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-parameters-timeline"/>10.5.2. Timeline Eventlet Parameters</h3></div></div></div><p>
+				  The timeline eventlet can be parameterized by height.
+			</p><div class="table"><a id="d0e1965"/><p class="title"><b>Table 10.5. Timeline Eventlet Parameters</b></p><div class="table-contents"><table summary="Timeline Eventlet Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">height</code></td><td>
+							  <p>The height in pixels as an int value.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				For example:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#eventlet").eventlet( {eventlet_filename: "mytimeline.eventlet", height:400});</pre></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletmenu.html"><strong>Prev</strong>Chapter 9. Eventlet Menu Dialogs</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="eventletlauncher.html"><strong>Next</strong>Chapter 11. Eventlet Launcher</a></li></ul></body></html>

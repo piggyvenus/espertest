@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 11. Eventlet Launcher</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="eventletjquery.html" title="Chapter 10. jQuery Plugin for Eventlets"/><link rel="next" href="eventletplugin.html" title="Chapter 12. Build-Your-Own Eventlet"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletjquery.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="eventletplugin.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletlauncher"/>Chapter 11. Eventlet Launcher</h2></div></div></div><p>
+		The eventlet faceless launcher allows your application to launch eventlets via URL. By passing URL parameters the launcher web page obtains all necessary information to provide the execution environment for the eventlet. You may start saved eventlets by name or by providing a URL or activation XML document.
+	</p><p>
+		The eventlet faceless launch is useful for web applications that require launching an eventlet in an HTML iframe or frame, for example.
+		Use the jQuery eventlet plugin instead for those web applications that need finer-grained control via scripting.
+	</p><p>
+		The URI for the launcher is:
+	</p><pre class="synopsis">http://<span class="emphasis"><em>host:port</em></span>/esperhqapp/launcher.html?<span class="emphasis"><em>launch_parameters</em></span></pre><p>
+		You must specify either the <code class="literal">eventlet_filename</code>, or the <code class="literal">eventlet_xml</code> or the <code class="literal">eventlet_url</code> parameter. 
+		The next table outlines the launch parameters. 
+	</p><div class="table"><a id="d0e2018"/><p class="title"><b>Table 11.1. Eventlet Faceless URL Launch Parameters</b></p><div class="table-contents"><table summary="Eventlet Faceless URL Launch Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>URL Parameter Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">eventlet_filename</code>=<span class="emphasis"><em>filename</em></span></td><td>
+					  <p>Specify <code class="literal">eventlet_filename</code> followed by the file name of an eventlet file in the file system to activate a saved eventlet.</p>
+					</td></tr><tr><td><code class="literal">eventlet_xml</code>=<span class="emphasis"><em>xml document</em></span></td><td>
+					  <p>Specify <code class="literal">eventlet_xml</code> followed by the XML document (escaped) that defines the eventlet.</p>
+					</td></tr><tr><td><code class="literal">eventlet_url</code>=<span class="emphasis"><em>URL</em></span></td><td>
+					  <p>Specify <code class="literal">eventlet_url</code> followed by the encoded URL of the web resource that defines the eventlet.</p>
+					</td></tr></tbody></table></div></div><br class="table-break"/><p>
+	  The following are examples of faceless launch URLs.
+	</p><p>
+		The next example launches an eventlet by providing the eventlet file name as it has been saved to the file system. 
+		It assumes that you have an eventlet by name <code class="literal">MySavedEventlet.eventlet</code> stored in the <code class="literal">myeventlets</code> subfolder of the root folder. The runtime loads 
+		the eventlet from the file system:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">http://host:port/esperhqapp/launcher.html?eventlet_filename=myeventlets/MySavedEventlet.eventlet</pre><p>
+		This example launch URL provides the eventlet XML as part of the URL parameters. Fill in the eventlet activation XML where 'MYXMLHERE' appears in the URL below, making sure the XML document is escaped.
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">http://host:port/esperhqapp/launcher.html?eventlet_xml=MYXMLHERE</pre><p>
+		This example launches an eventlet by providing a URL from which the eventlet itself can be loaded. 
+		This example loads the file <code class="literal">MySavedEventlet.eventlet</code> from the server <code class="literal">myserver</code> at port 8000 and at a given path:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">http://host:port/esperhqapp/launcher.html?eventlet_url=http://myserver:8000/path/to/file/MySavedEventlet.eventlet</pre></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletjquery.html"><strong>Prev</strong>Chapter 10. jQuery Plugin for Eventlets</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="eventletplugin.html"><strong>Next</strong>Chapter 12. Build-Your-Own Eventlet</a></li></ul></body></html>

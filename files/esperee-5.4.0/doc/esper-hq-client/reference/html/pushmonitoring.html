@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 8. Push Monitoring Dialogs</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="debugger.html" title="Chapter 7. EPL Debugger Dialogs"/><link rel="next" href="eventletmenu.html" title="Chapter 9. Eventlet Menu Dialogs"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="debugger.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="eventletmenu.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring"/>Chapter 8. Push Monitoring Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="pushmonitoring.html#pushmonitoring-browser">8.1. Browser Dialog</a></span></dt><dt><span class="sect1"><a href="pushmonitoring.html#pushmonitoring-weblayer">8.2. Web Layer Dialog</a></span></dt><dt><span class="sect1"><a href="pushmonitoring.html#pushmonitoring-endpoints">8.3. View Endpoint Dialog</a></span></dt><dt><span class="sect1"><a href="pushmonitoring.html#pushmonitoring-statementmemory">8.4. Statement Detailed Metrics Dialog</a></span></dt></dl></div><p>
+      This section outlines client dialogs for push monitoring.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-browser"/>8.1. Browser Dialog</h2></div></div></div><p>
+			This dialog shows the client id associated to the browser window or tab. The client id is unique to a browser window. The browser window is also called <code class="literal">client</code>.
+			The web layer associates the client id to activations.
+		</p><p>
+			In addition, the dialog shows the web socket URL, the web socket state and a total message count.
+		</p><p>
+			Under <code class="literal">Activations</code> the dialog shows activations currently active for the client.
+		</p><p>
+			Under <code class="literal">Messages</code> the dialog shows messages for the client with the newest message listed first and the oldest message last.
+		</p><p>
+			The <code class="literal">Refresh</code> button fetches updated information.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-weblayer"/>8.2. Web Layer Dialog</h2></div></div></div><p>
+			The Web Layer Dialog is a view into operation of the web application server for the web client. Use the <code class="literal">Refresh</code> button to update the screen with the most current information.
+		</p><p>
+			In the Clients tab is an entry for each unique web-browser client. The client id serves as the unique identifier assigned to a client. The Client History tab lists closed or
+			disconnected clients.
+		</p><p>
+			The Client Activations tab displays a list of activations for each client. The term activations stands for active eventlets. Under CA History (Client Activations History) 
+			are past activations.
+		</p><p>
+			The Client Resources tab displays per client and activation the endpoint(s) and resource(s) that make up the activation.
+		</p><p>
+			The Server Resources tab displays subscription information per server resource. We use the term server resource to mean CEP engine(s) statements, variables etc..
+		</p><p>
+			The SR History (Server Resources History) tab displays past server resources.
+		</p><p>
+			The Audit tab displays messages about state transitions for clients, activations and server resources.
+		</p><p>
+			The Log Messages tab displays log messages such as exceptions or other important information.
+		</p><p>
+			The Stats Total tab displays message count totals overall.
+		</p><p>
+			The Stats Per Client tab displays message count totals per client.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-endpoints"/>8.3. View Endpoint Dialog</h2></div></div></div><p>
+			This dialog view presents a view into a given endpoint's push service operation. A web client may connect and subscribe to information from multiple endpoints.
+			Use the <code class="literal">Refresh</code> button to retrieve updated information.
+		</p><p>
+			This dialog is also the launch point for CEP engine monitoring.
+			You may select an engine URI using the drop down dialog box, and select a display for CEP engine metrics, then use the <code class="literal">Open</code> button to display the engine metrics.
+		</p><p>
+			The <code class="literal">Statement Detailed Metrics</code> button opens the EPL detailed metric and memory reporting dialog.
+		</p><p>
+			The Sessions tab displays a list of sessions. A session is a logical connection between a push services endpoint and a server in the web layer. 
+			A session may have zero to many subscriptions to server resources managed by push services. 
+			When a session ends, its associated subscriptions also end. The session id is the unique identifier of a session.
+			The Session History tab shows past sessions.
+		</p><p>
+			The Resources tab displays a list of server resources managed by push services. A server resource can be a statement, statement set, variable, on-demand query, engine metric or other publishable data.
+			Push services assigns a resource id to each managed server resource.
+			The Resources History tab displays a list of past server resources.
+		</p><p>
+		    The Subscriptions tab displays a line for each session indicating an interest in a server resource. Push services assigns a subscription id to each such association.
+		    The Subscriptions History tab displays past subscriptions.
+		</p><p>
+		    The Audit tab displays a history of all state transitions of sessions, resources and subscriptions. 
+		</p><p>
+		    The Log Messages tab displays relevant push services messages.
+		</p><p>
+		    The Stats tab displays message statistics per destination. For each destination the dialog displays the since-start totals as well as last N combined-message totals.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-statementmemory"/>8.4. Statement Detailed Metrics Dialog</h2></div></div></div><p>
+			Use this 2-step dialog to inspect statement detail metrics including memory use.
+		</p><p>
+			The first step in the dialog allows selecting statements for reporting. After you have selected one or more statements use <code class="literal">Report Metrics</code>
+			to obtain resource reports. Make sure to check the checkbox <code class="literal">This action requires locking of each context partition</code>.
+			When the engine obtains memory use, it must do so while having the context partition write locked disallowing any concurrent activity.
+		</p><p>
+			Use the <code class="literal">Show Options</code> button to configure metric reporting options. By default, the dialog reports high-level metrics for each statement and does not report
+			detailed breakdown per grouping or criteria. Please use the checkboxes to control the level of detail of metrics reporting.
+		</p><p>
+			In step 1, the statement selection, the <code class="literal">Read All</code> reads all statements and the <code class="literal">Selection Criteria</code> button
+			brings up a statement selection expression dialog. Use the <code class="literal">Find</code> button to read statements according to the selection expression and the <code class="literal">Refresh</code> button to refresh.
+			The <code class="literal">Search</code> text box is a quick search among the displayed statements. 
+		</p><p>
+			After pressing <code class="literal">Report Metrics</code>, the dialog displays metrics and summary information per statement.
+		</p><p>
+			Additional information can be found in the Esper Enterprise Edition - Debugger and Metrics documentation.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="debugger.html"><strong>Prev</strong>Chapter 7. EPL Debugger Dialogs</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="eventletmenu.html"><strong>Next</strong>Chapter 9. Eventlet Menu Dialogs</a></li></ul></body></html>

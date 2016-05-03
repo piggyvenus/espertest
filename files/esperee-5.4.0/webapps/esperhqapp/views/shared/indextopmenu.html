@@ -1,0 +1,98 @@
+<div ng-controller="IndexTopMenuController">
+    <div class="index-menucontainer index-menucontainer-3col">
+        <div class="index-menucolumn index-menucolumn-marginlarge">
+            <ul>
+                <li><a ng-click="doTopMenuDialog(dialogs.STMTBROWSE)">{{dialogs.STMTBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.DEPLOYBROWSE)">{{dialogs.DEPLOYBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.EVENTTYPEBROWSE)">{{dialogs.EVENTTYPEBROWSE.title}}</a></li>
+            </ul>
+        </div>
+        <div class="index-menucolumn index-menucolumn-marginlarge">
+            <ul>
+                <li><a ng-click="doTopMenuDialog(dialogs.NAMEDWINDOWBROWSE)">{{dialogs.NAMEDWINDOWBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.VARIABLEBROWSE)">{{dialogs.VARIABLEBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.MAPFLOWS)">{{dialogs.MAPFLOWS.title}}</a></li>
+            </ul>
+        </div>
+        <div class="index-menucolumn index-menucolumn-marginlarge">
+            <ul>
+                <li><a ng-click="doTopMenuDialog(dialogs.DATAFLOWBROWSE)">{{dialogs.DATAFLOWBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.DATAFLOWINSTANCEBROWSE)">{{dialogs.DATAFLOWINSTANCEBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.SEQUENCEEXECBROWSE)">{{dialogs.SEQUENCEEXECBROWSE.title}}</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="index-menucategory">
+            Browse
+        </div>
+    </div>
+    <div class="index-divider"></div>
+    <div class="index-menucontainer index-menucontainer-2col">
+        <div class="index-menucolumn index-menucolumn-marginlarge">
+            <ul>
+                <li><a ng-click="doTopMenuDialog(dialogs.STMTCREATE)">{{dialogs.STMTCREATE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.DEPLOYCREATE)">{{dialogs.DEPLOYCREATE.title}}</a></li>
+                <li>&nbsp;</li>
+            </ul>
+        </div>
+        <div class="index-menucolumn index-menucolumn-marginlarge">
+            <ul>
+                <li><a ng-click="doTopMenuDialog(dialogs.SCENARIORUNDIALOG)">{{dialogs.SCENARIORUNDIALOG.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.SEQUENCEEXECCREATE)">{{dialogs.SEQUENCEEXECCREATE.title}}</a></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="index-menucategory">
+            Create
+        </div>
+    </div>
+    <div class="index-divider"></div>
+    <div class="index-menucontainer index-menucontainer-1col">
+        <div class="index-menucolumn index-menucolumn-marginlarge">
+            <ul>
+                <li><a ng-click="doTopMenuDialog(dialogs.EVENTLETWIZARD)">{{dialogs.EVENTLETWIZARD.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.PAGEBUILDER)">{{dialogs.PAGEBUILDER.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.ONDEMANDQUERY)">{{dialogs.ONDEMANDQUERY.title}}</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="index-menucategory">
+            Visualize
+        </div>
+    </div>
+    <div class="index-divider"></div>
+    <div class="index-menucontainer index-menucontainer-1col">
+        <div class="index-menucolumn index-menucolumn-marginlarge">
+            <ul>
+                <li><a ng-click="doTopMenuDialog(dialogs.CONSUMERBROWSE)">{{dialogs.CONSUMERBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.WEBLAYERBROWSE)">{{dialogs.WEBLAYERBROWSE.title}}</a></li>
+                <li><a ng-click="doTopMenuDialog(dialogs.PUSHENDPOINTBROWSE)">{{dialogs.PUSHENDPOINTBROWSE.title}}</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="index-menucategory">
+            Monitoring
+        </div>
+    </div>
+    <div class="index-divider"></div>
+    <div class="index-menucontainer index-menucontainer-2col index-menucolumn-marginsmall">
+        <ul>
+            <li>
+                <span>Endpoint: </span>
+                <select ng-model="choiceEndpoint" ng-options="e.endpointName for e in selectableEndpoints" class="input-medium" ng-click="doHandleChangeEndpoint()"></select>
+                &nbsp;&nbsp;&nbsp;
+                <button type="submit" class="btn" ng-click="doLogout()">Logout</button>
+            </li>
+            <li>
+                <span>Engine URI: </span>
+                <select ng-model="choiceEngine" ng-options="e.engineURI for e in selectableEngines" class="input-medium" ng-change="doHandleChangeEngineURI()"></select>
+                &nbsp;&nbsp;&nbsp;
+                <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+            </li>
+        </ul>
+        <div class="index-menucategory">
+            Engine Selection
+        </div>
+    </div>
+</div>

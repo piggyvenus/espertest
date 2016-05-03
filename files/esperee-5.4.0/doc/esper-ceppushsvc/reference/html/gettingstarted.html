@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 3. Getting Started</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="CEP Push Services"/><link rel="up" href="index.html" title="CEP Push Services"/><link rel="prev" href="concepts.html" title="Chapter 2. Key Concepts"/><link rel="next" href="configuration.html" title="Chapter 4. Configuration"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="concepts.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted"/>Chapter 3. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="gettingstarted.html#overview-ceppushsvc-configuration">3.1. Push Services Endpoint API</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#overview-ceppushsvc-plugin">3.2. Push Services Plug-in Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="gettingstarted.html#configuration-plugin-xml">3.2.1. Via Esper Configuration XML</a></span></dt></dl></dd><dt><span class="sect1"><a href="gettingstarted.html#overview-ceppushsvc-jmsprovider">3.3. Start a JMS Provider</a></span></dt></dl></div><p>
+			Esper Enterprise Edition comes with Push Service and EsperHQ configured. Please simply follow the directions in file <code class="literal">RUNNING.txt</code> or the index web page to start the preconfigured server.
+		</p><p>
+			After starting the preconfigured server the EsperHQ client application is available at <a class="link" href="http://localhost:8400/esperhqapp" target="">http://localhost:8400/esperhqapp</a>.
+		</p><p>
+			Esper Push Services consists of the following components:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The Push Services configuration file <code class="literal">ceppushsvc-default.xml</code> (the file name is referenced by the Esper configuration file which is <code class="literal">esper-default.xml</code>).
+				</p></li><li><p>
+					The Push Services jar file <code class="literal">esper-ceppushsvc-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>.
+				</p></li></ol></div><p>
+			Esper Push Services minimally requires the following for operation:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Java 7 or higher.
+				</p></li><li><p>
+					An Push Services configuration file.
+				</p></li><li><p>
+					A provider for Java Message Service (JMS), see below.
+				</p></li><li><p>
+					A JAX-RS Web Services container.
+				</p></li></ol></div><p>
+			Push Services requires a Java Message Service (JMS) provider. By default, Push Services ships with configuration and jar files for Apache ActiveMQ (see http://activemq.apache.org). We do not specifically recommend any particular Java Message Service (JMS) provider. 
+		</p><p>
+			There are two options to start Esper Push Services:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					As an Push Services endpoint via the Push Services endpoint API:
+				</p><p>
+					For use when your application requires complete control of Push Services lifecycle (start and stop).
+				</p></li><li><p>
+					As an Esper plug-in as part of an Esper configuration XML file or object:
+				</p><p>
+					This requires your application to add the Push Services plug-in class to the Esper configuration (XML or API). Push Services is then started automatically as part of Esper engine initialization.
+				</p></li></ol></div><p>
+			The above options are mutually exclusive.
+		</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-ceppushsvc-configuration"/>3.1. Push Services Endpoint API</h2></div></div></div><p>
+				The class that provides an Push Service endpoint is <code class="literal">com.espertech.esper.ceppushsvc.endpoint.EsperPushSvcEndpoint</code>.
+			</p><p>
+				The class for configuring a Push Services endpoint is <code class="literal">com.espertech.esper.ceppushsvc.client.config.ConfigurationPushSvc</code>.
+			</p><p>
+				Your application can start an endpoint with minimal configuration, and assuming the default JMS provider as shipped with the distribution, as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+
+// Name a default subject space that encompasses all logical resources.
+config.getSubjectSpaces().put("AllDataSubjectSpace", new SubjectSpace());
+
+// Default channel maps to the subject space, 
+// uses the default QoS and "esper.databus" JMS destination.
+Channel defaultChannel = new Channel();
+defaultChannel.setName("DefaultChannel");
+defaultChannel.setSubjectSpace("AllDataSubjectSpace");
+defaultChannel.setJms(new ChannelJMSConfig("esper.databus"));
+config.addChannel(defaultChannel);
+
+// Set JMS provider name to use
+config.getSettings().setPushProvider(new PushProvider("defaultProvider"));
+
+// Add JMS provider
+Provider provider = new Provider();
+provider.setObjectName("ConnectionFactory");
+Map&lt;String, String&gt; context = new HashMap&lt;String, String&gt;();
+context.put(Context.PROVIDER_URL, "tcp://localhost:61616?wireFormat.maxInactivityDuration=0");
+context.put(Context.INITIAL_CONTEXT_FACTORY, ActiveMQInitialContextFactory.class.getName());
+provider.setContext(context);
+config.getProviders().put("defaultProvider", provider);
+
+EsperPushSvcEndpoint endpoint = new EsperPushSvcEndpoint(config);
+endpoint.start();</pre><p>
+				You may alternatively have the <code class="literal">ConfigurationPushSvc</code> class read a configuration file via one of the <code class="literal">configure(...)</code> methods.
+				The distribution provides additional sample configuration files.
+			</p><p>
+				Please ensure to use the JMS provider startup scripts or API to start the JMS provider, if required, before starting Push Services.
+			</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-ceppushsvc-plugin"/>3.2. Push Services Plug-in Configuration</h2></div></div></div><p>
+				In alternative to the endpoint API as described above, you may use Push Services as a plug-in adapter to an Esper configuration. 
+				The Esper engine initialization then also initializes and starts the Push Services endpoint.
+			</p><p>
+				Under this option Push Services is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				Push Services is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-plugin-xml"/>3.2.1. Via Esper Configuration XML</h3></div></div></div><p>
+						The XML as below configures an engine instance with Push Services. It specifies the same configuration options as outlined above.
+					</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;
+  &lt;plugin-loader name="CEPPushServices" class-name="com.espertech.esper.ceppushsvc.client.EndpointMgmtPlugin"&gt;
+    &lt;init-arg name="esperceppushsvc.configuration.file" value="conf/ceppushsvc-default.xml" /&gt;
+  &lt;/plugin-loader&gt;
+&lt;/esper-configuration&gt;</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-ceppushsvc-jmsprovider"/>3.3. Start a JMS Provider</h2></div></div></div><p>
+				Push Services provides a plug-in to start a JMS provider, for use when your technical environment does not have a JMS provider.
+			</p><p>
+				Under this option the JMS provider is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				The JMS provider is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><p>
+				The below extract starts the default JMS provider on port 61616 and uses the data directory for JMS provider data files.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;
+  &lt;plugin-loader name="JMS_Provider_Bootstrap" class-name="com.espertech.esper.ceppushsvc.jmsbroker.JMSProviderMgmtPlugin"&gt;
+    &lt;init-arg name="type" value="ApacheActiveMQ" /&gt;
+    &lt;init-arg name="connectorURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0" /&gt;
+    &lt;init-arg name="dataDirectory" value="${ESPEREE_BASE}/data/jmsbroker-endpoint-default" /&gt;
+  &lt;/plugin-loader&gt;
+&lt;/esper-configuration&gt;</pre></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="concepts.html"><strong>Prev</strong>Chapter 2. Key Concepts</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong>Chapter 4. Configuration</a></li></ul></body></html>

@@ -1,0 +1,35 @@
+module com.espertech.esper.server.example.optiontrade;
+
+import com.espertech.esper.server.example.optiontrade.*;
+
+@Name('OptionTradingExample-Define Exchange Exec Event Type')
+create schema ExchangeExecutionEvent ExchangeExecutionEvent;
+
+@Name('OptionTradingExample-Define Market Data Event Type')
+create schema MarketDataEvent MarketDataEvent;
+
+@Name('OptionTradingExample-Every Exchange Execution')
+@Description('Selects every execution that takes place.')
+select * from ExchangeExecutionEvent;
+
+@Name('OptionTradingExample-AvgBigAsk')
+@Description('Compute average bid and ask sizes and prices')
+select avg(bid), avg(ask), avg(bidSize), avg(askSize) from MarketDataEvent group by occSymbol;
+
+@Name('OptionTradingExample-ActiveExecutions')
+@Description('Creates a named window to hold active executions not older than 1 minute')
+create window PositionWindow.std:unique(executionId).win:time(1 min) as select * from ExchangeExecutionEvent;
+
+@Name('OptionTradingExample-ActiveExecutionsPopulate')
+@Description('Populates a named window to hold active executions, ignoring cancelled executions')
+insert into PositionWindow select * from ExchangeExecutionEvent(status != 'CXLD');
+
+@Name('OptionTradingExample-ActiveExecutionsCancelledDelete')
+@Description('Deletes from a named window the cancelled executions')
+on ExchangeExecutionEvent(status = 'CXLD') as cxld delete from PositionWindow as win where win.executionId = cxld.executionId;
+
+@Name('OptionTradingExample-PositionPerBook')
+@Description('Computes the total qty and last price for all uncancelled executions per symbol and book')
+select w.occSymbol as occSymbol, w.book as book, qty * ((bid + ask) / 2)
+from PositionWindow as w, MarketDataEvent.std:lastevent() as e where e.occSymbol = w.occSymbol
+group by w.occSymbol, w.book;

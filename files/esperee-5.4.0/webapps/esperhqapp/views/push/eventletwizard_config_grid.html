@@ -1,0 +1,105 @@
+<div ng-controller="EventletWizardConfigGridController">
+    <form class="form-horizontal">
+        <fieldset>
+            <legend><small>Grid Configuration</small></legend>
+            <div class="control-group">
+                <label class="control-label">Nesting:</label>
+                <div class="controls">
+                    <input type="checkbox" ng-model="nesting"/>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <div class="row-fluid eventletwizard-fieldset-bordered" ng-show="nesting == true">
+        <div class="span12">
+            <form class="form-horizontal">
+                <fieldset ng-repeat="nestitem in nestingItems">
+                    <div class="control-group">
+                        <label class="control-label">Nesting Type:</label>
+                        <div class="controls">
+                            <select ng-model="nestitem.nestType" ng-options="n.name for n in nestTypeItems"></select>
+                            <button type="submit" class="btn" ng-click="doNestingAddItem()">Add</button>
+                            <button type="submit" class="btn" ng-show="nestingItems.length > 1" ng-click="doNestingRemoveItem($index)">Remove</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Key Field: <span class="label-required">*</span></label>
+                        <div class="controls">
+                            Resource <select ng-model="nestitem.resourceItem" ng-options="r.resourceName for r in resourceItems" ng-click="doNestingSelectedResource($index)"></select>
+                            &nbsp;&nbsp;Property <select ng-model="nestitem.property" ng-options="p.propertyName for p in nestitem.properties" ng-click="doNestingSelectedProperty($index)"></select>
+                            or Name <input type="text" ng-model="nestitem.propertyName" ng-change="doNestingChangedPropertyName($index)"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div ng-show="nestingErrorMsg != null"><span class="span-invalid">{{nestingErrorMsg}}</span></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label">In-Place Updated Rows:</label>
+                <div class="controls">
+                    <input type="checkbox" ng-model="inplace"/>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <div class="row-fluid eventletwizard-fieldset-bordered" ng-show="inplace == true">
+        <div class="span12">
+            <form class="form-horizontal">
+                <fieldset ng-repeat="inplaceitem in inplaceItems">
+                    <div class="control-group">
+                        <label class="control-label">Key Field: <span class="label-required">*</span></label>
+                        <div class="controls">
+                            Resource <select ng-model="inplaceitem.resourceItem" ng-options="r.resourceName for r in resourceItems" ng-click="doInplaceSelectedResource($index)"></select>
+                            &nbsp;&nbsp;Property <select ng-model="inplaceitem.property" ng-options="p.propertyName for p in inplaceitem.properties" ng-click="doInplaceSelectedProperty($index)"></select>
+                            or Name <input type="text" ng-model="inplaceitem.propertyName" ng-change="doInplaceChangedPropertyName($index)"/>
+                            <button type="submit" class="btn" ng-click="doInplaceAddItem()">Add</button>
+                            <button type="submit" class="btn" ng-show="inplaceItems.length > 1" ng-click="doInplaceRemoveItem($index)">Remove</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div ng-show="inplaceErrorMsg != null"><span class="span-invalid">{{inplaceErrorMsg}}</span></div>
+        <div class="clear"></div>
+    </div>
+
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label">Innermost Grid Updates:</label>
+                <div class="controls">
+                    <select ng-model="innermost" ng-options="i.name for i in innermostItems"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">JavaScript Callback Function:</label>
+                <div class="controls">
+                    <input type="text" ng-model="cfg.clickCallback"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Columns:</label>
+                <div class="controls">
+                    <input type="checkbox" ng-model="cfg.displayTime"/>
+                    <span>Arrival Time</span>
+                    <input type="checkbox" ng-model="cfg.displaySource"/>
+                    <span>Source</span>
+                    <input type="checkbox" ng-model="cfg.displayRowNum"/>
+                    <span>Row Number</span>
+                    <input type="checkbox" ng-model="cfg.displayEventNum"/>
+                    <span>Event Number</span>
+                    <input type="checkbox" ng-model="cfg.displayUpdNum"/>
+                    <span>Update Number</span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

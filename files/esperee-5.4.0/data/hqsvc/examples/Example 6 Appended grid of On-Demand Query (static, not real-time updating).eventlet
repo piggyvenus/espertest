@@ -1,0 +1,10 @@
+<eventlet>
+  <composition>
+    <appendgrid/>
+  </composition>
+  <sources>
+    <source sourceId="1">
+      <onDemandQuery query="select * from ShopWindowPerCatSubcat" engineUri="default" endpoint="defaultendpoint"/>
+    </source>
+  </sources>
+</eventlet>

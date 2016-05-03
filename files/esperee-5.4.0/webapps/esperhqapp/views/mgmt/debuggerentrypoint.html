@@ -1,0 +1,81 @@
+<div ng-controller="DebuggerEntryPointController">
+
+    <!--
+        Top title bar: Navigation information
+    -->
+    <div class="row-fluid">
+        <div class="span11">
+            <div class="debugger-entrypointmessage">
+                <div ng-show="event != null" style="float: left;">
+                    <span>Event:</span>
+                    <input type="text" disabled ng-model="event" style="margin-bottom: 0px"/>
+                </div>
+                <div ng-show="time != null" style="float: left">
+                    <span class="margin-left">Time:</span>
+                    <input type="text" disabled ng-model="time" style="margin-bottom: 0px"/>
+                </div>
+                <div ng-show="epl != null" style="float: left">
+                    <span class="margin-left">Statement Name:</span>
+                    <input type="text" disabled ng-model="statementName" style="margin-bottom: 0px"/>
+                    <span class="margin-left">Context Partition:</span>
+                    <input type="text" disabled ng-model="contextPartition" style="margin-bottom: 0px"/>
+                </div>
+                <div ng-show="mgmt != null" style="float: left">
+                    <span class="margin-left">Statement Management</span>
+                </div>
+            </div>
+        </div>
+        <div class="span1 pull-right">
+            <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <!--
+        Middle frame: Statement on left, drill-down on right.
+    -->
+    <div id="debugger_top_container">
+        <div id="debuggerep-statements">
+            <div id="debugger_entrypoint_epl">
+                <textarea></textarea>
+            </div>
+            <div class="debugger-resizable-e ui-resizable-handle ui-resizable-e" style="right:-3px;"></div>
+        </div>
+        <div id="debuggerep-nodes">
+            <div id="debuggerep_control" tabindex="0">
+                <ul style="margin: 0 0 0 0">
+                    <li class="debuggerep-list" ng-repeat="data in trees" ng-include="'views/mgmt/debuggerentrypoint_itemrenderer.html'"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="debugger-resizable-s ui-resizable-handle ui-resizable-s"></div>
+    </div>
+
+    <!--
+        Bottom is frame and stack information
+    -->
+    <div class="clear"></div>
+    <div style="overflow: hidden">
+        <div style="width: 30%; float: left; margin: 5px 5px 5px 5px;">
+            <div class="debugger-entrypointmessage" style="width: 90%">
+                <span style="padding-left: 20px; padding-right: 20px">Frame</span>
+            </div>
+            <div class="clear"></div>
+            <table class="table-hor-minimalist">
+                <tbody>
+                <tr ng-repeat="item in frame">
+                    <td>{{item}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="width: 65%; float: left; margin: 5px 5px 5px 5px;">
+            <div class="debugger-entrypointmessage" style="width: 100%">
+                <span style="padding-left: 20px; padding-right: 20px">Variables</span>
+            </div>
+            <div class="clear"></div>
+            <div id="debugger_frame_obrowser"></div>
+        </div>
+    </div>
+
+</div>

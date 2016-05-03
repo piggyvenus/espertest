@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">CEP Push Services</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><div class="book" lang="en-US"><div class="titlepage"><div><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><div><h1 class="title"><a id="d0e1"/>CEP Push Services</h1></div><div><div xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="authorgroup"><div class="authors">by <span xmlns="http://www.w3.org/1999/xhtml" class="orgname"><a class="link" href="http://www.espertech.com" target="">EsperTech Inc.</a></span></div><div class="editors"/><div class="others"/></div></div><div><p class="releaseinfo">Version 5.4.0</p></div><div><p class="copyright">Copyright © 2016 EsperTech Inc.</p></div></div><hr/></div><div class="toc"><dl><dt><span class="preface"><a href="#d0e18">Preface</a></span></dt><dt><span class="chapter"><a href="#overview">1. Overview</a></span></dt><dt><span class="chapter"><a href="#concepts">2. Key Concepts</a></span></dt><dd><dl><dt><span class="sect1"><a href="#concepts-bus">2.1. REST Web Services and Data Bus</a></span></dt><dt><span class="sect1"><a href="#concepts-qos">2.2. Quality of Service</a></span></dt><dt><span class="sect1"><a href="#concepts-subjectspace">2.3. Subject Space</a></span></dt><dt><span class="sect1"><a href="#concepts-logicalresource">2.4. Logical Resource</a></span></dt><dt><span class="sect1"><a href="#concepts-statementset">2.5. Statement Set</a></span></dt><dt><span class="sect1"><a href="#concepts-channel">2.6. Channel</a></span></dt><dt><span class="sect1"><a href="#concepts-session">2.7. Session</a></span></dt><dt><span class="sect1"><a href="#concepts-endpoint">2.8. Endpoint</a></span></dt><dt><span class="sect1"><a href="#concepts-provider">2.9. Provider</a></span></dt><dt><span class="sect1"><a href="#concepts-subjectspaceexpr">2.10. Subject Space Expressions</a></span></dt><dt><span class="sect1"><a href="#concepts-statementsetfilterexpr">2.11. Statement Set Filter Expressions</a></span></dt></dl></dd><dt><span class="chapter"><a href="#gettingstarted">3. Getting Started</a></span></dt><dd><dl><dt><span class="sect1"><a href="#overview-ceppushsvc-configuration">3.1. Push Services Endpoint API</a></span></dt><dt><span class="sect1"><a href="#overview-ceppushsvc-plugin">3.2. Push Services Plug-in Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-plugin-xml">3.2.1. Via Esper Configuration XML</a></span></dt></dl></dd><dt><span class="sect1"><a href="#overview-ceppushsvc-jmsprovider">3.3. Start a JMS Provider</a></span></dt></dl></dd><dt><span class="chapter"><a href="#configuration">4. Configuration</a></span></dt><dd><dl><dt><span class="sect1"><a href="#configuration-subjectspace">4.1. Subject Spaces</a></span></dt><dt><span class="sect1"><a href="#configuration-channel">4.2. Channels</a></span></dt><dt><span class="sect1"><a href="#configuration-provider">4.3. JMS Providers</a></span></dt><dt><span class="sect1"><a href="#configuration-settings">4.4. Push Services Settings</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-settings-controlbus">4.4.1. Push Provider</a></span></dt><dt><span class="sect2"><a href="#configuration-settings-sessionmgmt">4.4.2. Session Management</a></span></dt><dt><span class="sect2"><a href="#configuration-settings-workqueue">4.4.3. Work Queue</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#examples">5. Examples</a></span></dt></dl></div><div class="preface" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e18"/>Preface</h2></div></div></div><p>
+			This document describes Esper CEP Push Services. The document assumes that the reader has prior knowledge of Esper.
+        </p><p>
+			If you are new to Esper, please study the tutorials and case studies available on the public web site at <code class="literal">http://www.espertech.com/esper</code>, and skim over the reference documentation.
+		</p><p>
+			The <a class="xref" href="#overview" title="Chapter 1. Overview">Chapter 1, <i>Overview</i></a> chapter is the best place to start.
+		</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>Chapter 1. Overview</h2></div></div></div><p>
+		Esper Push Services (Push Services for short) is a service and publishing component for use with the Esper CEP engine. It provides an application-layer publish-subscribe multi-tiered data distribution service for efficient and scalable delivery of CEP engine data based on active logical subscriptions. In addition, Push Services provides REST web services for managing subscriptions and obtaining ongoing information.
+	</p><p>
+		Push Services is built on the Java Message Service (JMS) standard. Push Services utilizes the control bus enterprise integration pattern for providing management services in a request-response communication style over a JMS queue. Push Services manages any number of JMS topics or queue destinations for data distribution.
+	</p><p>
+		Why does one need a Push Service? In the simplest case where there is only a single source of data and type of message that goes to a single consumer and there are no requirements around subscription timeout, stale subscriptions or quality of service then one may not need a Push Services.
+	</p><p>
+		The idea of the Push Service component is to handle:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				A dynamic space of data sources (Esper EPL statements, engine metrics etc).
+			</p></li><li><p>
+				Mapping of a logical data sources to CEP engine data sources. For example, a subscription may ask for the dynamic set of Esper statements tagged "Visit" (via the @Tag annotation) and the published data must dynamically include all current and newly created EPL statements tagged.
+			</p></li><li><p>
+				Quality of Service requirements by flexible policy configuration.
+			</p></li><li><p>
+				Tracking and managing subscriptions to efficiently share server resources where possible, to reduce or eliminating duplicate data on the transport.
+			</p></li><li><p>
+				Subscriber timeout, e.g. when a subscriber unexpectedly disappears.
+			</p></li><li><p>
+				Subscription to stale logical data sources, e.g. when a subscribed-to EPL statement gets destroyed.
+			</p></li><li><p>
+				Subscription history.
+			</p></li><li><p>
+				Mapping of logical data sources to the underlying transport (JMS destination(s)) and effective marshalling of payload.
+			</p></li></ol></div><p>
+		In the next section, <a class="xref" href="#concepts" title="Chapter 2. Key Concepts">Chapter 2, <i>Key Concepts</i></a>, the document introduces the key concepts.
+	</p><p>
+		The <a class="xref" href="#gettingstarted" title="Chapter 3. Getting Started">Chapter 3, <i>Getting Started</i></a> section outlines the dependent jar files and introduces configurations.
+	</p><p>
+		The section <a class="xref" href="#configuration" title="Chapter 4. Configuration">Chapter 4, <i>Configuration</i></a> section explains the static and runtime configuration options.
+	</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts"/>Chapter 2. Key Concepts</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#concepts-bus">2.1. REST Web Services and Data Bus</a></span></dt><dt><span class="sect1"><a href="#concepts-qos">2.2. Quality of Service</a></span></dt><dt><span class="sect1"><a href="#concepts-subjectspace">2.3. Subject Space</a></span></dt><dt><span class="sect1"><a href="#concepts-logicalresource">2.4. Logical Resource</a></span></dt><dt><span class="sect1"><a href="#concepts-statementset">2.5. Statement Set</a></span></dt><dt><span class="sect1"><a href="#concepts-channel">2.6. Channel</a></span></dt><dt><span class="sect1"><a href="#concepts-session">2.7. Session</a></span></dt><dt><span class="sect1"><a href="#concepts-endpoint">2.8. Endpoint</a></span></dt><dt><span class="sect1"><a href="#concepts-provider">2.9. Provider</a></span></dt><dt><span class="sect1"><a href="#concepts-subjectspaceexpr">2.10. Subject Space Expressions</a></span></dt><dt><span class="sect1"><a href="#concepts-statementsetfilterexpr">2.11. Statement Set Filter Expressions</a></span></dt></dl></div><p>
+		Before reading this chapter, it is important to understand key concepts of CEP and the section will use Esper CEP engine terminology.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-bus"/>2.1. REST Web Services and Data Bus</h2></div></div></div><p>
+			Esper Push Services provides a REST web services and manages a dynamic data bus. REST web services manage subscriptions and sessions. 
+			The dynamic data bus is zero or more channels for transmission of data at same or different quality-of-service level and transmission message format.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-qos"/>2.2. Quality of Service</h2></div></div></div><p>
+			In Esper Push Services, the term Quality of Service refers to the policy by which available data is formatted and published to consumers. It defines the event batching that should take place, if any, to efficiently utilize the available transport yet balance latency requirements.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-subjectspace"/>2.3. Subject Space</h2></div></div></div><p>
+			We use this term to mean any publishable data available through the CEP engine. It means the sets of Esper EPL statements, CEP engine metrics or other metrics, named window, variable or more generally anything that can be turned into a one-time, infrequent or frequent or continuous stream including historical and reference data available through relational databases, for example.
+		</p><p>
+			A single subject space is identified by a subject space name. Its definition is an ordered list of subject space expressions including and excluding logical resources from that subject space. A subject space that includes all logical resources simply has no include or exclude expressions.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-logicalresource"/>2.4. Logical Resource</h2></div></div></div><p>
+			Within the subject space, a logical resource identifies the specific publishable data available through the CEP engine.
+		</p><p>
+			One example of a logical resource is a single EPL statement that is uniquely identified by an Esper engine URI and a statement name.
+		</p><p>
+			A second example of a logical resource is dynamic set of EPL statements (statement set), for example all started statements within an Esper engine as identified by an Esper engine URI.
+		</p><p>
+			A third example of a logical resource is engine metrics for an Esper engine as identified by an Esper engine URI.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-statementset"/>2.5. Statement Set</h2></div></div></div><p>
+			A statement set is a set of statements, for example all statements, or for example all statements that are tagged by a @Tag annotation with certain value(s).
+		</p><p>
+			Push Services manages statement sets dynamically: When a new statement comes online (gets compiled and started) that matches a statement set subscription then that new statement automatically becomes part of the resources for publishing.
+		</p><p>
+			In order to define which statements to include into a statement set, a subscription may provide a statement set filter expression. If you provide no filter expression with a statement set subscription request then Push Services includes all statements in the subscription. If you provide a filter expression, Push Services only includes those statements that match the filter expression provided.
+		</p><p>
+			The syntax for statement set filter expressions is outlined below.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-channel"/>2.6. Channel</h2></div></div></div><p>
+			Channel is the term used to tie together the subject space (any publishable data) with quality of service requirements and a binding to JMS destination(s).
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-session"/>2.7. Session</h2></div></div></div><p>
+			Clients (or consumers) that subscribe to logical resources must first establish a session. They are also responsible for keeping the session alive by sending heartbeats, and for indicating
+			the end of a session when the subscription is no longer needed.
+		</p><p>
+			Clients to services are unidentified. That means clients that use services to manage CEP engine instances (e.g. that create statements, view variable values etc.) and that do not subscribe to logical resources to receive data are not specifically tracked.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-endpoint"/>2.8. Endpoint</h2></div></div></div><p>
+			An endpoint is a running Push Services.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-provider"/>2.9. Provider</h2></div></div></div><p>
+			A provider is a Java Message Service (JMS) provider (aka. broker). 
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-subjectspaceexpr"/>2.10. Subject Space Expressions</h2></div></div></div><p>
+			Subject space expressions serve to define a subject space by including or excluding logical resources declaratively.
+		</p><p>
+			The table below outlines the properties available in expressions.
+		</p><div class="table"><a id="d0e153"/><p class="title"><b>Table 2.1. Properties in Subject Space Expressions</b></p><div class="table-contents"><table summary="Properties in Subject Space Expressions" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Property Name</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>engineURI</td><td>The Esper engine URI.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">engineURI in ('uriOne', 'uriTwo')</pre></td></tr><tr><td>statement</td><td>Populated if the logical resource is a single statement.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statement is not null</pre></td></tr><tr><td>statement.statementName</td><td>The statement name.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statement.statementName = 'MyStmt'</pre></td></tr><tr><td>statement.engineURI</td><td>The Esper engine URI for a statement.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statement.engineURI = 'uriOne'
+and statement.statementName = 'MyStmt'</pre></td></tr><tr><td>statement.iterate</td><td>Whether to iterate the statement.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statement.iterate is not null</pre></td></tr><tr><td>statement.iterate.iterateNow</td><td>Whether to iterate the statement at start of subscription.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statement.iterate.iterateNow = true</pre></td></tr><tr><td>statement.iterate.iteratePattern</td><td>Pattern expression to use for iteration.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statement.iterate.iteratePattern
+ = 'every timer:interval(5)'</pre></td></tr><tr><td>statementSet</td><td>Populated if the logical resource is a dynamic set of statements.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statementSet is not null</pre></td></tr><tr><td>statementSet.engineURI</td><td>The Esper engine URI for a dynamic set of statements.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statementSet.engineURI = 'uriOne'</pre></td></tr><tr><td>statementSet.filterExpression</td><td>The filter expression identifying a dynamic set of statements.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">statementSet.filterExpression
+ like '%tag='Shop'%'</pre></td></tr><tr><td>engine</td><td>Populated if the logical resource is an engine metric.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">engine is not null</pre></td></tr><tr><td>engine.engineURI</td><td>The Esper engine URI for engine metrics.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">engine.engineURI = 'uriOne'</pre></td></tr><tr><td>engine.type</td><td>The type of engine metric.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">engine.engineURI = 'uriOne'</pre></td></tr></tbody></table></div></div><br class="table-break"/><p>
+			To understand subject space expressions, read the expression as follows: "For all logical resources where <span class="emphasis"><em>expression</em></span>".
+		</p><p>
+			For example, the expression <code class="literal">"statement.statementName = 'MyStmt'"</code> means a single statement that has statement name <code class="literal">MyStmt</code>.
+		</p><p>
+			As a second example, the expression <code class="literal">"statement.statementName in ('MyStmtOne', 'MyStmtTwo')"</code> means statements that have statement name of either <code class="literal">MyStmtOne</code> or <code class="literal">MyStmtTwo</code>.
+		</p><p>
+			As a third example, the expression <code class="literal">"statementSet is not null and filterExpression is null"</code> means all statements (a dynamic statement set) for a given engine instance.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts-statementsetfilterexpr"/>2.11. Statement Set Filter Expressions</h2></div></div></div><p>
+			A statement set filter expression is an optional parameter to a subscription for a statement set. A statement set subscription without a filter expression includes all statements. 
+		</p><p>
+			The table below outlines the properties available in expressions:
+		</p><div class="table"><a id="d0e309"/><p class="title"><b>Table 2.2. Properties in Statement Set Filter Expressions</b></p><div class="table-contents"><table summary="Properties in Statement Set Filter Expressions" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Property Name</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>name</td><td>The statement name.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">name in ('MyStmtOne', 'MyStmtTwo')</pre></td></tr><tr><td>epl</td><td>EPL expression of statement.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">epl like 'select * from MyEvent'</pre></td></tr><tr><td>state</td><td>A statement state: STARTED, STOPPED or DESTROYED.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">state = 'STOPPED'</pre></td></tr><tr><td>userObject</td><td>The user object (as a string value) attached to a statement.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">userObject = 'myUserObject'</pre></td></tr><tr><td>description</td><td>Statement description.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">description like '%to be removed%'</pre></td></tr><tr><td>hint</td><td>Hint values as a comma-separated list.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">hint is null</pre></td></tr><tr><td>priority</td><td>Statement priority.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">priority = 1</pre></td></tr><tr><td>drop</td><td>True if @Drop specified.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">drop = true</pre></td></tr><tr><td>tag</td><td>A map property for all tags (see @Tag, string key-value pairs) attached to a statement.</td><td><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">tag('myTag')='myValue'</pre></td></tr></tbody></table></div></div><br class="table-break"/><p>
+			To understand statement set expressions, read the expression as follows: "For all statements where <span class="emphasis"><em>expression</em></span>".
+		</p><p>
+			For example, the expression <code class="literal">"name = 'MyStmt'"</code> means a statement that has statement name <code class="literal">MyStmt</code>.
+		</p><p>
+			As a second example, the expression <code class="literal">"name in ('MyStmtOne', 'MyStmtTwo')"</code> means statements that are named either <code class="literal">MyStmtOne</code> or <code class="literal">MyStmtTwo</code>.
+		</p><p>
+			As a third example, the expression <code class="literal">"tag('myTag') is not null or tag('mySecondTag') = 'id'"</code> means all statements that are tagged with <code class="literal">myTag</code> with any value or that are tagged with <code class="literal">mySecondTag</code> and value <code class="literal">id</code>.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted"/>Chapter 3. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#overview-ceppushsvc-configuration">3.1. Push Services Endpoint API</a></span></dt><dt><span class="sect1"><a href="#overview-ceppushsvc-plugin">3.2. Push Services Plug-in Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-plugin-xml">3.2.1. Via Esper Configuration XML</a></span></dt></dl></dd><dt><span class="sect1"><a href="#overview-ceppushsvc-jmsprovider">3.3. Start a JMS Provider</a></span></dt></dl></div><p>
+			Esper Enterprise Edition comes with Push Service and EsperHQ configured. Please simply follow the directions in file <code class="literal">RUNNING.txt</code> or the index web page to start the preconfigured server.
+		</p><p>
+			After starting the preconfigured server the EsperHQ client application is available at <a class="link" href="http://localhost:8400/esperhqapp" target="">http://localhost:8400/esperhqapp</a>.
+		</p><p>
+			Esper Push Services consists of the following components:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The Push Services configuration file <code class="literal">ceppushsvc-default.xml</code> (the file name is referenced by the Esper configuration file which is <code class="literal">esper-default.xml</code>).
+				</p></li><li><p>
+					The Push Services jar file <code class="literal">esper-ceppushsvc-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>.
+				</p></li></ol></div><p>
+			Esper Push Services minimally requires the following for operation:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Java 7 or higher.
+				</p></li><li><p>
+					An Push Services configuration file.
+				</p></li><li><p>
+					A provider for Java Message Service (JMS), see below.
+				</p></li><li><p>
+					A JAX-RS Web Services container.
+				</p></li></ol></div><p>
+			Push Services requires a Java Message Service (JMS) provider. By default, Push Services ships with configuration and jar files for Apache ActiveMQ (see http://activemq.apache.org). We do not specifically recommend any particular Java Message Service (JMS) provider. 
+		</p><p>
+			There are two options to start Esper Push Services:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					As an Push Services endpoint via the Push Services endpoint API:
+				</p><p>
+					For use when your application requires complete control of Push Services lifecycle (start and stop).
+				</p></li><li><p>
+					As an Esper plug-in as part of an Esper configuration XML file or object:
+				</p><p>
+					This requires your application to add the Push Services plug-in class to the Esper configuration (XML or API). Push Services is then started automatically as part of Esper engine initialization.
+				</p></li></ol></div><p>
+			The above options are mutually exclusive.
+		</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-ceppushsvc-configuration"/>3.1. Push Services Endpoint API</h2></div></div></div><p>
+				The class that provides an Push Service endpoint is <code class="literal">com.espertech.esper.ceppushsvc.endpoint.EsperPushSvcEndpoint</code>.
+			</p><p>
+				The class for configuring a Push Services endpoint is <code class="literal">com.espertech.esper.ceppushsvc.client.config.ConfigurationPushSvc</code>.
+			</p><p>
+				Your application can start an endpoint with minimal configuration, and assuming the default JMS provider as shipped with the distribution, as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+
+// Name a default subject space that encompasses all logical resources.
+config.getSubjectSpaces().put("AllDataSubjectSpace", new SubjectSpace());
+
+// Default channel maps to the subject space, 
+// uses the default QoS and "esper.databus" JMS destination.
+Channel defaultChannel = new Channel();
+defaultChannel.setName("DefaultChannel");
+defaultChannel.setSubjectSpace("AllDataSubjectSpace");
+defaultChannel.setJms(new ChannelJMSConfig("esper.databus"));
+config.addChannel(defaultChannel);
+
+// Set JMS provider name to use
+config.getSettings().setPushProvider(new PushProvider("defaultProvider"));
+
+// Add JMS provider
+Provider provider = new Provider();
+provider.setObjectName("ConnectionFactory");
+Map&lt;String, String&gt; context = new HashMap&lt;String, String&gt;();
+context.put(Context.PROVIDER_URL, "tcp://localhost:61616?wireFormat.maxInactivityDuration=0");
+context.put(Context.INITIAL_CONTEXT_FACTORY, ActiveMQInitialContextFactory.class.getName());
+provider.setContext(context);
+config.getProviders().put("defaultProvider", provider);
+
+EsperPushSvcEndpoint endpoint = new EsperPushSvcEndpoint(config);
+endpoint.start();</pre><p>
+				You may alternatively have the <code class="literal">ConfigurationPushSvc</code> class read a configuration file via one of the <code class="literal">configure(...)</code> methods.
+				The distribution provides additional sample configuration files.
+			</p><p>
+				Please ensure to use the JMS provider startup scripts or API to start the JMS provider, if required, before starting Push Services.
+			</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-ceppushsvc-plugin"/>3.2. Push Services Plug-in Configuration</h2></div></div></div><p>
+				In alternative to the endpoint API as described above, you may use Push Services as a plug-in adapter to an Esper configuration. 
+				The Esper engine initialization then also initializes and starts the Push Services endpoint.
+			</p><p>
+				Under this option Push Services is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				Push Services is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-plugin-xml"/>3.2.1. Via Esper Configuration XML</h3></div></div></div><p>
+						The XML as below configures an engine instance with Push Services. It specifies the same configuration options as outlined above.
+					</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;
+  &lt;plugin-loader name="CEPPushServices" class-name="com.espertech.esper.ceppushsvc.client.EndpointMgmtPlugin"&gt;
+    &lt;init-arg name="esperceppushsvc.configuration.file" value="conf/ceppushsvc-default.xml" /&gt;
+  &lt;/plugin-loader&gt;
+&lt;/esper-configuration&gt;</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-ceppushsvc-jmsprovider"/>3.3. Start a JMS Provider</h2></div></div></div><p>
+				Push Services provides a plug-in to start a JMS provider, for use when your technical environment does not have a JMS provider.
+			</p><p>
+				Under this option the JMS provider is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				The JMS provider is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><p>
+				The below extract starts the default JMS provider on port 61616 and uses the data directory for JMS provider data files.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;
+  &lt;plugin-loader name="JMS_Provider_Bootstrap" class-name="com.espertech.esper.ceppushsvc.jmsbroker.JMSProviderMgmtPlugin"&gt;
+    &lt;init-arg name="type" value="ApacheActiveMQ" /&gt;
+    &lt;init-arg name="connectorURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0" /&gt;
+    &lt;init-arg name="dataDirectory" value="${ESPEREE_BASE}/data/jmsbroker-endpoint-default" /&gt;
+  &lt;/plugin-loader&gt;
+&lt;/esper-configuration&gt;</pre></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration"/>Chapter 4. Configuration</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#configuration-subjectspace">4.1. Subject Spaces</a></span></dt><dt><span class="sect1"><a href="#configuration-channel">4.2. Channels</a></span></dt><dt><span class="sect1"><a href="#configuration-provider">4.3. JMS Providers</a></span></dt><dt><span class="sect1"><a href="#configuration-settings">4.4. Push Services Settings</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-settings-controlbus">4.4.1. Push Provider</a></span></dt><dt><span class="sect2"><a href="#configuration-settings-sessionmgmt">4.4.2. Session Management</a></span></dt><dt><span class="sect2"><a href="#configuration-settings-workqueue">4.4.3. Work Queue</a></span></dt></dl></dd></dl></div><p>
+		If using XML to configure Push Services, then your XML configuration file should adhere to the XML XSD schema file provided in the <code class="literal">conf</code> folder of the distribution by name <code class="literal">ceppushsvc-configuration-5-0.xsd</code>.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-subjectspace"/>4.1. Subject Spaces</h2></div></div></div><p>
+			A subject space has a name and a list of includes- and excludes-expressions. The expression syntax for subject spaces has been explained in <a class="xref" href="#concepts" title="Chapter 2. Key Concepts">Chapter 2, <i>Key Concepts</i></a>.
+		</p><p>
+			The following XML configuration configures a subject space by name <code class="literal">defaultSpace</code> that includes all logical resources:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  &lt;subjectspaces&gt;
+    &lt;subjectspace name="defaultSpace"/&gt;
+  &lt;/subjectspaces&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the same subject space:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSubjectSpaces().put("defaultSpace", new SubjectSpace());</pre><p>
+			By adding includes- and excludes-expressions to a subject space you may narrow down its scope from all logical resources to only a subset of logical resources.
+		</p><p>
+			The next example adds an additional subject space named <code class="literal">sampleSpaceOne</code> that includes only a specific statement named <code class="literal">MyStmt</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;subjectspaces&gt;
+  &lt;subjectspace name="sampleSpaceOne"&gt;
+    &lt;includes expr="statement.statementName='MyStmt'"/&gt;
+  &lt;/subjectspace&gt;
+  &lt;subjectspace name="defaultSpace"/&gt;
+&lt;/subjectspaces&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the additional subject space:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+SubjectSpace space = new SubjectSpace();
+space.addExpression(new SubjectSpace.SubjectSpaceEntry(true, "statement.statementName='MyStmt'"));
+config.getSubjectSpaces().put("sampleSpaceOne", space);		
+config.getSubjectSpaces().put("defaultSpace", new SubjectSpace());</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-channel"/>4.2. Channels</h2></div></div></div><p>
+			A channel has a name, an assigned subject space, a quality-of-service setting and a JMS provider setting. 
+		</p><p>
+			In the next XML configuration we configure a single channel by name <code class="literal">defaultChannel</code>. The channel is mapped to subject space <code class="literal">defaultSpace</code>.
+			The quality of service parameters call for a batched publishing of data every 1000 milliseconds or every 100 events, whichever comes first.
+			The JMS destination for the data is topic <code class="literal">esper.data.default</code>.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;channels&gt;
+    &lt;channel name="defaultChannel" subjectspace="defaultSpace"&gt;
+      &lt;qos&gt;
+        &lt;batched-service interval-msec="1000" count="100"/&gt;
+      &lt;/qos&gt;
+      &lt;jms&gt;
+        &lt;destination topic="esper.data.default"/&gt;
+      &lt;/jms&gt;
+    &lt;/channel&gt;
+  &lt;/channels&gt;
+  ... more settings...
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the same channel as above:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+Channel channel = new Channel();
+channel.setName("defaultChannel");
+channel.setSubjectSpace("defaultSpace");
+BatchedService batched10Sec = new BatchedService();
+batched10Sec.setIntervalMSec(1000);
+batched10Sec.setCount(100);
+channel.setService(batched10Sec);
+channel.setJms(new ChannelJMSConfig("esper.data.default"));
+config.addChannel(channel);</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-provider"/>4.3. JMS Providers</h2></div></div></div><p>
+			This section describes how to configure Java Message Service (JMS) provider(s) (aka. brokers). You may configure multiple providers, however only a single JMS provider may be active for Push Services at any given time. 
+		</p><p>
+			The below XML configuration configures a provider by name <code class="literal">defaultProvider</code> and configures the default settings for the default JMS provider.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;providers&gt;
+    &lt;provider name="defaultProvider"&gt;
+      &lt;context object-name="ConnectionFactory"&gt;
+        &lt;env name="java.naming.factory.initial" 
+           value="org.apache.activemq.jndi.ActiveMQInitialContextFactory"/&gt;
+        &lt;env name="java.naming.provider.url" 
+           value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/&gt;
+      &lt;/context&gt;
+    &lt;/provider&gt;
+  &lt;/providers&gt;
+  ... more settings...
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the same provider as above:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+Provider provider = new Provider();
+provider.setObjectName("ConnectionFactory");
+Map&lt;String, String&gt; context = new HashMap&lt;String, String&gt;();
+context.put(Context.PROVIDER_URL, 
+    "tcp://localhost:61616?wireFormat.maxInactivityDuration=0");
+context.put(Context.INITIAL_CONTEXT_FACTORY, 
+    org.apache.activemq.jndi.ActiveMQInitialContextFactory.class.getName());
+provider.setContext(context);
+configJMS.getProviders().put("defaultProvider", provider);</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-settings"/>4.4. Push Services Settings</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-settings-controlbus"/>4.4.1. Push Provider</h3></div></div></div><p>
+				The JMS provider name by default is <code class="literal">defaultProvider</code>. Push Services will attempt to connect to the provider configured by this name, unless you explicitly configure another provider name.
+			</p><p>
+				The following XML configures the default settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;settings&gt;
+    &lt;pushprovider provider-name="defaultProvider"/&gt;
+   &lt;/settings&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+				The next code snippet shows the configuration API to configure the same control bus settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSettings().setPushProvider(new PushProvider("defaultProvider"));</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-settings-sessionmgmt"/>4.4.2. Session Management</h3></div></div></div><p>
+				The default session management is disabled. Session management should be enabled when running a distributed architecture: When CEP engine(s) and web application layer are separated between JVMs or hosts the session management checks that web application layer sessions are alive.
+			</p><p>
+				You may enable session management and perform session keep-alive checks every 10 seconds and expire sessions that have been inactive for 60 seconds. Unless you plan to override the defaults, you do not need to configure this (the settings are optional).
+			</p><p>
+				The following XML configures the default settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;settings&gt;
+    &lt;session-mgmt enabled="false" interval-msec="10000" expiry-msec="60000"/&gt;
+  &lt;/settings&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+				The next code snippet shows the configuration API to configure the same settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSettings().getSessionMgmt().setEnabled(false);
+config.getSettings().getSessionMgmt().setIntervalMSec(10000);
+config.getSettings().getSessionMgmt().setExpiryMSec(60000);</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-settings-workqueue"/>4.4.3. Work Queue</h3></div></div></div><p>
+				The number of threads in the work queue is configurable. By default, 1 thread is allocated. By setting the number of threads to zero all work items are performed by the originating thread.
+			</p><p>
+				The following XML configures the default settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;settings&gt;
+    &lt;work-queue num-threads="1"&gt;
+  &lt;/settings&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+				The next code snippet shows the configuration API to configure the same settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSettings().getWorkQueue().setNumThreads(1);</pre></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples"/>Chapter 5. Examples</h2></div></div></div><p>
+		Enterprise Edition comes with a Java example for CEP push services. The example is completely standalone, thereby please shut down any existing server process
+		to avoid overlapping ports.
+	</p><p>
+		The example can be found in the root folder of the installation under <code class="literal">examples/examples-ceppushsvc</code>.
+	</p><p>
+		The example consists of two parts:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				A tiny server that starts Esper, an embedded JMS broker, Push Services as well as a HTTP/REST container.
+			</p></li><li><p>
+				A tiny client that uses an HTTP client to subscribe to a statement by invoking REST services, and that receives messages pushed over a JMS destination.
+			</p></li></ol></div><p>
+		To run the examples, change directory to the <code class="literal">traffic/etc</code> folder and build first by invoking the <code class="literal">compile</code> script in the <code class="literal">etc</code> folder. The server startup script is <code class="literal">run_traffic_server</code>
+		and the client startup script is <code class="literal">run_traffic_client</code>.
+	</p></div></div></body></html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 3. MBeans</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperJMX"/><link rel="up" href="index.html" title="EsperJMX"/><link rel="prev" href="configuration.html" title="Chapter 2. Configuration"/><link rel="next" href="examples.html" title="Chapter 4. Examples"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="configuration.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="examples.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans"/>Chapter 3. MBeans</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="mbeans.html#mbeans-admin">3.1. AdministratorMBean</a></span></dt><dt><span class="sect1"><a href="mbeans.html#mbeans-runtime">3.2. RuntimeMBean</a></span></dt><dt><span class="sect1"><a href="mbeans.html#mbeans-statement">3.3. StatementMBean</a></span></dt><dt><span class="sect1"><a href="mbeans.html#mbeans-namedwindow">3.4. NamedWindowMBean</a></span></dt><dt><span class="sect1"><a href="mbeans.html#mbeans-statementnotifier">3.5. StmtStreamNotifierType1MBean</a></span></dt><dt><span class="sect1"><a href="mbeans.html#mbeans-listener">3.6. ListenerMBean</a></span></dt></dl></div><p>
+		EsperJMX provides MBeans as summarized in this chapter.
+	</p><p>
+		For detailed information on the functions available, please consult the JavaDoc documentation.
+	</p><p>
+		By default, EsperJMX registers a new <code class="literal">StatementMBean</code> for each new statement created within an Esper engine. When a statement is destroyed, EsperJMX unregisters the <code class="literal">StatementMBean</code> representing the statement.
+	</p><p>
+		Named window MBeans and listener MBeans also also dynamically registered and unregistered. However by default configuration, EsperJMX does not create MBeans for listeners.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-admin"/>3.1. AdministratorMBean</h2></div></div></div><p>	
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Administrator</code>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+		</p><p>
+			This MBean provides statement management functions, metrics concerning statement and listener counts as well as configuration information.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-runtime"/>3.2. RuntimeMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Runtime</code>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+		</p><p>
+			This MBean provides runtime metrics, variable and named window information and allows on-demand fire-and-forget queries against named windows.
+		</p><div class="table"><a id="d0e533"/><p class="title"><b>Table 3.1. Attributes</b></p><div class="table-contents"><table summary="Attributes" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>TimeHandleCount</td><td>The number of schedule entries unique by time of schedule entry. For example, a schedule may have 3 points of interest (TimeHandleCount is 3) such as at 1pm, 2pm and 3pm,
+						wherein at any of these 3 times one or more statements must perform some processing.</td></tr><tr><td>FurthestTimeHandle</td><td>The furthest outstanding time evaluation of any schedule entry, i.e. 3pm in the example above.</td></tr><tr><td>EvaluatedCount</td><td>The number of events evaluated, including insert-into events.</td></tr><tr><td>RoutedInternalCount</td><td>Number of insert-into events.</td></tr><tr><td>RoutedExternalCount</td><td>Number of routed events, i.e. when a listener or other application code calls one of the <code class="literal">route</code> methods.</td></tr><tr><td>TimerDriftAverage</td><td>
+							For use with internal timer only.
+							The <span class="emphasis"><em>drift</em></span> is the absolute value of the <code class="literal">ScheduledFuture.getDelay</code> calls (please see the Java documentation for more information on the delay computation).
+							The <code class="literal">TimerDriftAverage</code> is the sum of the absolute value of the <code class="literal">ScheduledFuture.getDelay</code> calls divided by the number of timer invocations.
+						</td></tr><tr><td>TimerMaxDrift</td><td>For use with internal timer only. The highest value of the drift as defined above.</td></tr><tr><td>TimerLastDrift</td><td>For use with internal timer only. The last value of the drift as defined above.</td></tr><tr><td>EvaluatedAvgPerSecond</td><td>The <code class="literal">EvaluatedCount</code> as defined above divided by the number of seconds elapsed since.</td></tr><tr><td>RoutedInternalAvgPerSecond</td><td>The <code class="literal">RoutedInternalCount</code> as defined above divided by the number of seconds elapsed since.</td></tr><tr><td>RoutedExternalAvgPerSecond</td><td>The <code class="literal">RoutedExternalCount</code> as defined above divided by the number of seconds elapsed since.</td></tr><tr><td>ElapsedSecondsSinceLastReset</td><td>The number of seconds elapsed since.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-statement"/>3.3. StatementMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Statement,name=</code><span class="emphasis"><em>[statement_name]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>statement_name</em></span> is the name of the <code class="literal">EPStatement</code> statement.
+		</p><p>
+			This MBean provides statement details, allows iteration over statement result and allows subscription to statement results via <code class="literal">StmtStreamNotifierType1MBean</code>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-namedwindow"/>3.4. NamedWindowMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=NamedWindow,name=</code><span class="emphasis"><em>[named_window_name]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>named_window_name</em></span> is the name of the named window.
+		</p><p>
+			This MBean provides the number of events held by named window.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-statementnotifier"/>3.5. StmtStreamNotifierType1MBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=StmtStreamNotifierType1MBean,name=</code><span class="emphasis"><em>[statement_name]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>statement_name</em></span> is the name of the <code class="literal">EPStatement</code> statement that provides statement results as JMX notifications.
+		</p><p>
+			This MBean is dynamically registered upon subscription to statement results via <code class="literal">StatementMBean</code> and provides JMX notifications of statement results as an object array in the notification object user data. The object array follow the same data format as returned by <code class="literal">fireAndForgetQueryType1</code> and as explained in more detail by the example.
+		</p><p>
+			Use the <code class="literal">addStreamNotifierType1</code> method to add a subscriber for statement results for a statement by providing a subscriber id. EsperJMX registers the <code class="literal">StmtStreamNotifierType1MBean</code>
+			when the first subscriber is added, and deregisters it when the last subscriber is removed via <code class="literal">removeStreamNotifierType1</code>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-listener"/>3.6. ListenerMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Listener,</code>
+			<code class="literal">name=</code><span class="emphasis"><em>[statement_name]-[listener_classname]@[listener_hash]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>statement_name</em></span> is the name of the <code class="literal">EPStatement</code> statement.
+			The value of <span class="emphasis"><em>listener_classname</em></span> and <span class="emphasis"><em>listener_hash</em></span> are class name and hash code of the listener object.
+		</p><p>
+			By default the option to register listener MBeans is disabled. If enabled, the MBean provides listener information and the names of the statements the listener is registered for.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="configuration.html"><strong>Prev</strong>Chapter 2. Configuration</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="examples.html"><strong>Next</strong>Chapter 4. Examples</a></li></ul></body></html>

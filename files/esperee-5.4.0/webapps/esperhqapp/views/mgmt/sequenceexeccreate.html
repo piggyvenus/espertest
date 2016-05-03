@@ -1,0 +1,85 @@
+<div id="sequenceexec_create_div" ng-controller="SequenceExecCreateController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doLoad()" class="btn button-bar-margin">Load</button>
+        <button type="submit" ng-click="doSave()" class="btn button-bar-margin">Save</button>
+        <button type="submit" ng-click="doValidate()" class="btn button-bar-margin">Validate</button>
+        <button type="submit" ng-click="doAddAndStart(false)" ng-disabled="form.$invalid" class="btn button-bar-margin">Add</button>
+        <button type="submit" ng-click="doAddAndStart(true)" ng-disabled="form.$invalid" class="btn btn-primary button-bar-margin">Start</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Sequence Name:<span class="label-required">*</span></label>
+            <div class="controls">
+                <input type="text" required class="predefined-60wide" ng-model="sequence.sequenceExecutionName"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Description:</label>
+            <div class="controls">
+                <textarea class="predefined-60wide" rows="1" ng-model="sequence.description"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="checkbox" ng-model="sequence.loop"/>
+                <span class="margin-left">Loop</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Sequence:<span class="label-required">*</span></label>
+            <div class="controls">
+                <div class="float-left">
+                    <div class="float-left">
+                        <div id="sequencecreate_editor_div" class="predefined-50wide">
+                            <textarea></textarea>
+                        </div>
+                        <div ng-show="sequenceErrorMsg != null">
+                            <span class="span-invalid">Failed validation: {{sequenceErrorMsg}}</span>
+                        </div>
+                    </div>
+                    <div class="float-left" style="width: 1em;">&nbsp;</div>
+                    <div class="float-left">
+                        <div>
+                            <button ng-click="doAddInterval()" class="btn button-bar-margin">Add Interval</button>
+                        </div>
+                        <div>
+                            <span>Event Types: </span>
+                        </div>
+                        <div>
+                            <select ng-model="eventType" ng-options="e.eventTypeName for e in eventTypes" class="button-bar-margin"></select>
+                        </div>
+                        <div>
+                            <button ng-click="doAddEvent()" class="btn button-bar-margin">Add Event</button>
+                            <button ng-click="doRefreshTypes()" class="btn button-bar-margin">Refresh Types</button>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Validation Messages:</label>
+            <div class="controls">
+                <div id="sequencemessages_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

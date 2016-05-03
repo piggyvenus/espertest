@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 4. Configuration</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper HQ Web Application Archive"/><link rel="up" href="index.html" title="Esper HQ Web Application Archive"/><link rel="prev" href="securing.html" title="Chapter 3. Securing the Web Application"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="securing.html"><strong>Prev</strong></a></li><li class="next"/></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration"/>Chapter 4. Configuration</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="configuration.html#configuration-client">4.1. Client and Web Application Settings </a></span></dt><dd><dl><dt><span class="sect2"><a href="configuration.html#configuration-client-websocketurl">4.1.1. Web Socket URL</a></span></dt><dt><span class="sect2"><a href="configuration.html#configuration-client-authen">4.1.2. Authentication</a></span></dt><dt><span class="sect2"><a href="configuration.html#configuration-client-filter">4.1.3. Service Filters</a></span></dt></dl></dd><dt><span class="sect1"><a href="configuration.html#configuration-provider">4.2. Endpoint Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="configuration.html#configuration-provider-context">4.2.1. Configuring the JMS Provider Context</a></span></dt><dt><span class="sect2"><a href="configuration.html#configuration-provider-rest">4.2.2. Configuring REST Service Addressing</a></span></dt></dl></dd></dl></div><p>
+		Your Esper HQ XML configuration file should adhere to the XML XSD schema file provided in the <code class="literal">conf</code> folder of the distribution by name <code class="literal">esperhq-configuration-5-0.xsd</code>.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-client"/>4.1. Client and Web Application Settings </h2></div></div></div><p>
+			This section discusses EsperHQ rich client configuration and web application archive (WAR) settings in the <code class="literal">web.xml</code>file.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-client-websocketurl"/>4.1.1. Web Socket URL</h3></div></div></div><p>
+				By default, the web socket URL is <code class="literal">ws://myhost:myport/hqpush/eventbus</code> wherein host and port are automatically derived from the request of the client and
+				without requiring a configuration. The client console trace outputs the web socket url as well.
+			</p><p>
+				To override the computed web socket url, please configure the url as shown below:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;client websocketurl="ws://myhost:myport/hqpush/eventbus"/&gt;
+&lt;/esperhq-configuration&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-client-authen"/>4.1.2. Authentication</h3></div></div></div><p>
+				This configuration item controls authentication and authorization. Please consult <a class="xref" href="securing.html" title="Chapter 3. Securing the Web Application">Chapter 3, <i>Securing the Web Application</i></a> for an overview.
+			</p><p>
+				The synopsis is as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;authentication provider-type="[none|local|spring]" 
+  [remember-me="false|true"]&gt;
+  [&lt;password-encoder hash="none|md5"/&gt;]
+  [&lt;users&gt;
+	[&lt;user name="[name]" password="[credentials]" authorities="[list_of_roles]" /&gt;]
+  &lt;/users&gt;]
+&lt;/authentication&gt;</pre><p>
+			  When <span class="emphasis"><em>provider-type</em></span> is set to <code class="literal">none</code> then the client application and server web application do not authenticate or check authorization.
+			</p><p>
+			  When <span class="emphasis"><em>provider-type</em></span> is set to <code class="literal">local</code> then the client application and server web application authenticate and check role authorities for each client. You must provide a list of users and a password encoding.
+			  When set to <code class="literal">spring</code> you must follow the additional steps as outlined in <a class="xref" href="securing.html#securing-spring" title="3.3. Securing via Spring Security (ACEGI)">Section 3.3, “Securing via Spring Security (ACEGI)�?</a> and the Spring security configuration (via LDAP, OpenID etc.) provides users and roles.
+			</p><p>
+			  When <span class="emphasis"><em>provider-type</em></span> is set to <code class="literal">spring</code> then the client application and server web application authenticate and check role authorities for each client using Spring security. Please follow the additional steps as outlined in <a class="xref" href="securing.html#securing-spring" title="3.3. Securing via Spring Security (ACEGI)">Section 3.3, “Securing via Spring Security (ACEGI)�?</a> and provide a Spring security configuration that may reference LDAP, OpenID or other authentication providers.
+			</p><p>
+			  The <span class="emphasis"><em>remember-me</em></span> attribute is optional and enabled by default. When enabled the server application checks if a security context has already been established for the client or session and returns the
+			  existing security context. If the security context exists, a login challenge is not presented for the client.
+			</p><p>
+			  The <span class="emphasis"><em>password-encoder</em></span> element is required for the <code class="literal">local</code> provider type and indicates the password encoding. Use <code class="literal">md5</code> for MD5 encoding and <code class="literal">none</code> for plain-text passwords.
+			</p><p>
+			  If configuring the <code class="literal">local</code> provider type then repeat the <span class="emphasis"><em>user</em></span> element for each user and provide a name, password and a comma-separated list of roles.
+			</p><p>
+				An example XML to configure authentication is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;client&gt;
+    &lt;authentication provider-type="local" remember-me="true"&gt;
+      &lt;password-encoder hash="md5"/&gt;
+      &lt;users&gt;
+        &lt;!-- Sample users: rod/koala, dianne/emu, peter/cat --&gt;
+        &lt;user name="rod" password="a564de63c2d0da68cf47586ee05984d7" authorities="EHQ_ADMIN" /&gt;
+        &lt;user name="dianne" password="65d15fe9156f9c4bbffd98085992a44e" authorities="EHQ_RO" /&gt;
+        &lt;user name="peter" password="d077f244def8a70e5ea758bd8352fcd8" authorities="EHQ_EXEC" /&gt;
+      &lt;/users&gt;
+    &lt;/authentication&gt;
+  &lt;/client&gt;
+&lt;/esperhq-configuration&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-client-filter"/>4.1.3. Service Filters</h3></div></div></div><p>
+				Your application can provide a service filter to introduce additional security checks or to modify client application requests.
+			</p><p>
+				The synopsis is as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;filters&gt;
+  &lt;filter class-name="[class_name]"/&gt;
+&lt;/filters&gt;</pre><p>
+			  The <span class="emphasis"><em>class_name</em></span> is name of the class implementing the <code class="literal">com.espertech.esper.hqsvc.config.ClientRequestFilter</code> interface.
+			  Every client operation can be intercepted by the implementation of this interface, client operation parameters can be interrogated and changed. Please see the API documentation
+			  for additional detail.
+			</p><p>
+				An example XML to configure authentication is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;client&gt;
+    &lt;filters&gt;
+      &lt;filter class-name="com.mycompany.MyServiceFilter"/&gt;
+    &lt;/filters&gt;
+  &lt;/client&gt;
+&lt;/esperhq-configuration&gt;</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-provider"/>4.2. Endpoint Configuration</h2></div></div></div><p>
+			This section describes configuration of CEP endpoints. We use the term <span class="emphasis"><em>endpoint</em></span> to describe a server process that hosts one or more CEP engine instances.
+		</p><p>
+			The default configuration configures a single endpoint. You may configure multiple endpoints for a multi-server setup.
+		</p><p>
+			For endpoints that provide only Management REST services, it is not necessary to configure a JMS provider and a Push REST service token.
+		</p><p>
+			For endpoints that provide only Push REST services, it is not necessary to configure a Management REST service token.
+		</p><p>
+			Please ensure that required Push REST service or Management REST service are active for the configured endpoints.
+		</p><p>
+			You may designate one or more endpoints as default endpoints. The web client application uses the default endpoint in the configuration to present the default choice in the endpoint dropdown.
+		</p><p>
+			The <code class="literal">context</code> element configures the JMS provider JNDI context. 
+		</p><p>
+			The <code class="literal">restservice</code> element configures the REST URI and token information. The REST URI must be a value specifying the HTTP or HTTPS protocol 
+			and must specify the host and port, such as <code class="literal">http://myhost:myport</code>. The special value <code class="literal">local</code> is supported and is detailed below.
+		</p><p>
+			The below XML configuration configures a provider by name <code class="literal">defaultendpoint</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;endpoints&gt;
+    &lt;endpoint name="defaultendpoint" default="true"&gt;
+      &lt;context object-name="ConnectionFactory"&gt;
+        &lt;env name="java.naming.factory.initial" 
+           value="org.apache.activemq.jndi.ActiveMQInitialContextFactory"/&gt;
+        &lt;env name="java.naming.provider.url" 
+           value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/&gt;
+      &lt;/context&gt;
+      &lt;restservice hosts="local" cepmgmtsvc-token="cepmgmtsvctoken" 
+          ceppushsvc-token="ceppushsvctoken"/&gt;
+    &lt;/endpoint&gt;
+  &lt;/endpoints&gt;
+  ... more settings...
+&lt;/esperhq-configuration&gt;</pre><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-provider-context"/>4.2.1. Configuring the JMS Provider Context</h3></div></div></div><p>
+				The information under <code class="literal">context</code> configures the JNDI object name and parameters for the JNDI context lookup to resolve the JMS provider.
+			</p><p>
+				The information under <code class="literal">context</code>, in the default configuration, matches the embedded ActiveMQ broker that is configured by the Enterprise Edition default configuration.
+			</p><p>
+				If your environment utilizes external JMS brokers, please update hostname and port numbers accordingly.
+			</p><p>
+				For Push Services, wherein CEP engine(s) push data to the same or other web layer servers, it is required to configure the JMS provider context. 
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-provider-rest"/>4.2.2. Configuring REST Service Addressing</h3></div></div></div><p>
+				The information under <code class="literal">restservice</code> describes the URI (protocol, host, port) and tokens for access to CEP Management REST services and Push REST Services.
+			</p><p>	
+				In the <code class="literal">hosts</code> attribute you can simply specify <code class="literal">local</code> to indicate that the REST services are available at the same host and port as the enclosing web application container.
+			</p><p>	
+				In the <code class="literal">hosts</code> attribute, for multi-server setups, specify a new value for <code class="literal">hosts</code> that contains the hostname and port number formatted as <span class="emphasis"><em>protocol</em></span>://<span class="emphasis"><em>hostname</em></span><code class="literal">:</code><span class="emphasis"><em>port</em></span>. For example <code class="literal">http://cepserverhost:8400</code>.
+			</p><p>	
+				The <code class="literal">cepmgmtsvc-token</code> is optional and by default set to the same token as configured for the web application container under <code class="literal">cepmgmtsvc</code>, further described in the Server documentation under REST Services security. If no token is provided, authentication of CEP Management service clients does not take place only if the configuration of the web application container also does not list a token.
+			</p><p>	
+				The <code class="literal">ceppushsvc-token</code> is optional and by default set to the same token as configured for the web application container under <code class="literal">ceppushsvc</code>, further described in the Server documentation under REST Services security. If no token is provided, authentication of CEP Push service clients does not take place only if the configuration of the web application container also does not list a token.
+			</p></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="securing.html"><strong>Prev</strong>Chapter 3. Securing the Web Application</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li></ul></body></html>

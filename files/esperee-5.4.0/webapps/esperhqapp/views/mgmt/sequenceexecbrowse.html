@@ -1,0 +1,18 @@
+<div id="browse_sequenceexecutions" ng-controller="SequenceExecBrowseController">
+    <div class="pull-right">
+        <button ng-click="doNew()" class="btn button-bar-margin">New</button>
+        <button ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div id="sequences_div">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Sequence Name</th>
+                    <th>Description</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
