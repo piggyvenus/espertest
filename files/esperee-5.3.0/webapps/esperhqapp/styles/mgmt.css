@@ -1,0 +1,289 @@
+#index-main-leftside {
+    float: left;
+    height: 100%;
+    margin-left: 10px;
+}
+
+#index-main-resizable {
+    width: 420px;
+    height: 620px;
+    padding: 0.5em;
+}
+
+#index_filetree {
+    overflow: visible;
+    height: 92%;
+}
+
+.index-menucolumn {
+    float: left;
+    width: 13em;
+}
+
+.index-menucolumn-marginlarge {
+    margin-top: 10px;
+}
+
+.index-menucolumn-marginsmall {
+    margin-top: 5px;
+}
+
+.index-menucontainer {
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.index-menucontainer ul {
+    list-style-type: none;
+    margin: 0 0 5px 0px;
+}
+
+.index-menucontainer select {
+    margin-bottom: 3px;
+}
+
+.index-menucontainer-3col {
+    width: 39em;
+}
+.index-menucontainer-2col {
+    width: 26em;
+}
+.index-menucontainer-1col {
+    width: 13em;
+}
+
+.index-menucategory {
+    text-align: center;
+    background-color: #eeeeee;
+}
+
+.index-divider {
+    float: left;
+    position:relative;
+    border-left:1px solid #eeeeee;
+    border-right:1px solid #eeeeee;
+    top: 5px;
+    height:80px;
+}
+
+/**
+ * Case Run
+ */
+#scenario_statements {
+    float: left;
+    margin:auto;
+    padding:5px 5px 5px 5px;
+    width: 30em;
+}
+
+#scenario_sequence {
+    float: left;
+    margin:auto;
+    padding:5px 10px 5px 5px;
+    width: 30em;
+}
+
+#scenario_output {
+    width: 30em;
+    float: left;
+    border:0;
+    margin:0;
+    padding:5px 10px 5px 5px;
+}
+
+#scenario_module_editor_div .CodeMirror {
+    height: 480px;
+}
+
+#scenario_sequence_editor_div .CodeMirror {
+    height: 400px;
+}
+
+.scenario_outputlist {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    margin-bottom: -8px;
+    margin-top: -8px;
+}
+
+.scenario_output_scrolling {
+    overflow: auto;
+    border: 1px solid #ccc;
+    height: 600px;
+}
+
+.memory-partition-title {
+    font-weight: bold;
+    font-size: 1.4em;
+    text-align: left;
+}
+
+/**
+ * Debugger
+ */
+.debugger-resizable-s {
+    bottom: -5px;
+    height: 15px;
+    background: url(/esperhqapp/assets/hgrabber.gif) no-repeat center;
+    z-index: 99;
+}
+
+.debugger-resizable-e {
+    background: url(/esperhqapp/assets/vgrabber.gif) no-repeat center;
+    z-index: 99;
+}
+
+#debugger_top_container {
+    overflow: hidden;   /** Causes content to be counted for height */
+}
+
+#debugger_statements {
+    float: left;
+    margin:auto;
+    padding:5px 5px 5px 5px;
+    width: 45%;
+}
+
+#debugger_sequence {
+    float: left;
+    margin:auto;
+    padding:5px 10px 5px 5px;
+    width: 50%;
+}
+
+#debugger_entrypoints {
+    margin:auto;
+    padding:5px 10px 5px 5px;
+    width: 100%;
+}
+
+.debuggerep-title-focus {
+    background-color: #0000ff;
+    color: white;
+}
+
+.debuggerep-title-plain {
+    background-color: #efefef;
+}
+
+.debuggerep-vertical-focus {
+    background: url(/esperhqapp/assets/debugger_vertical_1x5_5588ee.gif) top left repeat-y;
+}
+
+.debuggerep-vertical-plain {
+    background: url(/esperhqapp/assets/debugger_vertical_1x5_efefef.gif) top left repeat-y;
+}
+
+.debuggerep-footer-focus {
+    background-color: #5588ee;
+    color: white;
+}
+
+.debuggerep-footer-plain {
+    background-color: #efefef;
+}
+
+#debuggerep-statements {
+    float: left;
+    margin:auto;
+    padding:5px 5px 5px 5px;
+    width: 30%;
+}
+
+#debuggerep-nodes {
+    float: left;
+    margin:auto;
+    padding:5px 5px 5px 5px;
+    width: 65%;
+}
+
+*:focus {
+    outline: none;
+}
+
+.debuggerep-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    margin-bottom: -8px;
+    margin-top: -8px;
+}
+
+.debugger-seq-step {
+    margin-left: 20px;
+}
+
+.debugger-seq-entry {
+    margin-left: 40px;
+}
+
+#debugger_epl_text .CodeMirror {
+    height: 350px;
+}
+
+#debugger_sequence_text .CodeMirror {
+    height: 350px;
+}
+
+.debugger-seq-img {
+    float: left;
+    padding-right: 10px;
+    padding-top: 2px
+}
+
+.debugger-topmessage {
+    background:#e1f6c9;
+    color:#3c3e43;
+    font-size:13px;
+    border:1px solid #5d9928;
+    padding:4px 12px 4px;
+    vertical-align:middle;
+    display:block;
+    margin:4px 2px 8px 0;
+    float:left;
+    border-radius:4px;
+    height: 40px;
+}
+.debugger-topmessage-img {
+    position:relative;
+    top:-1px;
+    left:-2px;
+}
+
+.debugger-filtermessage {
+    background: #f6f6f2;
+    color:#3c3e43;
+    font-size:13px;
+    border:1px solid #40778b;
+    padding:4px 12px 4px;
+    vertical-align:middle;
+    display:block;
+    margin:4px 2px 4px 0;
+    float:left;
+    border-radius:4px;
+}
+
+.debugger-entrypointmessage {
+    background: #5588ee;
+    color:white;
+    font-size:13px;
+    border:1px solid #302699;
+    padding:4px 12px 4px;
+    vertical-align:middle;
+    display:block;
+    margin:4px 2px 8px 0;
+    float:left;
+    border-radius:4px;
+}
+
+.debugger-entrypointmessage .input {
+    vertical-align: bottom;
+    background-color: white;
+}
+
+#debugger_entrypoint_epl .CodeMirror {
+    height: 250px;
+}
+

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 4. Eventlet Wizard</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="cookbook.html" title="Chapter 3. Cookbook"/><link rel="next" href="eventletdashboard.html" title="Chapter 5. Dashboard Page Builder"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="cookbook.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="eventletdashboard.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard"/>Chapter 4. Eventlet Wizard</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="eventletwizard.html#eventletwizard-eventlettypes">4.1. Eventlet Visualization Types (Step 1)</a></span></dt><dt><span class="sect1"><a href="eventletwizard.html#eventletwizard-resources">4.2. CEP Resources (Step 2)</a></span></dt><dd><dl><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-resources-stmt">4.2.1. CEP Resources: Single EPL Statement</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-resources-stmtset">4.2.2. CEP Resources: Set of EPL Statements</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-resources-enginemetric">4.2.3. CEP Resources: Engine Metrics</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-resources-ondemand">4.2.4. CEP Resources: On-Demand Query</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-resources-variable">4.2.5. CEP Resources: Variables</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-sourceinstruction">4.2.6. CEP Resource Configurations</a></span></dt></dl></dd><dt><span class="sect1"><a href="eventletwizard.html#eventletwizard-config">4.3. Configuration (Step 3)</a></span></dt><dd><dl><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-chart">4.3.1. Chart Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-gauge">4.3.2. Gauge Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-timeline">4.3.3. Timeline Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-grid">4.3.4. Grid Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="eventletwizard.html#eventletwizard-plugin">4.3.5. Plug-In Configuration Dialog</a></span></dt></dl></dd><dt><span class="sect1"><a href="eventletwizard.html#eventletwizard-settings">4.4. Eventlet Settings</a></span></dt></dl></div><p>
+		The eventlet wizard is a 3-page dialog to create and edit an eventlet. 
+	</p><p>
+		The first page of the wizard, termed <code class="literal">Visualization Type</code>, presents a list of visualization types to choose from. Any visualization type can be combined with any data source.
+		To proceed, please click on a table row and press the <code class="literal">Next</code> button.
+	</p><p>
+		The second page termed <code class="literal">CEP Resources</code> presents the possible resources to obtain data from. 
+		Possible resources include EPL statements, dynamic EPL statement sets, on-demand queries, variables and engine metrics.
+		To proceed, in the section <code class="literal">Select Resources</code> please click on <code class="literal">Get All</code> to get a list of statements, for example, 
+		click on a table row and press the <code class="literal">Next</code> button.
+	</p><p>
+		The third page termed <code class="literal">Configuration</code> allows configuring the visualization and resources. Some display types do not require any configuration.
+		To proceed, please populate the required form fields and press the <code class="literal">Save</code> or <code class="literal">Launch</code> button.
+	</p><p>
+		The button bar on the upper left side shows your progress through the wizard. On the right of the button bar is a progress text.
+		Click the <code class="literal">Next</code> button to continue to the next page and the <code class="literal">Back</code> button to go back a page.
+	</p><p>
+		The <code class="literal">Save</code> button allows to save the eventlet as a file for later launching or editing.
+		The <code class="literal">Launch</code> button launches the eventlet.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-eventlettypes"/>4.1. Eventlet Visualization Types (Step 1)</h2></div></div></div><p>
+		  The below table summarizes the eventlet display types available.
+		</p><div class="table"><a id="d0e227"/><p class="title"><b>Table 4.1. Eventlet Display Types</b></p><div class="table-contents"><table summary="Eventlet Display Types" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>Chart</td><td>For display of line, column, area or pie charts.</td></tr><tr><td>Grid</td><td>For display of a single table or table of tables.</td></tr><tr><td>Gauge</td><td>An instrument with an arrow pointing to the current value.</td></tr><tr><td>Plug-In</td><td>An eventlet implementation provided by your application, see <a class="xref" href="eventletplugin.html" title="Chapter 12. Build-Your-Own Eventlet">Chapter 12, <i>Build-Your-Own Eventlet</i></a>.</td></tr><tr><td>Timeline</td><td>Horizontal time-based display.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-resources"/>4.2. CEP Resources (Step 2)</h2></div></div></div><p>
+		  The next table summarizes the resources available for providing data to eventlets. As CEP engine resources are the data sources for eventlets, we use that term interchangeably.
+		</p><p>
+		  Resources can be configured in terms of their push policy: Whether the push includes real-time updates, initial snapshots and/or repeated snapshots following a pattern or schedule.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-stmt"/>4.2.1. CEP Resources: Single EPL Statement</h3></div></div></div><p>
+				You can subscribe to a single EPL statement's output events, where the EPL statement is identified by statement name.
+			</p><p>
+				You can optionally provide a filter expression. The push engine applies the filter expression to each output event of the statement and only
+				passes events on that satisfy the filter expression, when provided. The filter expression must return a boolean true or false.
+			</p><p>
+				The statement must be registered and in started state at time of eventlet activation.
+			</p><p>
+				By default, the eventlet receives all current data available (aka. a snapshot, iterator) for the statement at activation time. Subsequently it receives
+				any updated data from the statement in real-time based on push services SLA levels.
+			</p><p>
+				Use the configure link displayed for the statement to change the default configuration. You may disable initial snapshot and 
+				real-time updates as well as configure pull frequency in addition or as an alternative.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-stmtset"/>4.2.2. CEP Resources: Set of EPL Statements</h3></div></div></div><p>
+				You can also subscribe to a dynamically changing set of zero, one or many statements. You may define selection criteria for statements to include in the set based
+				on statement name, expression, state or statement tags using equals or SQL-like semantics and conjunctions.
+			</p><p>
+				At the time of activation it is not required that any statement matching the selection criteria exists. Only at the time one or more statements are started that 
+				match selection criteria will the eventlet received metadata and data from the statements. When a statement is destroyed, the eventlet stops receiving data from
+				that statement.
+			</p><p>
+				You can also form a statement set from all statements. In this case the eventlet receives data from any currently started statement as well as any newly started
+				statement after eventlet activation.
+			</p><p>
+				When selecting a set of statements then any updates are always real-time updates and pull frequency cannot be configured.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-enginemetric"/>4.2.3. CEP Resources: Engine Metrics</h3></div></div></div><p>
+				You can elect to subscribe to certain pre-defined engine metrics, as displayed in the respective tab.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-ondemand"/>4.2.4. CEP Resources: On-Demand Query</h3></div></div></div><p>
+				You can subscribe to a query against a named window that is executed upon eventlet activation and can be executed repeatedly thereafter.
+			</p><p>
+				By default the query executes once at the time of eventlet activation. You may also configure an interval or pattern to follow for repeated 
+				query execution.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-variable"/>4.2.5. CEP Resources: Variables</h3></div></div></div><p>
+				You can subscribe to changes to a variable, by variable name.
+			</p><p>
+				The variable must exist at time of activation of the eventlet.
+			</p><p>
+				By default, the eventlet receives all current data available for the variable at activation time. Subsequently it receives
+				any updated data from the variable in real-time based on push services SLA levels.
+			</p><p>
+				Use the configure link displayed for the variable to change the default configuration. You may disable initial snapshot and 
+				real-time updates as well as configure pull frequency in addition or as an alternative.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-sourceinstruction"/>4.2.6. CEP Resource Configurations</h3></div></div></div><p>
+				The <code class="literal">Configure</code> button available on the resources dialog for each selected resource can provide additional configuration for each resource.
+			</p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="eventletwizard-sourceinstruction-push"/>4.2.6.1. Push Policy</h4></div></div></div><p>
+					For all CEP resources with the exception of statement sets, you may configure push policy.  
+				</p><p>
+					In the default push policy, the push services push a snapshot of current data once at the start of the subscription. Therefore <code class="literal">Push Snapshot Once On Start</code>
+					is checked. If the eventlet does not need to receive initial snapshot data, please uncheck this flag.
+				</p><p>
+					In the default push policy, the push services push new data when new data is available. Therefore <code class="literal">Real-Time Updates</code> is checked.
+					If the eventlet does not need to receive real-time data, please uncheck this flag.
+				</p><p>
+					In the default push policy, the push services does not push periodic snapshots. Therefore <code class="literal">Push Snapshots Based on Expression</code> is unchecked.
+					If the eventlet desires to receive periodic snapshots, please check this flag and enter a time-only pattern. 
+				</p><p>
+					The next example pattern pushes a snapshot after 10 seconds every 10 seconds:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">every timer:interval(10 seconds)</pre><p>
+					The next example pattern pushes a snapshot every 15 minutes between 8am and 5pm and also immediately (timer-interval zero):
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">every timer:at(*/15, 8:17, *, *, *) or timer:interval(0)</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="eventletwizard-sourceinstruction-unmap"/>4.2.6.2. Rows in a Map</h4></div></div></div><p>
+					When your single event contains a Map that itself has key-value pairs for use as individual events, you can transform a property of type Map to individual events.
+				</p><p>
+					You must provide the property name of the map-type property, the key property name and type, and the value property name and type in the dialog.
+				</p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-config"/>4.3. Configuration (Step 3)</h2></div></div></div><p>
+			In the <code class="literal">Configuration</code> step of the dialog you can enter eventlet configuration information. 
+			For certain eventlet types you must enter required information that is marked with <code class="literal">(*)</code>.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-chart"/>4.3.1. Chart Configuration Dialog</h3></div></div></div><p>
+				In the chart dialog you must populate the <code class="literal">Origin</code> and <code class="literal">X</code> and <code class="literal">Y</code> required fields of each series. 
+				The origin identifies which of the selected resources provides the data points. The <code class="literal">X</code> field is the name of the property or the built-in field that 
+				provided values for the horizontal X-axis of the chart, and the <code class="literal">Y</code> field for values of the vertical <code class="literal">Y</code> axis.
+			</p><p>
+				Checking <code class="literal">Stack</code> produces a stacked line, area or column chart (not supported for pie).
+				In a stacked chart each of the series represents part of the stack and should have the same origin for <code class="literal">X</code>.
+			</p><p>
+				You may add as many series to a chart as needed.
+			</p><p>
+				Populate the click callback function name to register an external function (JavaScript, VBScript) to invoke when a mouse click on a chart item occurs.
+			</p><p>
+				The <code class="literal">Opacity</code> field is optional and defines the opacity of the area or columns (only for area and column charts). Please provide a number between 0 and 1.
+				For column charts, the opacity should be set on the chart-level and is the same for all series.
+			</p><p>
+				For category-based charts such as bar charts or pie charts set the horizontal axis type to <code class="literal">Category</code>. Set the vertical axis type to <code class="literal">Linear</code> to display linear values. In the <code class="literal">X</code> field set the property that provides the category value. In the <code class="literal">Y</code> field set the property that provides the linear value.
+			</p><p>
+				Colors are specified in the CSS hex format <code class="literal">#000000</code>.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-gauge"/>4.3.2. Gauge Configuration Dialog</h3></div></div></div><p>
+				The gauge configuration dialog lets you set many design attributes of the gauge. You must populate the <code class="literal">Origin</code> and <code class="literal">X</code> required fields.
+			</p><p>
+				Populate the click callback function name to register an external function (JavaScript, VBScript) to invoke when a mouse click on the gauge occurs.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-timeline"/>4.3.3. Timeline Configuration Dialog</h3></div></div></div><p>
+				The timeline configuration dialog lets you set a click callback function name, which is an external function (JavaScript, VBScript) to invoke when a mouse click on an item occurs.
+				It also allows to set a level of display detail.
+			</p><p>
+				In the <code class="literal">Tiny</code> and <code class="literal">Small</code> detail levels, a mouse click on on event brings up a modal popup showing of event properties for the event.
+				In the <code class="literal">Full</code> detail level, since event properties are displayed inline, please use double-clikc to bring up the modal popup. 
+			</p><p>
+				Optionally, you may also select the field that provides the timestamp values that the eventlet uses to place events in the timeline view. You must select a field 
+				that returns either numeric number of milliseconds or date-type values. The values returned by the field must be sorted in ascending date order.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-grid"/>4.3.4. Grid Configuration Dialog</h3></div></div></div><p>
+				Grids provide in-place-updated, as well as appended-to grids and last-value row grids that can be presented as part of a nesting of tables.
+			</p><p>
+				Use the <span class="emphasis"><em>Nesting</em></span> option to enable nested grids. A nested grid requires a key property field by which the eventlet can nest tables.
+			</p><p>
+				Use the <span class="emphasis"><em>In-place Updates</em></span> option to enable in-place updated grids. You must specify one or more key property fields that the eventlet uses to identify same-row. Rather than appending rows, the eventlet updates the row that returns the same key values. The label and background color of the last updated row(s) change according to the style property values.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-plugin"/>4.3.5. Plug-In Configuration Dialog</h3></div></div></div><p>
+				This dialog is for an eventlet that your application or another provider may supply in the form of JavaScript. The EsperHQ eventlet container can load such externally-provided functions (or classes) at runtime. Please see <a class="xref" href="eventletplugin.html" title="Chapter 12. Build-Your-Own Eventlet">Chapter 12, <i>Build-Your-Own Eventlet</i></a> for additional information.
+			</p><p>
+				The dialog requires you to enter the classname.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-settings"/>4.4. Eventlet Settings</h2></div></div></div><p>
+			The <code class="literal">Settings...</code> button in menu of the wizard dialog bring up the eventlet general settings dialog.
+		</p><p>
+			This dialog allows you to specify the number of data points retained by the eventlet. By default, eventlets retain all data points for display.
+			You can change the number of data points retained by entering a count and selecting a unit from the dropdown.
+		</p><p>
+			The dialog also allows setting menu to false, causing the eventlet menu to not be displayed.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="cookbook.html"><strong>Prev</strong>Chapter 3. Cookbook</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="eventletdashboard.html"><strong>Next</strong>Chapter 5. Dashboard Page Builder</a></li></ul></body></html>

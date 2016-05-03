@@ -1,0 +1,39 @@
+<div ng-controller="EventletWizardSettingsController">
+
+    <div class="pull-right">
+        <button type="submit" class="btn button-bar-margin" ng-click="doCancel()">Cancel</button>
+        <button type="submit" class="btn button-bar-margin btn-primary" ng-click="doOk()">Ok</button>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Retain All Events:</label>
+            <div class="controls">
+                <div class="predefined-60wide"><input type="checkbox" ng-model="retain.retainAll" ng-change="doChangeRetainAll()"/></div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Retain Last:</label>
+            <div class="controls">
+                <input type="input" ng-model="retain.retainCount" ng-disabled="retain.retainAll"/>
+                <select ng-model="retain.retainEnum" ng-options="r.name for r in unitChoices" ng-disabled="retain.retainAll"></select>
+            </div>
+        </div>
+        <div class="control-group" ng-show="!retainCountValid">
+            <div class="controls">
+                <span class="span-invalid">Please enter a numeric (integer) value larger then zero</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Menu:</label>
+            <div class="controls">
+                <input class="margin-left" type="checkbox" ng-model="menu"/>
+            </div>
+        </div>
+
+    </form>
+
+</div>

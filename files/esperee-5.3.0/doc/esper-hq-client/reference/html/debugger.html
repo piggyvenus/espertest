@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 7. EPL Debugger Dialogs</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="enginemgmt.html" title="Chapter 6. Engine Management Dialogs"/><link rel="next" href="pushmonitoring.html" title="Chapter 8. Push Monitoring Dialogs"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="enginemgmt.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="pushmonitoring.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger"/>Chapter 7. EPL Debugger Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="debugger.html#enginemgmt-debugger-main">7.1. EPL Debugger Main Dialog</a></span></dt><dd><dl><dt><span class="sect2"><a href="debugger.html#enginemgmt-debugger-main-epl">7.1.1. EPL Statements</a></span></dt><dt><span class="sect2"><a href="debugger.html#enginemgmt-debugger-main-sequence">7.1.2. Time And Event Sequence</a></span></dt><dt><span class="sect2"><a href="debugger.html#enginemgmt-debugger-main-activity">7.1.3. Activity</a></span></dt></dl></dd><dt><span class="sect1"><a href="debugger.html#enginemgmt-debugger-entrypoint">7.2. EPL Debugger Entry Point Dialog</a></span></dt></dl></div><p>
+		The EPL debugger allows you to inspect and debug the impact of events and time passing in respect to EPL statements.
+	</p><p> 
+		The EPL debugger dialog operates on a trace file previously acquired either by means of the debug API or in the Create Scenario dialog.			
+	</p><p>
+		For documentation on EPL debugger prerequisites, the debugger client API, comparison and overview please consult the Esper Enterprise Edition - Debugger and Metrics documentation (see link from index.html).
+	</p><p>
+	  We use the term <span class="emphasis"><em>entry point</em></span> to mean a specific event or a specific time. An entry point may in addition relate to a specific EPL statement context partition.
+	</p><p>
+		The EPL Debugger consists of two dialogs: 
+	</p><div class="itemizedlist"><ul><li>
+			The EPL Debugger main dialog for filtering and finding entry points.
+		</li><li>
+			The EPL Debugger Entry Point dialog for detailed viewing of the processing for a given entry point.
+		</li></ul></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-debugger-main"/>7.1. EPL Debugger Main Dialog</h2></div></div></div><p>
+			In summary, the left hand side read-only editor presents all EPL statements. The right hand side read-only editor presents the sequence of events and time passing interleaved with event output.
+			The bottom section presents activity filtered according to current selections and organized in various ways.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-debugger-main-epl"/>7.1.1. EPL Statements</h3></div></div></div><p>
+				All EPL statements that exist at the time the debug session started, as well as all EPL statements that are created, are displayed within the left hand side editor.
+			</p><p>
+				Click on the gutter between the line number and each EPL statement to select an EPL statement. The editor will display a filter and indicate statement selection. Click again to remove 
+				the statement selection.
+			</p><p>
+				If, during a debug session, your application creates EPL statements assigning the same statement name multiple times, the EPL statement also lists the system-generated statement id
+				that uniquely identifies each statement.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-debugger-main-sequence"/>7.1.2. Time And Event Sequence</h3></div></div></div><p>
+				The right hand side editor displays events sent into the engine as well as rows indicating time passing. The editor interleaves output events as comments.
+			</p><p>
+				For each event sent into the engine, the editor shows the event in a summary format: 
+			</p><pre class="synopsis"><span class="emphasis"><em>eventtype</em></span>={<span class="emphasis"><em>properties</em></span>}</pre><p>
+				For time passing, the editor shows time passing in the summary format:
+			</p><pre class="synopsis"><span class="emphasis"><em>t</em></span>='<span class="emphasis"><em>time</em></span>'</pre><p>
+				Click on the gutter between the line number and each event or time to select an input event or time. The editor will display a filter and indicate event or time selection. 
+				Click again to remove the selection.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-debugger-main-activity"/>7.1.3. Activity</h3></div></div></div><p>
+				The bottom part of the debugger presents activity, filtered according to the current filter criteria, if any.
+			</p><p>
+				Each tab organizes the same overall set of activity in different ways:
+			</p><div class="itemizedlist"><ul><li>
+					The <code class="literal">Sequential</code> tab shows a time-ordered list of activity as a nested list of entry points.
+				</li><li>
+					The <code class="literal">By Statement And Context Partition</code> tab organizes activity by statement and context partition(s), if any.
+				</li><li>
+					The <code class="literal">By Input Event</code> tab organizes activity by input event only, showing only input events.
+				</li><li>
+					The <code class="literal">By Time Advancing</code> tab organizes activity by time passing only, showing only time passing.
+				</li></ul></div><p>
+				You may select an item in any of the tabs to navigate to the EPL Debugger Entry Point dialog.
+			</p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="enginemgmt-debugger-main-activity-sequential"/>7.1.3.1. Sequential Tab - Additional Information</h4></div></div></div><p>
+					In the sequential tab the outermost items that are highlighted by a blue arrow icon represent the input events and time passing.
+				</p><p>
+					Nested inside and highlighted by a gear icon are to-be-processed events including generated (insert-into or route) events and including named window insert and remove stream events, 
+					to be processed as a result of an input event or time passing.
+				</p><p>
+					Innermost and highlighted by a green arrow icon are statement(s) that require processing.
+				</p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-debugger-entrypoint"/>7.2. EPL Debugger Entry Point Dialog</h2></div></div></div><p>
+			Selection of an entry point in the EPL debugger brings up detailed information about how the event applies to the different EPL constructs.
+		</p><p>
+			This dialog presents event and time information at the top of the screen, for reference.
+		</p><p>
+			The left side of the screen shows the specific EPL statement currently under consideration, as applicable.
+		</p><p>
+			The right side of the dialog presents a navigable trace of activity for the event or time passing. Click on the <code class="literal">+</code> icon to expand a nested trace entry
+			and click on the nested trace entry itself to obtain the trace variable information.
+		</p><p>
+			The bottom left side of the screen presents frame information. When navigating to a nested trace, this information gets updated with enclosing trace information.
+		</p><p>
+			The bottom right side of the screen presents variable detail information in an expandable tree. When navigating to a nested trace, this information gets updated with information relevant to the selected entry.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="enginemgmt.html"><strong>Prev</strong>Chapter 6. Engine Management Dialogs</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="pushmonitoring.html"><strong>Next</strong>Chapter 8. Push Monitoring Dialogs</a></li></ul></body></html>

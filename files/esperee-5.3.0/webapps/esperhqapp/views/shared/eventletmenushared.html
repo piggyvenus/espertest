@@ -1,0 +1,37 @@
+<div class="eventlet_menu_div">
+    <ul class="eventlet_menu">
+        <li><a href="#">Menu</a>
+            <ul>
+                <li><a ng-click="doMenuAbout()">About</a></li>
+                <li><a ng-click="doMenuRetainSettings()">Retain Settings</a></li>
+                <li><a ng-click="doMenuEventletSettings()" ng-class="{false:'ui-state-disabled', true:''}[enableMenuEventletSettings]">Eventlet Settings</a></li>
+                <li><a ng-click="doMenuClear()">Clear</a></li>
+                <li>
+                    <a ng-click="doMenuSuspendDiscard()"
+                       ng-class="{true:'ui-state-disabled', false:''}[suspendedDiscard || suspendedBuffer]">
+                    Suspend - Discarding
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="doMenuResume()"
+                       ng-class="{false:'ui-state-disabled', true:''}[suspendedDiscard]">
+                        Resume - Stop Discarding
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="doMenuSuspendBuffer()"
+                       ng-class="{true:'ui-state-disabled', false:''}[suspendedDiscard || suspendedBuffer]">
+                        Suspend - Buffering
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="doMenuResume()"
+                       ng-class="{false:'ui-state-disabled', true:''}[suspendedBuffer]">
+                        Resume - From Buffered Data
+                    </a>
+                </li>
+                <li><a ng-click="doMenuHelp()">Help</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

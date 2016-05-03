@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">EsperJMX</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><div class="book" lang="en-US"><div class="titlepage"><div><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><div><h1 class="title"><a id="d0e1"/>EsperJMX</h1></div><div><div xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="authorgroup"><div class="authors">by <span xmlns="http://www.w3.org/1999/xhtml" class="orgname"><a class="link" href="http://www.espertech.com" target="">EsperTech Inc.</a></span></div><div class="editors"/><div class="others"/></div></div><div><p class="releaseinfo">Version 5.3.0</p></div><div><p class="copyright">Copyright © 2015 EsperTech Inc.</p></div></div><hr/></div><div class="toc"><dl><dt><span class="preface"><a href="#d0e18">Preface</a></span></dt><dt><span class="chapter"><a href="#overview">1. Overview</a></span></dt><dd><dl><dt><span class="sect1"><a href="#overview-installation">1.1. Installation</a></span></dt></dl></dd><dt><span class="chapter"><a href="#configuration">2. Configuration</a></span></dt><dd><dl><dt><span class="sect1"><a href="#configuration-plugin">2.1. Esper Plug-in Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-plugin-api">2.1.1. Via Esper Configuration API</a></span></dt><dt><span class="sect2"><a href="#configuration-plugin-xml">2.1.2. Via Esper Configuration XML</a></span></dt><dt><span class="sect2"><a href="#configuration-properties">2.1.3. Plug-In Configuration Properties</a></span></dt></dl></dd><dt><span class="sect1"><a href="#configuration-endpoint">2.2. EsperJMX Endpoint Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-endpoint-platform">2.2.1. Steps to Use the JVM Platform MBeanServer</a></span></dt><dt><span class="sect2"><a href="#configuration-endpoint-rmi">2.2.2. Steps to Use a RMI Registry and Connector</a></span></dt><dt><span class="sect2"><a href="#configuration-endpoint-provided">2.2.3. Steps to Use an Application-Provided MBeanServer</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#mbeans">3. MBeans</a></span></dt><dd><dl><dt><span class="sect1"><a href="#mbeans-admin">3.1. AdministratorMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-runtime">3.2. RuntimeMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-statement">3.3. StatementMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-namedwindow">3.4. NamedWindowMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-statementnotifier">3.5. StmtStreamNotifierType1MBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-listener">3.6. ListenerMBean</a></span></dt></dl></dd><dt><span class="chapter"><a href="#examples">4. Examples</a></span></dt><dd><dl><dt><span class="sect1"><a href="#examples-trafficsim">4.1. JMX-enabled Esper Engine and JMX Client</a></span></dt><dd><dl><dt><span class="sect2"><a href="#examples-trafficsim-overview">4.1.1. Overview</a></span></dt><dt><span class="sect2"><a href="#examples-trafficsim-configuration">4.1.2. Example Configuration</a></span></dt><dt><span class="sect2"><a href="#examples-trafficsim-ondemand">4.1.3. On-Demand Query Example</a></span></dt><dt><span class="sect2"><a href="#examples-trafficsim-jconsole">4.1.4. JConsole View</a></span></dt></dl></dd></dl></dd></dl></div><div class="preface" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e18"/>Preface</h2></div></div></div><p>
+			This document describes the EsperJMX Add-on.  The document assumes that the reader has prior knowledge of Esper and basic knowledge of Java JMX terminology.
+        </p><p>
+			If you are new to Esper, please study some of the tutorials and case studies available on the public web site at <code class="literal">http://www.espertech.com/esper</code> and skim over the reference documentation.
+		</p><p>
+			If you are new to JMX, the tutorials and examples at <code class="literal">http://java.sun.com/jmx</code> are a good entry point.
+		</p><p>
+			The <a class="xref" href="#overview" title="Chapter 1. Overview">Chapter 1, <i>Overview</i></a> chapter is the best place to start.
+		</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>Chapter 1. Overview</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#overview-installation">1.1. Installation</a></span></dt></dl></div><p>
+		EsperJMX is an add-on for use with Esper to provide administrative and runtime functions via JMX MBeans following JMX standards and compatible to any JMX console.
+	</p><p>
+		EsperJMX can be configured as part of your regular Esper configuration file and thus be initialized as part of Esper service provider initialization. Or EsperJMX can be used on an already-active Esper service provider to allow JMX-based management.
+	</p><p>
+		This is a short summary of the main features:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Create new EPL or pattern statements; Start, stop and destroy statements. Obtain statement lists and statement details.
+			</p></li><li><p>
+				Subscribe to statement results delivered as JMX notifications.
+			</p></li><li><p>
+				Iterate over statement results returned as JMX tabular data.
+			</p></li><li><p>
+				Runtime metrics, such as number of events evaluated, for display and graphing.
+			</p></li><li><p>
+				Dynamically execute non-continuous, fire-and-forget queries against named windows (aka. on-demand queries).
+			</p></li><li><p>
+				Named window metrics such as number of events held.
+			</p></li><li><p>
+				Variable get and set.
+			</p></li></ol></div><p>
+		In the next section, <a class="xref" href="#configuration" title="Chapter 2. Configuration">Chapter 2, <i>Configuration</i></a>, we explain the different ways to set up the EsperJMX. 
+	</p><p>
+		The JMX management beans (aka. <span class="emphasis"><em>MBeans</em></span>) are summarized in <a class="xref" href="#mbeans" title="Chapter 3. MBeans">Chapter 3, <i>MBeans</i></a>.		
+	</p><p>
+		<a class="xref" href="#examples" title="Chapter 4. Examples">Chapter 4, <i>Examples</i></a> shows a Java process with a JMX-enabled Esper service provider and a JMX client that performs an on-demand fire-and-forget query against a named window.
+		The section contains code samples for performing the query and a screenshot of EsperJMX in a JMX console.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-installation"/>1.1. Installation</h2></div></div></div><p>
+			To enable EsperJMX, add the <code class="literal">esperjmx-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> jar file to the Esper classpath. Your application must employ one of the methods outlined in <a class="xref" href="#configuration" title="Chapter 2. Configuration">Chapter 2, <i>Configuration</i></a> to start EsperJMX.
+        </p><p>
+			EsperJMX also utilizes the Log4J log library for logging. Thus log configuration for EsperJMX can be added to the same log configuration file used for Esper. All EsperJMX packages begin as <code class="literal">com.espertech.esper.jmx</code> thereby a log level for EsperJMX may be configured by adding a Log4J logger for EsperJMX as follows:			
+        </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;logger name="com.espertech.esper.jmx"&gt;
+  &lt;level value="INFO"/&gt;
+&lt;/logger&gt;</pre></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration"/>Chapter 2. Configuration</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#configuration-plugin">2.1. Esper Plug-in Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-plugin-api">2.1.1. Via Esper Configuration API</a></span></dt><dt><span class="sect2"><a href="#configuration-plugin-xml">2.1.2. Via Esper Configuration XML</a></span></dt><dt><span class="sect2"><a href="#configuration-properties">2.1.3. Plug-In Configuration Properties</a></span></dt></dl></dd><dt><span class="sect1"><a href="#configuration-endpoint">2.2. EsperJMX Endpoint Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-endpoint-platform">2.2.1. Steps to Use the JVM Platform MBeanServer</a></span></dt><dt><span class="sect2"><a href="#configuration-endpoint-rmi">2.2.2. Steps to Use a RMI Registry and Connector</a></span></dt><dt><span class="sect2"><a href="#configuration-endpoint-provided">2.2.3. Steps to Use an Application-Provided MBeanServer</a></span></dt></dl></dd></dl></div><p>
+		There are two options to start EsperJMX:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				As an Esper plug-in:
+			</p><p>
+				This requires your application to add EsperJMX to the Esper configuration (XML or API). EsperJMX is then started automatically as part of Esper engine initialization.
+			</p></li><li><p>
+				As a JMX endpoint via the EsperJMX endpoint  API:
+			</p><p>
+				Allows JMX management to be added to an already running Esper engine instance and provides more options for JMX connectivity.
+			</p></li></ol></div><p>
+		The above options are mutually exclusive. Use the EsperJMX endpoint API if you have your own JMX MBeanServer (such as when running in an application server) or require secure JMX connections.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-plugin"/>2.1. Esper Plug-in Configuration</h2></div></div></div><p>
+			By adding EsperJMX as a plug-in adapter to an Esper configuration, Esper initialization also initializes and starts the EsperJMX.
+		</p><p>
+			Under this option EsperJMX is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+			EsperJMX is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+		</p><p>
+			This option configures the MBeanServer and JMX connector via properties passed in XML or <code class="literal">Properties</code> object. If passing no configuration properties or an empty list of properties, EsperJMX uses the platform MBeanServer provided by your Java VM.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-plugin-api"/>2.1.1. Via Esper Configuration API</h3></div></div></div><p>
+				This section shows how to register EsperJMX as part of Esper configuration using the Esper configuration API.
+			</p><p>
+				Your application must populate a <code class="literal">Properties</code> object to set EsperJMX configuration options. The available configuration property names are found in <code class="literal">JMXEndpointConfiguration</code> and are documented below.
+			</p><p>
+				The sample code here sets the properties to use an RMI registry at port 1099 and provide a JMX connector for RMI:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration configuration = new Configuration();     // Esper Configuration class
+
+// Properties are used to pass EsperJMX configuration 
+Properties properties = new Properties();
+properties.put("use-platform-mbean-server", false);
+properties.put("rmi-registry-port", 1099);
+
+configuration.addPluginLoader(
+		"EsperJMX",
+		"com.espertech.esper.jmx.client.EsperJMXPlugin",
+		properties);</pre><p>
+				The JMX service URL is thus:
+			</p><p>
+				<code class="literal">service:jmx:rmi:///jndi/rmi://</code><span class="emphasis"><em>hostname:1099</em></span><code class="literal">/com.espertech.esper</code>.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-plugin-xml"/>2.1.2. Via Esper Configuration XML</h3></div></div></div><p>
+				The XML as below configures an engine instance with EsperJMX. It specifies the same configuration options as outlined above.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;
+  &lt;plugin-loader name="EsperJMX" 
+        class-name="com.espertech.esper.jmx.client.EsperJMXPlugin"&gt;
+    &lt;init-arg name="use-platform-mbean-server" value="false" /&gt;
+    &lt;init-arg name="rmi-registry-port" value="1099" /&gt;
+   &lt;/plugin-loader&gt;		
+&lt;/esper-configuration&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-properties"/>2.1.3. Plug-In Configuration Properties</h3></div></div></div><p>
+				The next table outlines the properties that can be passed to the EsperJMX plug-in.
+			</p><p>
+				Further configuration options are available via the EsperJMX endpoint API (not using the Esper plug-in). The endpoint API can also accept a preconfigured application-provided JMX MBeanServer.
+			</p><div class="table"><a id="d0e197"/><p class="title"><b>Table 2.1. JMX Plug-in Configuration Properties</b></p><div class="table-contents"><table summary="JMX Plug-in Configuration Properties" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>use-platform-mbean-server</td><td>true</td><td>
+								<p>
+									If false, the plug-in creates an RMI registry and connector via <code class="literal">LocateRegistry.createRegistry</code> and <code class="literal">JMXConnectorServerFactory.newJMXConnectorServer</code>.									
+								</p>
+								<p>
+									If true, the plug-in uses the JMX MBeanServer provided by the Java VM (the platform MBeanServer) and its connector (if configured for the JVM), 
+									obtained via <code class="literal">ManagementFactory.getPlatformMBeanServer()</code>.
+								</p>
+								<p>
+									The Sun Java VM platform MBeanServer can be enabled, with disabled security, via these JVM properties: 
+									<code class="literal">-Dcom.sun.management.jmxremote.port=1099</code> 
+									<code class="literal">-Dcom.sun.management.jmxremote.authenticate=false</code> 
+									<code class="literal">-Dcom.sun.management.jmxremote.ssl=false</code>.									
+								</p>
+								<p>
+									If using the Sun Java VM platform MBeanServer, the service URL for use by clients is <code class="literal">service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi</code>.
+								</p>
+								<p>
+									Note that when using the platform MBeanServer the domain name setting below cannot be changed as the value is <code class="literal">jmxrmi</code>.
+								</p>
+							</td></tr><tr><td>rmi-registry-port</td><td>1099</td><td>
+								<p>
+									If <code class="literal">use-platform-mbean-server</code> is false, the setting indicates the port for the RMI registry.
+								</p>
+								<p>
+									Make sure the port is not already in use. The port can also not be in use by the platform mbean server if specified via <code class="literal">-Dcom.sun.management.jmxremote.port=port</code>.
+								</p>
+							</td></tr><tr><td>service-url</td><td>(see description)</td><td>
+							  <p>The service URL for use by <code class="literal">JMXConnectorServerFactory.newJMXConnectorServer</code>.</p>
+							  <p>Sample:</p>
+							  <p><code class="literal">service:jmx:rmi:///jndi/rmi://localhost:1099/com.espertech.esper</code></p>
+							  <p>The port number must match the RMI registry port number.</p>
+							</td></tr><tr><td>domain-name</td><td>com.espertech.esper</td><td>
+								<p>
+									When specified overrides the default domain name for the MBeanServer and all MBean object names.
+								</p>
+								<p>
+									The domain name does not need to match the default domain name that is part of the <code class="literal">service-url</code>.
+								</p>
+							</td></tr><tr><td>create-named-window-mbean</td><td>true</td><td>If true EsperJMX creates a MBean for each named window.</td></tr><tr><td>create-stmt-mbean</td><td>true</td><td>If true EsperJMX creates a MBean for each statement.</td></tr><tr><td>create-stmt-listener-mbean</td><td>false</td><td>Default is false. If true EsperJMX creates a MBean for each statement listener.</td></tr><tr><td>num-notification-threads</td><td>1</td><td>The number of threads in the threadpool for use in broadcasting notifications.</td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-endpoint"/>2.2. EsperJMX Endpoint Configuration</h2></div></div></div><p>
+			Instead of the Esper plug-in configuration as outlined above, your application can use the EsperJMX endpoint API classes. The advantages are:
+		</p><div class="itemizedlist"><ul><li><p>
+					Start JMX management on a running Esper engine instance.
+				</p></li><li><p>
+					Use an application-provided MBeanServer such as when running within an application server.
+				</p></li><li><p>
+					Set up a secure JMX connector.
+				</p></li></ul></div><p>
+			The class <code class="literal">JMXEndpoint</code> manages the JMX management lifecycle for a single Esper <code class="literal">EPServiceProvider</code> instance. Use the <code class="literal">start</code> and <code class="literal">destroy</code> methods to control EsperJMX lifecycle.
+		</p><p>
+			The <code class="literal">JMXEndpointConfiguration</code> class is the configuration information for <code class="literal">JMXEndpoint</code>. Your application must provide one of the EsperJMX connector configuration instances via the <code class="literal">setConnectorConfiguration</code> method.
+		</p><p>
+			The sections below describe the options available for JMX connector configuration.
+		</p><p>
+			The <code class="literal">JMXEndpointConfiguration</code> and the <code class="literal">ConnectorConfig</code> classes also provide all settings described in <a class="xref" href="#configuration-properties" title="2.1.3. Plug-In Configuration Properties">Section 2.1.3, “Plug-In Configuration Properties�?</a>.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-endpoint-platform"/>2.2.1. Steps to Use the JVM Platform MBeanServer</h3></div></div></div><p>
+				The next code explains how to start a JMX endpoint using the Java VM platform MBeanServer provided by your Java virtual machine.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPServiceProvider engine = EPServiceProviderManager.getDefaultProvider();
+// ...register statements and event types
+
+// Indicate that the platform MBeanServer should be used
+ConnectorConfigPlatform platformConfig = new ConnectorConfigPlatform();
+
+// Configure and start EsperJMX endpoint
+JMXEndpointConfiguration jmxConfig = new JMXEndpointConfiguration();
+jmxConfig.setConnectorConfiguration(platformConfig);
+JMXEndpoint endpoint = new JMXEndpoint(engine, jmxConfig);
+endpoint.start();</pre><p>
+				When JMX management is not longer needed, the <code class="literal">destroy</code> method provided by the endpoint un-registers all MBean objects:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">endpoint.destroy();</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-endpoint-rmi"/>2.2.2. Steps to Use a RMI Registry and Connector</h3></div></div></div><p>
+				This code snippet leads to the JMX endpoint to create a RMI registry and a JMX connector. 
+			</p><p>
+				The resulting URL is:
+			</p><p>
+				<code class="literal">service:jmx:rmi://</code><span class="emphasis"><em>[hostname:port]</em></span><code class="literal">/jndi/rmi://</code><span class="emphasis"><em>[hostname:port]</em></span><code class="literal">/com.espertech.esper</code>.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPServiceProvider engine = EPServiceProviderManager.getDefaultProvider();
+// ...register statements and event types
+
+ConnectorConfigRMIRegistry rmiConfig = new ConnectorConfigRMIRegistry();
+rmiConfig.setConnectorPort(1071);
+rmiConfig.setRegistryPort(1080);
+
+JMXEndpointConfiguration jmxConfig = new JMXEndpointConfiguration();
+jmxConfig.setConnectorConfiguration(rmiConfig);
+JMXEndpoint endpoint = new JMXEndpoint(engine, jmxConfig);
+endpoint.start();</pre><p>
+				The service URL for the example is:
+			</p><p>
+				<code class="literal">service:jmx:rmi://localhost:1071/jndi/rmi://localhost:1080/com.espertech.esper</code>
+			</p><p>
+				The <code class="literal">JMXEndpoint</code> class creates an RMI registry via <code class="literal">LocateRegistry.createRegistry</code> and a connecor via <code class="literal">JMXConnectorServerFactory.
+newJMXConnectorServer</code>.
+			</p><p>
+				For secure RMI connections, the <code class="literal">ConnectorConfigRMIRegistrySecure</code> connector configuration is provided.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-endpoint-provided"/>2.2.3. Steps to Use an Application-Provided MBeanServer</h3></div></div></div><p>
+				This example demonstrates how your application may pass any <code class="literal">MBeanServer</code> instance it may obtain from its environment:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPServiceProvider engine = EPServiceProviderManager.getDefaultProvider();
+// ...register statements and event types
+
+ConnectorConfigProvided providedConfig = new ConnectorConfigProvided(myMBeanServer);
+			
+JMXEndpointConfiguration jmxConfig = new JMXEndpointConfiguration();
+jmxConfig.setConnectorConfiguration(providedConfig);
+JMXEndpoint endpoint = new JMXEndpoint(engine, jmxConfig);
+endpoint.start();</pre></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans"/>Chapter 3. MBeans</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#mbeans-admin">3.1. AdministratorMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-runtime">3.2. RuntimeMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-statement">3.3. StatementMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-namedwindow">3.4. NamedWindowMBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-statementnotifier">3.5. StmtStreamNotifierType1MBean</a></span></dt><dt><span class="sect1"><a href="#mbeans-listener">3.6. ListenerMBean</a></span></dt></dl></div><p>
+		EsperJMX provides MBeans as summarized in this chapter.
+	</p><p>
+		For detailed information on the functions available, please consult the JavaDoc documentation.
+	</p><p>
+		By default, EsperJMX registers a new <code class="literal">StatementMBean</code> for each new statement created within an Esper engine. When a statement is destroyed, EsperJMX unregisters the <code class="literal">StatementMBean</code> representing the statement.
+	</p><p>
+		Named window MBeans and listener MBeans also also dynamically registered and unregistered. However by default configuration, EsperJMX does not create MBeans for listeners.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-admin"/>3.1. AdministratorMBean</h2></div></div></div><p>	
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Administrator</code>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+		</p><p>
+			This MBean provides statement management functions, metrics concerning statement and listener counts as well as configuration information.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-runtime"/>3.2. RuntimeMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Runtime</code>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+		</p><p>
+			This MBean provides runtime metrics, variable and named window information and allows on-demand fire-and-forget queries against named windows.
+		</p><div class="table"><a id="d0e533"/><p class="title"><b>Table 3.1. Attributes</b></p><div class="table-contents"><table summary="Attributes" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>TimeHandleCount</td><td>The number of schedule entries unique by time of schedule entry. For example, a schedule may have 3 points of interest (TimeHandleCount is 3) such as at 1pm, 2pm and 3pm,
+						wherein at any of these 3 times one or more statements must perform some processing.</td></tr><tr><td>FurthestTimeHandle</td><td>The furthest outstanding time evaluation of any schedule entry, i.e. 3pm in the example above.</td></tr><tr><td>EvaluatedCount</td><td>The number of events evaluated, including insert-into events.</td></tr><tr><td>RoutedInternalCount</td><td>Number of insert-into events.</td></tr><tr><td>RoutedExternalCount</td><td>Number of routed events, i.e. when a listener or other application code calls one of the <code class="literal">route</code> methods.</td></tr><tr><td>TimerDriftAverage</td><td>
+							For use with internal timer only.
+							The <span class="emphasis"><em>drift</em></span> is the absolute value of the <code class="literal">ScheduledFuture.getDelay</code> calls (please see the Java documentation for more information on the delay computation).
+							The <code class="literal">TimerDriftAverage</code> is the sum of the absolute value of the <code class="literal">ScheduledFuture.getDelay</code> calls divided by the number of timer invocations.
+						</td></tr><tr><td>TimerMaxDrift</td><td>For use with internal timer only. The highest value of the drift as defined above.</td></tr><tr><td>TimerLastDrift</td><td>For use with internal timer only. The last value of the drift as defined above.</td></tr><tr><td>EvaluatedAvgPerSecond</td><td>The <code class="literal">EvaluatedCount</code> as defined above divided by the number of seconds elapsed since.</td></tr><tr><td>RoutedInternalAvgPerSecond</td><td>The <code class="literal">RoutedInternalCount</code> as defined above divided by the number of seconds elapsed since.</td></tr><tr><td>RoutedExternalAvgPerSecond</td><td>The <code class="literal">RoutedExternalCount</code> as defined above divided by the number of seconds elapsed since.</td></tr><tr><td>ElapsedSecondsSinceLastReset</td><td>The number of seconds elapsed since.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-statement"/>3.3. StatementMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Statement,name=</code><span class="emphasis"><em>[statement_name]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>statement_name</em></span> is the name of the <code class="literal">EPStatement</code> statement.
+		</p><p>
+			This MBean provides statement details, allows iteration over statement result and allows subscription to statement results via <code class="literal">StmtStreamNotifierType1MBean</code>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-namedwindow"/>3.4. NamedWindowMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=NamedWindow,name=</code><span class="emphasis"><em>[named_window_name]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>named_window_name</em></span> is the name of the named window.
+		</p><p>
+			This MBean provides the number of events held by named window.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-statementnotifier"/>3.5. StmtStreamNotifierType1MBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=StmtStreamNotifierType1MBean,name=</code><span class="emphasis"><em>[statement_name]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>statement_name</em></span> is the name of the <code class="literal">EPStatement</code> statement that provides statement results as JMX notifications.
+		</p><p>
+			This MBean is dynamically registered upon subscription to statement results via <code class="literal">StatementMBean</code> and provides JMX notifications of statement results as an object array in the notification object user data. The object array follow the same data format as returned by <code class="literal">fireAndForgetQueryType1</code> and as explained in more detail by the example.
+		</p><p>
+			Use the <code class="literal">addStreamNotifierType1</code> method to add a subscriber for statement results for a statement by providing a subscriber id. EsperJMX registers the <code class="literal">StmtStreamNotifierType1MBean</code>
+			when the first subscriber is added, and deregisters it when the last subscriber is removed via <code class="literal">removeStreamNotifierType1</code>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="mbeans-listener"/>3.6. ListenerMBean</h2></div></div></div><p>
+			The object name for this MBean is <code class="literal">com.espertech.esper-</code><span class="emphasis"><em>[service_uri]</em></span><code class="literal">:type=Listener,</code>
+			<code class="literal">name=</code><span class="emphasis"><em>[statement_name]-[listener_classname]@[listener_hash]</em></span>.
+		</p><p>	
+			The value of <span class="emphasis"><em>service_uri</em></span> is the URI of the <code class="literal">EPServiceProvider</code> instance, or <code class="literal">default-provider</code> for the default provider.
+			The value of <span class="emphasis"><em>statement_name</em></span> is the name of the <code class="literal">EPStatement</code> statement.
+			The value of <span class="emphasis"><em>listener_classname</em></span> and <span class="emphasis"><em>listener_hash</em></span> are class name and hash code of the listener object.
+		</p><p>
+			By default the option to register listener MBeans is disabled. If enabled, the MBean provides listener information and the names of the statements the listener is registered for.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples"/>Chapter 4. Examples</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#examples-trafficsim">4.1. JMX-enabled Esper Engine and JMX Client</a></span></dt><dd><dl><dt><span class="sect2"><a href="#examples-trafficsim-overview">4.1.1. Overview</a></span></dt><dt><span class="sect2"><a href="#examples-trafficsim-configuration">4.1.2. Example Configuration</a></span></dt><dt><span class="sect2"><a href="#examples-trafficsim-ondemand">4.1.3. On-Demand Query Example</a></span></dt><dt><span class="sect2"><a href="#examples-trafficsim-jconsole">4.1.4. JConsole View</a></span></dt></dl></dd></dl></div><p>
+		In order to compile and run the samples please follow the below instructions:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Make sure Java 1.5 or greater is installed and the JAVA_HOME environment variable is set.
+			</p></li><li><p>
+				Copy the Esper distribution jar file and its runtime dependencies to <code class="literal">esperjmx/lib</code>.
+			</p></li><li><p>
+				Open a console window and change directory to examples/etc.
+			</p></li><li><p>
+				Run "setenv.bat" (Windows) or "setenv.sh" (Unix) to verify your environment settings.
+			</p></li><li><p>
+				Run "compile.bat" (Windows) or "compile.sh" (Unix) to compile the examples.
+			</p></li><li><p>
+				Now you are ready to run the examples. Further information to running
+				each example can be found in the "examples/etc" folder in file "readme.txt".
+			</p></li><li><p>
+				Modify the logger logging level in the "log4j.xml" configuration file 
+				changing DEBUG to INFO on a class or package level to reduce the volume of text output. 
+			</p></li></ol></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="examples-trafficsim"/>4.1. JMX-enabled Esper Engine and JMX Client</h2></div></div></div><p>
+			This example demonstrates:
+		</p><div class="itemizedlist"><ul><li><p>
+					How to set up EsperJMX.
+				</p></li><li><p>
+					How to connect with a JMX console such as "jconsole".
+				</p></li><li><p>
+					How to connect with a Java client and invoke methods on MBeans remotely.
+				</p></li><li><p>
+					How to run an on-demand fire-and-forget query against a named window.
+				</p></li></ul></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-overview"/>4.1.1. Overview</h3></div></div></div><p>
+				After following above instructions, use the script <code class="literal">run_trafficsim_server.sh</code> (Linux) or <code class="literal">run_trafficsim_server.bat</code> (Windows) to start the server. The server uses EsperJMX configured to start an RMI registry and JMX connector on the port provided by the properties file <code class="literal">trafficexample_config.properties</code> (port 1099).
+			</p><p>
+				After starting the server, you may verify server operation with a JMX console such as <code class="literal">jconsole</code>. To connect, enter the service url <code class="literal">service:jmx:rmi:///jndi/rmi://localhost:1099/com.espertech.esper</code> into the Remote Process textbox and press Ok. Replace the hostname <code class="literal">localhost</code> in the service URL with the host you have started the server.
+			</p><p>
+				Use the script <code class="literal">run_trafficsim_client.sh</code> (Linux) or <code class="literal">run_trafficsim_client.bat</code> (Windows) to start the client. The client connects to the same port, obtains a proxy to <code class="literal">RuntimeMBean</code> and executes a fire-and-forget on-demand query on a named window that contains real-time traffic data.
+			</p><p>
+				This example is out of the transportation domain: events processed are <code class="literal">TrainLeaveEvent</code> events indicating a train leaving a station. The example creates a named window to hold the last 10 minutes of events for querying.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-configuration"/>4.1.2. Example Configuration</h3></div></div></div><p>
+				Since every Java VM has its own means of starting and providing a connector for the Java VM platform MBeanServer, this example does not use the JavaVM platform MBeanServer and instead starts an RMI registry and JMX connector on the port provided by the properties file <code class="literal">trafficexample_config.properties</code> (port 1099). This section outlines the steps to use the Sun JavaVM platform MBeanServer with the example.
+			</p><p>
+				The platform MBeanServer provides additional information about the Java VM, such as memory use and threading. It may therefore be desired by your application to use the platform MBeanServer with EsperJMX.
+			</p><p>
+				To use the platform MBeanServer instead of the RMI registry, edit the file <code class="literal">trafficexample_config.properties</code>:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Set the property <code class="literal">use-platform-mbean-server</code> to <code class="literal">true</code>.
+					</p></li><li><p>
+						Set the property <code class="literal">service-url</code> to <code class="literal">service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi</code>. This value is used by the example client to connect to the platform MBeanServer.
+					</p></li></ol></div><p>
+				If using the Sun Java VM, edit the file <code class="literal">run_trafficsim_server</code> and add the following system properties: 
+				<code class="literal">-Dcom.sun.management.jmxremote.port=1099</code> 
+				<code class="literal">-Dcom.sun.management.jmxremote.authenticate=false</code> 
+				<code class="literal">-Dcom.sun.management.jmxremote.ssl=false</code> 
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-ondemand"/>4.1.3. On-Demand Query Example</h3></div></div></div><p>
+				The example client first obtains the <code class="literal">RuntimeMBean</code> proxy as this code snippet shows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">JMXServiceURL jmxServiceURL = new JMXServiceURL(serviceURL);
+JMXConnector jmxc = JMXConnectorFactory.connect(jmxServiceURL, null);
+MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
+
+RuntimeMBean runtimeMBean = (RuntimeMBean) MBeanServerInvocationHandler.newProxyInstance(
+		mbsc, new ObjectName("com.espertech.esper-default-provider:type=Runtime"),
+		RuntimeMBean.class, false);</pre><p>
+				The <code class="literal">fireAndForgetQueryType1</code> method on <code class="literal">RuntimeMBean</code> returns a object array in which the first item is the property names and types and the second item the 2-dimensional array of rows and columns.
+			</p><p>
+				The client executes the query and prints a table of query results:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String query = "select stationName, count(*) from ArrivalsLast10 " +
+  "group by stationName order by count(*) desc";
+
+Object[] result = runtimeMBean.fireAndForgetQueryType1(query, -1);
+String[][] propertyNames = (String[][]) result[0];
+Object[][] rows = (Object[][]) result[1];
+
+String line = String.format("%15s %10s", "Station", "count");
+for (int i = 0; i &lt; rows.length; i++) {
+  line = String.format("%15s %10s", rows[i][0], rows[i][1]);
+  log.info(line);
+}</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="examples-trafficsim-jconsole"/>4.1.4. JConsole View</h3></div></div></div><p>
+				A screenshot of <code class="literal">jconsole</code> attached to the server is shown here:
+			</p><div class="mediaobject" align="center"><img src="../shared/images/jconsole_example.gif" align="middle"/></div></div></div></div></div></body></html>

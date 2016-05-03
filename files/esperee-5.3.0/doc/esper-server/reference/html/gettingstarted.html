@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 2. Getting Started</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="prev" href="introduction.html" title="Chapter 1. Introduction"/><link rel="next" href="architecture.html" title="Chapter 3. Architecture Overview"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="introduction.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="architecture.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted"/>Chapter 2. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-pointers">2.1. Information Pointers</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#license">2.2. License Information</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-parameters">2.3. Server Command Line Parameters</a></span></dt><dd><dl><dt><span class="sect2"><a href="gettingstarted.html#gettingstarted-parameters-moreengines">2.3.1. Starting Additional CEP Engines</a></span></dt></dl></dd><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-esperha">2.4. Configuring EsperHA (High-Availability, not included)</a></span></dt><dd><dl><dt><span class="sect2"><a href="gettingstarted.html#gettingstarted-esperha-hotdeploy">2.4.1. High-Availability and Hot Deployment</a></span></dt><dt><span class="sect2"><a href="gettingstarted.html#gettingstarted-esperha-war">2.4.2. High-Availability and WAR File Deployment</a></span></dt></dl></dd><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-multiengine">2.5. Configuring Multiple CEP Engines</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-cluster">2.6. Configuring Cluster Operation</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-esperjdbc">2.7. Configuring the EsperJDBC JDBC Server</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-esperio">2.8. Configuring EsperIO Adapters</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-samehostmultiserver">2.9. Configuring Same Host Multiple Servers</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-poststartup">2.10. Running Post-Startup Scripts</a></span></dt><dt><span class="sect1"><a href="gettingstarted.html#gettingstarted-runtimescript">2.11. Running Scripts At Runtime</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-pointers"/>2.1. Information Pointers</h2></div></div></div><p>
+		  If you are new to Complex Event Processing or the Esper CEP engine, please review the <a class="link" href="http://www.espertech.com/esper" target="">index page</a> and <a class="link" href="http://espertech.com/esper/quickstart.php" target="">quick start</a>.
+		  You need to be familiar with the concept of events, event processing language (EPL), statement and event stream.
+		</p><p>
+			 Enterprise Edition adds enterprise features including:
+		</p><div class="itemizedlist"><ul><li><p>
+                    A small and very lightweight server that loads a given Esper configuration.
+                </p></li><li><p>
+                    Hot deployment of text file EPL modules as well as packaged CEP applications with application code.
+                </p></li><li><p>
+                    Web application archives for deployment to a servlet container of your choice.
+                </p></li></ul></div><p>
+			The server includes startup and shutdown scripts as outlined in <code class="literal">RUNNING.txt</code> in the root folder of the distribution. The server reads configuration files as described in the next chapter.
+		</p><p>
+			 Esper Enterprise Edition provides the same Esper CEP engine component as the community version on the <a class="link" href="http://www.espertech.com/esper" target="">Esper project site</a>. 
+		</p><p>
+		 The <code class="literal">index.html</code> file in the top folder of the distribution overviews Esper Enterprise Edition and contains all documentation links.
+		</p><p>
+			Related documentation is:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    Please see the Esper reference manual for EPL language and CEP engine considerations.
+                </p></li><li><p>
+                    The Esper HQ web application client manual discusses continuously-updating displays, engine management GUI functions, JavaScript and HTML 5, jQuery plugin and faceless launcher.
+                </p></li><li><p>
+                    The Esper HQ web application server manual outlines client deployment and configuration options.
+                </p></li><li><p>
+                    The CEP Push Services manual instructs how the CEP engine data push and subscription management works.
+                </p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="license"/>2.2. License Information</h2></div></div></div><p>
+            The file <code class="literal">espertech.license</code> contains your license information and keys. This
+            file must not be edited as it is signed electronically. Existence, integrity and validity
+            checks of the license information are done at runtime.
+        </p><p>
+            EsperHQ and Enterprise Edition attempt to find the license file in your classpath under the name <code class="literal">espertech.license</code>. 
+        </p><p>
+            The license key file is placed in the product installation <code class="literal">conf</code> folder.
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-parameters"/>2.3. Server Command Line Parameters</h2></div></div></div><p>
+		  Esper Enterprise Edition comes with a custom, very small server. The scripts and command line options are described here.
+		</p><p>
+			The <code class="literal">esperee</code> (Windows) and <code class="literal">esperee.sh</code> (Linux) commands print the start options.
+		</p><p>
+			Additional command line parameters may be passed on the server command line. These are printed via the <code class="literal">esperee run -?</code> (Windows) and <code class="literal">esperee.sh run -?</code> (Linux) command line parameters.
+		</p><p>
+			To run from a configuration file other than the default <code class="literal">esper-default.xml</code> configuration, use the following command:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -config conf/myconfiguration.xml  (Windows)
+esperee.sh run -config conf/myconfiguration.xml  (Linux)</pre><p>
+			The <code class="literal">-name</code> parameter is followed by an identifier and can be used to provide an engine URI name, which is <code class="literal">default</code> if none is specified.
+		</p><p>
+			The <code class="literal">-config</code> parameter is followed by a file name and loads an Esper configuration. You may in addition load an EsperHA configuration.
+		</p><p>
+			The <code class="literal">-haconfig</code> parameter is followed by a file name and loads an EsperHA configuration. You may in addition load an Esper configuration.
+		</p><p>
+			The <code class="literal">-home</code> parameter is followed by a directory and overrides the Esper EE base directory.
+		</p><p>
+			The <code class="literal">-cluster</code> parameter if a flag to indicate clustered operation.
+		</p><p>
+			The <code class="literal">-cluster-config</code> parameter is followed by the cluster configuration file name, for use with the <code class="literal">-cluster</code> parameter.
+		</p><p>
+			The <code class="literal">-cluster-jmxport</code> parameter is followed by a JMX port number, for use with the <code class="literal">-cluster</code> parameter.
+		</p><p>
+			The <code class="literal">-cluster-name</code> parameter is followed by a name for the cluster, for use with the <code class="literal">-cluster</code> parameter.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="gettingstarted-parameters-moreengines"/>2.3.1. Starting Additional CEP Engines</h3></div></div></div><p>
+				By default the command line parameters instruct the server to start a single CEP engine with URI <code class="literal">default</code>. To start additional CEP engine you specify the <code class="literal">-more</code> parameter followed by a list of engine URIs, Esper and EsperHA configuration files.
+				Alternatively you may dynamically start and destroy additional CEP engines and related CEP application(s) via hot deployment.
+			</p><p>
+				The <code class="literal">-more</code> parameter is followed by a semicolon-separated list of engine URI, engine configuration file name and EsperHA configuration file name in the format:
+			</p><pre class="synopsis">-more <span class="emphasis"><em>engine_1_uri</em></span>[,<span class="emphasis"><em>engine_1_config_file</em></span> [,<span class="emphasis"><em>engine_1_HA_config_file</em></span>]] [;<span class="emphasis"><em>engine_2_uri</em></span>,...[;...]]</pre><p>
+				If the Esper configuration file name is not provided, the default configuration applies. If the EsperHA configuration file name is not provided, no EsperHA configuration is loaded. Configuration file names are relative to the installation root directory.
+			</p><p>
+				The bootstrap initializes any additional CEP engines before the default CEP engine. Note that since CEP Push Services, JDBC and JMX do not need to be started for additional CEP engines (all recognize multiple engines automatically), remove them from the configuration
+				file for any additional engines.
+			</p><p>
+				The following example command line initializes the <code class="literal">default</code> CEP engine and in addition initializes a second CEP engine by URI <code class="literal">cepone</code> using the default configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone</pre><p>
+				In the next sample command line the bootstrap initializes the second CEP engine by URI <code class="literal">cepone</code> and also loads its configuration from file <code class="literal">conf/cepone.cfg.xml</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone,conf/cepone.cfg.xml</pre><p>
+				In this third sample command line the bootstrap initializes the second CEP engine by URI <code class="literal">cepone</code> and also loads its configuration from file <code class="literal">conf/cepone.cfg.xml</code> and EsperHA configuration from file <code class="literal">conf/cepone.hacfg.xml</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone,conf/cepone.cfg.xml,conf/cepone.hacfg.xml</pre><p>
+				The following example command line initializes the <code class="literal">default</code> CEP engine and in addition initializes two more CEP engines by URI <code class="literal">cepone</code> and <code class="literal">ceptwo</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -more cepone,conf/cepone.cfg.xml;ceptwo,conf/ceptwo.cfg.xml,conf/ceptwo.hacfg.xml</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-esperha"/>2.4. Configuring EsperHA (High-Availability, not included)</h2></div></div></div><p>
+			EsperHA for high-availability is provided by a separate distribution. Please read the Getting Started section in the EsperHA documentation set to become familiar with the EsperHA configuration file and binaries.
+		</p><p>
+			Please copy the jar files that came with your EsperHA distribution to the empty <code class="literal">lib/esperha</code> folder of the Enterprise Edition distribution.
+		</p><p>
+			In the classpath scripts <code class="literal">setclasspath.sh</code> (Linux) or <code class="literal">setclasspath.bat</code> (Windows) in the <code class="literal">bin</code> folder of the distribution find the section that 
+			adds the EsperHA jar files. Remove the comments thus adding EsperHA jar files to the classpath.
+		</p><p>
+			Pick the relevant EsperHA default configuration file and drop the file into the <code class="literal">conf</code> folder of the installation.	
+		</p><p>
+			The start command that loads the EsperHA configuration file is:	
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee run -haconfig conf/esperha-default.xml (Windows)
+		
+esperee.sh run -haconfig conf/esperha-default.xml  (Linux)</pre><p>
+			 The EsperHA license file <code class="literal">espertech.license</code> should be placed into the <code class="literal">conf</code> folder under the installation root.
+		 </p><p>
+			 If using the default store with EsperHA, create a directory by name <code class="literal">esperha-default-store</code> under the <code class="literal">conf</code> folder of the installation root to hold the store files.
+		 </p><p>
+			 If using another provider for EsperHA store, please ensure that any additional jar files that may be required are added to the classpath scripts.
+		 </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="gettingstarted-esperha-hotdeploy"/>2.4.1. High-Availability and Hot Deployment</h3></div></div></div><p>
+			  EsperHA persists statement information as well as event type information for statements marked as durable or resilient (or for all statements if your EsperHA configuration sets the default to resilient). EsperHA also persists information
+			  about which modules have been deployed including the module name. The module name and statement name are both relevant information used to distinguish which modules to deploy or which statements to create and which modules or statements already exist.
+			</p><p>
+			  When the server process ends and is restarted, EsperHA recovers module information, event types and statements from the current store. To prevent recovery, you may set an EsperHA configuration flag to truncate the store when opened.
+			</p><p>
+			  During startup, the hot deploy service picks up all deployment files and undertakes a deployment process for each JAR, EPL and WAR file. The hot deploy service follows the steps discussed next to deploy modules and statements.
+			</p><p>
+				If your deployed EPL files (text and WAR files) specify a module name and a module by that name has already been deployed earlier, then the hot deploy service skips deployment for that module.
+			</p><p>
+			  If your deployed EPL files do not specify a module name, then the hot deploy service deploys and creates new statements even if the statement may already exist from a prior deployment. To prevent duplicate statement creation,
+			  you may assign a statement name to each statement via the <code class="literal">@Name</code> annotation and set the following setting in the EsperHA configuration:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperha-settings ignore-duplicate-statements="true"/&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="gettingstarted-esperha-war"/>2.4.2. High-Availability and WAR File Deployment</h3></div></div></div><p>
+				EsperHA event type and statement recovery requires that any classes referenced as event types, library methods, annotation classes or other extensions are available in the classpath at CEP engine initialization time.
+				When using EsperHA with WAR file deployment, it is currently a requirement that such classes are added to the server classpath and not to the WAR file.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-multiengine"/>2.5. Configuring Multiple CEP Engines</h2></div></div></div><p>
+		  Your CEP application(s) design may include multiple separate CEP engines. One reason to use multiple CEP engines is for separating unrelated applications. A second reason is when CEP engines require different configurations such as when one engine runs providing external time and a second CEP engine runs using system time.
+		</p><p>
+		  Enterprise Edition allows running any number of CEP engines side-by-side in the same Java VM, each identified by a unique engine URI. When starting Enterprise Edition server in the default configuration, the server starts a single CEP engine with the URI <code class="literal">default</code>. When hot deploying EPL and WAR files the default configuration deploys to that <code class="literal">default</code> engine.
+		</p><p>
+		  You may initialize multiple CEP engines via two mechanisms: First, you may use the <code class="literal">-more</code> parameter on the command line to have the bootstrap start additional CEP engines as part of server startup and destroy each CEP engine when the server is shut down. Second, you may use hot-deploy engine jar files to start and destroy CEP engines including related EPL modules and Java code optionally with annotated classes, as described in <a class="xref" href="hotdeploy.html#hotdeploy-jar" title="5.3. CEP Engine Jar Hot Deployment">Section 5.3, “CEP Engine Jar Hot Deployment�?</a>.
+		</p><p>
+		  Each CEP engine must be assigned an engine URI, which is a unique identifier that can be any name. Each individual CEP engine can run with or without EsperHA configuration, independently of other CEP engines in the same JVM process.		  
+		</p><p>
+		  The CEP Push Services, JDBC and JMX adapters automatically recognize the multiple CEP engine in the single JVM process and should only be configured and started once per JVM process.
+		</p><p>
+			In Esper HQ client you can see multiple CEP engine URIs in the URI drop-down dialog box on the upper-right hand corner. You may set the CEP engine that the GUI currently operates on by changing the value of the drop down dialog box followed by selecting an operation. Eventlets also support receiving data from multiple CEP engines.
+		</p><p>
+			To use the hot-deployer with multiple CEP engine to target WAR or EPL deployment artifacts to a given CEP engine, please follow the hot deploy service configuration instructions below.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-cluster"/>2.6. Configuring Cluster Operation</h2></div></div></div><p>
+		  Use the <code class="literal">-cluster</code> parameter on the command line to have the server process coordinate cluster membership. Cluster operation automates fail-over by assigning primary and standby roles between server processes. We use the term <code class="literal">primary</code> to describe a single cluster member that is bootstrapped and active. We use the term <code class="literal">standby</code> to describe one or more cluster members that are waiting to become primary.
+		</p><p>
+			In clustered operation, each server joins a single named cluster before continuing the bootstrap. After the server joins the cluster the server is assigned either the primary or a standby role. Only after the server is elected to become primary within the cluster does the server continue the bootstrap process. When the server that was elected primary ends, one other server in the same cluster (a standby) is elected primary and that server continues its bootstrap process. 
+		</p><p>
+		  As clusters are identified by a cluster name, with the default cluster name being <code class="literal">esperee-cluster</code>, all server processes that participate in the same cluster must have the same cluster name assigned. In the default configuration, the failure detection protocol for cluster members is based on TCP sockets.
+		</p><p>
+		  To assign a unique JMX management port to each server process, provide a value for the <code class="literal">cluster-jmxport</code> parameter on the command line.
+		</p><p>
+		  When using EsperHA with clustered operation, each cluster member should have the same Esper and EsperHA configuration file. If using EsperHA with a shared file system, cluster members should have access to shared file system files to ensure that the current primary upon bootstrap and initialization can recover engine state.
+		</p><p>
+		  Enterprise Edition server uses the open source JGroups (<a class="link" href="http://www.jgroups.org/" target="">index page</a>) toolkit for reliable group membership management. 
+		  Enterprise Edition utilizes JGroups' TCP stack as configured by <code class="literal">espereeserver-jgroups-tcp.xml</code>, by default.
+		  Each host or server and port requires a customized copy of the <code class="literal">espereeserver-jgroups-tcp.xml</code> configuration.
+		</p><p>
+		  You may optionally configure the JGroups communication and failure detection protocol by adding the <code class="literal">-cluster-config</code> parameter followed by the configuration file name to the command line. Please consult the JGroups documentation for additional information. 
+		</p><p>
+			In the <code class="literal">bind_port</code> setting enter the port number for cluster heartbeats. When running multiple servers on the same host, please assign a unique port number to each server.
+		</p><p>
+			In the <code class="literal">bind_addr</code> setting enter the host name or IP address of the host.
+		</p><p>
+			In the <code class="literal">initial_hosts</code> setting enter a list of host and port combinations that send heartbeats to this server. The format of the entry is <span class="emphasis"><em>host</em></span><code class="literal">[</code><span class="emphasis"><em>port</em></span><code class="literal">]</code> for each such entry.
+		</p><p>
+			At the time of server startup, the primary server in a cluster displays startup messages similar to below:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Clustered operation, cluster name 'esperee-cluster'  configuration 'conf/espereeserver-jgroups-tcp__myhost.xml'
+-------------------------------------------------------------------
+GMS: address=myhost-num, cluster=esperee-cluster, physical address=x.y.z.a:7800
+-------------------------------------------------------------------
+Clustered operation elected the process as primary, continuing bootstrap.</pre><p>
+			Servers that are entering standby to the primary server display similar startup messages:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Clustered operation, cluster name 'esperee-cluster'  configuration 'conf/espereeserver-jgroups-tcp__mystandby.xml'
+-------------------------------------------------------------------
+GMS: address=mystandby-num, cluster=esperee-cluster, physical address=x.y.z.a:7800
+-------------------------------------------------------------------
+Clustered operation elected the process as standby, waiting to become primary.</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-esperjdbc"/>2.7. Configuring the EsperJDBC JDBC Server</h2></div></div></div><p>
+			EsperJDBC is part of Enterprise Edition and is useful for querying the CEP engine via the inward-facing JDBC driver. EsperJDBC includes a server component that accepts incoming client JDBC connection over the network. Please see the EsperJDBC documentation for more information.
+		</p><p>
+			In the default configuration the JDBC server component is not listening to a port. To enable the JDBC server, please change the default configuration file <code class="literal">esper-default.xml </code> in the <code class="literal">conf</code> folder and remove the comments around the JDBC plug-in loader section.
+		</p><p>
+			If using multiple CEP engines per process, please start the JDBC server only once. It is not necessary to start the JDBC server for each CEP engine separately and the server recognizes each CEP engine in the same process.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-esperio"/>2.8. Configuring EsperIO Adapters</h2></div></div></div><p>
+			EsperIO adapters are part of the Enterprise Edition distribution. For the purpose of brevity, the distribution package does not include all 3rd-party dependencies jar files for all EsperIO adapters.
+		</p><p>
+			To activate a particular EsperIO adapter in Enterprise Edition server, please follow these steps.
+		</p><p>
+			First, consult the EsperIO documentation for the <code class="literal">plugin-loader</code> adapter configuration. Add the configuration section to the configuration file <code class="literal">esper-default.xml </code> in the <code class="literal">conf</code> folder.
+		</p><p>
+			Second, please copy any jar files required by the adapter to the <code class="literal">esper-io</code> folder in the <code class="literal">lib</code> folder of the distribution.
+		</p><p>
+			Last, in the classpath scripts <code class="literal">setclasspath.sh</code> (Linux) or <code class="literal">setclasspath.bat</code> (Windows) in the <code class="literal">bin</code> folder of the distribution add the required EsperIO and dependent jar files to the classpath.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-samehostmultiserver"/>2.9. Configuring Same Host Multiple Servers</h2></div></div></div><p>
+			When configuring multiple servers for the same host, please follow the instructions herein to configure unique ports. 
+			All configuration files can be found in the <code class="literal">conf</code> folder under the installation root.
+		</p><p>
+			We recommend using a separate directory and installation per server.
+		</p><p>
+			The port number of the web application container can be found in the Esper configuration file <code class="literal">esper_default.xml</code>.
+			Locate the settings under the name <code class="literal">Webapp_Service</code> and change the <code class="literal">port</code> value to a unique port number.
+		</p><p>
+			The port number of the JMX RMI registry is also in the Esper configuration file. 
+			Locate the settings under the name <code class="literal">EsperJMX</code> and change the <code class="literal">rmi-registry-port</code> value to a unique port number.
+		</p><p>
+			The port number of the embedded JMS broker is also in the Esper configuration file. 
+			Locate the settings under the name <code class="literal">JMS_Provider_Bootstrap</code> and change the <code class="literal">connectorURL</code> value to a unique port number.
+			Also modify the CEP Push Services configuration file <code class="literal">ceppushsvc-default.xml</code> and assign the same URL to the setting <code class="literal">java.naming.provider.url</code>.
+			Also modify the EsperHQ web application configuration file <code class="literal">esperhq-default.xml</code> and assign the same URL to the setting <code class="literal">java.naming.provider.url</code>.
+		</p><p>
+			The default embedded ActiveMQ instance starts a JMX registery port 1099. If you are using the default embedded instance,
+			for multiple JMS servers on the same host, please disable ActiveMQ JMX by adding <code class="literal">&lt;init-arg name="useJmx" value="false" /&gt;</code> to the 
+			<code class="literal">JMS_Provider_Bootstrap</code> configuration.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-poststartup"/>2.10. Running Post-Startup Scripts</h2></div></div></div><p>
+			It can sometimes be useful to run a script after server startup completed and all deployments, including those in the <code class="literal">hotdeploy</code> folder, are done.
+		</p><p>
+			The server can be configured to run one or multiple Groovy scripts. Groovy is a scripting language very close to Java and is further described in <a class="link" href="http://www.groovy-lang.org/" target="">Groovy Home</a>. A sample script is provided under the installation root folder in file <code class="literal">bin/post_startup_script.groovy</code>.
+		</p><p>
+			By default, the engine does not execute any scripts. You must first enable the plugin for the script engine. Please edit <code class="literal">conf/esper-default.xml</code> under the installation
+			and comment-in <code class="literal">PostStartupScript</code> provided by the class <code class="literal">GroovyExecutorPlugin</code>.
+		</p><p>
+			Specify the script names by adding an <code class="literal">init</code> parameter for each script, appending the number of the script to the name.
+		</p><p>
+			The sample entry below executes the post-startup script:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="PostStartupScript" 
+    class-name="com.espertech.esper.server.groovy.GroovyExecutorPlugin"&gt;
+  &lt;init-arg name="script.0" 
+    value="${ESPEREE_BASE}/bin/post_startup_script.groovy"/&gt;
+&lt;/plugin-loader&gt;</pre><p>
+			The server executes <code class="literal">plugin-loader</code> entries in the order they are listed. Therefore, for executing post-startup scripts, we recommend 
+			placing <code class="literal">PostStartupScript</code> as the last entry in the configuration file.
+		</p><p>
+			The sample Groovy script provided with the distribution looks up a dataflow declaration and instantiates a dataflow.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted-runtimescript"/>2.11. Running Scripts At Runtime</h2></div></div></div><p>
+			Enterprise Edition provides a dataflow operator to execute Groovy scripts at runtime. This is further explained in <a class="xref" href="scriptexec.html" title="Chapter 8. Runtime Script Execution">Chapter 8, <i>Runtime Script Execution</i></a>. 
+			Groovy is a scripting language very close to Java and is further described in <a class="link" href="http://www.groovy-lang.org/" target="">Groovy Home</a>.
+		</p><p>
+			Scripts can be useful to dynamically interact with the CEP engine instance(s) such as for managing statement listeners or dataflow instances. 
+			Scripts can also execute when an event arrives: This allows interacting with an external resource or triggering an external process based on event data.
+		</p><p>
+			Script execution takes place within a dataflow instance. Therefore you can use the EsperHQ GUI or REST services to parameterize and manage script execution.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="introduction.html"><strong>Prev</strong>Chapter 1. Introduction</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="architecture.html"><strong>Next</strong>Chapter 3. Architecture Overview</a></li></ul></body></html>

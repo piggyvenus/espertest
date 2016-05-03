@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 4. Configuration</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="CEP Push Services"/><link rel="up" href="index.html" title="CEP Push Services"/><link rel="prev" href="gettingstarted.html" title="Chapter 3. Getting Started"/><link rel="next" href="examples.html" title="Chapter 5. Examples"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="gettingstarted.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="examples.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration"/>Chapter 4. Configuration</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="configuration.html#configuration-subjectspace">4.1. Subject Spaces</a></span></dt><dt><span class="sect1"><a href="configuration.html#configuration-channel">4.2. Channels</a></span></dt><dt><span class="sect1"><a href="configuration.html#configuration-provider">4.3. JMS Providers</a></span></dt><dt><span class="sect1"><a href="configuration.html#configuration-settings">4.4. Push Services Settings</a></span></dt><dd><dl><dt><span class="sect2"><a href="configuration.html#configuration-settings-controlbus">4.4.1. Push Provider</a></span></dt><dt><span class="sect2"><a href="configuration.html#configuration-settings-sessionmgmt">4.4.2. Session Management</a></span></dt><dt><span class="sect2"><a href="configuration.html#configuration-settings-workqueue">4.4.3. Work Queue</a></span></dt></dl></dd></dl></div><p>
+		If using XML to configure Push Services, then your XML configuration file should adhere to the XML XSD schema file provided in the <code class="literal">conf</code> folder of the distribution by name <code class="literal">ceppushsvc-configuration-5-0.xsd</code>.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-subjectspace"/>4.1. Subject Spaces</h2></div></div></div><p>
+			A subject space has a name and a list of includes- and excludes-expressions. The expression syntax for subject spaces has been explained in <a class="xref" href="concepts.html" title="Chapter 2. Key Concepts">Chapter 2, <i>Key Concepts</i></a>.
+		</p><p>
+			The following XML configuration configures a subject space by name <code class="literal">defaultSpace</code> that includes all logical resources:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  &lt;subjectspaces&gt;
+    &lt;subjectspace name="defaultSpace"/&gt;
+  &lt;/subjectspaces&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the same subject space:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSubjectSpaces().put("defaultSpace", new SubjectSpace());</pre><p>
+			By adding includes- and excludes-expressions to a subject space you may narrow down its scope from all logical resources to only a subset of logical resources.
+		</p><p>
+			The next example adds an additional subject space named <code class="literal">sampleSpaceOne</code> that includes only a specific statement named <code class="literal">MyStmt</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;subjectspaces&gt;
+  &lt;subjectspace name="sampleSpaceOne"&gt;
+    &lt;includes expr="statement.statementName='MyStmt'"/&gt;
+  &lt;/subjectspace&gt;
+  &lt;subjectspace name="defaultSpace"/&gt;
+&lt;/subjectspaces&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the additional subject space:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+SubjectSpace space = new SubjectSpace();
+space.addExpression(new SubjectSpace.SubjectSpaceEntry(true, "statement.statementName='MyStmt'"));
+config.getSubjectSpaces().put("sampleSpaceOne", space);		
+config.getSubjectSpaces().put("defaultSpace", new SubjectSpace());</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-channel"/>4.2. Channels</h2></div></div></div><p>
+			A channel has a name, an assigned subject space, a quality-of-service setting and a JMS provider setting. 
+		</p><p>
+			In the next XML configuration we configure a single channel by name <code class="literal">defaultChannel</code>. The channel is mapped to subject space <code class="literal">defaultSpace</code>.
+			The quality of service parameters call for a batched publishing of data every 1000 milliseconds or every 100 events, whichever comes first.
+			The JMS destination for the data is topic <code class="literal">esper.data.default</code>.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;channels&gt;
+    &lt;channel name="defaultChannel" subjectspace="defaultSpace"&gt;
+      &lt;qos&gt;
+        &lt;batched-service interval-msec="1000" count="100"/&gt;
+      &lt;/qos&gt;
+      &lt;jms&gt;
+        &lt;destination topic="esper.data.default"/&gt;
+      &lt;/jms&gt;
+    &lt;/channel&gt;
+  &lt;/channels&gt;
+  ... more settings...
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the same channel as above:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+Channel channel = new Channel();
+channel.setName("defaultChannel");
+channel.setSubjectSpace("defaultSpace");
+BatchedService batched10Sec = new BatchedService();
+batched10Sec.setIntervalMSec(1000);
+batched10Sec.setCount(100);
+channel.setService(batched10Sec);
+channel.setJms(new ChannelJMSConfig("esper.data.default"));
+config.addChannel(channel);</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-provider"/>4.3. JMS Providers</h2></div></div></div><p>
+			This section describes how to configure Java Message Service (JMS) provider(s) (aka. brokers). You may configure multiple providers, however only a single JMS provider may be active for Push Services at any given time. 
+		</p><p>
+			The below XML configuration configures a provider by name <code class="literal">defaultProvider</code> and configures the default settings for the default JMS provider.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;providers&gt;
+    &lt;provider name="defaultProvider"&gt;
+      &lt;context object-name="ConnectionFactory"&gt;
+        &lt;env name="java.naming.factory.initial" 
+           value="org.apache.activemq.jndi.ActiveMQInitialContextFactory"/&gt;
+        &lt;env name="java.naming.provider.url" 
+           value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/&gt;
+      &lt;/context&gt;
+    &lt;/provider&gt;
+  &lt;/providers&gt;
+  ... more settings...
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+			The next code snippet shows the configuration API to configure the same provider as above:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+Provider provider = new Provider();
+provider.setObjectName("ConnectionFactory");
+Map&lt;String, String&gt; context = new HashMap&lt;String, String&gt;();
+context.put(Context.PROVIDER_URL, 
+    "tcp://localhost:61616?wireFormat.maxInactivityDuration=0");
+context.put(Context.INITIAL_CONTEXT_FACTORY, 
+    org.apache.activemq.jndi.ActiveMQInitialContextFactory.class.getName());
+provider.setContext(context);
+configJMS.getProviders().put("defaultProvider", provider);</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-settings"/>4.4. Push Services Settings</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-settings-controlbus"/>4.4.1. Push Provider</h3></div></div></div><p>
+				The JMS provider name by default is <code class="literal">defaultProvider</code>. Push Services will attempt to connect to the provider configured by this name, unless you explicitly configure another provider name.
+			</p><p>
+				The following XML configures the default settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;settings&gt;
+    &lt;pushprovider provider-name="defaultProvider"/&gt;
+   &lt;/settings&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+				The next code snippet shows the configuration API to configure the same control bus settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSettings().setPushProvider(new PushProvider("defaultProvider"));</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-settings-sessionmgmt"/>4.4.2. Session Management</h3></div></div></div><p>
+				The default session management is disabled. Session management should be enabled when running a distributed architecture: When CEP engine(s) and web application layer are separated between JVMs or hosts the session management checks that web application layer sessions are alive.
+			</p><p>
+				You may enable session management and perform session keep-alive checks every 10 seconds and expire sessions that have been inactive for 60 seconds. Unless you plan to override the defaults, you do not need to configure this (the settings are optional).
+			</p><p>
+				The following XML configures the default settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;settings&gt;
+    &lt;session-mgmt enabled="false" interval-msec="10000" expiry-msec="60000"/&gt;
+  &lt;/settings&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+				The next code snippet shows the configuration API to configure the same settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSettings().getSessionMgmt().setEnabled(false);
+config.getSettings().getSessionMgmt().setIntervalMSec(10000);
+config.getSettings().getSessionMgmt().setExpiryMSec(60000);</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-settings-workqueue"/>4.4.3. Work Queue</h3></div></div></div><p>
+				The number of threads in the work queue is configurable. By default, 1 thread is allocated. By setting the number of threads to zero all work items are performed by the originating thread.
+			</p><p>
+				The following XML configures the default settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;ceppushsvc-configuration&gt;
+  ... more settings...
+  &lt;settings&gt;
+    &lt;work-queue num-threads="1"&gt;
+  &lt;/settings&gt;
+&lt;/ceppushsvc-configuration&gt;</pre><p>
+				The next code snippet shows the configuration API to configure the same settings:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">ConfigurationPushSvc config = new ConfigurationPushSvc();
+config.getSettings().getWorkQueue().setNumThreads(1);</pre></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="gettingstarted.html"><strong>Prev</strong>Chapter 3. Getting Started</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="examples.html"><strong>Next</strong>Chapter 5. Examples</a></li></ul></body></html>

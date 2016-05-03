@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<display-name>EsperEE</display-name>
+	<description>EsperEE Application</description>
+	<!-- 
+		EsperHQ Configuration Startup Servlet 
+     -->
+	<servlet>
+		<servlet-name>EsperHQServlet</servlet-name>
+		<display-name>EsperHQServlet</display-name>
+		<servlet-class>com.espertech.esper.hqsvc.servlet.EsperHQUtilityServlet</servlet-class>
+		<init-param>
+			<param-name>esperhq.configuration.file</param-name>
+			<!-- 
+            	Use the Esper Enterprise Edition base directory to resolve.
+            -->
+			<param-value>${ESPEREE_BASE}/conf/esperhq-default.xml</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<!-- 
+		HQ Services REST Servlet
+	-->
+	<servlet>
+		<servlet-name>HQServices_RestletServlet</servlet-name>
+		<servlet-class>com.espertech.esper.server.webapp.ServerServletEsper</servlet-class>
+		<init-param>
+			<param-name>org.restlet.application</param-name>
+			<param-value>com.espertech.esper.hqsvc.endpoint.HQApiJaxRsApplication</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!--
+		File System Servlet.
+	-->
+	<servlet>
+		<servlet-name>EsperHQVFSServet</servlet-name>
+		<display-name>EsperHQVFSServet</display-name>
+		<servlet-class>com.espertech.esper.hqsvc.servlet.EsperHQVFSServet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<!-- 
+		HQ Services Mapping 
+	-->
+	<servlet-mapping>
+		<servlet-name>HQServices_RestletServlet</servlet-name>
+		<url-pattern>/hqapi/v1/*</url-pattern>
+	</servlet-mapping>
+	<!--
+		File System Mapping.
+	-->
+	<servlet-mapping>
+		<servlet-name>EsperHQVFSServet</servlet-name>
+		<url-pattern>/vfs/*</url-pattern>
+	</servlet-mapping>
+	<!--
+		Welcome file.
+	-->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>

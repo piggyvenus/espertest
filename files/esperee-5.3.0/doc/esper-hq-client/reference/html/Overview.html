@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. Overview</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="pr01.html" title="Preface"/><link rel="next" href="connectivity.html" title="Chapter 2. Connectivity"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="connectivity.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="Overview"/>Chapter 1. Overview</h2></div></div></div><p>
+		This section describes Enterprise Edition web browser technology, implemented using JavaScript and HTML 5. The EsperHQ client application provides:
+    </p><div class="itemizedlist"><ul><li><p>
+				The EsperHQ GUI presents a multi-window user interface to design, deploy and manage CEP engine(s) as well as create and launch eventlets and dashboards. 
+			</p></li><li><p>
+				Continuously-updating displays of type chart, grid, gauge and timeline, configurable and manageable at runtime.
+			</p></li><li><p>
+				EsperHQ includes a faceless launch URL that you can pass an eventlet filename or declaration and that launches the eventlet streaming realtime display. 
+			</p></li><li><p>
+				A jQuery plugin to integrate eventlets into an HTML page and activate eventlets.
+			</p></li><li><p>
+				An extension API for building your own eventlets. 
+			</p></li></ul></div><p>
+      We use the term <code class="literal">Eventlet</code> for real-time displays of events. Eventlets provide a declarative way to hook up sources of data with displays that can be continuously-updating.
+      The client provides the Eventlet Wizard dialog to create and edit eventlets.
+    </p><p>
+      When eventlets are launched the client manages the subscriptions as well as the on-demand (pull) queries, if any, for data flows from CEP engine(s) to displays. When eventlets are de-activated (closed or timed out) then the client closes those subscriptions.
+    </p><p>
+      Eventlets can be launched within the multi-window captive GUI and may also be launched standalone via faceless launcher or URL, and integrated into HTML pages via jQuery eventlet plugin. 
+    </p><p>
+		In addition, the EsperHQ client application has a dashboard page builder that presents a drag-and-drop dialog to easily build a web page or application consisting of eventlet and HTML content.
+    </p><p>
+		Under <a class="xref" href="cookbook.html" title="Chapter 3. Cookbook">Chapter 3, <i>Cookbook</i></a> we provide instructions to address common use cases.
+	</p><p>
+		The <a class="xref" href="connectivity.html" title="Chapter 2. Connectivity">Chapter 2, <i>Connectivity</i></a> section describes connection to CEP engine(s).
+	</p><p>
+		In <a class="xref" href="eventletwizard.html" title="Chapter 4. Eventlet Wizard">Chapter 4, <i>Eventlet Wizard</i></a> we outline the eventlet wizard and configuration options.
+	</p><p>
+		The section <a class="xref" href="eventletplugin.html" title="Chapter 12. Build-Your-Own Eventlet">Chapter 12, <i>Build-Your-Own Eventlet</i></a> discusses how to develop a plug-in eventlet.
+	</p><p>
+		The <a class="xref" href="enginemgmt.html" title="Chapter 6. Engine Management Dialogs">Chapter 6, <i>Engine Management Dialogs</i></a> chapter is the client application user manual.
+	</p></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="connectivity.html"><strong>Next</strong>Chapter 2. Connectivity</a></li></ul></body></html>

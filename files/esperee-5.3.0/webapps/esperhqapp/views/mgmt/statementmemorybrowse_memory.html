@@ -1,0 +1,474 @@
+<div ng-controller="StatementMemoryBrowseMemoryController">
+
+    <div ng-repeat="statement in statements">
+        <hr class="hr-divider"/>
+
+        <div class="row-fluid">
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span10"><h4>{{statement.statementName}}</h4></div>
+                    <div class="span2 pull-right">{{statement.type}}</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">{{statement.description}}</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12"><pre>{{statement.epl}}</pre></div>
+                </div>
+            </div>
+
+            <!-- Right-side for each statement -->
+            <div class="span7">
+
+                <!-- Repeat for each partition -->
+                <div ng-repeat="partition in statement.partitions">
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <span class="memory-partition-title">{{partition.name}}</span>
+                        </div>
+                        <div class="span6">
+                            <span>Measurement took {{partition.lockTimeMSec}} milliseconds</span>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <!--
+                              Table of Patterns only
+                            -->
+                            <table width="100%" class="table-hor-minimalist" ng-show="partition.patternInfo.patterns.length > 0">
+                                <thead>
+                                <tr>
+                                    <th width="30%"><b>Pattern Stream</b></th>
+                                    <th width="15%">Bytes</th>
+                                    <th width="18%">Sub-expression Count</th>
+                                    <th width="17%">Event Count</th>
+                                    <th width="20%"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat-start="pattern in partition.patternInfo.patterns">
+                                    <td>{{pattern.stream}}</td>
+                                    <td>{{pattern.bytesStr}}</td>
+                                    <td>{{pattern.subexpressionCount}}</td>
+                                    <td>{{pattern.eventCount}}</td>
+                                    <td>
+                                        <button class="btn-mini" ng-show="pattern.subexpressions.length > 0" ng-click="doExpandPatternSubSummary(pattern)">Expand Subexpressions</button>
+                                        <button class="btn-mini" ng-show="pattern.everyDistincts.length > 0" ng-click="doExpandEveryDistinct(pattern)">Expand Every-Distinct</button>
+                                    </td>
+                                </tr>
+                                <!-- Subexpression detail, if expanded -->
+                                <tr ng-show="pattern.subexpressionsExpanded">
+                                    <td colspan="4">
+                                        <table class="table-hor-minimalist" style="margin-left: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th width="20%">Operator</th>
+                                                <th width="50%">Subexpression</th>
+                                                <th width="10%">Instance Count</th>
+                                                <th width="10%">Event Count</th>
+                                                <th width="10%">Bytes</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="sub in pattern.subexpressions">
+                                                <td>{{sub.operator}}</td>
+                                                <td>{{sub.subexpression}}</td>
+                                                <td>{{sub.instanceCount}}</td>
+                                                <td>{{sub.eventCount}}</td>
+                                                <td>{{sub.bytesStr}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <!-- Every-Distinct detail, if expanded -->
+                                <tr ng-show="pattern.everyDistinctsExpanded">
+                                    <td colspan="4">
+                                        <table class="table-hor-minimalist" style="margin-left: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th width="55%">Subexpression</th>
+                                                <th width="25%">Key Count</th>
+                                                <th width="25%">Bytes</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in pattern.everyDistincts">
+                                                <td>{{item.subexpression}}</td>
+                                                <td>{{item.keyCount}}</td>
+                                                <td>{{item.bytesStr}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end><td colspan="5" class="table-hor-minimalist-divider" style="padding: 0 0 0 0"></td></tr>
+                                <tr>
+                                    <td>Pattern TOTAL</td>
+                                    <td>{{partition.patternInfo.totalBytesStr}}</td>
+                                    <td>{{partition.patternInfo.totalSubexpressionCount}}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!--
+                              Table of Data Windows only
+                            -->
+                            <table width="100%" class="table-hor-minimalist" ng-show="partition.viewInfo.views.length > 0">
+                                <thead>
+                                <tr>
+                                    <th width="30%"><b>Data Window Name</b></th>
+                                    <th width="15%">Bytes</th>
+                                    <th width="15%">Stream</th>
+                                    <th width="20%">Event Count</th>
+                                    <th width="20%">Detail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat-start="view in partition.viewInfo.views" style="border-bottom: none">
+                                    <td>{{view.viewName}}</td>
+                                    <td>{{view.bytesStr}}</td>
+                                    <td>{{view.stream}}</td>
+                                    <td>{{view.eventCount}}</td>
+                                    <td>
+                                        <div>
+                                            <table width="100%" class="table-hor-minimalist-nested" ng-show="view.viewdetail.length > 0">
+                                                <tbody>
+                                                <tr ng-repeat="viewdetail in view.viewdetail" style="border-bottom: none">
+                                                    <td>{{viewdetail.name}}</td>
+                                                    <td>{{viewdetail.value}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div ng-show="view.viewDetailExpandable">
+                                            <button class="btn-mini" ng-click="doExpandViewDetail(view)">Expand</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- View detail, if expanded -->
+                                <tr ng-show="view.viewDetailExpanded">
+                                    <td colspan="5">
+                                        <table class="table-hor-minimalist" style="margin-left: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th width="20%">View</th>
+                                                <th width="20%">Group Key</th>
+                                                <th width="20%">Bytes</th>
+                                                <th width="20%">Event Count</th>
+                                                <th width="20%">Unique Keys</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="viewdetail in view.viewDetail">
+                                                <td>{{viewdetail.viewName}}</td>
+                                                <td>{{viewdetail.compositeKey}}</td>
+                                                <td>{{viewdetail.bytesStr}}</td>
+                                                <td>{{viewdetail.eventCount}}</td>
+                                                <td>{{viewdetail.uniqueKeyCount}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end><td colspan="5" class="table-hor-minimalist-divider" style="padding: 0 0 0 0"></td></tr>
+                                <tr>
+                                    <td>Data Window TOTAL</td>
+                                    <td>{{partition.viewInfo.totalBytesStr}}</td>
+                                    <td></td>
+                                    <td>{{partition.viewInfo.totalEventCount}}</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!--
+                              Table of Aggregations only
+                            -->
+                            <table width="100%" class="table-hor-minimalist" ng-show="partition.aggregationInfo.displayagg">
+                                <thead>
+                                <tr>
+                                    <th width="30%"><b>Aggregation</b></th>
+                                    <th width="15%">Bytes</th>
+                                    <th width="35%">Group Count</th>
+                                    <th width="20%"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Aggregation TOTAL</td>
+                                    <td>{{partition.aggregationInfo.totalBytesStr}}</td>
+                                    <td>{{partition.aggregationInfo.groupCount}}</td>
+                                    <td><button ng-show="partition.aggregationInfo.aggGroupsExpandable" class="btn-mini" ng-click="doExpandAggGroup(partition.aggregationInfo)">Expand</button></td>
+                                </tr>
+                                <!-- Aggregation detail, per group -->
+                                <tr ng-show="partition.aggregationInfo.aggGroupsExpanded">
+                                    <td colspan="5">
+                                        <table class="table-hor-minimalist" style="margin-left: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th width="50%">Group Key</th>
+                                                <th width="50%">Bytes</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="agggroup in partition.aggregationInfo.groups">
+                                                <td>{{agggroup.group}}</td>
+                                                <td>{{agggroup.bytesStr}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!--
+                              Table of Match-Recognize only
+                            -->
+                            <table width="100%" class="table-hor-minimalist" ng-show="partition.regexInfo.displayregex">
+                                <thead>
+                                <tr>
+                                    <th width="30%"><b>Match Recognize</b></th>
+                                    <th width="15%">Bytes</th>
+                                    <th width="18%">Partition Count</th>
+                                    <th width="17%">Event Count</th>
+                                    <th width="20%"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Match Recognize TOTAL</td>
+                                    <td>{{partition.regexInfo.totalBytesStr}}</td>
+                                    <td>{{partition.regexInfo.partitionCount}}</td>
+                                    <td>{{partition.regexInfo.eventCount}}</td>
+                                    <td>
+                                        <div>
+                                            <table width="100%" class="table-hor-minimalist-nested" ng-show="partition.regexInfo.regexdetail.length > 0">
+                                                <tbody>
+                                                <tr ng-repeat="regexdetail in partition.regexInfo.regexdetail" style="border-bottom: none">
+                                                    <td>{{regexdetail.name}}</td>
+                                                    <td>{{regexdetail.value}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div ng-show="partition.regexInfo.partitionsExpandable">
+                                            <button class="btn-mini" ng-click="doExpandMatchRecogPartition(partition.regexInfo)">Expand</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Partition detail, per partition -->
+                                <tr ng-show="partition.regexInfo.partitionsExpanded">
+                                    <td colspan="5">
+                                        <table class="table-hor-minimalist" style="margin-left: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th width="25%">Partition Key</th>
+                                                <th width="25%">Bytes</th>
+                                                <th width="25%">States</th>
+                                                <th width="25%">Event Count</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="partition in partition.regexInfo.partitions">
+                                                <td>{{partition.partition}}</td>
+                                                <td>{{partition.bytesStr}}</td>
+                                                <td>{{partition.stateCount}}</td>
+                                                <td>{{partition.eventCount}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!--
+                              Table of Tables only
+                            -->
+                            <table width="100%" class="table-hor-minimalist" ng-show="partition.tableInfo.displaytable">
+                                <thead>
+                                <tr>
+                                    <th width="30%"><b>Table</b></th>
+                                    <th width="15%">Bytes</th>
+                                    <th width="35%">Row Count</th>
+                                    <th width="20%"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Table {{partition.tableInfo.tableName}} TOTAL</td>
+                                    <td>{{partition.tableInfo.totalBytesStr}}</td>
+                                    <td>{{partition.tableInfo.rowCount}}</td>
+                                    <td><button ng-show="partition.tableInfo.tableRowsExpandable" class="btn-mini" ng-click="doExpandTableRows(partition.tableInfo)">Expand</button></td>
+                                </tr>
+
+                                <!-- Tabledetail, per group -->
+                                <tr ng-show="partition.tableInfo.tableRowsExpanded">
+                                    <td colspan="5">
+                                        <table class="table-hor-minimalist" style="margin-left: 20px">
+                                            <thead>
+                                            <tr>
+                                                <th width="50%">Row Key</th>
+                                                <th width="50%">Bytes</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="rowitem in partition.tableInfo.rows">
+                                                <td>{{rowitem.rowkey}}</td>
+                                                <td>{{rowitem.bytesStr}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!--
+                              Table of Indexes only
+                            -->
+                            <table width="100%" class="table-hor-minimalist" ng-show="partition.indexInfo.indexes.length > 0">
+                                <thead>
+                                <tr>
+                                    <th width="30%"><b>Indexes</b></th>
+                                    <th width="15%">Bytes</th>
+                                    <th width="15%">Stream</th>
+                                    <th width="15%">Key Count</th>
+                                    <th width="25%">Row Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="index in partition.indexInfo.indexes">
+                                    <td>{{index.name}}</td>
+                                    <td>{{index.bytesStr}}</td>
+                                    <td>{{index.stream}}</td>
+                                    <td>{{index.keyCount}}</td>
+                                    <td>{{index.eventCount}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Indexes TOTAL</td>
+                                    <td>{{partition.indexInfo.totalBytesStr}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!--
+                              Table of Subqueries only
+                            -->
+                            <div ng-show="partition.subqueryInfo.subqueries.length > 0">
+                                <div ng-repeat="subquery in partition.subqueryInfo.subqueries">
+                                    <table width="100%" class="table-hor-minimalist" >
+                                        <thead>
+                                        <tr>
+                                            <th width="30%"><b>Subquery-{{subquery.subqueryNum}}</b></th>
+                                            <th width="20%">Bytes</th>
+                                            <th width="25%">Event Count</th>
+                                            <th width="25%"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- Subquery item -->
+                                        <tr ng-repeat-start="item in subquery.items">
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.bytesStr}}</td>
+                                            <td>{{item.eventCount}}</td>
+                                            <td>
+                                                <div>
+                                                    <table width="100%" class="table-hor-minimalist-nested" ng-show="item.detail.length > 0">
+                                                        <tbody>
+                                                        <tr ng-repeat="detail in item.detail" style="border-bottom: none">
+                                                            <td>{{detail.name}}</td>
+                                                            <td>{{detail.value}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div ng-show="item.viewDetailExpandable">
+                                                    <button class="btn-mini" ng-click="doExpandViewDetail(item)">Expand</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- View detail, if expanded -->
+                                        <tr ng-show="item.viewDetailExpanded">
+                                            <td colspan="4">
+                                                <table class="table-hor-minimalist" style="margin-left: 20px">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="20%">View</th>
+                                                        <th width="20%">Group Key</th>
+                                                        <th width="20%">Bytes</th>
+                                                        <th width="20%">Event Count</th>
+                                                        <th width="20%">Unique Keys</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="viewdetail in item.viewDetail">
+                                                        <td>{{viewdetail.viewName}}</td>
+                                                        <td>{{viewdetail.compositeKey}}</td>
+                                                        <td>{{viewdetail.bytesStr}}</td>
+                                                        <td>{{viewdetail.eventCount}}</td>
+                                                        <td>{{viewdetail.uniqueKeyCount}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat-end><td colspan="4" class="table-hor-minimalist-divider" style="padding: 0 0 0 0"></td></tr>
+                                        <tr>
+                                            <td>Subquery TOTAL</td>
+                                            <td>{{subquery.totalBytesStr}}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!--
+                              Table of Totals
+                            -->
+                            <table width="100%" class="table-hor-minimalist">
+                                <thead>
+                                <tr>
+                                    <th width="30%"><b>Summary</b></th>
+                                    <th width="15%">Bytes</th>
+                                    <th width="55%"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="total in partition.totalInfo.totals">
+                                    <td>{{total.name}}</td>
+                                    <td>{{total.bytesStr}}</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Overall TOTAL</td>
+                                    <td>{{partition.totalInfo.totalBytesStr}}</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>  <!-- end of right-side partition detail -->
+
+                </div>  <!-- end of partition repeat -->
+
+            </div>
+        </div>  <!-- end of statement -->
+
+    </div>
+
+</div>

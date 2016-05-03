@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. Introduction</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Distribution Cache Integration for Esper"/><link rel="up" href="index.html" title="Distribution Cache Integration for Esper"/><link rel="prev" href="pr01.html" title="Preface"/><link rel="next" href="getting_started.html" title="Chapter 2. Getting Started"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="getting_started.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="introduction"/>Chapter 1. Introduction</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="introduction.html#intro_why">1.1. Key Capabilities</a></span></dt><dt><span class="sect1"><a href="introduction.html#intro_limitations">1.2. Known Limitations</a></span></dt><dd><dl><dt><span class="sect2"><a href="introduction.html#intro_limitations_gigaspaces">1.2.1. GigaSpaces Support - Known Limitations</a></span></dt><dt><span class="sect2"><a href="introduction.html#intro_limitations_websphere">1.2.2. Websphere Support - Known Limitations</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="intro_why"/>1.1. Key Capabilities</h2></div></div></div><p>
+		  The Distributed Cache Integration integrates distributed caching software with Esper Complex Event Processing in order to seamlessly query, insert, update, delete and listen to cache changes using EPL.
+		</p><p>
+          The Distributed Cache Integration is available for use with the following distributed caching products listed below in alphabetic order of product name:
+        </p><div class="itemizedlist"><ul compact="compact"><li><p>
+					Oracle Coherence. Coherence is a regististered trademark of Oracle Corporation. Please visit <a class="link" href="http://www.oracle.com" target="">http://www.oracle.com</a>.
+					We require version 12.1.2 or above.
+                </p></li><li><p>
+				  VMware vFabric GemFire. The names vFabric and GemFire are regististered trademarks of VMWare. Please visit <a class="link" href="http://www.vmware.com" target="">http://www.vmware.com</a>.
+				  We test against version 8.1.0 of GemFire.
+				</p></li><li><p>
+					GigaSpaces XAP. GigaSpaces and eXtreme Application Platform (XAP) are registered trademarks of GigaSpaces Technologies. Please visit <a class="link" href="http://www.gigaspaces.com" target="">http://www.gigaspaces.com</a>. The GigaSpaces version we test against is version 10.0.1 of GemFire.
+                </p></li><li><p>
+					Hazelcast. Hazelcast is a trademark of Hazelcast Software. Please visit <a class="link" href="http://www.hazelcast.com" target="">http://www.hazelcast.com</a>.
+					We require version 3.1.6 or above.
+                </p></li><li><p>
+					Infinispan. Infinispan is a JBoss project. Please visit <a class="link" href="http://www.jboss.org/infinispan" target="">http://www.jboss.org/infinispan</a>.
+                </p></li><li><p>
+					Terracotta. Terracotta is a registered trademark of Software AG. Please visit <a class="link" href="http://www.terracotta.org" target="">http://www.terracotta.org</a>.
+					We require version 3.7.7 or above.
+                </p></li><li><p>
+					IBM WebSphere eXtreme Scale. WebSphere and eXtreme scale are registered trademarks of IBM. Please visit <a class="link" href="http://www.ibm.com" target="">http://www.ibm.com</a>.
+                </p></li></ul></div><p>
+		  Please let us know if the distributed cache software you are using is not on this list.
+		</p><p>
+		  The Distributed Cache Integration provides the capability to declare a named window backed by a specific cache instance that is managed by the distributed caching software. This document uses the term <span class="emphasis"><em>cache instance</em></span> to mean the cache, map, grid, region or space instance, as the term is used by the specific distributed caching software.
+		</p><p>
+		  EPL statements that join, subquery or perform fire-and-forget queries against named windows backed by a distributed cache execute the query against the cache instance. The Distributed Cache Integration analyses join, subquery or fire-and-forget where-clauses and performs key-based lookups, filter query lookups or full cache scan lookups to find matching rows. For the filter queries the Distributed Cache Integration uses the cache query language (if any) specific to the distributed caching software.
+		</p><p>
+          The Distributed Cache Integration can listen to changes in the cache instance. When unrelated applications add new entries to a cache instance, or update entries in a cache instance or delete entries from a cache instance then the Distributed Cache Integration can accordingly update EPL statements that
+          refer to the named window. By refer we mean EPL statements that consume a named window stream for example to join, aggregate or detect patterns.
+        </p><p>
+           Any EPL statement that uses <code class="literal">insert into</code> to insert into a named window backed by a distributed cache inserts directly into the cache instance.
+        </p><p>
+           The EPL <code class="literal">on-merge</code>, <code class="literal">on-delete</code>, <code class="literal">on-update</code> statements when used against a named window backed by a distributed cache apply the respective change to the cache instance.
+        </p><p>
+           Statements that refer to the named window (consume its stream) and that use aggregations or detect patterns via match-recognize have the aggregation or pattern state initialized, at time of EPL statement creation, from the data available in a cache instance managed by the distributed cache software.
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="intro_limitations"/>1.2. Known Limitations</h2></div></div></div><p>
+			This section lists known limitations.
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="intro_limitations_gigaspaces"/>1.2.1. GigaSpaces Support - Known Limitations</h3></div></div></div><p>
+				You may not insert Map-type or XML-type events into a GigaSpaces-managed cache instance (a space).
+			</p><p>
+				You may not use cache listeners with GigaSpaces.
+			</p><p>
+				You may not use the unique-flag to achieve unique semantics with Gigaspaces.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="intro_limitations_websphere"/>1.2.2. Websphere Support - Known Limitations</h3></div></div></div><p>
+				You may not use cache listeners with Websphere eXtreme Scale.
+			</p></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="getting_started.html"><strong>Next</strong>Chapter 2. Getting Started</a></li></ul></body></html>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 6. Engine Management Dialogs</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="eventletdashboard.html" title="Chapter 5. Dashboard Page Builder"/><link rel="next" href="debugger.html" title="Chapter 7. EPL Debugger Dialogs"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletdashboard.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="debugger.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt"/>Chapter 6. Engine Management Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-statementlist">6.1. Browse Statements Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-statementselection">6.2. Statement Selection Criteria Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-statement">6.3. Statement Detail Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-stmtiterator">6.4. Statement Iterate Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-createstmt">6.5. Create Statement Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-deployments">6.6. Browse Deployments Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-deploymentdetail">6.7. Deployment Detail Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-createdeployment">6.8. Create Deployment Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-eventtypes">6.9. Browse Event Types Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-eventtypedetail">6.10. Event Type Detail Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-namedwindow">6.11. Named Windows / Tables Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-stmtmap">6.12. Browse Map of Streams Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-dataflow">6.13. Browse Dataflow Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-dataflowdetail">6.14. Dataflow Detail Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-dataflowinstance">6.15. Browse Dataflow Instances Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-dataflowinstancedetail">6.16. Dataflow Instance Detail Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-createsequence">6.17. Create Sequence Dialog</a></span></dt><dd><dl><dt><span class="sect2"><a href="enginemgmt.html#enginemgmt-sequence-syntax">6.17.1. Sequence Syntax</a></span></dt></dl></dd><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-sequence">6.18. Browse Sequences Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-sequencedetail">6.19. Sequence Detail Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-createscenario">6.20. Create Scenario Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-ondemand">6.21. On-Demand Query Dialog</a></span></dt><dt><span class="sect1"><a href="enginemgmt.html#enginemgmt-variable">6.22. Variables Dialog</a></span></dt></dl></div><p>
+      This section outlines client dialogs for engine management.
+    </p><p>
+      Use the <code class="literal">Endpoint</code> and <code class="literal">Engine URI</code> drop-down dialog boxes to select the endpoint and engine.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-statementlist"/>6.1. Browse Statements Dialog</h2></div></div></div><p>
+			This dialog shows EPL statements.
+		</p><p>
+		  You may click on a table entry to view statement detail.
+		</p><p>
+			Use the <code class="literal">Get All</code> button to retrieve a list of all statements regardless of the selection expression. 
+		</p><p>
+			Click the <code class="literal">New</code> button to create a new statement. 
+		</p><p>
+			Use <code class="literal">Find</code> to retrieve only a subset of statements according to current statement selection expression. Use the <code class="literal">Selection Criteria</code> dialog
+			to compose a selection expression that selects only those statements matching the selected criteria. The selection criteria can be an expression such as <code class="literal">name like '%mystatement%'</code>
+			to select all statements that have a statement name that contains the text <code class="literal">mystatement</code>. If the selection criteria are not a valid expression, 
+			they are taken as free-form text to match against statement name or statement EPL.
+		</p><p>
+			Click the <code class="literal">Refresh</code> button to retrieve the statement list again to refresh the screen. 
+		</p><p>
+			The <code class="literal">Search</code> entry allows to reduce the list of returned statement to those matching the entered text in statement name, EPL, state or any other displayed field.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-statementselection"/>6.2. Statement Selection Criteria Dialog</h2></div></div></div><p>
+			This modal dialog allows putting together a selection expression that the engine applies to each statement to determine whether to show the statement.
+			This allows you to filter statements by statement name, state, expression, tag or user object using equals, SQL-like or SQL-regex matching.
+		</p><p>
+			An example expression is <code class="literal">name like '%mystatement%'</code>. This expression selects all statements that have a statement name that contains the text <code class="literal">mystatement</code>.
+		</p><p>
+		   After closing the dialog, use the <code class="literal">Find</code> button to find the selected statements.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-statement"/>6.3. Statement Detail Dialog</h2></div></div></div><p>
+		  The statement detail dialog shows statement detail including statement name, description, EPL expression and properties of the statement output. This is a read-only form.
+		</p><p>
+			Via <code class="literal">Start</code> (displayed if a statement is not already started), <code class="literal">Stop</code> (displayed if a statement is not already stopped) and <code class="literal">Destroy</code> buttons a statement can be started, stopped or destroyed.
+		</p><p>
+			Use <code class="literal">Iterate</code> to view current iteration results for a statement.
+		</p><p>
+			Use <code class="literal">Instant Live Capture</code> to display an appended grid with real-time results for the statement.
+		</p><p>
+			Use <code class="literal">Save Live Capture</code> to save an eventlet configured to show an appended grid with real-time results for the statement.
+		</p><p>
+			The <code class="literal">Eventlet Wizard</code> button brings up the eventlet wizard, with the statement already added to the selected resources.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-stmtiterator"/>6.4. Statement Iterate Dialog</h2></div></div></div><p>
+			This dialog can be accessed from the statement detail dialog.
+			It allows to view iteration results for the selected statement.
+		</p><p>
+		   By default the dialog retrieves the first 100 rows and the table displays rows in batches of 10. Remove the value for maximum number of rows to retrieve all rows.  
+		</p><p>
+			The <code class="literal">Submit</code> button refreshes iteration results.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createstmt"/>6.5. Create Statement Dialog</h2></div></div></div><p>
+			This quick-entry screen for creating a new, started statement allows entering a statement name, an optional description and an EPL expression.
+		</p><p>
+			The checkbox for pattern can be used to create an EPL pattern statement (a statement utilizing only the EPL pattern language).
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-deployments"/>6.6. Browse Deployments Dialog</h2></div></div></div><p>
+			This screen lists all deployments, including deployments in undeployed state. Select a deployment by clicking on the list item to display its detailed information. Use <code class="literal">New</code> to create a new deployment.
+			Use <code class="literal">Refesh</code> to re-read the list of deployments.
+		</p><p>
+		   A deployment is a set of EPL statements that are deployed and undeployed as a unit. A deployment may mention a module name or may also omit the module name. The deployment id is
+		   the unique identifier of each deployment. Deployments that are in <code class="literal">DEPLOYED</code> (EPL statements started) or <code class="literal">UNDEPLOYED</code> state (no EPL statements started).
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-deploymentdetail"/>6.7. Deployment Detail Dialog</h2></div></div></div><p>
+			This screen displays the deployment detail in a read-only form. 
+			Among the deployment information is the deployment id which is a system-generated id or the deployment id provided on another form.
+			When the deployment EPL text uses the <code class="literal">module</code> keyword, the form display the module name.
+		</p><p>
+			The deployment state of <code class="literal">DEPLOYED</code> indicates that the module may have started EPL statements. For deployed modules the screen shows a list of statements associated to the deployment. 
+		</p><p>
+			The deployment state of <code class="literal">UNDEPLOYED</code> means the deployment is known (added to the list of deployments) but does not have EPL statements that are started.
+		</p><p>
+			  For deployments in <code class="literal">DEPLOYED</code> state, the <code class="literal">Undeploy and Remove</code> button undeploys and permanently removes a deployment. If the deployment is in deployed state, this operation destroys all statements associated to the deployment.
+		</p><p>
+			  For deployments in <code class="literal">DEPLOYED</code> state, use <code class="literal">Undeploy</code> to undeploy a deployment. This operation destroys all statements associated to the deployment but does not 
+			  remove the deployment, therefore the deployment can be deployed again later.
+		</p><p>
+			  For deployments in <code class="literal">UNDEPLOYED</code> state, you can use <code class="literal">Remove</code> to permanently remove a deployment.
+		</p><p>
+			  For deployments in <code class="literal">UNDEPLOYED</code> state, you can use <code class="literal">Deploy</code> to deploy a deployment and therefore start all statements associated to the deployment.
+		</p><p>
+			  The <code class="literal">Save</code> button allows saving the EPL text to a file.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createdeployment"/>6.8. Create Deployment Dialog</h2></div></div></div><p>
+			This dialog allows entering, validating and deploying zero, one or more EPL statements as a unit. 
+			The editing rules follow EPL module text editing rules: EPL Statements are separated by a semicolon (<code class="literal">;</code>) character.
+			The dialog also offers to look up existing deployments, populate EPL from a template, save to a file and load from a file.
+		</p><p>
+		    The <code class="literal">Templates</code> button brings up a dialog that lists templates. Please select a template row to populate the EPL text area from the predefined template text.
+		</p><p>
+		    The <code class="literal">Existing Deployments</code> button can be used to select an existing deployment for editing.
+		</p><p>
+		    Use <code class="literal">Load</code> to load EPL text from a file. Use <code class="literal">Save</code> to save EPL text to a file. Files reside in a server-side directory. 
+		</p><p>
+		    Use <code class="literal">Validate</code> to validate the EPL statements. This action validates syntax as well as all dependencies of all EPL statements in the EPL text. Any statement errors are displayed in the messages list.
+		</p><p>
+		    Use <code class="literal">Add</code> to add the deployment but no start any EPL statements. This operation assigns a deployment id but does not validate the EPL text. The deployment remains in undeployed state.
+		</p><p>
+		    Use <code class="literal">Deploy</code> to deploy the deployment. When successful the deployment is in deployed state and a confirmation dialog displays the deployment id. 
+		    All statements for the deployment are started. When validation errors
+		    occur then the messages are displayed in the messages list and none of the statements therein are in started state.
+		</p><p>
+			Upon <code class="literal">Deploy</code>, when the <code class="literal">Undeploy And Remove Existing</code> checkbox is checked (the default), 
+			any existing deployments that have either the same module name or the same deployment id are undeployed and removed before deploying the EPL statements, without rollback if the deployment fails.
+		</p><p>
+			Upon <code class="literal">Deploy</code>, when the <code class="literal">Close On Deploy</code> checkbox is checked (the default), the dialog closes.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-eventtypes"/>6.9. Browse Event Types Dialog</h2></div></div></div><p>
+			This dialog shows all registered event types and associated type detail. By selecting a type from the list you may bring up the event type detail dialog for the selected type.
+		</p><p>
+			The <code class="literal">Search</code> textbox and button is for quick finding of an event type.
+		</p><p>
+			Use the <code class="literal">Refresh</code> button to populate the list anew.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-eventtypedetail"/>6.10. Event Type Detail Dialog</h2></div></div></div><p>
+			The event type detail dialog shows detail information about a selected event type. The form is read-only.
+		</p><p>
+			For the selected event type the form shows where the event type originates from (named window, application-configured or inserted-into stream),
+			the properties available, the statements referring to that type and the event type's super-types, if any.
+		</p><p>
+		    You can click on a statement referring to that type to navigate to the statement detail screen.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-namedwindow"/>6.11. Named Windows / Tables Dialog</h2></div></div></div><p>
+			The named window and tables dialog lists all named windows as well as tables including their associated statement name and EPL for creation of the named window or table.
+		</p><p>
+			The <code class="literal">Search</code> textbox is for quick finding of a named window or table. Use <code class="literal">Refresh</code> to retrieve and display an updated list of named windows and tables.
+		</p><p>
+			  For each named window, the <code class="literal">Event Type</code> button opens up the event type information for the named window.
+		</p><p>
+			  For each named window or table, the <code class="literal">Statement</code> button
+			  opens up the statement detail of the create-window statement and the <code class="literal">Query</code> button opens the on-demand query dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-stmtmap"/>6.12. Browse Map of Streams Dialog</h2></div></div></div><p>
+			This dialog presents a graphical overview of the statements including event types and their dependency as depicted by arrows.
+		</p><p>
+		  The <code class="literal">Map All</code> button loads and displays all statements. 
+		  To select a subset of statements use <code class="literal">Selection Criteria</code> or enter a selection criteria expression and press <code class="literal">Read</code>.
+		  The <code class="literal">Refresh</code> button re-loads statements according to selection criteria.
+		</p><p>
+		  The scale slider controls the scale at which the display operates. The <code class="literal">Show Abstract</code> checkbox controls whether the displayed information includes statement summary information,
+		  the <code class="literal">Show Name</code> checkbox controls whether statement name is part of the display, and the <code class="literal">Show Expression</code> checkbox controls whether the EPL expression is displayed as well.
+		</p><p>
+		    Each statement and event type in the display has a pen icon that turns blue when hovering over the pen. By clicking on the pen you can call up the statement detail or event type detail dialog.
+		</p><p>
+		   The display shows the selected event types and statements. Stream consumption relationships are indicated by an arrow. Update and insert relationships are also indicated by arrows.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflow"/>6.13. Browse Dataflow Dialog</h2></div></div></div><p>
+			The dataflows dialog lists all declared dataflows including the dataflow name and the declaration text.
+		</p><p>
+			The <code class="literal">Search</code> textbox is for quick finding of a dataflow. Use <code class="literal">Refresh</code> to retrieve and display an updated list of dataflows.
+		</p><p>
+			Click on a dataflow row in the list to see the dataflow declaration detail dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflowdetail"/>6.14. Dataflow Detail Dialog</h2></div></div></div><p>
+			The dataflow detail dialog displays the selected dataflow declaration including the dataflow name and the declaration text.
+		</p><p>
+			This dialog allows instantiating dataflows: Please enter an instance name and click <code class="literal">Instantiate</code> to instantiate the dataflow.
+			The instance name must be unique among the currently known dataflow instances.
+		</p><p>
+			You can optionally enter additional operator parameters: Specify a URI of <span class="emphasis"><em>operatorName</em></span><code class="literal">/</code><span class="emphasis"><em>propertyName</em></span>
+			for each parameter as well as the parameter value and value type. For example, if the operator is <code class="literal">BeaconSource</code> specify the <code class="literal">iterations</code> property
+			using the URI <code class="literal">BeaconSource/iterations</code>.
+		</p><p>
+			The <code class="literal">Destroy</code> button removes the dataflow declaration by destroying the statement declaring the dataflow.
+		</p><p>
+		    The browse dataflow instances dialog lists the known dataflow instances.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflowinstance"/>6.15. Browse Dataflow Instances Dialog</h2></div></div></div><p>
+			The dataflows instances dialog lists all dataflow instances that are running, cancelled or completed.
+		</p><p>
+			The <code class="literal">Search</code> textbox is for quick finding of a dataflow instance. Use <code class="literal">Refresh</code> to retrieve and display an updated list of dataflow instances.
+		</p><p>
+			Click on a dataflow instance row in the list to see the dataflow instance detail dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflowinstancedetail"/>6.16. Dataflow Instance Detail Dialog</h2></div></div></div><p>
+			The dataflow detail dialog displays the selected dataflow instance including the dataflow name and the dataflow instance state, as well as parameters provided at time of dataflow instantiation.
+		</p><p>
+			When the dataflow instance is in <code class="literal">RUNNING</code> state the dataflow instance is currently executing. 
+			Click on <code class="literal">Cancel</code> to cancel the execution which causes the dataflow instance to transition to <code class="literal">CANCELLED</code>.
+			Click on <code class="literal">Cancel And Remove</code> to cancel execution and remove the dataflow instance. This causes the data flow instance to no longer appear in the list.
+		</p><p>
+			When the dataflow instance is in <code class="literal">CANCELLED</code> or <code class="literal">COMPLETED</code> state the dataflow instance has been cancelled or completed and is no longer executing. 
+			Click on <code class="literal">Remove</code> to remove the dataflow instance. This causes the data flow instance to no longer appear in the list.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createsequence"/>6.17. Create Sequence Dialog</h2></div></div></div><p>
+		  A <span class="emphasis"><em>Sequence</em></span> is a list of instructions that can be executed. Instructions consists of events to send into the engine and of time passing.
+		  Use a Sequence to stimulate or simulate events and time passing.
+		</p><p>
+			A sample sequence is shown below:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">StockTick={symbol='IBM', price='50'}
+t = t.plus(5 seconds)
+StockTick={symbol='GE', price='100'}</pre><p>
+			The sample sequence above starts by sending an event of the type <code class="literal">StockType</code> (define event types separately) that has a <code class="literal">symbol</code> value of <code class="literal">IBM</code>
+			and a price value of <code class="literal">50</code>. The sequence then pauses for 5 seconds wall clock time. It then sends a <code class="literal">StockType</code> event that has a <code class="literal">symbol</code> value of <code class="literal">GE</code> and a price value of <code class="literal">100</code>.
+		</p><p>
+		  The syntax for sequences is described in greater detail below.
+		</p><p>
+			You must enter a unique name for the sequence as well as a sequence to execute. Check the <code class="literal">Loop</code> checkbox to have the execution loop, which causes 
+			the sequence to start from the beginning when the sequence arrived at the end.			
+		</p><p>
+			Click the <code class="literal">Load</code> button to bring up a file selection dialog for loading a sequence. Click the <code class="literal">Save</code> button to bring up a file selection dialog for saving a sequence. 
+		</p><p>
+			Use the <code class="literal">Validate</code> button to validate the sequence. The system performs type-assignment checking and lists validation messages below the editor.
+		</p><p>
+		    The <code class="literal">Add</code> button adds the sequence but does not execute it. The <code class="literal">Start</code> button starts execution of the sequence.
+		</p><p>
+			The <code class="literal">Add Interval</code> button brings up a form to enter an interval.
+		</p><p>
+			You can select an event type in the drop-down and click the <code class="literal">Add Event</code> button to bring up a form that you can use to populate event property expressions.
+			The <code class="literal">Refresh Types</code> button re-reads the list of event types.
+		</p><p>
+			Sequences can be in <code class="literal">STARTED</code> and <code class="literal">STOPPED</code> state. Started sequences are currently executing. Stopped sequences are not currently executing.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-sequence-syntax"/>6.17.1. Sequence Syntax</h3></div></div></div><p>
+				Each instruction of a sequence can either send an event or wait a specified amount of wall clock time.
+			</p><p>
+				To send an event into the engine, enter an assignment of event type name to an array of name-value pairs, as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">mytype = {intProperty = 0, stringProperty = 'abc'}</pre><p>
+				Within the <code class="literal">{}</code> array you can list individual event property names and assignments to a value.
+				Right-hand side assignment expressions can be any constant. 
+			</p><p>
+				To assign the value of an expression evaluation to an event property, use the <code class="literal">eval</code> function and specify the expression string.
+			</p><p>
+				The next example assigns the result of the expression <code class="literal">5*5</code> to <code class="literal">intProperty</code> and the result of the <code class="literal">myFunction</code> function 
+				(assumed to be registered with the engine instance) to <code class="literal">stringProperty</code>.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">mytype = {intProperty = eval("5*5"), stringProperty = eval("myFunction()")}</pre><p>
+				To advance wall clock time, enter an assignment of time <code class="literal">t</code> to t plus a time period:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">t = t.plus(10 minutes 5 seconds)</pre><p>
+				Please see the "plus" date-time enumeration method and the time period parameter documentation in Esper docs for more information.
+			</p><p>
+				Alternatively, you may also advance time in millisecond steps by adding milliseconds to t:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">t = t + 1000</pre><p>
+				The above example adds 1 second (1000 milliseconds) to the current engine time.
+			</p><p>
+				You may also advance engine time to a specific point in time by specifying the date-time in the format <code class="literal">yyyy-MM-dd HH:mm:ss.SSS</code>.
+			</p><p>
+				The following assignment advances engine time to May 1st 2002 at 8am:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">t = '2002-05-1 8:00:00.000'</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-sequence"/>6.18. Browse Sequences Dialog</h2></div></div></div><p>
+			This dialog lists sequences. More information on sequences can be found at <a class="xref" href="enginemgmt.html#enginemgmt-createsequence" title="6.17. Create Sequence Dialog">Section 6.17, “Create Sequence Dialog�?</a>.
+		</p><p>
+			Click the <code class="literal">New</code> button to create a new Sequence. The <code class="literal">Refresh</code> button refreshes the list with the most current information.
+		</p><p>
+			Click on a list item to bring up the sequence detail dialog for the selected sequence.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-sequencedetail"/>6.19. Sequence Detail Dialog</h2></div></div></div><p>
+			This read-only dialog displays detail information about a Sequence. The past activity list displays the last 100 actions taken by the sequence, with the most recent action on the top of the list.
+		</p><p>
+			For a started, currently-executing sequence you can use <code class="literal">Refresh</code> to refresh the list of past activity log entries.
+		</p><p>
+			The <code class="literal">Stop</code> button is enabled when the sequence is in started state and allows stopping the sequence.
+		</p><p>
+			The <code class="literal">Start</code> button is enabled when the sequence is in stopped state and allows starting the sequence.
+		</p><p>
+			The <code class="literal">Edit And Remove</code> button stops the sequence if it is started and brings up an editor for the sequence.
+		</p><p>
+			The <code class="literal">Remove</code> button stops and removes the sequence.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createscenario"/>6.20. Create Scenario Dialog</h2></div></div></div><p> 
+			This dialog allows testing and debugging a scenario consisting of EPL statements and a sequence of events.
+		</p><p>
+			The <code class="literal">Debug</code> button allows bringing up the EPL debugger for the scenario. The button is greyed out when the server does not run in instrumented operation.
+			Start the server with the instrumented option as described in the Esper Enterprise Edition - Debugger and Metrics documentation (see link from index.html).
+			You must provide the file name of a trace file into the input text box next to the button. The debugger uses the value you entered to create a trace file of the same name
+			and prompts to open the trace file.
+		</p><p> 
+			The editor dialogs on this screen can be resized if the space is insufficient. You may drag the borders of each section to resize the contents.
+		</p><p>
+			You can enter EPL statements on the left side of the page. You can enter multiple EPL statements separated by the semicolon (;) character, in the same format as the Create Deployment dialog.
+			The <code class="literal">Load EPL</code> and <code class="literal">Save EPL</code> buttons allow loading and saving EPL content.
+		</p><p>
+			Use the middle section of the page to enter a sequence of instructions that sends events into the engine or advances time, or both.
+			Please see <a class="xref" href="enginemgmt.html#enginemgmt-sequence-syntax" title="6.17.1. Sequence Syntax">Section 6.17.1, “Sequence Syntax�?</a> for information on sequence syntax.
+			This dialog also allows time assignment instructions in the format <code class="literal">t = '</code><span class="emphasis"><em>time</em></span><code class="literal">'</code>, for example <code class="literal">t = '2001-01-01 08:00:00.000'</code>.
+			The <code class="literal">Load Sequence</code> and <code class="literal">Save Sequence</code> buttons allow loading and saving sequences.
+		</p><p>
+			The <code class="literal">Run</code> button triggers validation and execution. Only the entered EPL and sequence are validated. The entered EPL must contain all 
+			event types, variables or named windows for the scenario. Any other event types, variables or named windows are not visible to the scenario.
+		</p><p>
+			The right side of the page displays results. The first tab <code class="literal">All Output Events</code> displays a breakdown of all events produced by all EPL statements. The <code class="literal">Output Per Statement</code>
+			tab shows output per statement. The third tab <code class="literal">All Audit Text</code> displays the time and events that were sent in, the output of @Audit annotations (if any were declared) and a line per output event that shows the statement name of the statement producing the output. The last tab <code class="literal">Audit Text Per Statement</code> displays the same but per statement.
+		</p><p>
+			Timestamps follow the format <code class="literal">yyyy-MM-dd HH:mm:ss.SSS</code>. 
+			For example, the value <code class="literal">2013-07-01 08:00:00.000</code> is a valid timestamp.
+		</p><p>
+			The date-time value entered in the <code class="literal">Beginning Of Time</code> input is the start time. Before the application creates EPL statements, it sets the CEP engine time to the provided time.
+		</p><p>
+			After pressing <code class="literal">Run</code>, the application lists output events and audit information on the right side. 
+			Prefix your statements with <code class="literal">@Name('my name')</code> to assign a statement name for easier identification of statement output.
+			Prefix your statements with <code class="literal">@Audit</code> to obtain audit (debug) output for that statement. 
+		</p><p>
+			This is a stateless service in that each time you execute a scenario the service allocates and destroys an engine instance. The configuration of the engine 
+			instance matches the instance selected for the dialog, thereby event types, variables and plug-in functions, for example, are all available if they have been 
+			preconfigured for the selected engine. 
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-ondemand"/>6.21. On-Demand Query Dialog</h2></div></div></div><p>
+			This screen allows entering a fire-and-forget, one-time executed query against a named window into the query dialog box and executing the query. The client displays query results in a table.
+		</p><p>
+		    You can enter a value for the maximum number of rows to return in the query into the <code class="literal">Max Rows</code> input.
+		</p><p>
+			The <code class="literal">Submit</code> button evaluates the query anew and displays updated query results.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-variable"/>6.22. Variables Dialog</h2></div></div></div><p>
+			The variable list displays all variables and their current values. Select a variable, enter a new value and use <code class="literal">Apply</code> to set a new variable value.
+		</p><p>
+			The filter textbox and button is for quick finding of a variable.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletdashboard.html"><strong>Prev</strong>Chapter 5. Dashboard Page Builder</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="debugger.html"><strong>Next</strong>Chapter 7. EPL Debugger Dialogs</a></li></ul></body></html>

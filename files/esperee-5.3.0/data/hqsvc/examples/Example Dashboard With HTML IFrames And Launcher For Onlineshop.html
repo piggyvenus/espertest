@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><title>EsperTech - Online Shop IFrame</title>
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="Esper, NEsper, eda, open source, source, esp, cep, event stream, complex event, soa, services, support, free, event server">
+		<style type="text/css">
+		  @import url(doc/site/espertech.css);
+		</style>
+</head><body>
+
+<h2>
+Sample Online Shop Dashboard (IFRAME Version)
+</h2>
+<p>
+The displays herein are continuously-updating, as soon as the example data simulator generates data, and following quality of service levels as configured by push services.
+</p>
+<p>
+Please consult the server documentation examples chapter linked from the <a src="index.html">index</a> page for more information. This page utilizes HTML IFrames to load individual eventlets scattered over a HTML page.
+Please also consider using the jQuery eventlet plugin API for integrating eventlets in HTML pages.
+</p>
+<br/>
+
+<table border="0" style="width: 100%">
+  <tbody>
+    <tr>
+      <td style="text-align:center;margin-left:auto;margin-right:auto;">
+      	<p>
+      		Displays average stock quantity per category as an in-place grid (see Example 2 : Inplace grid of Statement : OnlineShopExample-AvgStockQtyPerCategory)
+      	</p>
+      	<IFRAME SRC="http://localhost:8400/esperhqapp/launcher.html?eventlet_filename=examples/Example%202%20Inplace%20grid%20of%20Statement%20OnlineShopExample-AvgStockQtyPerCategory.eventlet" width="600" height="300" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+      		If you can see this, your browser doesn't understand IFRAME.
+		</IFRAME>
+      </td>
+      <td style="text-align:center;margin-left:auto;margin-right:auto;">
+      	<p>
+      		Displays average stock quantity per category as a column chart grid (see Example 1 : Column Chart : OnlineShopExample-AvgStockQtyPerCategory)
+      	</p>
+		<IFRAME SRC="http://localhost:8400/esperhqapp/launcher.html?eventlet_filename=examples/Example%201%20Column%20Chart%20OnlineShopExample-AvgStockQtyPerCategory.eventlet" width="600" height="300" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+      		If you can see this, your browser doesn't understand IFRAME.
+		</IFRAME>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center;margin-left:auto;margin-right:auto;">
+      	<p>
+      		Displays average stock quantity overall as a gauge (see Example 5 : Gauge : OnlineShopExample-AvgStockQtyOverall)
+      	</p>
+      	<IFRAME SRC="http://localhost:8400/esperhqapp/launcher.html?eventlet_filename=examples/Example%205%20Gauge%20OnlineShopExample-AvgStockQtyOverall.eventlet" width="400" height="180" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+      		If you can see this, your browser doesn't understand IFRAME.
+		</IFRAME>
+      </td>
+      <td style="text-align:center;margin-left:auto;margin-right:auto;">
+      	<p>
+      		Displays all browse events with low stock quantity in an append-grid (see Example 3 : Appended grid of Statement : OnlineShopExample-AllBrowseEventsLowStock)
+      	</p>
+      	<IFRAME SRC="http://localhost:8400/esperhqapp/launcher.html?eventlet_filename=examples/Example%203%20Appended%20grid%20of%20Statement%20OnlineShopExample-AllBrowseEventsLowStock.eventlet" width="800" height="200" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+      		If you can see this, your browser doesn't understand IFRAME.
+		</IFRAME>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:center;margin-left:auto;margin-right:auto;">
+      	<p>
+      		Displays all browse events with low stock quantity in a timeline (see Example 4 : Timeline : OnlineShopExample-AllBrowseEventsLowStock)
+      	</p>
+		<IFRAME SRC="http://localhost:8400/esperhqapp/launcher.html?eventlet_filename=examples/Example%204%20Timeline%20OnlineShopExample-AllBrowseEventsLowStock.eventlet" width="1200" height="500" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+      		If you can see this, your browser doesn't understand IFRAME.
+		</IFRAME>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</body></html>

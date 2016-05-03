@@ -1,0 +1,29 @@
+<div ng-controller="LoginController">
+
+    <form class="form-horizontal" ng-submit="doLogin()">
+        <fieldset>
+            <legend><small>Please authenticate</small></legend>
+            <div class="control-group">
+                <label class="control-label">User Name:</label>
+                <div class="controls">
+                    <input type="text" ng-model="username" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Password:</label>
+                <div class="controls">
+                    <input type="password" ng-model="password" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="loginerror != null">
+                <div class="controls">
+                    <span class="span-invalid">{{loginerror}}</span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <div class="pull-right">
+        <button class="btn button-bar-margin btn-primary" type="submit" ng-click="doLogin()">Login</button>
+    </div>
+</div>

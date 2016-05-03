@@ -1,0 +1,33 @@
+<div id="intervalentry" ng-controller="IntervalEntryController">
+
+    <div class="pull-right">
+        <button type="submit" ng-click="doClose(true)" class="btn btn-primary button-bar-margin">Ok</button>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <legend>Interval</legend>
+
+        <div class="control-group">
+            <label class="control-label">Milliseconds:</label>
+            <div class="controls">
+                <input class="predefined-50wide" ng-model="interval.millisec"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Seconds:</label>
+            <div class="controls">
+                <input class="predefined-50wide" ng-model="interval.seconds"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Minutes:</label>
+            <div class="controls">
+                <input class="predefined-50wide" ng-model="interval.minutes"/>
+            </div>
+        </div>
+    </form>
+
+</div>

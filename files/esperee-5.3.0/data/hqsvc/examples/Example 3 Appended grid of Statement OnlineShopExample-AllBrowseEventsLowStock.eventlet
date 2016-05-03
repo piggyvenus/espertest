@@ -1,0 +1,10 @@
+<eventlet>
+  <composition>
+    <appendgrid/>
+  </composition>
+  <sources>
+    <source sourceId="1">
+      <statement name="OnlineShopExample-AllBrowseEventsLowStock" engineUri="default" endpoint="defaultendpoint"/>
+    </source>
+  </sources>
+</eventlet>

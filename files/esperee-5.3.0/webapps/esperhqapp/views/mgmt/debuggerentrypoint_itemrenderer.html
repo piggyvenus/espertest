@@ -1,0 +1,33 @@
+<!-- title line -->
+<div style="vertical-align: middle; height: 1.8em; line-height: 1.8em; width: 100%">
+    <div style="float: left; width: 16px;">
+        <input type="image" src="assets/plus.png" ng-click="doExpand(data)" ng-show="data.showExpand"/>
+        <input type="image" src="assets/minus.png" ng-click="doCollapse(data)" ng-show="data.showCollapse"/>
+    </div>
+    <div style="margin-left: 16px; word-wrap: break-word;" ng-class="{true:'debuggerep-title-focus', false:'debuggerep-title-plain'}[data.focus]" ng-click="doClickItem(data)">
+        <span style="margin-left: 10px">{{data.title}}</span>
+    </div>
+</div>
+<!-- inner content -->
+<div style="float: left; width: 100%; margin-left: 16px; word-wrap: break-word;" ng-class="{true:'debuggerep-vertical-focus', false:'debuggerep-vertical-plain'}[data.focus]">
+    <!-- vertical bar -->
+    <div style="float: left; width: 5px; margin-left: 16px; min-height: 4px" ng-show="data.showContent"></div>
+    <!-- inner content container -->
+    <div ng-show="data.showContent && data.showNavigate == false">
+        <div style="margin-left: 25px; margin-top: 6px; margin-bottom: 6px"
+             ng-repeat="data in data.nodes" ng-include="'views/mgmt/debuggerentrypoint_itemrenderer.html'">
+        </div>
+    </div>
+    <div ng-show="data.showNavigate">
+        <button type="submit" class="btn btn-primary" ng-click="doNavigate(data)">Navigate</button>
+    </div>
+</div>
+<div style="clear: both;"></div>
+<!-- footer -->
+<div style="vertical-align: middle; height: 1.8em; line-height: 1.8em; width: 100%" ng-show="data.showFooter">
+    <div style="float: left; width: 16px;">
+    </div>
+    <div style="margin-left: 16px; word-wrap: break-word;" ng-class="{true:'debuggerep-footer-focus', false:'debuggerep-footer-plain'}[data.focus]" ng-click="doClickItem(data)">
+        <span style="margin-left: 10px">{{data.summary}}</span>
+    </div>
+</div>

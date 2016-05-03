@@ -1,0 +1,29 @@
+<div ng-controller="EventletWizardConfigTimelineController">
+    <form class="form-horizontal">
+        <fieldset>
+            <legend><small>Optional Timeline Configuration</small></legend>
+            <div class="control-group" ng-repeat="ps in pointsources">
+                <label class="control-label" ng-show="$index == 0">Values From:</label>
+                <div class="controls">
+                    Resource <select ng-model="ps.resourceItem" ng-options="r.resourceName for r in resourceItems" ng-click="doSelectedResource($index)"></select>
+                    &nbsp;&nbsp;Property <select ng-model="ps.property" ng-options="p.propertyName for p in ps.properties" ng-click="doSelectedProperty($index)"></select>
+                    or Name <input type="text" ng-model="ps.propertyName" ng-change="doChangedPropertyName($index)"/>
+                    <button type="submit" class="btn" ng-click="doAddPointsource()">Add</button>
+                    <button type="submit" class="btn" ng-show="pointsources.length > 1" ng-click="doRemovePointsource($index)">Remove</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Detail:</label>
+                <div class="controls">
+                    <select ng-model="detailChoice" ng-options="d.name for d in detailChoices"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">JavaScript Callback Function:</label>
+                <div class="controls">
+                    <input type="text" ng-model="cfg.clickCallback"/>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

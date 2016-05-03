@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML running EventletExampleTiledDisplay</title>
+
+    <link rel="stylesheet" href="styles/release/vendor.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/eventlet.css">
+    <script src="scripts/release/vendor.min.js"></script>
+    <script src="scripts/release/common.min.js"></script>
+    <script src="scripts/release/eventlet.min.js"></script>
+
+    <script src="EventletExampleTiledDisplay.js"></script>
+    <link rel="stylesheet" href="EventletExampleTiledDisplay.css">
+
+    <script type="text/javascript">
+    	$(document).ready(function() {
+            var startEventlet = function() {
+                $("#example").eventlet({eventlet_xml:
+                        '<eventlet xmlns="http://www.espertech.com/esper-eventletxml">\
+                            <composition>\
+                                <plugin url="EventletExampleTiledDisplay.html" classname="EventletExampleTiledDisplay">\
+                                    <configuration>some configuration can be passed here</configuration>\
+                                </plugin>\
+                            </composition>\
+                            <sources>\
+                                <source sourceId="0">\
+                                    <statement name="MyStatement" engineUri="default" endpoint="defaultendpoint"/>\
+                                </source>\
+                            </sources>\
+                        </eventlet>'});
+            };
+
+            $.eventletLoad({success:startEventlet});
+		} );
+		window.onbeforeunload = function() { $.eventletUnload(); };
+    </script>
+</head>
+<body>
+
+<div id="example"></div>
+
+</body>
+</html>

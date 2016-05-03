@@ -1,0 +1,41 @@
+<div ng-controller="EventletTimelineSettingsController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doApply()" class="btn button-bar-margin">Apply</button>
+        <button type="submit" ng-click="doOk()" class="btn button-bar-margin">Ok</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Display Detail:</label>
+            <div class="controls">
+                <select ng-model="settings.detail" ng-options="d.name for d in detailChoices"></select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Per-Type Settings:</label>
+            <div class="controls">
+                <div class="timeline_type_div">
+                    <table class="table-hor-minimalist">
+                        <thead>
+                        <tr>
+                            <td>Event Type Name</td>
+                            <td>Color</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="typeinfo in settings.typeinfo">
+                            <td>{{typeinfo.name}}</td>
+                            <td>
+                                <input class="timeline_colorpicker" ng-model="typeinfo.color" />
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

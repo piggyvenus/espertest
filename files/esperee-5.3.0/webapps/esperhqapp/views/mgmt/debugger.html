@@ -1,0 +1,200 @@
+<div ng-controller="DebuggerController">
+
+    <!--
+        Top messages, filters and help buttons
+    -->
+    <div class="row-fluid">
+        <div class="span11">
+            <div class="debugger-topmessage">
+                <div ng-show="filters.length == 0">
+                    <img border="0" align="absmiddle" src="/esperhqapp/assets/checkmark.png"/>
+                    The trace file was successfully loaded. Please select statements and events by clicking on the line number and navigate to an entry point in one of the tabs.
+                </div>
+                <div ng-show="filters.length > 0">
+                    <div>
+                        <div style="float: left; margin-right: 10px">
+                            <input type="image" ng-click="doRemoveFilters()" align="absmiddle" src="/esperhqapp/assets/icon_xclose.gif" class="debugger-topmessage-img"/>
+                            Filtering by:
+                        </div>
+                        <div class="debugger-filtermessage" ng-repeat="filter in filters">
+                            <input type="image" ng-click="doRemoveFilter($index)" align="absmiddle" src="/esperhqapp/assets/icon_delete.png" class="debugger-topmessage-img"/>
+                            <span ng-show="filter.statement != null">Statement name : {{filter.statement.statementName}}</span>
+                            <span ng-show="filter.inputevent.engineTime != null">Time advancing (#{{filter.inputevent.inputEventId}})</span>
+                            <span ng-show="filter.inputevent.eventTypeName != null">Event arriving (#{{filter.inputevent.inputEventId}})</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span1">
+            <div class="pull-right">
+                <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <!--
+        Editor Container
+    -->
+    <div id="debugger_top_container">
+        <div id="debugger_statements">
+            <div>
+                <span style="font-weight: bold;">EPL Statements:</span>
+            </div>
+            <div id="debugger_epl_text">
+                <textarea></textarea>
+            </div>
+            <div class="debugger-resizable-e ui-resizable-handle ui-resizable-e" style="right:-3px;"></div>
+        </div>
+        <div id="debugger_sequence">
+            <div>
+                <span style="font-weight: bold;">Time and Event Sequence:</span>
+            </div>
+            <div id="debugger_sequence_text">
+                <textarea></textarea>
+            </div>
+            <div class="debugger-resizable-e ui-resizable-handle ui-resizable-e" style="right:-3px;"></div>
+        </div>
+        <div class="debugger-resizable-s ui-resizable-handle ui-resizable-s"></div>
+    </div>
+
+    <!--
+        Tabs Navigation Container
+    -->
+    <div id="debugger_entrypoints">
+        <div>
+            <span style="font-weight: bold;">Activity:</span>
+        </div>
+        <div id="debugger_tabs">
+            <ul>
+                <li><a href="#tabs-1">Sequential</a></li>
+                <li><a href="#tabs-2">By Statement And Context-Partition</a></li>
+                <li><a href="#tabs-3">By Input Event</a></li>
+                <li><a href="#tabs-4">By Time Advancing</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div ng-repeat="action in actions">
+
+                    <!--
+                      Action Rendering
+                    -->
+                    <div>
+                        <img src="/esperhqapp/assets/rightarrow.png" width="16" height="16" class="debugger-seq-img">
+                        <a ng-click="doNavigate(action)">
+                            <div ng-show="action.event != null">
+                                <span>Event: </span>
+                                <span>{{action.event.eventTypeName}}</span>
+                                <span>{{action.event.event.props}}</span>
+                            </div>
+                            <div ng-show="action.time != null">
+                                <span>Time: </span>
+                                <span>{{action.time.engineTime}}</span>
+                            </div>
+                            <div ng-show="action.mgmt != null">
+                                <span>Statement management: </span>
+                                <span ng-show="action.mgmt.state == 'started'">Validate and start </span>
+                                <span ng-show="action.mgmt.state != 'started'">{{action.mgmt.state}} </span>
+                                <span>statement '{{action.mgmt.statementName}}' EPL {{action.mgmt.epl}}</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div ng-repeat="step in action.steps">
+                        <!--
+                          Step Rendering
+                        -->
+                        <div class="debugger-seq-step">
+                            <img src="/esperhqapp/assets/gear.png" width="16" height="16" class="debugger-seq-img">
+                            <a ng-click="doNavigate(step)">
+                                <div ng-show="step.event != null">
+                                    <span>Process event {{step.event.eventTypeName}}</span>
+                                </div>
+                                <div ng-show="step.time != null">
+                                    <span>Advance time</span>
+                                </div>
+                                <div ng-show="step.namedwindow != null">
+                                    <span>Process any named window inserted and removed events</span>
+                                </div>
+                                <div ng-show="step.update != null">
+                                    <span>Process update-istream statements</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div ng-repeat="entry in step.entries">
+
+                            <!--
+                               Entry Rendering
+                            -->
+                            <div class="debugger-seq-entry">
+                                <img src="/esperhqapp/assets/rightarrowgreen.png" width="16" height="16" class="debugger-seq-img">
+                                <a ng-click="doNavigate(entry)">
+                                    <div ng-show="entry.eventCP != null">
+                                        <span>For Statement {{entry.eventCP.statementName}}</span>
+                                    </div>
+                                    <div ng-show="entry.timeCP != null">
+                                        <span>For Statement {{entry.timeCP.statementName}}</span>
+                                    </div>
+                                    <div ng-show="entry.namedWindowCP != null">
+                                        <span>For Statement {{entry.namedWindowCP.statementName}}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="clear"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tabs-2">
+                <div id="debugger_eventcp_table">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th align="left">PositionId</th>
+                            <th align="left">Title</th>
+                            <th align="left">Num</th>
+                            <th align="left">Statement</th>
+                            <th align="left">Context Partition</th>
+                            <th align="left">Type</th>
+                            <th align="left">Detail</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div id="tabs-3">
+                <div id="debugger_event_table">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th align="left">PositionId</th>
+                            <th align="left">Title</th>
+                            <th align="left">Num</th>
+                            <th align="left">Event</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div id="tabs-4">
+                <div id="debugger_time_table">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th align="left">PositionId</th>
+                            <th align="left">Title</th>
+                            <th align="left">Num</th>
+                            <th align="left">Time</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

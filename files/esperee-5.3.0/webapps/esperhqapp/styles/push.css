@@ -1,0 +1,57 @@
+/**
+ *  Eventlet Wizard styles
+ */
+.eventletwizard_row_selected td{ background-color: #B3B3B3; }
+
+#eventletwizard_visualizationtype_table tr:hover {
+    background-color: #B3B3B3;
+}
+
+#eventletwizard_resource_table {
+    padding-bottom: 40px;
+}
+
+.eventletwizard-fieldset-bordered {
+    border: 1px solid #cccccc;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/**
+ *  Pagebuilder styles
+ */
+.pagebuilder-draggable {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 8em;
+}
+
+.pagebuilder-row {
+    border: 1px solid #cccccc;
+    background-color: #e0ffc1;
+    height:12em;
+}
+
+.pagebuilder-cell {
+    border: 1px solid #cccccc;
+    height:100%;
+}
+
+.pagebuilder-eventlet {
+    background-color: #bbebff;
+    height:100%;
+}
+
+.pagebuilder-form {
+}
+
+.pagebuilder-form textarea {
+    width: 90%;
+    height: 100%;
+}
+
+.pagebuilder-delete {
+    padding-right: 5px;
+}

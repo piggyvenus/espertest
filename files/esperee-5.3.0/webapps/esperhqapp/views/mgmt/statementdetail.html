@@ -1,0 +1,64 @@
+<div id="statementdetail" ng-controller="StatementDetailController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doDestroy()" class="btn button-bar-margin">Destroy</button>
+        <button type="submit" ng-click="doStop()" class="btn button-bar-margin" ng-show="statement.state=='STARTED'">Stop</button>
+        <button type="submit" ng-click="doStart()" class="btn button-bar-margin" ng-show="statement.state=='STOPPED'">Start</button>
+        <button type="submit" ng-click="doIterate()" class="btn button-bar-margin">Iterate</button>
+        <button type="submit" ng-click="doSaveLiveCapture()" class="btn button-bar-margin">Save Live Capture</button>
+        <button type="submit" ng-click="doInstantLiveCapture()" class="btn button-bar-margin">Instant Live Capture</button>
+        <button type="submit" ng-click="doEventletWizard()" class="btn button-bar-margin">Eventlet Wizard</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Name:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="statement.statementName" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Description:</label>
+            <div class="controls">
+                <textarea class="predefined-60wide" rows="2" ng-model="statement.description" readonly></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Expression:</label>
+            <div class="controls">
+                <div id="statementdetail_editor_div">
+                    <textarea readonly></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">State:</label>
+            <div class="controls">
+                <input type="text" ng-model="statement.state" readonly/>
+                <span class="margin-left">Last State Change: </span>
+                <input class="margin-left" type="text" ng-model="statementLastChangeDate" readonly/>
+                &nbsp;&nbsp;&nbsp;
+                <input class="margin-left" type="checkbox" ng-model="statement.pattern" disabled/>
+                <span class="margin-left">Pattern</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Properties:</label>
+            <div class="controls">
+                <table width="100%" id="properties_table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

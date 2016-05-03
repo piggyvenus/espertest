@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. EPL Debugger</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Debugger and Metrics"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Debugger and Metrics"/><link rel="prev" href="pr01.html" title="Preface"/><link rel="next" href="metric.html" title="Chapter 2. EPL Detailed Metrics Including Memory Use"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="metric.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger"/>Chapter 1. EPL Debugger</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="debugger.html#debugger-introduction">1.1. Introduction</a></span></dt><dt><span class="sect1"><a href="debugger.html#debugger-understanding">1.2. Understanding the EPL Debugger</a></span></dt><dt><span class="sect1"><a href="debugger.html#debugger-apiuse">1.3. Debugger API</a></span></dt><dd><dl><dt><span class="sect2"><a href="debugger.html#debugger-apiuse-classpath">1.3.1. Classpath Setup</a></span></dt><dt><span class="sect2"><a href="debugger.html#debugger-apiuse-api">1.3.2. Using the Debugger API</a></span></dt></dl></dd><dt><span class="sect1"><a href="debugger.html#debugger-eeserver">1.4. Using the EPL Debugger with Enterprise Edition Server</a></span></dt><dt><span class="sect1"><a href="debugger.html#debugger-usage">1.5. Usage Notes</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger-introduction"/>1.1. Introduction</h2></div></div></div><p>
+			 The EPL debugger allows you to inspect and debug the impact of events and time passing in respect to EPL statements.
+		</p><p>
+			This section describes the EPL debugger features and provides the procedures to help you get started.
+		</p><p>
+			The EPL debugger is available for applications that embed Esper, as well as for use with Enterprise Edition server.
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					For using the EPL debugger in conjunction with your own Esper-embedded application, please review <a class="xref" href="debugger.html#debugger-apiuse" title="1.3. Debugger API">Section 1.3, “Debugger API�?</a>.
+                </p></li><li><p>
+					For a description of the EPL debugger for use with Enterprise Edition server, please see <a class="xref" href="debugger.html#debugger-eeserver" title="1.4. Using the EPL Debugger with Enterprise Edition Server">Section 1.4, “Using the EPL Debugger with Enterprise Edition Server�?</a>.
+                </p></li></ol></div><p>
+			The EPL debugger user interface is part of the EsperHQ web client application. Its goals are:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Present an intuitive interface to allow you to quickly arrive at a diagnosis or solution.
+                </p></li><li><p>
+					Handle large amounts of events and reduce the time spent searching for relevant information.
+                </p></li></ol></div><p>
+			The EPL debugger is a trace-file based debugging tool. Your application or the Enterprise Edition server records a trace of activity to a file that can be viewed using the EsperHQ web client application.
+		</p><p>
+			Please also review the important usage notes listed in <a class="xref" href="debugger.html#debugger-usage" title="1.5. Usage Notes">Section 1.5, “Usage Notes�?</a>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger-understanding"/>1.2. Understanding the EPL Debugger</h2></div></div></div><p>
+			EPL is a declarative language for event series analysis and EPL execution is event-driven. 
+			Therefore there are some fundamental differences between the EPL debugger and a control flow debugger (for example, a Java or Scala debugger).
+		</p><p>
+			Compared to a control-flow debugger, the EPL debugger involves: 
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Analyzing impact of the passage of time on state.
+                </p></li><li><p>
+					Analyzing the effects an event has on analysis constructs such as streams, data windows, patterns, subqueries etc..
+                </p></li><li><p>
+					Analyzing how new events are generated as a result of computations on events or time passing.
+                </p></li></ol></div><p>
+			The EPL debugger allows event-driven debugging and highlights how an event interacts with analysis constructs, versus a control flow debugger that focuses on the execution aspect only.
+			Thus the EPL debugger can help you understand the impact a given event and the passage of time has on other events and state in general.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger-apiuse"/>1.3. Debugger API</h2></div></div></div><p>
+			In order to use the public client API of the debugger with your own application that embeds Esper, please follow the instructions herein.
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="debugger-apiuse-classpath"/>1.3.1. Classpath Setup</h3></div></div></div><p>
+				The application that embeds Esper must have the following jar files in classpath:
+			</p><div class="table"><a id="d0e100"/><p class="title"><b>Table 1.1. Debugger required jar files</b></p><div class="table-contents"><table summary="Debugger required jar files" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Jar file</th><th>Description</th></tr></thead><tbody><tr><td>esper-eeutil-<span class="emphasis"><em>version</em></span>.jar</td><td>Debugger public API and domain classes</td></tr><tr><td>esper-instrumented-<span class="emphasis"><em>version</em></span>.jar</td><td>Instrumented Esper jar (place before un-instrumented esper-<span class="emphasis"><em>version</em></span>.jar) in classpath</td></tr><tr><td>kryo-<span class="emphasis"><em>version</em></span>-all.jar</td><td>Debug object serialization</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="debugger-apiuse-api"/>1.3.2. Using the Debugger API</h3></div></div></div><p>
+				The debugger API is provided by the class <code class="literal">com.espertech.esper.eeutil.client.debug.DebugClient</code>.
+			</p><p>
+				Please consult the Enterprise Edition Utility API docs in the folder <code class="literal">doc/esper-eeutil/api/index.html</code> for additional API information.
+			</p><p>
+			    Use the <code class="literal">isDebugEnabled</code> static method of <code class="literal">DebugClient</code> to ascertain that the debug feature is available:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">boolean canDebug = DebugClient.isDebugEnabled();</pre><p>
+				The <code class="literal">startSession</code> method of <code class="literal">DebugClient</code> starts a debug session. The method requires an Esper engine instance 
+				and a <code class="literal">File</code> object as parameters.
+			</p><p>
+			    This code snippet invokes the debugger API and starts a debug session recording information to the trace file <code class="literal">appl-debug.espertrace</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">File file = new File("appl-debug.espertrace");
+DebugClientFileSession session = DebugClient.startSession(engine, file);</pre><p>
+				The above example assumes that the <code class="literal">engine</code> variable is an object of type <code class="literal">EPServiceProvider</code>.
+			</p><p>
+				To end the debug session and close the trace file, please invoke the <code class="literal">endSession</code> method of the <code class="literal">DebugClientFileSession</code> 
+				returned by the <code class="literal">startSession</code> method.
+			</p><p>
+			    A complete example is shown here:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">File file = new File("appl-debug.espertrace");
+DebugClientFileSession session = DebugClient.startSession(engine, file);
+try {
+  ... // wait or perform some activity
+}
+finally {
+  session.endSession();
+}</pre><p>
+				The trace file that is generated by the debug API can then be viewed using the EsperHQ web client. Please follow these steps:
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Move the trace file to a directory visible to EsperHQ web client, which is by default <span class="emphasis"><em>installation-root/</em></span><code class="literal">data/hqsvc</code>.
+						Use the extension <code class="literal">espertrace</code> so the file is visible in the EsperHQ web client.
+					</p></li><li><p>
+						Load or refresh the EsperHQ web client. The left side file explorer should now show the file. Click on the file and select <code class="literal">Open</code>.
+					</p></li></ol></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger-eeserver"/>1.4. Using the EPL Debugger with Enterprise Edition Server</h2></div></div></div><p>
+			You must start Enterprise Edition server in instrumented operation.
+        </p><p>
+			Use <code class="literal">instrumented</code> (instead of <code class="literal">run</code>) to start instrumented operation, for example:
+        </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">esperee instrumented (Windows)
+// or 
+startup instrumented (Windows)
+// or 
+esperee.sh instrumented (Linux)
+// or 
+startup.sh instrumented (Linux)</pre><p>
+			Passing the <code class="literal">instrumented</code> parameter makes sure the classpath uses the Esper instrumented jar file.
+        </p><p>
+			After starting the Enterprise Edition server in instrumented operation, you can use the Create Scenario dialog to debug a scenario.
+		</p><p>
+			Detailed information about EPL Debugger dialogs as well as Create Scenario dialogs can be found in the EsperHQ web client documentation. 
+			Alternatively, please utilize the information (i) dialog button to position to the respective client documentation.
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger-usage"/>1.5. Usage Notes</h2></div></div></div><p>
+			Enterprise Edition provides an instrumented build of Esper as part of the product and under commercial license only.
+        </p><p>
+			It is save to use the instrumented build for production applications, however performance profiles may differ between the instrumented Esper and the un-instrumented Esper engine.
+        </p><p>
+			Multiple simultaneous debug sessions are not supported for the same engine instance.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="metric.html"><strong>Next</strong>Chapter 2. EPL Detailed Metrics Including Memory ...</a></li></ul></body></html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.espertech.com/schema/esperceppushsvc" elementFormDefault="qualified" xmlns:esperceppushsvc="http://www.espertech.com/schema/esperceppushsvc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="ceppushsvc-configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:subjectspaces"/>
+				<xs:element ref="esperceppushsvc:channels"/>
+				<xs:element ref="esperceppushsvc:providers"/>
+				<xs:element ref="esperceppushsvc:settings"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="subjectspaces">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:subjectspace" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="subjectspace">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:choice>
+					<xs:element ref="esperceppushsvc:includes" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="esperceppushsvc:excludes" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="channels">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:channel" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="includes">
+		<xs:complexType>
+			<xs:attribute name="expr" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="excludes">
+		<xs:complexType>
+			<xs:attribute name="expr" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="channel">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:qos"/>
+				<xs:element ref="esperceppushsvc:jms"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="subjectspace" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="qos">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:batched-service"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="jms">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:destination"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="destination">
+		<xs:complexType>
+			<xs:attribute name="topic" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="batched-service">
+		<xs:complexType>
+			<xs:attribute name="interval-msec" type="xs:long" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="pushprovider">
+		<xs:complexType>
+			<xs:attribute name="provider-name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="providers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:provider" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="provider">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:context"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="context">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:env" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="object-name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="env">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="settings">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="esperceppushsvc:pushprovider"/>
+				<xs:element ref="esperceppushsvc:session-mgmt" minOccurs="0"/>
+				<xs:element ref="esperceppushsvc:work-queue" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="session-mgmt">
+		<xs:complexType>
+			<xs:attribute name="enabled" type="xs:string" use="required"/>
+			<xs:attribute name="interval-msec" type="xs:long" use="required"/>
+			<xs:attribute name="expiry-msec" type="xs:long" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="work-queue">
+		<xs:complexType>
+			<xs:attribute name="num-threads" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="requestResponseStyleEnum">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="correlid"/>
+			<xs:enumeration value="tempqueue"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

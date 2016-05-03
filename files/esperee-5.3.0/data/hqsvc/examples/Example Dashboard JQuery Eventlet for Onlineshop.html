@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Launcher</title>
+    <link rel="stylesheet" href="/esperhqapp/styles/release/vendor.css">
+      <link rel="stylesheet" href="/esperhqapp/styles/common.css">
+        <link rel="stylesheet" href="/esperhqapp/styles/eventlet.css">
+          <script src="/esperhqapp/scripts/release/vendor.min.js">
+          </script>
+          <script src="/esperhqapp/scripts/release/common.min.js">
+          </script>
+          <script src="/esperhqapp/scripts/release/eventlet.min.js">
+          </script>
+          <script type="text/javascript">var init = function() {
+              var startEventlets = function() {
+                  $("#eventlet__row_2_cell_0").eventlet( {eventlet_filename: "examples/Example 2 Inplace grid of Statement OnlineShopExample-AvgStockQtyPerCategory.eventlet"});
+                  $("#eventlet__row_2_cell_1").eventlet( {eventlet_filename: "examples/Example 1 Column Chart OnlineShopExample-AvgStockQtyPerCategory.eventlet", height:200});
+                  $("#eventlet__row_4_cell_0").eventlet( {eventlet_filename: "examples/Example 5 Gauge OnlineShopExample-AvgStockQtyOverall.eventlet"});
+                  $("#eventlet__row_4_cell_1").eventlet( {eventlet_filename: "examples/Example 3 Appended grid of Statement OnlineShopExample-AllBrowseEventsLowStock.eventlet"});
+                  $("#eventlet__row_6_cell_0").eventlet( {eventlet_filename: "examples/Example 4 Timeline OnlineShopExample-AllBrowseEventsLowStock.eventlet", height:300});
+              };
+              $.eventletLoad({success:startEventlets});
+              window.onbeforeunload=function() {$.eventletUnload();};
+            }
+          </script>
+        </head>
+        <body onload="init()">
+        <div>
+            <div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h3>Sample Online Shop Dashboard - Dashboard Page Builder Example</h3>
+                        <p>
+                            The displays herein are continuously-updating, as soon as the example data simulator
+                            generates data, and following quality of service levels as configured by push services.
+                        </p>
+                        <p>
+                            This page was built using the Dashboard Page Builder feature in the EsperHQ client.
+                            We added additional eventlet height parameters and CSS style information to the generated HTML page.
+                            Please consult the server documentation examples chapter linked from the index.html page in the root installation folder for more information.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row-fluid">
+                    <div class="span6">Displays average stock quantity per category as an in-place grid (see Example 2 : Inplace grid of Statement : OnlineShopExample-AvgStockQtyPerCategory)</div>
+                    <div class="span6">Displays average stock quantity per category as a column chart grid (see Example 1 : Column Chart : OnlineShopExample-AvgStockQtyPerCategory)</div>
+                </div>
+            </div>
+
+            <div style="height: 220px; overflow: auto; overflow-x: hidden;">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div id="eventlet__row_2_cell_0">
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div id="eventlet__row_2_cell_1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row-fluid">
+                    <div class="span2">Displays average stock quantity overall as a gauge (see Example 5 : Gauge : OnlineShopExample-AvgStockQtyOverall)</div>
+                    <div class="span10">Displays all browse events with low stock quantity in an append-grid (see Example 3 : Appended grid of Statement : OnlineShopExample-AllBrowseEventsLowStock)</div>
+                </div>
+            </div>
+
+            <div style="height: 300px; overflow: auto; overflow-x: hidden;">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <div id="eventlet__row_4_cell_0">
+                        </div>
+                    </div>
+                    <div class="span10">
+                        <div id="eventlet__row_4_cell_1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row-fluid">
+                    <div class="span12">Displays all browse events with low stock quantity in a timeline (see Example 4 : Timeline : OnlineShopExample-AllBrowseEventsLowStock)</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div id="eventlet__row_6_cell_0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </body>
+    </html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 2. Getting Started</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Distribution Cache Integration for Esper"/><link rel="up" href="index.html" title="Distribution Cache Integration for Esper"/><link rel="prev" href="introduction.html" title="Chapter 1. Introduction"/><link rel="next" href="reference.html" title="Chapter 3. Guide"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="introduction.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="reference.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="getting_started"/>Chapter 2. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="getting_started.html#start_how">2.1. Quick Start</a></span></dt><dt><span class="sect1"><a href="getting_started.html#start_plug_in">2.2. Required Esper Configurations</a></span></dt><dt><span class="sect1"><a href="getting_started.html#start_createwindow">2.3. EPL Create Window Syntax</a></span></dt></dl></div><p>
+		This chapter is a step-by-step guide to get your application started using Distributed Cache Integration.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="start_how"/>2.1. Quick Start</h2></div></div></div><p>
+			 The quick start steps to Distributed Cache Integration are as follows:
+        </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Add the following files to your classpath:
+				</p><div class="itemizedlist"><ul compact="compact"><li><p>
+								The Distributed Cache Integration "common" jar file named <code class="literal">lib/esper-distcache-common-x.y.z.jar</code> (x.y.z being the release version number)
+						</p></li><li><p>
+								The Distributed Cache Integration jar file specific to the distributed caching software in use. The jar file name is <code class="literal">lib/esper-distcache-</code><span class="emphasis"><em>distcachename</em></span><code class="literal">-x.y.z.jar</code>, with <span class="emphasis"><em>distcachename</em></span> being the product name of the distributed caching software.
+						</p></li><li><p>
+								Any jar files required by the distributed caching software. The distribution provides a <code class="literal">readme</code> file for each distributed caching software that lists the jar files.
+						</p></li></ul></div></li><li><p>
+					Add to the Esper engine configuration the plug-in for the distributed caching software (here shown for Coherence):
+				</p><pre xmlns="" class="">Configuration config = new Configuration();
+config.addPluginLoader("coherence", CoherencePluginLoader.class.getName());
+EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider(config);</pre></li><li><p>
+					In EPL, declare a named window that is backed by the distributed cache as follows:
+				</p><pre xmlns="" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre></li></ol></div><p>
+		  After following the steps above, you are now ready to query the named window and insert, update or delete from the named window using EPL statements and fire-and-forget queries.
+		</p><p>
+		  By default, the Distributed Cache Integration does not listen to cache changes. Please enable cache change listener as described below.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="start_plug_in"/>2.2. Required Esper Configurations</h2></div></div></div><p>
+			As briefly discussed before, your application must add the plug-in class for use with the distributed cache software to the Esper configuration.
+		</p><p>
+		  The next programming example adds the Coherence plug-in to the Esper configuration via configuration API:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">Configuration config = new Configuration();
+config.addPluginLoader("coherence", CoherencePluginLoader.class.getName());
+EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider(config);</pre><p>
+		  The example below is a snippet of Esper XML configuration that adds the Terracotta cache configuration to the Esper configuration XML. 
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="terracotta"
+  class-name="com.espertech.esper.distcache.terracotta.TerracottaPluginLoader"/&gt;</pre><p>
+		  The next table outlines, for each distributed caching software, the plug-in class and example code as well as example XML for use in the Esper configuration.
+		</p><div class="table"><a id="start_plugin_table"/><p class="title"><b>Table 2.1. Esper Configuration and Example</b></p><div class="table-contents"><table summary="Esper Configuration and Example" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Cache Type</th><th>Class</th><th>Example</th></tr></thead><tbody><tr><td>Coherence</td><td><code class="literal">CoherencePluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("coherence",
+  CoherencePluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="coherence"
+  class-name="com.espertech.esper.distcache.
+  coherence.CoherencePluginLoader"/&gt;</pre>
+						</td></tr><tr><td>GemFire</td><td><code class="literal">GemfirePluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("gemfire", 
+  GemfirePluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="gemfire"
+  class-name="com.espertech.esper.distcache.
+  gemfire.GemfirePluginLoader" /&gt;</pre>
+						</td></tr><tr><td>GigaSpaces</td><td><code class="literal">GigaspacesPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("gigaspaces", 
+  GigaspacesPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="gigaspaces" 
+  class-name="com.espertech.esper.distcache.
+  gigaspaces.GigaspacesPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Hazelcast</td><td><code class="literal">HazelcastPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("hazelcast", 
+  HazelcastPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="hazelcast"
+  class-name="com.espertech.esper.distcache.
+  hazelcast.HazelcastPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Infinispan</td><td><code class="literal">InfinispanPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("infinispan", 
+  InfinispanPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="Infinispan"
+  class-name="com.espertech.esper.distcache.
+  infinispan.InfinispanPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Terracotta</td><td><code class="literal">TerracottaPluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("terracotta", 
+  TerracottaPluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="terracotta"
+  class-name="com.espertech.esper.distcache.
+  terracotta.TerracottaPluginLoader" /&gt;</pre>
+						</td></tr><tr><td>Websphere</td><td><code class="literal">WebspherePluginLoader</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">config.addPluginLoader("websphere",
+  WebspherePluginLoader.class.getName());</pre>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;plugin-loader name="websphere"
+  class-name="com.espertech.esper.distcache.
+  websphere.WebspherePluginLoader" /&gt;</pre>
+						</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="start_createwindow"/>2.3. EPL Create Window Syntax</h2></div></div></div><p>
+			Use the EPL <code class="literal">create window</code> syntax with a data window view name as <span class="emphasis"><em>namespace</em></span>:<code class="literal">cache</code> to declare a named window backed by a distributed cache.
+		</p><p>
+		  The following EPL statement declares a named window backed by a Coherence cache by name <code class="literal">OrderCache</code> wherein the event property <code class="literal">orderId</code> 
+		  is the key and the value is <code class="literal">OrderEvent</code> events.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">@ExternalDW(name='OrderCache') @ExternalDWKey(property='orderId')
+create window OrderWindow.coherence:cache() as OrderEvent</pre><p>
+		  The table below outlines, for each distributed caching software, the view namespace as well as example EPL to create a named window.
+		</p><div class="table"><a id="start_createwindow_table"/><p class="title"><b>Table 2.2. EPL Create-Window Examples</b></p><div class="table-contents"><table summary="EPL Create-Window Examples" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Cache Type</th><th>Namespace</th><th>Example</th></tr></thead><tbody><tr><td>Coherence</td><td><code class="literal">coherence</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.coherence:cache() as OrderEvent</pre>
+						</td></tr><tr><td>GemFire</td><td><code class="literal">gemfire</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.gemfire:cache() as OrderEvent</pre>
+						</td></tr><tr><td>GigaSpaces</td><td><code class="literal">gigaspaces</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.gigaspaces:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Hazelcast</td><td><code class="literal">hazelcast</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.hazelcast:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Infinispan</td><td><code class="literal">infinispan</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.infinispan:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Terracotta</td><td><code class="literal">terracotta</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.terracotta:cache() as OrderEvent</pre>
+						</td></tr><tr><td>Websphere</td><td><code class="literal">websphere</code></td><td>
+							<pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create window OrderWindow.websphere:cache() as OrderEvent</pre>
+						</td></tr></tbody></table></div></div><br class="table-break"/></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="introduction.html"><strong>Prev</strong>Chapter 1. Introduction</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="reference.html"><strong>Next</strong>Chapter 3. Guide</a></li></ul></body></html>

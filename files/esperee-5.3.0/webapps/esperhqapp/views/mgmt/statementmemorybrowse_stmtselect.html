@@ -1,0 +1,52 @@
+<div ng-controller="StatementMemoryBrowseStmtSelectController">
+    <form name="myform" novalidate="">
+        <fieldset>
+            <legend><small>Please select a one or more statements:</small></legend>
+
+            <div class="row-fluid">
+                <div class="span2">
+                    <button type="submit" ng-click="doGet(true)" class="btn button-bar-margin">Read All</button>
+                </div>
+                <div class="span10">
+                    <div class="pull-right">
+                        <button type="submit" ng-click="doOpenCriteria()" class="btn button-bar-margin">Selection Criteria...</button>
+                        <span class="margin-top">Selection Expression:</span>
+                        <input type="text" ng-model="selectionExpr" class="input-xlarge button-bar-margin"/>
+                        <button type="submit" ng-click="doGet(false)" class="btn button-bar-margin">Find</button>
+                        <button type="submit" ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="pull-right">
+                        <span>Search:</span>
+                        <input type="text" ng-model="searchExpr" ng-change="doApplySearch()" class="button-bar-margin"/>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <table width="100%" class="table-hor-minimalist">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" ng-click="doSelectAll()"/></th> <!-- Selection -->
+                            <th>Name</th>
+                            <th>Expression (abridged to 60-character length)</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="statement in statements" ng-show="statement.shown">
+                            <!-- AngularJS bug: ng-click does not work here, sees hold model -->
+                            <td><input type="checkbox" ng-model="statement.selected" ng-change="doClickCheckStmt($index)"/></td>
+                            <td>{{statement.statementName}}</td>
+                            <td><pre>{{statement.eplShort}}</pre></td>
+                            <td>{{statement.type}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>

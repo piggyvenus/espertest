@@ -1,0 +1,12 @@
+<eventlet>
+  <composition>
+    <inplacegrid>
+      <key>category</key>
+    </inplacegrid>
+  </composition>
+  <sources>
+    <source sourceId="1">
+      <statement name="OnlineShopExample-AvgStockQtyPerCategory" engineUri="default" endpoint="defaultendpoint"/>
+    </source>
+  </sources>
+</eventlet>

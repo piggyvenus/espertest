@@ -1,0 +1,47 @@
+<div ng-controller="ErrorSharedController">
+
+    <div style="height: 150px; vertical-align: middle;">
+        <div class="float-left" style="width:15%; margin-top: 30px">
+            <img src="/esperhqapp/assets/alert_error.gif" ng-dblclick="doDoubleclickIcon()" ng-show="type==null || type=='error'">
+            <img src="/esperhqapp/assets/alert_info.png" ng-show="type=='info'">
+        </div>
+        <div class="float-left" style="width:65%; margin-left: 20px; margin-top: 20px">
+            <div>
+                <span>{{title}}</span>
+            </div>
+            <div style="margin-top: 15px">
+                <span>{{detail}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" ng-click="doClose()">Close</button>
+    </div>
+
+    <table class="table-hor-minimalist" ng-show="displayDetail">
+        <thead>
+            <tr>
+                <td>Number</td>
+                <td>Message</td>
+                <td>Class</td>
+                <td>Stack</td>
+                <td>Line</td>
+                <td>Expression</td>
+                <td>Field</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in details">
+                <td>{{$index}}</td>
+                <td>{{item.exceptionMessage}}</td>
+                <td>{{item.exceptionClass}}</td>
+                <td>{{item.exceptionStackTrace}}</td>
+                <td>{{item.line}}</td>
+                <td>{{item.expression}}</td>
+                <td>{{item.fieldName}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

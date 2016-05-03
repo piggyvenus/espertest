@@ -1,0 +1,16 @@
+<div ng-controller="IndexFileMenuController">
+
+    <div id="index-main-resizable" class="ui-widget-content">
+        <div>
+            <button type="submit" class="btn button-bar-margin" ng-click="doLaunch()" ng-show="isLaunchable">Launch</button>
+            <button type="submit" class="btn button-bar-margin" ng-click="doWizard()" ng-show="isWizardable">Wizard</button>
+            <button type="submit" class="btn button-bar-margin" ng-click="doOpenNewWindow()" ng-show="isOpenable">Open In New Window</button>
+            <button type="submit" class="btn button-bar-margin" ng-click="doOpenDialog()" ng-show="isDialogable">Open</button>
+            <button type="submit" class="btn button-bar-margin" ng-click="doView()" ng-show="isViewable">View</button>
+            <button type="submit" class="btn button-bar-margin" ng-click="doRefresh()">Refresh</button>
+        </div>
+        <hr class="hr-divider"/>
+        <div id="index_filetree">
+        </div>
+    </div>
+</div>

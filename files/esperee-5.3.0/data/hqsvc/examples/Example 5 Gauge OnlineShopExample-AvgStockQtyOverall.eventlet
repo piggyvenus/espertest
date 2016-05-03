@@ -1,0 +1,12 @@
+<eventlet xmlns="http://www.espertech.com/esper-eventletxml">
+  <composition>
+    <gauge caption="" minimum="0" maximum="100" redFrom="90" redTo="100" yellowFrom="75" yellowTo="89" size="140">
+      <pointsource sourceId="0" x="avgStockQty"/>
+    </gauge>
+  </composition>
+  <sources>
+    <source sourceId="0">
+      <statement name="OnlineShopExample-AvgStockQtyOverall" engineUri="default" endpoint="defaultendpoint"/>
+    </source>
+  </sources>
+</eventlet>

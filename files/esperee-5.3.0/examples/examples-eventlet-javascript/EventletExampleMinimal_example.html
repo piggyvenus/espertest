@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML running EventletExampleMinimal</title>
+    <link rel="stylesheet" href="styles/release/vendor.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/eventlet.css">
+    <script src="scripts/release/vendor.min.js"></script>
+    <script src="scripts/release/common.min.js"></script>
+    <script src="scripts/release/eventlet.min.js"></script>
+    <script src="EventletExampleMinimal.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+            var startEventlet = function() {
+                $("#example").eventlet({eventlet_filename: "example_minimal.eventlet"});
+            };
+
+            $.eventletLoad({success:startEventlet});
+		} );
+		window.onbeforeunload = function() { $.eventletUnload(); };
+    </script>
+</head>
+<body>
+
+<p>
+  This page is purposefully left empty.
+</p>
+<p>
+  Please inspect the browser console for messages.
+</p>
+
+<div id="example"></div>
+
+</body>
+</html>

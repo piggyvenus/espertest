@@ -1,0 +1,27 @@
+<div id="browse_deployments" ng-controller="DeploymentBrowseController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doNew()" class="btn button-bar-margin">New</button>
+        <button type="submit" ng-click="doRefresh()" class="btn button-bar-margin">Refresh</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div id="deployments_div">
+        <!-- Similar table used in modulecreate -->
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Text</th>
+                    <th>State</th>
+                    <th>Module Name</th>
+                    <th>Module URI</th>
+                    <th>Archive</th>
+                    <th>User Object</th>
+                    <th>Uses</th>
+                    <th>Imports</th>
+                    <th>Added</th>
+                    <th>Last Update</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

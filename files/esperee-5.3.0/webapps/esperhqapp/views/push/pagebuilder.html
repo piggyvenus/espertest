@@ -1,0 +1,81 @@
+<div id="pagebuilder" ng-controller="PageBuilderController">
+    <div class="pull-right">
+        <button type="submit" class="btn button-bar-margin" ng-click="doSaveAndLaunch()">Save and Open in New Window</button>
+        <button type="submit" class="btn button-bar-margin" ng-click="doSave()">Save</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form novalidate="">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <fieldset>
+                            <legend><small>Components To Drag:</small></legend>
+                            <div id="pagebuilder_drag_eventlet" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_eventlet_grid_append.png"/>
+                                <span>Eventlet</span>
+                            </div>
+                            <div id="pagebuilder_drag_text" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_label.png"/>
+                                <span>Text/HTML</span>
+                            </div>
+                            <div id="pagebuilder_drag_cell_2" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_cell.png"/>
+                                <span>Cell Size 2</span>
+                            </div>
+                            <div id="pagebuilder_drag_cell_4" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_cell.png"/>
+                                <span>Cell Size 4</span>
+                            </div>
+                            <div id="pagebuilder_drag_cell_6" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_cell.png"/>
+                                <span>Cell Size 6</span>
+                            </div>
+                            <div id="pagebuilder_drag_cell_8" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_cell.png"/>
+                                <span>Cell Size 8</span>
+                            </div>
+                            <div id="pagebuilder_drag_cell_10" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_cell.png"/>
+                                <span>Cell Size 10</span>
+                            </div>
+                            <div id="pagebuilder_drag_row" class="pagebuilder-draggable">
+                                <input type="image" src="/esperhqapp/assets/icon_row.png"/>
+                                <span>Row</span>
+                            </div>
+                         </fieldset>
+                    </div>
+                    <div id="pagebuilder_container" class="span10">
+                        <fieldset>
+                            <legend><small>Drop Area For Components:</small></legend>
+                            <span ng-show="rowsErrorMsg != null" class="span-invalid">{{rowsErrorMsg}}</span>
+                            <div class="clear"></div>
+                            <div ng-repeat="row in rows" class="pagebuilder-row" pb-rowindex="{{$index}}">
+                                <div ng-repeat="cell in row.cells" class="span{{cell.span}} pagebuilder-cell" ng-switch on="cell.content" pb-rowindex="{{$parent.$index}}" pb-cellindex="{{$index}}">
+                                    <!-- NOTE: {{$parent.$index}} {{$index}}  not valid here, probably because of switch -->
+                                    <div class="pull-right pagebuilder-delete" ng-show="rows.length > 1 || row.cells.length > 1 || cell.content != 'empty'">
+                                        <input type="image" src="/esperhqapp/assets/icon_delete.png" ng-click="doDeleteCell($parent.$index, $index)"/>
+                                    </div>
+                                    <div ng-switch-when="empty" class="pagebuilder-form">
+                                        <span>Empty Cell<br/>Cell Size {{cell.span}} </span>
+                                    </div>
+                                    <div ng-switch-when="eventlet" class="pagebuilder-form pagebuilder-eventlet">
+                                        <span>Eventlet:</span>
+                                        <select ng-model="cell.eventletFromChoice" ng-options="f.label for f in fromChoices" ng-click="doEventletChangeFromChoice(cell)" class="input-medium"></select>
+                                        <span>{{cell.eventletFromChoice.enter}}:</span>
+                                        <input type="text" class="input-small" ng-model="cell.eventletFromInput"/>
+                                        <button type="submit" ng-click="doEventletChoiceFile(cell)" ng-show="cell.eventletCanChooseFile" class="btn">Select File</button>
+                                    </div>
+                                    <div ng-switch-when="text" class="pagebuilder-form">
+                                        <textarea rows="4" ng-model="cell.text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

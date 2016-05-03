@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 7. Compliance, Features and Limitations</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper JDBC Driver"/><link rel="up" href="index.html" title="Esper JDBC Driver"/><link rel="prev" href="examples.html" title="Chapter 6. Examples"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="examples.html"><strong>Prev</strong></a></li><li class="next"/></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance"/>Chapter 7. Compliance, Features and Limitations</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="compliance.html#compliance-jdbc">7.1. Compliance</a></span></dt><dt><span class="sect1"><a href="compliance.html#compliance-features">7.2. Features</a></span></dt><dt><span class="sect1"><a href="compliance.html#compliance-limitations">7.3. Limitations</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance-jdbc"/>7.1. Compliance</h2></div></div></div><p>
+			The local and remote JDBC drivers are JDBC 3.0 API compliant by providing all the required interface implementations.
+		</p><p>
+			The following exceptions apply to full JDBC compliance:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The driver does not support SQL92 commands for data definition, including <code class="literal">create table</code>, <code class="literal">drop table</code>, <code class="literal">create index</code> and <code class="literal">drop index</code>
+				</p></li><li><p>
+					The driver supports only a subset of SQL92 commands for data manipulation; It does not support the SQL <code class="literal">UPDATE</code> statement and the SQL <code class="literal">DELETE</code> statement. The driver does also not support <code class="literal">executeUpdate</code>.
+				</p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance-features"/>7.2. Features</h2></div></div></div><p>
+			Other notable features supported by the driver are:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The driver supports SQL <code class="literal">SELECT</code> and <code class="literal">INSERT INTO</code> statements, and all aspects of Esper EPL with limitations for dynamic EPL queries as listed in <a class="xref" href="concepts.html#concepts-namedwindow" title="2.3. Tables">Section 2.3, “Tables�?</a>.
+				</p></li><li><p>
+					The driver supports escape syntax for stored procedures to retrieve results of Esper EPL statements. 
+				</p></li><li><p>
+					<code class="literal">ResultSet</code> returned by the driver are always scrollable and positionable.
+				</p></li><li><p>
+					Query execution is multithread-safe, i.e. an Esper engine instance can process events while queries are being executed.
+				</p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="compliance-limitations"/>7.3. Limitations</h2></div></div></div><p>
+			Features not supported by the driver or other known limitations are noted below:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					All transactions are read-only; Methods to affect transaction boundaries such as <code class="literal">commit</code> and <code class="literal">rollback</code> do not take effect. Distributed transactions are not supported.
+				</p></li><li><p>
+					Stored procedure calls and prepated statement EPL queries do not allow parameterization via IN, OUT and INOUT parameters.
+				</p></li><li><p>
+					Result sets cannot be updated via any of the <code class="literal">update</code> methods.
+				</p></li><li><p>
+					There is no support for batching via <code class="literal">addBatch</code> and <code class="literal">executeBatch</code>.
+				</p></li><li><p>
+					There is no support for authentication or authorization by the JDBC driver and endpoint.
+				</p></li><li><p>
+					The driver package does not provide implementations for <code class="literal">ConnectionPoolDataSource</code> and <code class="literal">XADataSource</code>.
+				</p></li><li><p>
+					The drivers do not support escape syntax other then for stored procedure calls.
+				</p></li><li><p>
+					The drivers do not support the rowset API, namely not support packages <code class="literal">javax.sql.rowset</code>, <code class="literal">javax.sql.rowset.serial</code> and <code class="literal">javax.sql.rowset.spi</code>.
+				</p></li><li><p>
+					The drivers do not support advanced data types.
+				</p></li></ol></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="examples.html"><strong>Prev</strong>Chapter 6. Examples</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li></ul></body></html>

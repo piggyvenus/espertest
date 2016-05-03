@@ -1,0 +1,1341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">EsperHQ Client Documentation</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><div class="book" lang="en-US"><div class="titlepage"><div><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><div><h1 class="title"><a id="d0e1"/>EsperHQ Client Documentation</h1></div><div><div xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="authorgroup"><div class="authors">by <span xmlns="http://www.w3.org/1999/xhtml" class="orgname"><a class="link" href="http://www.espertech.com" target="">EsperTech Inc.</a></span></div><div class="editors"/><div class="others"/></div></div><div><p class="releaseinfo">Version 5.3.0</p></div><div><p class="copyright">Copyright © 2015 EsperTech Inc.</p></div></div><hr/></div><div class="toc"><dl><dt><span class="preface"><a href="#d0e18">Preface</a></span></dt><dt><span class="chapter"><a href="#Overview">1. Overview</a></span></dt><dt><span class="chapter"><a href="#connectivity">2. Connectivity</a></span></dt><dd><dl><dt><span class="sect1"><a href="#connectivity-endpoint">2.1. Endpoints</a></span></dt></dl></dd><dt><span class="chapter"><a href="#cookbook">3. Cookbook</a></span></dt><dd><dl><dt><span class="sect1"><a href="#cookbook-historical">3.1. Integrating Historical and Real-time Data</a></span></dt><dt><span class="sect1"><a href="#cookbook-multiendpoint">3.2. Merging Streams of Multiple Endpoints</a></span></dt><dt><span class="sect1"><a href="#cookbook-unmap">3.3. Map Entries as Events</a></span></dt><dt><span class="sect1"><a href="#cookbook-drilldown">3.4. On-Click and Drill-Down</a></span></dt><dt><span class="sect1"><a href="#cookbook-timestamps">3.5. Display of Long-type Timestamps</a></span></dt></dl></dd><dt><span class="chapter"><a href="#eventletwizard">4. Eventlet Wizard</a></span></dt><dd><dl><dt><span class="sect1"><a href="#eventletwizard-eventlettypes">4.1. Eventlet Visualization Types (Step 1)</a></span></dt><dt><span class="sect1"><a href="#eventletwizard-resources">4.2. CEP Resources (Step 2)</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletwizard-resources-stmt">4.2.1. CEP Resources: Single EPL Statement</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-stmtset">4.2.2. CEP Resources: Set of EPL Statements</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-enginemetric">4.2.3. CEP Resources: Engine Metrics</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-ondemand">4.2.4. CEP Resources: On-Demand Query</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-variable">4.2.5. CEP Resources: Variables</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-sourceinstruction">4.2.6. CEP Resource Configurations</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletwizard-config">4.3. Configuration (Step 3)</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletwizard-chart">4.3.1. Chart Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-gauge">4.3.2. Gauge Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-timeline">4.3.3. Timeline Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-grid">4.3.4. Grid Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-plugin">4.3.5. Plug-In Configuration Dialog</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletwizard-settings">4.4. Eventlet Settings</a></span></dt></dl></dd><dt><span class="chapter"><a href="#eventletdashboard">5. Dashboard Page Builder</a></span></dt><dd><dl><dt><span class="sect1"><a href="#eventletdashboard-eventletconfig">5.1. Dashboard Eventlet Configuration</a></span></dt><dt><span class="sect1"><a href="#eventletdashboard-text">5.2. Dashboard Text/HTML content</a></span></dt><dt><span class="sect1"><a href="#eventletdashboard-customizing">5.3. Customizing Generated HTML</a></span></dt></dl></dd><dt><span class="chapter"><a href="#enginemgmt">6. Engine Management Dialogs</a></span></dt><dd><dl><dt><span class="sect1"><a href="#enginemgmt-statementlist">6.1. Browse Statements Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-statementselection">6.2. Statement Selection Criteria Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-statement">6.3. Statement Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-stmtiterator">6.4. Statement Iterate Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createstmt">6.5. Create Statement Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-deployments">6.6. Browse Deployments Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-deploymentdetail">6.7. Deployment Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createdeployment">6.8. Create Deployment Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-eventtypes">6.9. Browse Event Types Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-eventtypedetail">6.10. Event Type Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-namedwindow">6.11. Named Windows / Tables Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-stmtmap">6.12. Browse Map of Streams Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflow">6.13. Browse Dataflow Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflowdetail">6.14. Dataflow Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflowinstance">6.15. Browse Dataflow Instances Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflowinstancedetail">6.16. Dataflow Instance Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createsequence">6.17. Create Sequence Dialog</a></span></dt><dd><dl><dt><span class="sect2"><a href="#enginemgmt-sequence-syntax">6.17.1. Sequence Syntax</a></span></dt></dl></dd><dt><span class="sect1"><a href="#enginemgmt-sequence">6.18. Browse Sequences Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-sequencedetail">6.19. Sequence Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createscenario">6.20. Create Scenario Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-ondemand">6.21. On-Demand Query Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-variable">6.22. Variables Dialog</a></span></dt></dl></dd><dt><span class="chapter"><a href="#debugger">7. EPL Debugger Dialogs</a></span></dt><dd><dl><dt><span class="sect1"><a href="#enginemgmt-debugger-main">7.1. EPL Debugger Main Dialog</a></span></dt><dd><dl><dt><span class="sect2"><a href="#enginemgmt-debugger-main-epl">7.1.1. EPL Statements</a></span></dt><dt><span class="sect2"><a href="#enginemgmt-debugger-main-sequence">7.1.2. Time And Event Sequence</a></span></dt><dt><span class="sect2"><a href="#enginemgmt-debugger-main-activity">7.1.3. Activity</a></span></dt></dl></dd><dt><span class="sect1"><a href="#enginemgmt-debugger-entrypoint">7.2. EPL Debugger Entry Point Dialog</a></span></dt></dl></dd><dt><span class="chapter"><a href="#pushmonitoring">8. Push Monitoring Dialogs</a></span></dt><dd><dl><dt><span class="sect1"><a href="#pushmonitoring-browser">8.1. Browser Dialog</a></span></dt><dt><span class="sect1"><a href="#pushmonitoring-weblayer">8.2. Web Layer Dialog</a></span></dt><dt><span class="sect1"><a href="#pushmonitoring-endpoints">8.3. View Endpoint Dialog</a></span></dt><dt><span class="sect1"><a href="#pushmonitoring-statementmemory">8.4. Statement Detailed Metrics Dialog</a></span></dt></dl></dd><dt><span class="chapter"><a href="#eventletmenu">9. Eventlet Menu Dialogs</a></span></dt><dd><dl><dt><span class="sect1"><a href="#eventletmenu-about">9.1. Eventlet About Dialog</a></span></dt><dt><span class="sect1"><a href="#eventletmenu-settings">9.2. Eventlet Settings Dialog</a></span></dt><dt><span class="sect1"><a href="#eventletmenu-timeline-settings">9.3. Timeline Eventlet - Settings Dialog</a></span></dt></dl></dd><dt><span class="chapter"><a href="#eventletjquery">10. jQuery Plugin for Eventlets</a></span></dt><dd><dl><dt><span class="sect1"><a href="#eventletjquery-introduction">10.1. Introduction and Usage</a></span></dt><dt><span class="sect1"><a href="#eventletjquery-examples">10.2. Examples</a></span></dt><dt><span class="sect1"><a href="#eventletjquery-api">10.3. API</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletjquery-api-eventletplugin">10.3.1. Plugin API</a></span></dt><dt><span class="sect2"><a href="#eventletjquery-api-initialization">10.3.2. Initialization Object</a></span></dt><dt><span class="sect2"><a href="#eventletjquery-api-eventletcontrol">10.3.3. Eventlet Control API</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletjquery-scripts">10.4. Required Script and CSS Files</a></span></dt><dt><span class="sect1"><a href="#eventletjquery-parameters">10.5. Additional Eventlet Parameters</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletjquery-parameters-chart">10.5.1. Chart Eventlet Parameters</a></span></dt><dt><span class="sect2"><a href="#eventletjquery-parameters-timeline">10.5.2. Timeline Eventlet Parameters</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#eventletlauncher">11. Eventlet Launcher</a></span></dt><dt><span class="chapter"><a href="#eventletplugin">12. Build-Your-Own Eventlet</a></span></dt><dd><dl><dt><span class="sect1"><a href="#eventletplugin-functions">12.1. Functions</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletplugin-functions-eventletConfigure">12.1.1. Function eventletConfigure</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-eventletInitialize">12.1.2. Function eventletInitialize</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-update">12.1.3. Function eventletUpdate</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-manifest">12.1.4. Function eventletManifest</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-expire">12.1.5. Function eventletExpire</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletplugin-running">12.2. Running</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletplugin-buildingrunning-jqueryplugin">12.2.1. Run Using jQuery Eventlet Plugin</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-buildingrunning-gui">12.2.2. Run Using GUI and Launcher</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletplugin-htmlcontent">12.3. Providing HTML Content</a></span></dt><dt><span class="sect1"><a href="#eventletplugin-sample">12.4. Example Eventlet</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletplugin-sample-html">12.4.1. Example Eventlet - Launch HTML</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-sample-htmlpartial">12.4.2. Example Eventlet - Content HTML</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-sample-javascipt">12.4.3. Example Eventlet - JavaScript</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-sample-running">12.4.4. Running the Example Eventlet</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletplugin-troubleshooting">12.5. Troubleshooting</a></span></dt></dl></dd></dl></div><div class="preface" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e18"/>Preface</h2></div></div></div><p>
+			This document introduces the EsperHQ web application.
+		</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="Overview"/>Chapter 1. Overview</h2></div></div></div><p>
+		This section describes Enterprise Edition web browser technology, implemented using JavaScript and HTML 5. The EsperHQ client application provides:
+    </p><div class="itemizedlist"><ul><li><p>
+				The EsperHQ GUI presents a multi-window user interface to design, deploy and manage CEP engine(s) as well as create and launch eventlets and dashboards. 
+			</p></li><li><p>
+				Continuously-updating displays of type chart, grid, gauge and timeline, configurable and manageable at runtime.
+			</p></li><li><p>
+				EsperHQ includes a faceless launch URL that you can pass an eventlet filename or declaration and that launches the eventlet streaming realtime display. 
+			</p></li><li><p>
+				A jQuery plugin to integrate eventlets into an HTML page and activate eventlets.
+			</p></li><li><p>
+				An extension API for building your own eventlets. 
+			</p></li></ul></div><p>
+      We use the term <code class="literal">Eventlet</code> for real-time displays of events. Eventlets provide a declarative way to hook up sources of data with displays that can be continuously-updating.
+      The client provides the Eventlet Wizard dialog to create and edit eventlets.
+    </p><p>
+      When eventlets are launched the client manages the subscriptions as well as the on-demand (pull) queries, if any, for data flows from CEP engine(s) to displays. When eventlets are de-activated (closed or timed out) then the client closes those subscriptions.
+    </p><p>
+      Eventlets can be launched within the multi-window captive GUI and may also be launched standalone via faceless launcher or URL, and integrated into HTML pages via jQuery eventlet plugin. 
+    </p><p>
+		In addition, the EsperHQ client application has a dashboard page builder that presents a drag-and-drop dialog to easily build a web page or application consisting of eventlet and HTML content.
+    </p><p>
+		Under <a class="xref" href="#cookbook" title="Chapter 3. Cookbook">Chapter 3, <i>Cookbook</i></a> we provide instructions to address common use cases.
+	</p><p>
+		The <a class="xref" href="#connectivity" title="Chapter 2. Connectivity">Chapter 2, <i>Connectivity</i></a> section describes connection to CEP engine(s).
+	</p><p>
+		In <a class="xref" href="#eventletwizard" title="Chapter 4. Eventlet Wizard">Chapter 4, <i>Eventlet Wizard</i></a> we outline the eventlet wizard and configuration options.
+	</p><p>
+		The section <a class="xref" href="#eventletplugin" title="Chapter 12. Build-Your-Own Eventlet">Chapter 12, <i>Build-Your-Own Eventlet</i></a> discusses how to develop a plug-in eventlet.
+	</p><p>
+		The <a class="xref" href="#enginemgmt" title="Chapter 6. Engine Management Dialogs">Chapter 6, <i>Engine Management Dialogs</i></a> chapter is the client application user manual.
+	</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="connectivity"/>Chapter 2. Connectivity</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#connectivity-endpoint">2.1. Endpoints</a></span></dt></dl></div><p>
+		The EsperHQ client application connects to the same web application server it was loaded from for invoking HQ REST services. 
+		The web application server in turn connects to one or more CEP Push Services endpoints. Please see the EsperHQ web application (WAR) documentation for connectivity configuration.
+	</p><p>
+		It is not necessary to write JavaScript client code to use the client application and eventlets.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="connectivity-endpoint"/>2.1. Endpoints</h2></div></div></div><p>
+			The EsperHQ client application presents a drop-down dialog box in the upper right corner labeled <code class="literal">Endpoint</code> that lists all configured endpoints. The list of available endpoints can be configured as part of EsperHQ configuration.
+		</p><p>
+			In the next drop-down dialog box titled <code class="literal">Engine URI</code> the client lists, for the currently chosen endpoint, the available Esper engine URIs. Engine URIs are dynamically discovered, thereby if your application creates and destroys engines any changes are reflected in the client application.
+		</p><p>
+			The current selection of endpoint and engine URI applies across the client to all dialogs.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook"/>Chapter 3. Cookbook</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#cookbook-historical">3.1. Integrating Historical and Real-time Data</a></span></dt><dt><span class="sect1"><a href="#cookbook-multiendpoint">3.2. Merging Streams of Multiple Endpoints</a></span></dt><dt><span class="sect1"><a href="#cookbook-unmap">3.3. Map Entries as Events</a></span></dt><dt><span class="sect1"><a href="#cookbook-drilldown">3.4. On-Click and Drill-Down</a></span></dt><dt><span class="sect1"><a href="#cookbook-timestamps">3.5. Display of Long-type Timestamps</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-historical"/>3.1. Integrating Historical and Real-time Data</h2></div></div></div><p>
+			All eventlet continuous displays allow multiple resources to be included in the composition. 
+			Each resource can use either data push or data pull as well as both together as described in <a class="xref" href="#eventletwizard" title="Chapter 4. Eventlet Wizard">Chapter 4, <i>Eventlet Wizard</i></a>.
+		</p><p>
+			In Esper, an EPL statement may query historical or reference data via two means: First, by listing an SQL statement within the EPL statement. Second, by a method invocation join. Please consult the Esper documentation for details.
+			All EPL statements can be non-streaming queries called via the <code class="literal">iterator</code> pull API. 
+		</p><p>
+			In addition, Esper supports on-demand SQL-style fire-and-forget queries against named windows. On-demand queries can also be used as data sources along with real-time data in an eventlet composition. A refresh schedule can be attached via iterate instructions.
+		</p><p>
+		  You may combine historical and real-time data as follows:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Create an EPL statement to retrieve the historical or reference data.
+				</p></li><li><p>
+					Create an EPL statement to represent your real-time stream.
+				</p></li><li><p>
+					Create an eventlet with two resources: the historical data EPL statement and the real-time stream EPL statement. For the historical data EPL statement, use the <code class="literal">configure</code> option to set iterate on.
+				</p></li></ol></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-multiendpoint"/>3.2. Merging Streams of Multiple Endpoints</h2></div></div></div><p>
+			All eventlet continuous displays allow multiple resources to be included in the composition. Each resource may originate from a different CEP Push Services endpoint.
+			Each resource may explicitly name its endpoint, or may leave the endpoint out to indicate to use the default endpoint configured in Esper HQ.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-unmap"/>3.3. Map Entries as Events</h2></div></div></div><p>
+			If your event rows are within a map property of an event object, use the client un-map instruction under the <code class="literal">configure</code> option to un-map key-value pairs of a map property.
+		</p><p>
+			Continuous displays handle the un-map instruction at runtime. The chart display, for example, creates a series per key value when the pointsource is configured with a label
+			and the series does not have a value for label.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-drilldown"/>3.4. On-Click and Drill-Down</h2></div></div></div><p>
+			The eventlet composition XML allows registering a click callback function that is an external function. The click callback function gets invoked on a mouse click of an item in the eventlet display. The engine passes an Object with 
+			contextual information for the item clicked on. The object passed to the script function will contain the event properties or data points for the chart item, timeline, gauge or grid row clicked on. 
+		</p><p>
+			A sample JavaScript callback that simply prints all object properties is shown below:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;script language="JavaScript" type="text/javascript"&gt;
+  function clicked(obj) {
+    var str=""; //variable which will hold property values
+    str += "Value for object alone: " + obj + "\n\n";
+    str += "Properties are:\n";
+    for(prop in obj) {
+      str += " " + prop + "="+ obj[prop]+"\n";
+    }
+    alert(str); //Show all properties and their value
+  }
+&lt;/script&gt;</pre><p>
+			In response to a callback your JavaScript function may, for example, construct an eventlet composition XML or construct the name of a stored eventlet from the values passed.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="cookbook-timestamps"/>3.5. Display of Long-type Timestamps</h2></div></div></div><p>
+		  Eventlets receive property metadata as part of their subscription(s) and when new event types are available. When eventlets recognize a <code class="literal">long</code>-type property the property value if it represents a valid date is automatically converted to the default date-time format for output, based on seconds since 1970. Therefore it is sufficient to simply select the <code class="literal">long</code>-type timestamp value in an EPL query.
+		</p><p>
+		  To perform custom formatting or timestamp conversion, consider defining a plug-in single-row function (see CEP engine documentation).
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard"/>Chapter 4. Eventlet Wizard</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#eventletwizard-eventlettypes">4.1. Eventlet Visualization Types (Step 1)</a></span></dt><dt><span class="sect1"><a href="#eventletwizard-resources">4.2. CEP Resources (Step 2)</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletwizard-resources-stmt">4.2.1. CEP Resources: Single EPL Statement</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-stmtset">4.2.2. CEP Resources: Set of EPL Statements</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-enginemetric">4.2.3. CEP Resources: Engine Metrics</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-ondemand">4.2.4. CEP Resources: On-Demand Query</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-resources-variable">4.2.5. CEP Resources: Variables</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-sourceinstruction">4.2.6. CEP Resource Configurations</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletwizard-config">4.3. Configuration (Step 3)</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletwizard-chart">4.3.1. Chart Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-gauge">4.3.2. Gauge Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-timeline">4.3.3. Timeline Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-grid">4.3.4. Grid Configuration Dialog</a></span></dt><dt><span class="sect2"><a href="#eventletwizard-plugin">4.3.5. Plug-In Configuration Dialog</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletwizard-settings">4.4. Eventlet Settings</a></span></dt></dl></div><p>
+		The eventlet wizard is a 3-page dialog to create and edit an eventlet. 
+	</p><p>
+		The first page of the wizard, termed <code class="literal">Visualization Type</code>, presents a list of visualization types to choose from. Any visualization type can be combined with any data source.
+		To proceed, please click on a table row and press the <code class="literal">Next</code> button.
+	</p><p>
+		The second page termed <code class="literal">CEP Resources</code> presents the possible resources to obtain data from. 
+		Possible resources include EPL statements, dynamic EPL statement sets, on-demand queries, variables and engine metrics.
+		To proceed, in the section <code class="literal">Select Resources</code> please click on <code class="literal">Get All</code> to get a list of statements, for example, 
+		click on a table row and press the <code class="literal">Next</code> button.
+	</p><p>
+		The third page termed <code class="literal">Configuration</code> allows configuring the visualization and resources. Some display types do not require any configuration.
+		To proceed, please populate the required form fields and press the <code class="literal">Save</code> or <code class="literal">Launch</code> button.
+	</p><p>
+		The button bar on the upper left side shows your progress through the wizard. On the right of the button bar is a progress text.
+		Click the <code class="literal">Next</code> button to continue to the next page and the <code class="literal">Back</code> button to go back a page.
+	</p><p>
+		The <code class="literal">Save</code> button allows to save the eventlet as a file for later launching or editing.
+		The <code class="literal">Launch</code> button launches the eventlet.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-eventlettypes"/>4.1. Eventlet Visualization Types (Step 1)</h2></div></div></div><p>
+		  The below table summarizes the eventlet display types available.
+		</p><div class="table"><a id="d0e227"/><p class="title"><b>Table 4.1. Eventlet Display Types</b></p><div class="table-contents"><table summary="Eventlet Display Types" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>Chart</td><td>For display of line, column, area or pie charts.</td></tr><tr><td>Grid</td><td>For display of a single table or table of tables.</td></tr><tr><td>Gauge</td><td>An instrument with an arrow pointing to the current value.</td></tr><tr><td>Plug-In</td><td>An eventlet implementation provided by your application, see <a class="xref" href="#eventletplugin" title="Chapter 12. Build-Your-Own Eventlet">Chapter 12, <i>Build-Your-Own Eventlet</i></a>.</td></tr><tr><td>Timeline</td><td>Horizontal time-based display.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-resources"/>4.2. CEP Resources (Step 2)</h2></div></div></div><p>
+		  The next table summarizes the resources available for providing data to eventlets. As CEP engine resources are the data sources for eventlets, we use that term interchangeably.
+		</p><p>
+		  Resources can be configured in terms of their push policy: Whether the push includes real-time updates, initial snapshots and/or repeated snapshots following a pattern or schedule.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-stmt"/>4.2.1. CEP Resources: Single EPL Statement</h3></div></div></div><p>
+				You can subscribe to a single EPL statement's output events, where the EPL statement is identified by statement name.
+			</p><p>
+				You can optionally provide a filter expression. The push engine applies the filter expression to each output event of the statement and only
+				passes events on that satisfy the filter expression, when provided. The filter expression must return a boolean true or false.
+			</p><p>
+				The statement must be registered and in started state at time of eventlet activation.
+			</p><p>
+				By default, the eventlet receives all current data available (aka. a snapshot, iterator) for the statement at activation time. Subsequently it receives
+				any updated data from the statement in real-time based on push services SLA levels.
+			</p><p>
+				Use the configure link displayed for the statement to change the default configuration. You may disable initial snapshot and 
+				real-time updates as well as configure pull frequency in addition or as an alternative.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-stmtset"/>4.2.2. CEP Resources: Set of EPL Statements</h3></div></div></div><p>
+				You can also subscribe to a dynamically changing set of zero, one or many statements. You may define selection criteria for statements to include in the set based
+				on statement name, expression, state or statement tags using equals or SQL-like semantics and conjunctions.
+			</p><p>
+				At the time of activation it is not required that any statement matching the selection criteria exists. Only at the time one or more statements are started that 
+				match selection criteria will the eventlet received metadata and data from the statements. When a statement is destroyed, the eventlet stops receiving data from
+				that statement.
+			</p><p>
+				You can also form a statement set from all statements. In this case the eventlet receives data from any currently started statement as well as any newly started
+				statement after eventlet activation.
+			</p><p>
+				When selecting a set of statements then any updates are always real-time updates and pull frequency cannot be configured.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-enginemetric"/>4.2.3. CEP Resources: Engine Metrics</h3></div></div></div><p>
+				You can elect to subscribe to certain pre-defined engine metrics, as displayed in the respective tab.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-ondemand"/>4.2.4. CEP Resources: On-Demand Query</h3></div></div></div><p>
+				You can subscribe to a query against a named window that is executed upon eventlet activation and can be executed repeatedly thereafter.
+			</p><p>
+				By default the query executes once at the time of eventlet activation. You may also configure an interval or pattern to follow for repeated 
+				query execution.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-resources-variable"/>4.2.5. CEP Resources: Variables</h3></div></div></div><p>
+				You can subscribe to changes to a variable, by variable name.
+			</p><p>
+				The variable must exist at time of activation of the eventlet.
+			</p><p>
+				By default, the eventlet receives all current data available for the variable at activation time. Subsequently it receives
+				any updated data from the variable in real-time based on push services SLA levels.
+			</p><p>
+				Use the configure link displayed for the variable to change the default configuration. You may disable initial snapshot and 
+				real-time updates as well as configure pull frequency in addition or as an alternative.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-sourceinstruction"/>4.2.6. CEP Resource Configurations</h3></div></div></div><p>
+				The <code class="literal">Configure</code> button available on the resources dialog for each selected resource can provide additional configuration for each resource.
+			</p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="eventletwizard-sourceinstruction-push"/>4.2.6.1. Push Policy</h4></div></div></div><p>
+					For all CEP resources with the exception of statement sets, you may configure push policy.  
+				</p><p>
+					In the default push policy, the push services push a snapshot of current data once at the start of the subscription. Therefore <code class="literal">Push Snapshot Once On Start</code>
+					is checked. If the eventlet does not need to receive initial snapshot data, please uncheck this flag.
+				</p><p>
+					In the default push policy, the push services push new data when new data is available. Therefore <code class="literal">Real-Time Updates</code> is checked.
+					If the eventlet does not need to receive real-time data, please uncheck this flag.
+				</p><p>
+					In the default push policy, the push services does not push periodic snapshots. Therefore <code class="literal">Push Snapshots Based on Expression</code> is unchecked.
+					If the eventlet desires to receive periodic snapshots, please check this flag and enter a time-only pattern. 
+				</p><p>
+					The next example pattern pushes a snapshot after 10 seconds every 10 seconds:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">every timer:interval(10 seconds)</pre><p>
+					The next example pattern pushes a snapshot every 15 minutes between 8am and 5pm and also immediately (timer-interval zero):
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">every timer:at(*/15, 8:17, *, *, *) or timer:interval(0)</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="eventletwizard-sourceinstruction-unmap"/>4.2.6.2. Rows in a Map</h4></div></div></div><p>
+					When your single event contains a Map that itself has key-value pairs for use as individual events, you can transform a property of type Map to individual events.
+				</p><p>
+					You must provide the property name of the map-type property, the key property name and type, and the value property name and type in the dialog.
+				</p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-config"/>4.3. Configuration (Step 3)</h2></div></div></div><p>
+			In the <code class="literal">Configuration</code> step of the dialog you can enter eventlet configuration information. 
+			For certain eventlet types you must enter required information that is marked with <code class="literal">(*)</code>.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-chart"/>4.3.1. Chart Configuration Dialog</h3></div></div></div><p>
+				In the chart dialog you must populate the <code class="literal">Origin</code> and <code class="literal">X</code> and <code class="literal">Y</code> required fields of each series. 
+				The origin identifies which of the selected resources provides the data points. The <code class="literal">X</code> field is the name of the property or the built-in field that 
+				provided values for the horizontal X-axis of the chart, and the <code class="literal">Y</code> field for values of the vertical <code class="literal">Y</code> axis.
+			</p><p>
+				Checking <code class="literal">Stack</code> produces a stacked line, area or column chart (not supported for pie).
+				In a stacked chart each of the series represents part of the stack and should have the same origin for <code class="literal">X</code>.
+			</p><p>
+				You may add as many series to a chart as needed.
+			</p><p>
+				Populate the click callback function name to register an external function (JavaScript, VBScript) to invoke when a mouse click on a chart item occurs.
+			</p><p>
+				The <code class="literal">Opacity</code> field is optional and defines the opacity of the area or columns (only for area and column charts). Please provide a number between 0 and 1.
+				For column charts, the opacity should be set on the chart-level and is the same for all series.
+			</p><p>
+				For category-based charts such as bar charts or pie charts set the horizontal axis type to <code class="literal">Category</code>. Set the vertical axis type to <code class="literal">Linear</code> to display linear values. In the <code class="literal">X</code> field set the property that provides the category value. In the <code class="literal">Y</code> field set the property that provides the linear value.
+			</p><p>
+				Colors are specified in the CSS hex format <code class="literal">#000000</code>.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-gauge"/>4.3.2. Gauge Configuration Dialog</h3></div></div></div><p>
+				The gauge configuration dialog lets you set many design attributes of the gauge. You must populate the <code class="literal">Origin</code> and <code class="literal">X</code> required fields.
+			</p><p>
+				Populate the click callback function name to register an external function (JavaScript, VBScript) to invoke when a mouse click on the gauge occurs.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-timeline"/>4.3.3. Timeline Configuration Dialog</h3></div></div></div><p>
+				The timeline configuration dialog lets you set a click callback function name, which is an external function (JavaScript, VBScript) to invoke when a mouse click on an item occurs.
+				It also allows to set a level of display detail.
+			</p><p>
+				In the <code class="literal">Tiny</code> and <code class="literal">Small</code> detail levels, a mouse click on on event brings up a modal popup showing of event properties for the event.
+				In the <code class="literal">Full</code> detail level, since event properties are displayed inline, please use double-clikc to bring up the modal popup. 
+			</p><p>
+				Optionally, you may also select the field that provides the timestamp values that the eventlet uses to place events in the timeline view. You must select a field 
+				that returns either numeric number of milliseconds or date-type values. The values returned by the field must be sorted in ascending date order.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-grid"/>4.3.4. Grid Configuration Dialog</h3></div></div></div><p>
+				Grids provide in-place-updated, as well as appended-to grids and last-value row grids that can be presented as part of a nesting of tables.
+			</p><p>
+				Use the <span class="emphasis"><em>Nesting</em></span> option to enable nested grids. A nested grid requires a key property field by which the eventlet can nest tables.
+			</p><p>
+				Use the <span class="emphasis"><em>In-place Updates</em></span> option to enable in-place updated grids. You must specify one or more key property fields that the eventlet uses to identify same-row. Rather than appending rows, the eventlet updates the row that returns the same key values. The label and background color of the last updated row(s) change according to the style property values.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletwizard-plugin"/>4.3.5. Plug-In Configuration Dialog</h3></div></div></div><p>
+				This dialog is for an eventlet that your application or another provider may supply in the form of JavaScript. The EsperHQ eventlet container can load such externally-provided functions (or classes) at runtime. Please see <a class="xref" href="#eventletplugin" title="Chapter 12. Build-Your-Own Eventlet">Chapter 12, <i>Build-Your-Own Eventlet</i></a> for additional information.
+			</p><p>
+				The dialog requires you to enter the classname.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletwizard-settings"/>4.4. Eventlet Settings</h2></div></div></div><p>
+			The <code class="literal">Settings...</code> button in menu of the wizard dialog bring up the eventlet general settings dialog.
+		</p><p>
+			This dialog allows you to specify the number of data points retained by the eventlet. By default, eventlets retain all data points for display.
+			You can change the number of data points retained by entering a count and selecting a unit from the dropdown.
+		</p><p>
+			The dialog also allows setting menu to false, causing the eventlet menu to not be displayed.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard"/>Chapter 5. Dashboard Page Builder</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#eventletdashboard-eventletconfig">5.1. Dashboard Eventlet Configuration</a></span></dt><dt><span class="sect1"><a href="#eventletdashboard-text">5.2. Dashboard Text/HTML content</a></span></dt><dt><span class="sect1"><a href="#eventletdashboard-customizing">5.3. Customizing Generated HTML</a></span></dt></dl></div><p>
+		The dashboard page builder is a means to compose a complete web page that combines eventlets with static content or other dynamic content.
+	</p><p>
+	    The output of the dashboard page builder is a HTML page that fully adheres to the HTML 5 standard. You may edit the output file in a text or HTML editor and introduce
+	    additional content or formatting. The output HTML file contains a short script that initializes eventlets when a web browser loads the page.
+	</p><p>
+		The dashboard page builder is a drag &amp; drop dialog. On the left side of the dialog is a list of components that may be dragged onto the green-colored drop area. 
+	</p><p>
+		Drag and drop the eventlet icon to place eventlet content into the web page. Drag and drop the Text/HTML icon to place text or HTML content onto the web page.
+		Drag and drop any of the cell or row icons to organize the web page into rows and cells.
+	</p><p>
+		The dashboard page is organized into a grid system that consists of rows wherein each row contains one or more cells. You may add and remove rows and organize the cells in each row.		
+	</p><p>
+		The size of all cells in a row always adds up to 12. The width of a cell that is size 12 is 100% of available size and therefore takes up the space for a whole row.
+		The width of a cell that is size 6 is 50% of available size. Therefore if a row has 3 cells that are size 6, 4 and 2 then the cells take roughly 50%, 32% and 16% of space. 
+		Remaining space is allocated to padding between cells.
+	</p><p>
+		Use the <code class="literal">Save</code> button to save the HTML file to the file system.
+		Use the <code class="literal">Save and Open in New Window</code> button to save the HTML file to the file system and open the HTML file in a new window.
+		The saved HTML file can also be opened from the file explorer.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard-eventletconfig"/>5.1. Dashboard Eventlet Configuration</h2></div></div></div><p>
+			After dropping an eventlet icon onto a cell, the builder displays eventlet configuration input fields. The input fields consist of a drop-down from which you can choose
+			the origin of the eventlet, and of an input field.
+		</p><p>
+			Select <code class="literal">Filename</code> from the drop down if you want to identify an eventlet file that exists in the file system. 
+			You can then choose an eventlet file that you have previously saved in the file system by pressing the <code class="literal">Select File</code> button.
+		</p><p>
+			Select <code class="literal">External URL</code> from the drop down if your eventlet file resides on another server. 
+			When loading an eventlet from an HTTP or other resource, specify the URL to load from in the format <code class="literal">protocol:filename</code>. Examples for URL are <code class="literal">http://myhost/myeventlet.xml</code>.
+		</p><p>
+			Select <code class="literal">XML Document</code> from the drop down if you want to enter eventlet XML directly.
+			You can then enter or cut and paste the eventlet XML document into the input field. 
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard-text"/>5.2. Dashboard Text/HTML content</h2></div></div></div><p>
+			The Text/HTML component can be used to insert HTML or XHTML-formatted content.
+			The dashboard builder outputs an HTML document and the text you enter becomes part of the body, including its HTML formatting.			
+		</p><p>
+			For example, by entering <code class="literal">&lt;h3&gt;My Title&lt;/h3&gt;</code> into the text area the output page formats the title as a header.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard-customizing"/>5.3. Customizing Generated HTML</h2></div></div></div><p>
+			You may add style information to the generated HTML.
+		</p><p>
+			By default, style <code class="literal">row-fluid</code> has zero height thereby all content expands row height. 
+			Add <code class="literal">style="height: 400px; overflow: auto;"</code> to the <code class="literal">div</code> containing the div to assign a row height.
+			In addition, please configure eventlet display height or width as follows.
+		</p><p>
+			For setting the height and width of a chart eventlet, please refer to <a class="xref" href="#eventletjquery-parameters-chart" title="10.5.1. Chart Eventlet Parameters">Section 10.5.1, “Chart Eventlet Parameters�?</a>.
+		</p><p>
+			For setting the height and width of a timeline eventlet, please refer to <a class="xref" href="#eventletjquery-parameters-timeline" title="10.5.2. Timeline Eventlet Parameters">Section 10.5.2, “Timeline Eventlet Parameters�?</a>.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt"/>Chapter 6. Engine Management Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#enginemgmt-statementlist">6.1. Browse Statements Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-statementselection">6.2. Statement Selection Criteria Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-statement">6.3. Statement Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-stmtiterator">6.4. Statement Iterate Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createstmt">6.5. Create Statement Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-deployments">6.6. Browse Deployments Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-deploymentdetail">6.7. Deployment Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createdeployment">6.8. Create Deployment Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-eventtypes">6.9. Browse Event Types Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-eventtypedetail">6.10. Event Type Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-namedwindow">6.11. Named Windows / Tables Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-stmtmap">6.12. Browse Map of Streams Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflow">6.13. Browse Dataflow Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflowdetail">6.14. Dataflow Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflowinstance">6.15. Browse Dataflow Instances Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-dataflowinstancedetail">6.16. Dataflow Instance Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createsequence">6.17. Create Sequence Dialog</a></span></dt><dd><dl><dt><span class="sect2"><a href="#enginemgmt-sequence-syntax">6.17.1. Sequence Syntax</a></span></dt></dl></dd><dt><span class="sect1"><a href="#enginemgmt-sequence">6.18. Browse Sequences Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-sequencedetail">6.19. Sequence Detail Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-createscenario">6.20. Create Scenario Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-ondemand">6.21. On-Demand Query Dialog</a></span></dt><dt><span class="sect1"><a href="#enginemgmt-variable">6.22. Variables Dialog</a></span></dt></dl></div><p>
+      This section outlines client dialogs for engine management.
+    </p><p>
+      Use the <code class="literal">Endpoint</code> and <code class="literal">Engine URI</code> drop-down dialog boxes to select the endpoint and engine.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-statementlist"/>6.1. Browse Statements Dialog</h2></div></div></div><p>
+			This dialog shows EPL statements.
+		</p><p>
+		  You may click on a table entry to view statement detail.
+		</p><p>
+			Use the <code class="literal">Get All</code> button to retrieve a list of all statements regardless of the selection expression. 
+		</p><p>
+			Click the <code class="literal">New</code> button to create a new statement. 
+		</p><p>
+			Use <code class="literal">Find</code> to retrieve only a subset of statements according to current statement selection expression. Use the <code class="literal">Selection Criteria</code> dialog
+			to compose a selection expression that selects only those statements matching the selected criteria. The selection criteria can be an expression such as <code class="literal">name like '%mystatement%'</code>
+			to select all statements that have a statement name that contains the text <code class="literal">mystatement</code>. If the selection criteria are not a valid expression, 
+			they are taken as free-form text to match against statement name or statement EPL.
+		</p><p>
+			Click the <code class="literal">Refresh</code> button to retrieve the statement list again to refresh the screen. 
+		</p><p>
+			The <code class="literal">Search</code> entry allows to reduce the list of returned statement to those matching the entered text in statement name, EPL, state or any other displayed field.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-statementselection"/>6.2. Statement Selection Criteria Dialog</h2></div></div></div><p>
+			This modal dialog allows putting together a selection expression that the engine applies to each statement to determine whether to show the statement.
+			This allows you to filter statements by statement name, state, expression, tag or user object using equals, SQL-like or SQL-regex matching.
+		</p><p>
+			An example expression is <code class="literal">name like '%mystatement%'</code>. This expression selects all statements that have a statement name that contains the text <code class="literal">mystatement</code>.
+		</p><p>
+		   After closing the dialog, use the <code class="literal">Find</code> button to find the selected statements.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-statement"/>6.3. Statement Detail Dialog</h2></div></div></div><p>
+		  The statement detail dialog shows statement detail including statement name, description, EPL expression and properties of the statement output. This is a read-only form.
+		</p><p>
+			Via <code class="literal">Start</code> (displayed if a statement is not already started), <code class="literal">Stop</code> (displayed if a statement is not already stopped) and <code class="literal">Destroy</code> buttons a statement can be started, stopped or destroyed.
+		</p><p>
+			Use <code class="literal">Iterate</code> to view current iteration results for a statement.
+		</p><p>
+			Use <code class="literal">Instant Live Capture</code> to display an appended grid with real-time results for the statement.
+		</p><p>
+			Use <code class="literal">Save Live Capture</code> to save an eventlet configured to show an appended grid with real-time results for the statement.
+		</p><p>
+			The <code class="literal">Eventlet Wizard</code> button brings up the eventlet wizard, with the statement already added to the selected resources.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-stmtiterator"/>6.4. Statement Iterate Dialog</h2></div></div></div><p>
+			This dialog can be accessed from the statement detail dialog.
+			It allows to view iteration results for the selected statement.
+		</p><p>
+		   By default the dialog retrieves the first 100 rows and the table displays rows in batches of 10. Remove the value for maximum number of rows to retrieve all rows.  
+		</p><p>
+			The <code class="literal">Submit</code> button refreshes iteration results.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createstmt"/>6.5. Create Statement Dialog</h2></div></div></div><p>
+			This quick-entry screen for creating a new, started statement allows entering a statement name, an optional description and an EPL expression.
+		</p><p>
+			The checkbox for pattern can be used to create an EPL pattern statement (a statement utilizing only the EPL pattern language).
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-deployments"/>6.6. Browse Deployments Dialog</h2></div></div></div><p>
+			This screen lists all deployments, including deployments in undeployed state. Select a deployment by clicking on the list item to display its detailed information. Use <code class="literal">New</code> to create a new deployment.
+			Use <code class="literal">Refesh</code> to re-read the list of deployments.
+		</p><p>
+		   A deployment is a set of EPL statements that are deployed and undeployed as a unit. A deployment may mention a module name or may also omit the module name. The deployment id is
+		   the unique identifier of each deployment. Deployments that are in <code class="literal">DEPLOYED</code> (EPL statements started) or <code class="literal">UNDEPLOYED</code> state (no EPL statements started).
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-deploymentdetail"/>6.7. Deployment Detail Dialog</h2></div></div></div><p>
+			This screen displays the deployment detail in a read-only form. 
+			Among the deployment information is the deployment id which is a system-generated id or the deployment id provided on another form.
+			When the deployment EPL text uses the <code class="literal">module</code> keyword, the form display the module name.
+		</p><p>
+			The deployment state of <code class="literal">DEPLOYED</code> indicates that the module may have started EPL statements. For deployed modules the screen shows a list of statements associated to the deployment. 
+		</p><p>
+			The deployment state of <code class="literal">UNDEPLOYED</code> means the deployment is known (added to the list of deployments) but does not have EPL statements that are started.
+		</p><p>
+			  For deployments in <code class="literal">DEPLOYED</code> state, the <code class="literal">Undeploy and Remove</code> button undeploys and permanently removes a deployment. If the deployment is in deployed state, this operation destroys all statements associated to the deployment.
+		</p><p>
+			  For deployments in <code class="literal">DEPLOYED</code> state, use <code class="literal">Undeploy</code> to undeploy a deployment. This operation destroys all statements associated to the deployment but does not 
+			  remove the deployment, therefore the deployment can be deployed again later.
+		</p><p>
+			  For deployments in <code class="literal">UNDEPLOYED</code> state, you can use <code class="literal">Remove</code> to permanently remove a deployment.
+		</p><p>
+			  For deployments in <code class="literal">UNDEPLOYED</code> state, you can use <code class="literal">Deploy</code> to deploy a deployment and therefore start all statements associated to the deployment.
+		</p><p>
+			  The <code class="literal">Save</code> button allows saving the EPL text to a file.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createdeployment"/>6.8. Create Deployment Dialog</h2></div></div></div><p>
+			This dialog allows entering, validating and deploying zero, one or more EPL statements as a unit. 
+			The editing rules follow EPL module text editing rules: EPL Statements are separated by a semicolon (<code class="literal">;</code>) character.
+			The dialog also offers to look up existing deployments, populate EPL from a template, save to a file and load from a file.
+		</p><p>
+		    The <code class="literal">Templates</code> button brings up a dialog that lists templates. Please select a template row to populate the EPL text area from the predefined template text.
+		</p><p>
+		    The <code class="literal">Existing Deployments</code> button can be used to select an existing deployment for editing.
+		</p><p>
+		    Use <code class="literal">Load</code> to load EPL text from a file. Use <code class="literal">Save</code> to save EPL text to a file. Files reside in a server-side directory. 
+		</p><p>
+		    Use <code class="literal">Validate</code> to validate the EPL statements. This action validates syntax as well as all dependencies of all EPL statements in the EPL text. Any statement errors are displayed in the messages list.
+		</p><p>
+		    Use <code class="literal">Add</code> to add the deployment but no start any EPL statements. This operation assigns a deployment id but does not validate the EPL text. The deployment remains in undeployed state.
+		</p><p>
+		    Use <code class="literal">Deploy</code> to deploy the deployment. When successful the deployment is in deployed state and a confirmation dialog displays the deployment id. 
+		    All statements for the deployment are started. When validation errors
+		    occur then the messages are displayed in the messages list and none of the statements therein are in started state.
+		</p><p>
+			Upon <code class="literal">Deploy</code>, when the <code class="literal">Undeploy And Remove Existing</code> checkbox is checked (the default), 
+			any existing deployments that have either the same module name or the same deployment id are undeployed and removed before deploying the EPL statements, without rollback if the deployment fails.
+		</p><p>
+			Upon <code class="literal">Deploy</code>, when the <code class="literal">Close On Deploy</code> checkbox is checked (the default), the dialog closes.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-eventtypes"/>6.9. Browse Event Types Dialog</h2></div></div></div><p>
+			This dialog shows all registered event types and associated type detail. By selecting a type from the list you may bring up the event type detail dialog for the selected type.
+		</p><p>
+			The <code class="literal">Search</code> textbox and button is for quick finding of an event type.
+		</p><p>
+			Use the <code class="literal">Refresh</code> button to populate the list anew.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-eventtypedetail"/>6.10. Event Type Detail Dialog</h2></div></div></div><p>
+			The event type detail dialog shows detail information about a selected event type. The form is read-only.
+		</p><p>
+			For the selected event type the form shows where the event type originates from (named window, application-configured or inserted-into stream),
+			the properties available, the statements referring to that type and the event type's super-types, if any.
+		</p><p>
+		    You can click on a statement referring to that type to navigate to the statement detail screen.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-namedwindow"/>6.11. Named Windows / Tables Dialog</h2></div></div></div><p>
+			The named window and tables dialog lists all named windows as well as tables including their associated statement name and EPL for creation of the named window or table.
+		</p><p>
+			The <code class="literal">Search</code> textbox is for quick finding of a named window or table. Use <code class="literal">Refresh</code> to retrieve and display an updated list of named windows and tables.
+		</p><p>
+			  For each named window, the <code class="literal">Event Type</code> button opens up the event type information for the named window.
+		</p><p>
+			  For each named window or table, the <code class="literal">Statement</code> button
+			  opens up the statement detail of the create-window statement and the <code class="literal">Query</code> button opens the on-demand query dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-stmtmap"/>6.12. Browse Map of Streams Dialog</h2></div></div></div><p>
+			This dialog presents a graphical overview of the statements including event types and their dependency as depicted by arrows.
+		</p><p>
+		  The <code class="literal">Map All</code> button loads and displays all statements. 
+		  To select a subset of statements use <code class="literal">Selection Criteria</code> or enter a selection criteria expression and press <code class="literal">Read</code>.
+		  The <code class="literal">Refresh</code> button re-loads statements according to selection criteria.
+		</p><p>
+		  The scale slider controls the scale at which the display operates. The <code class="literal">Show Abstract</code> checkbox controls whether the displayed information includes statement summary information,
+		  the <code class="literal">Show Name</code> checkbox controls whether statement name is part of the display, and the <code class="literal">Show Expression</code> checkbox controls whether the EPL expression is displayed as well.
+		</p><p>
+		    Each statement and event type in the display has a pen icon that turns blue when hovering over the pen. By clicking on the pen you can call up the statement detail or event type detail dialog.
+		</p><p>
+		   The display shows the selected event types and statements. Stream consumption relationships are indicated by an arrow. Update and insert relationships are also indicated by arrows.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflow"/>6.13. Browse Dataflow Dialog</h2></div></div></div><p>
+			The dataflows dialog lists all declared dataflows including the dataflow name and the declaration text.
+		</p><p>
+			The <code class="literal">Search</code> textbox is for quick finding of a dataflow. Use <code class="literal">Refresh</code> to retrieve and display an updated list of dataflows.
+		</p><p>
+			Click on a dataflow row in the list to see the dataflow declaration detail dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflowdetail"/>6.14. Dataflow Detail Dialog</h2></div></div></div><p>
+			The dataflow detail dialog displays the selected dataflow declaration including the dataflow name and the declaration text.
+		</p><p>
+			This dialog allows instantiating dataflows: Please enter an instance name and click <code class="literal">Instantiate</code> to instantiate the dataflow.
+			The instance name must be unique among the currently known dataflow instances.
+		</p><p>
+			You can optionally enter additional operator parameters: Specify a URI of <span class="emphasis"><em>operatorName</em></span><code class="literal">/</code><span class="emphasis"><em>propertyName</em></span>
+			for each parameter as well as the parameter value and value type. For example, if the operator is <code class="literal">BeaconSource</code> specify the <code class="literal">iterations</code> property
+			using the URI <code class="literal">BeaconSource/iterations</code>.
+		</p><p>
+			The <code class="literal">Destroy</code> button removes the dataflow declaration by destroying the statement declaring the dataflow.
+		</p><p>
+		    The browse dataflow instances dialog lists the known dataflow instances.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflowinstance"/>6.15. Browse Dataflow Instances Dialog</h2></div></div></div><p>
+			The dataflows instances dialog lists all dataflow instances that are running, cancelled or completed.
+		</p><p>
+			The <code class="literal">Search</code> textbox is for quick finding of a dataflow instance. Use <code class="literal">Refresh</code> to retrieve and display an updated list of dataflow instances.
+		</p><p>
+			Click on a dataflow instance row in the list to see the dataflow instance detail dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-dataflowinstancedetail"/>6.16. Dataflow Instance Detail Dialog</h2></div></div></div><p>
+			The dataflow detail dialog displays the selected dataflow instance including the dataflow name and the dataflow instance state, as well as parameters provided at time of dataflow instantiation.
+		</p><p>
+			When the dataflow instance is in <code class="literal">RUNNING</code> state the dataflow instance is currently executing. 
+			Click on <code class="literal">Cancel</code> to cancel the execution which causes the dataflow instance to transition to <code class="literal">CANCELLED</code>.
+			Click on <code class="literal">Cancel And Remove</code> to cancel execution and remove the dataflow instance. This causes the data flow instance to no longer appear in the list.
+		</p><p>
+			When the dataflow instance is in <code class="literal">CANCELLED</code> or <code class="literal">COMPLETED</code> state the dataflow instance has been cancelled or completed and is no longer executing. 
+			Click on <code class="literal">Remove</code> to remove the dataflow instance. This causes the data flow instance to no longer appear in the list.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createsequence"/>6.17. Create Sequence Dialog</h2></div></div></div><p>
+		  A <span class="emphasis"><em>Sequence</em></span> is a list of instructions that can be executed. Instructions consists of events to send into the engine and of time passing.
+		  Use a Sequence to stimulate or simulate events and time passing.
+		</p><p>
+			A sample sequence is shown below:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">StockTick={symbol='IBM', price='50'}
+t = t.plus(5 seconds)
+StockTick={symbol='GE', price='100'}</pre><p>
+			The sample sequence above starts by sending an event of the type <code class="literal">StockType</code> (define event types separately) that has a <code class="literal">symbol</code> value of <code class="literal">IBM</code>
+			and a price value of <code class="literal">50</code>. The sequence then pauses for 5 seconds wall clock time. It then sends a <code class="literal">StockType</code> event that has a <code class="literal">symbol</code> value of <code class="literal">GE</code> and a price value of <code class="literal">100</code>.
+		</p><p>
+		  The syntax for sequences is described in greater detail below.
+		</p><p>
+			You must enter a unique name for the sequence as well as a sequence to execute. Check the <code class="literal">Loop</code> checkbox to have the execution loop, which causes 
+			the sequence to start from the beginning when the sequence arrived at the end.			
+		</p><p>
+			Click the <code class="literal">Load</code> button to bring up a file selection dialog for loading a sequence. Click the <code class="literal">Save</code> button to bring up a file selection dialog for saving a sequence. 
+		</p><p>
+			Use the <code class="literal">Validate</code> button to validate the sequence. The system performs type-assignment checking and lists validation messages below the editor.
+		</p><p>
+		    The <code class="literal">Add</code> button adds the sequence but does not execute it. The <code class="literal">Start</code> button starts execution of the sequence.
+		</p><p>
+			The <code class="literal">Add Interval</code> button brings up a form to enter an interval.
+		</p><p>
+			You can select an event type in the drop-down and click the <code class="literal">Add Event</code> button to bring up a form that you can use to populate event property expressions.
+			The <code class="literal">Refresh Types</code> button re-reads the list of event types.
+		</p><p>
+			Sequences can be in <code class="literal">STARTED</code> and <code class="literal">STOPPED</code> state. Started sequences are currently executing. Stopped sequences are not currently executing.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-sequence-syntax"/>6.17.1. Sequence Syntax</h3></div></div></div><p>
+				Each instruction of a sequence can either send an event or wait a specified amount of wall clock time.
+			</p><p>
+				To send an event into the engine, enter an assignment of event type name to an array of name-value pairs, as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">mytype = {intProperty = 0, stringProperty = 'abc'}</pre><p>
+				Within the <code class="literal">{}</code> array you can list individual event property names and assignments to a value.
+				Right-hand side assignment expressions can be any constant. 
+			</p><p>
+				To assign the value of an expression evaluation to an event property, use the <code class="literal">eval</code> function and specify the expression string.
+			</p><p>
+				The next example assigns the result of the expression <code class="literal">5*5</code> to <code class="literal">intProperty</code> and the result of the <code class="literal">myFunction</code> function 
+				(assumed to be registered with the engine instance) to <code class="literal">stringProperty</code>.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">mytype = {intProperty = eval("5*5"), stringProperty = eval("myFunction()")}</pre><p>
+				To advance wall clock time, enter an assignment of time <code class="literal">t</code> to t plus a time period:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">t = t.plus(10 minutes 5 seconds)</pre><p>
+				Please see the "plus" date-time enumeration method and the time period parameter documentation in Esper docs for more information.
+			</p><p>
+				Alternatively, you may also advance time in millisecond steps by adding milliseconds to t:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">t = t + 1000</pre><p>
+				The above example adds 1 second (1000 milliseconds) to the current engine time.
+			</p><p>
+				You may also advance engine time to a specific point in time by specifying the date-time in the format <code class="literal">yyyy-MM-dd HH:mm:ss.SSS</code>.
+			</p><p>
+				The following assignment advances engine time to May 1st 2002 at 8am:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">t = '2002-05-1 8:00:00.000'</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-sequence"/>6.18. Browse Sequences Dialog</h2></div></div></div><p>
+			This dialog lists sequences. More information on sequences can be found at <a class="xref" href="#enginemgmt-createsequence" title="6.17. Create Sequence Dialog">Section 6.17, “Create Sequence Dialog�?</a>.
+		</p><p>
+			Click the <code class="literal">New</code> button to create a new Sequence. The <code class="literal">Refresh</code> button refreshes the list with the most current information.
+		</p><p>
+			Click on a list item to bring up the sequence detail dialog for the selected sequence.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-sequencedetail"/>6.19. Sequence Detail Dialog</h2></div></div></div><p>
+			This read-only dialog displays detail information about a Sequence. The past activity list displays the last 100 actions taken by the sequence, with the most recent action on the top of the list.
+		</p><p>
+			For a started, currently-executing sequence you can use <code class="literal">Refresh</code> to refresh the list of past activity log entries.
+		</p><p>
+			The <code class="literal">Stop</code> button is enabled when the sequence is in started state and allows stopping the sequence.
+		</p><p>
+			The <code class="literal">Start</code> button is enabled when the sequence is in stopped state and allows starting the sequence.
+		</p><p>
+			The <code class="literal">Edit And Remove</code> button stops the sequence if it is started and brings up an editor for the sequence.
+		</p><p>
+			The <code class="literal">Remove</code> button stops and removes the sequence.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-createscenario"/>6.20. Create Scenario Dialog</h2></div></div></div><p> 
+			This dialog allows testing and debugging a scenario consisting of EPL statements and a sequence of events.
+		</p><p>
+			The <code class="literal">Debug</code> button allows bringing up the EPL debugger for the scenario. The button is greyed out when the server does not run in instrumented operation.
+			Start the server with the instrumented option as described in the Esper Enterprise Edition - Debugger and Metrics documentation (see link from index.html).
+			You must provide the file name of a trace file into the input text box next to the button. The debugger uses the value you entered to create a trace file of the same name
+			and prompts to open the trace file.
+		</p><p> 
+			The editor dialogs on this screen can be resized if the space is insufficient. You may drag the borders of each section to resize the contents.
+		</p><p>
+			You can enter EPL statements on the left side of the page. You can enter multiple EPL statements separated by the semicolon (;) character, in the same format as the Create Deployment dialog.
+			The <code class="literal">Load EPL</code> and <code class="literal">Save EPL</code> buttons allow loading and saving EPL content.
+		</p><p>
+			Use the middle section of the page to enter a sequence of instructions that sends events into the engine or advances time, or both.
+			Please see <a class="xref" href="#enginemgmt-sequence-syntax" title="6.17.1. Sequence Syntax">Section 6.17.1, “Sequence Syntax�?</a> for information on sequence syntax.
+			This dialog also allows time assignment instructions in the format <code class="literal">t = '</code><span class="emphasis"><em>time</em></span><code class="literal">'</code>, for example <code class="literal">t = '2001-01-01 08:00:00.000'</code>.
+			The <code class="literal">Load Sequence</code> and <code class="literal">Save Sequence</code> buttons allow loading and saving sequences.
+		</p><p>
+			The <code class="literal">Run</code> button triggers validation and execution. Only the entered EPL and sequence are validated. The entered EPL must contain all 
+			event types, variables or named windows for the scenario. Any other event types, variables or named windows are not visible to the scenario.
+		</p><p>
+			The right side of the page displays results. The first tab <code class="literal">All Output Events</code> displays a breakdown of all events produced by all EPL statements. The <code class="literal">Output Per Statement</code>
+			tab shows output per statement. The third tab <code class="literal">All Audit Text</code> displays the time and events that were sent in, the output of @Audit annotations (if any were declared) and a line per output event that shows the statement name of the statement producing the output. The last tab <code class="literal">Audit Text Per Statement</code> displays the same but per statement.
+		</p><p>
+			Timestamps follow the format <code class="literal">yyyy-MM-dd HH:mm:ss.SSS</code>. 
+			For example, the value <code class="literal">2013-07-01 08:00:00.000</code> is a valid timestamp.
+		</p><p>
+			The date-time value entered in the <code class="literal">Beginning Of Time</code> input is the start time. Before the application creates EPL statements, it sets the CEP engine time to the provided time.
+		</p><p>
+			After pressing <code class="literal">Run</code>, the application lists output events and audit information on the right side. 
+			Prefix your statements with <code class="literal">@Name('my name')</code> to assign a statement name for easier identification of statement output.
+			Prefix your statements with <code class="literal">@Audit</code> to obtain audit (debug) output for that statement. 
+		</p><p>
+			This is a stateless service in that each time you execute a scenario the service allocates and destroys an engine instance. The configuration of the engine 
+			instance matches the instance selected for the dialog, thereby event types, variables and plug-in functions, for example, are all available if they have been 
+			preconfigured for the selected engine. 
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-ondemand"/>6.21. On-Demand Query Dialog</h2></div></div></div><p>
+			This screen allows entering a fire-and-forget, one-time executed query against a named window into the query dialog box and executing the query. The client displays query results in a table.
+		</p><p>
+		    You can enter a value for the maximum number of rows to return in the query into the <code class="literal">Max Rows</code> input.
+		</p><p>
+			The <code class="literal">Submit</code> button evaluates the query anew and displays updated query results.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-variable"/>6.22. Variables Dialog</h2></div></div></div><p>
+			The variable list displays all variables and their current values. Select a variable, enter a new value and use <code class="literal">Apply</code> to set a new variable value.
+		</p><p>
+			The filter textbox and button is for quick finding of a variable.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="debugger"/>Chapter 7. EPL Debugger Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#enginemgmt-debugger-main">7.1. EPL Debugger Main Dialog</a></span></dt><dd><dl><dt><span class="sect2"><a href="#enginemgmt-debugger-main-epl">7.1.1. EPL Statements</a></span></dt><dt><span class="sect2"><a href="#enginemgmt-debugger-main-sequence">7.1.2. Time And Event Sequence</a></span></dt><dt><span class="sect2"><a href="#enginemgmt-debugger-main-activity">7.1.3. Activity</a></span></dt></dl></dd><dt><span class="sect1"><a href="#enginemgmt-debugger-entrypoint">7.2. EPL Debugger Entry Point Dialog</a></span></dt></dl></div><p>
+		The EPL debugger allows you to inspect and debug the impact of events and time passing in respect to EPL statements.
+	</p><p> 
+		The EPL debugger dialog operates on a trace file previously acquired either by means of the debug API or in the Create Scenario dialog.			
+	</p><p>
+		For documentation on EPL debugger prerequisites, the debugger client API, comparison and overview please consult the Esper Enterprise Edition - Debugger and Metrics documentation (see link from index.html).
+	</p><p>
+	  We use the term <span class="emphasis"><em>entry point</em></span> to mean a specific event or a specific time. An entry point may in addition relate to a specific EPL statement context partition.
+	</p><p>
+		The EPL Debugger consists of two dialogs: 
+	</p><div class="itemizedlist"><ul><li>
+			The EPL Debugger main dialog for filtering and finding entry points.
+		</li><li>
+			The EPL Debugger Entry Point dialog for detailed viewing of the processing for a given entry point.
+		</li></ul></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-debugger-main"/>7.1. EPL Debugger Main Dialog</h2></div></div></div><p>
+			In summary, the left hand side read-only editor presents all EPL statements. The right hand side read-only editor presents the sequence of events and time passing interleaved with event output.
+			The bottom section presents activity filtered according to current selections and organized in various ways.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-debugger-main-epl"/>7.1.1. EPL Statements</h3></div></div></div><p>
+				All EPL statements that exist at the time the debug session started, as well as all EPL statements that are created, are displayed within the left hand side editor.
+			</p><p>
+				Click on the gutter between the line number and each EPL statement to select an EPL statement. The editor will display a filter and indicate statement selection. Click again to remove 
+				the statement selection.
+			</p><p>
+				If, during a debug session, your application creates EPL statements assigning the same statement name multiple times, the EPL statement also lists the system-generated statement id
+				that uniquely identifies each statement.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-debugger-main-sequence"/>7.1.2. Time And Event Sequence</h3></div></div></div><p>
+				The right hand side editor displays events sent into the engine as well as rows indicating time passing. The editor interleaves output events as comments.
+			</p><p>
+				For each event sent into the engine, the editor shows the event in a summary format: 
+			</p><pre class="synopsis"><span class="emphasis"><em>eventtype</em></span>={<span class="emphasis"><em>properties</em></span>}</pre><p>
+				For time passing, the editor shows time passing in the summary format:
+			</p><pre class="synopsis"><span class="emphasis"><em>t</em></span>='<span class="emphasis"><em>time</em></span>'</pre><p>
+				Click on the gutter between the line number and each event or time to select an input event or time. The editor will display a filter and indicate event or time selection. 
+				Click again to remove the selection.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="enginemgmt-debugger-main-activity"/>7.1.3. Activity</h3></div></div></div><p>
+				The bottom part of the debugger presents activity, filtered according to the current filter criteria, if any.
+			</p><p>
+				Each tab organizes the same overall set of activity in different ways:
+			</p><div class="itemizedlist"><ul><li>
+					The <code class="literal">Sequential</code> tab shows a time-ordered list of activity as a nested list of entry points.
+				</li><li>
+					The <code class="literal">By Statement And Context Partition</code> tab organizes activity by statement and context partition(s), if any.
+				</li><li>
+					The <code class="literal">By Input Event</code> tab organizes activity by input event only, showing only input events.
+				</li><li>
+					The <code class="literal">By Time Advancing</code> tab organizes activity by time passing only, showing only time passing.
+				</li></ul></div><p>
+				You may select an item in any of the tabs to navigate to the EPL Debugger Entry Point dialog.
+			</p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="enginemgmt-debugger-main-activity-sequential"/>7.1.3.1. Sequential Tab - Additional Information</h4></div></div></div><p>
+					In the sequential tab the outermost items that are highlighted by a blue arrow icon represent the input events and time passing.
+				</p><p>
+					Nested inside and highlighted by a gear icon are to-be-processed events including generated (insert-into or route) events and including named window insert and remove stream events, 
+					to be processed as a result of an input event or time passing.
+				</p><p>
+					Innermost and highlighted by a green arrow icon are statement(s) that require processing.
+				</p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="enginemgmt-debugger-entrypoint"/>7.2. EPL Debugger Entry Point Dialog</h2></div></div></div><p>
+			Selection of an entry point in the EPL debugger brings up detailed information about how the event applies to the different EPL constructs.
+		</p><p>
+			This dialog presents event and time information at the top of the screen, for reference.
+		</p><p>
+			The left side of the screen shows the specific EPL statement currently under consideration, as applicable.
+		</p><p>
+			The right side of the dialog presents a navigable trace of activity for the event or time passing. Click on the <code class="literal">+</code> icon to expand a nested trace entry
+			and click on the nested trace entry itself to obtain the trace variable information.
+		</p><p>
+			The bottom left side of the screen presents frame information. When navigating to a nested trace, this information gets updated with enclosing trace information.
+		</p><p>
+			The bottom right side of the screen presents variable detail information in an expandable tree. When navigating to a nested trace, this information gets updated with information relevant to the selected entry.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring"/>Chapter 8. Push Monitoring Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#pushmonitoring-browser">8.1. Browser Dialog</a></span></dt><dt><span class="sect1"><a href="#pushmonitoring-weblayer">8.2. Web Layer Dialog</a></span></dt><dt><span class="sect1"><a href="#pushmonitoring-endpoints">8.3. View Endpoint Dialog</a></span></dt><dt><span class="sect1"><a href="#pushmonitoring-statementmemory">8.4. Statement Detailed Metrics Dialog</a></span></dt></dl></div><p>
+      This section outlines client dialogs for push monitoring.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-browser"/>8.1. Browser Dialog</h2></div></div></div><p>
+			This dialog shows the client id associated to the browser window or tab. The client id is unique to a browser window. The browser window is also called <code class="literal">client</code>.
+			The web layer associates the client id to activations.
+		</p><p>
+			In addition, the dialog shows the web socket URL, the web socket state and a total message count.
+		</p><p>
+			Under <code class="literal">Activations</code> the dialog shows activations currently active for the client.
+		</p><p>
+			Under <code class="literal">Messages</code> the dialog shows messages for the client with the newest message listed first and the oldest message last.
+		</p><p>
+			The <code class="literal">Refresh</code> button fetches updated information.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-weblayer"/>8.2. Web Layer Dialog</h2></div></div></div><p>
+			The Web Layer Dialog is a view into operation of the web application server for the web client. Use the <code class="literal">Refresh</code> button to update the screen with the most current information.
+		</p><p>
+			In the Clients tab is an entry for each unique web-browser client. The client id serves as the unique identifier assigned to a client. The Client History tab lists closed or
+			disconnected clients.
+		</p><p>
+			The Client Activations tab displays a list of activations for each client. The term activations stands for active eventlets. Under CA History (Client Activations History) 
+			are past activations.
+		</p><p>
+			The Client Resources tab displays per client and activation the endpoint(s) and resource(s) that make up the activation.
+		</p><p>
+			The Server Resources tab displays subscription information per server resource. We use the term server resource to mean CEP engine(s) statements, variables etc..
+		</p><p>
+			The SR History (Server Resources History) tab displays past server resources.
+		</p><p>
+			The Audit tab displays messages about state transitions for clients, activations and server resources.
+		</p><p>
+			The Log Messages tab displays log messages such as exceptions or other important information.
+		</p><p>
+			The Stats Total tab displays message count totals overall.
+		</p><p>
+			The Stats Per Client tab displays message count totals per client.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-endpoints"/>8.3. View Endpoint Dialog</h2></div></div></div><p>
+			This dialog view presents a view into a given endpoint's push service operation. A web client may connect and subscribe to information from multiple endpoints.
+			Use the <code class="literal">Refresh</code> button to retrieve updated information.
+		</p><p>
+			This dialog is also the launch point for CEP engine monitoring.
+			You may select an engine URI using the drop down dialog box, and select a display for CEP engine metrics, then use the <code class="literal">Open</code> button to display the engine metrics.
+		</p><p>
+			The <code class="literal">Statement Detailed Metrics</code> button opens the EPL detailed metric and memory reporting dialog.
+		</p><p>
+			The Sessions tab displays a list of sessions. A session is a logical connection between a push services endpoint and a server in the web layer. 
+			A session may have zero to many subscriptions to server resources managed by push services. 
+			When a session ends, its associated subscriptions also end. The session id is the unique identifier of a session.
+			The Session History tab shows past sessions.
+		</p><p>
+			The Resources tab displays a list of server resources managed by push services. A server resource can be a statement, statement set, variable, on-demand query, engine metric or other publishable data.
+			Push services assigns a resource id to each managed server resource.
+			The Resources History tab displays a list of past server resources.
+		</p><p>
+		    The Subscriptions tab displays a line for each session indicating an interest in a server resource. Push services assigns a subscription id to each such association.
+		    The Subscriptions History tab displays past subscriptions.
+		</p><p>
+		    The Audit tab displays a history of all state transitions of sessions, resources and subscriptions. 
+		</p><p>
+		    The Log Messages tab displays relevant push services messages.
+		</p><p>
+		    The Stats tab displays message statistics per destination. For each destination the dialog displays the since-start totals as well as last N combined-message totals.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="pushmonitoring-statementmemory"/>8.4. Statement Detailed Metrics Dialog</h2></div></div></div><p>
+			Use this 2-step dialog to inspect statement detail metrics including memory use.
+		</p><p>
+			The first step in the dialog allows selecting statements for reporting. After you have selected one or more statements use <code class="literal">Report Metrics</code>
+			to obtain resource reports. Make sure to check the checkbox <code class="literal">This action requires locking of each context partition</code>.
+			When the engine obtains memory use, it must do so while having the context partition write locked disallowing any concurrent activity.
+		</p><p>
+			Use the <code class="literal">Show Options</code> button to configure metric reporting options. By default, the dialog reports high-level metrics for each statement and does not report
+			detailed breakdown per grouping or criteria. Please use the checkboxes to control the level of detail of metrics reporting.
+		</p><p>
+			In step 1, the statement selection, the <code class="literal">Read All</code> reads all statements and the <code class="literal">Selection Criteria</code> button
+			brings up a statement selection expression dialog. Use the <code class="literal">Find</code> button to read statements according to the selection expression and the <code class="literal">Refresh</code> button to refresh.
+			The <code class="literal">Search</code> text box is a quick search among the displayed statements. 
+		</p><p>
+			After pressing <code class="literal">Report Metrics</code>, the dialog displays metrics and summary information per statement.
+		</p><p>
+			Additional information can be found in the Esper Enterprise Edition - Debugger and Metrics documentation.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu"/>Chapter 9. Eventlet Menu Dialogs</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#eventletmenu-about">9.1. Eventlet About Dialog</a></span></dt><dt><span class="sect1"><a href="#eventletmenu-settings">9.2. Eventlet Settings Dialog</a></span></dt><dt><span class="sect1"><a href="#eventletmenu-timeline-settings">9.3. Timeline Eventlet - Settings Dialog</a></span></dt></dl></div><p>
+      This section outlines the menu options and dialogs available when launching eventlets from the menu dropdown.
+    </p><p>
+		The menu option <code class="literal">Clear</code> clears all data held by the eventlet.
+    </p><p>
+		The menu option <code class="literal">Suspend-Discarding</code> causes the eventlet to discard incoming data. 
+		When you click <code class="literal">Resume-Stop Discarding</code> the eventlet starts applying incoming data again.
+    </p><p>
+		The menu option <code class="literal">Suspend-Buffering</code> instructs the eventlet to buffer incoming data and not update the page. 
+		When you click <code class="literal">Resume-From Buffered Data</code> the eventlet applies the buffered data to the page.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu-about"/>9.1. Eventlet About Dialog</h2></div></div></div><p>
+			The About dialog for eventlets is a read-only dialog and shows the client id associated to the browser window or tab and additional information such as activation name, eventlet activation xml, 
+			message count, live messages and last update time. Live messages include eventlet initialization messages, configuration messages and any eventlet exceptions or other information an eventlet may report.
+		</p><p>
+			This screen gets updated automatically and there is no refresh option (the refresh is automatic).
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu-settings"/>9.2. Eventlet Settings Dialog</h2></div></div></div><p>
+			The Settings dialog for eventlets allows controlling the number of events retained and shown by an eventlet. This setting can also be changed for the eventlet
+			in the eventlet wizard under <code class="literal">Settings</code> or directly in the eventlet XML definition.
+		</p><p>
+			The default is generally that an eventlet does not discard any events and thereby retains all events. You can uncheck the Retain All Events checkbox
+			to change the amount of events retained. Please enter a numeric value into Retain Last and select a unit from the dropdown. This setting does not affect server operation 
+			and any memory associated with retaining data points is client web browser memory.
+		</p><p>
+		    Use the <code class="literal">Apply</code> button to apply the new settings without closing the dialog, and the <code class="literal">Ok</code> button to apply and close the dialog.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletmenu-timeline-settings"/>9.3. Timeline Eventlet - Settings Dialog</h2></div></div></div><p>
+			The Settings dialog for Timeline eventlets can be used to change the level of detailed displayed for each event and to change the color associated to each event type.
+		</p><p>
+			The dialog presents a list of event type names and a color picker for each.
+		</p><p>
+		    Use the <code class="literal">Apply</code> button to apply the new settings without closing the dialog, and the <code class="literal">Ok</code> button to apply and close the dialog.
+		</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery"/>Chapter 10. jQuery Plugin for Eventlets</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#eventletjquery-introduction">10.1. Introduction and Usage</a></span></dt><dt><span class="sect1"><a href="#eventletjquery-examples">10.2. Examples</a></span></dt><dt><span class="sect1"><a href="#eventletjquery-api">10.3. API</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletjquery-api-eventletplugin">10.3.1. Plugin API</a></span></dt><dt><span class="sect2"><a href="#eventletjquery-api-initialization">10.3.2. Initialization Object</a></span></dt><dt><span class="sect2"><a href="#eventletjquery-api-eventletcontrol">10.3.3. Eventlet Control API</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletjquery-scripts">10.4. Required Script and CSS Files</a></span></dt><dt><span class="sect1"><a href="#eventletjquery-parameters">10.5. Additional Eventlet Parameters</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletjquery-parameters-chart">10.5.1. Chart Eventlet Parameters</a></span></dt><dt><span class="sect2"><a href="#eventletjquery-parameters-timeline">10.5.2. Timeline Eventlet Parameters</a></span></dt></dl></dd></dl></div><p>
+		The jQuery plugin for eventlets lets you create eventlets using jQuery.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-introduction"/>10.1. Introduction and Usage</h2></div></div></div><p>
+			The jQuery plugin operates on a placeholder DOM element. Based on the initialization object provided, it enhances the DOM structure under the DOM placeholder element 
+			to load and display the eventlet. 
+		</p><p>
+			The plugin operates in conjunction with Enterprise Edition push services to manage the flow of data to eventlet(s). Multiple eventlets on the same page share a websocket connection.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-examples"/>10.2. Examples</h2></div></div></div><p>
+		  The web page can declare a <code class="literal">div</code> element with an id:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;div id="example"&gt;&lt;/div&gt;</pre><p>
+			  The jQuery plugin enhances the <code class="literal">div</code> element and activates the eventlet: 
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$(document).ready(function() {
+  var startEventlets = function() {
+    $("#example").eventlet({eventlet_filename: "SampleEventlet.eventlet"});
+  };
+  $.eventletLoad({success:startEventlets});
+} );</pre><p>
+			The <code class="literal">eventletLoad</code> function must be called to set up the eventlet client. Pass a success callback function that activates eventlets by calling the <code class="literal">eventlet</code> function.
+		</p><p>
+		  The example above passes the filename <code class="literal">SampleEventlet.eventlet</code> to the jQuery eventlet plugin, thereby the plugin loads the eventlet from the file system.
+		</p><p>
+			An example file that incorporates multiple eventlets into a single page can be found in <code class="literal">example/Example Dashboard JQuery Eventlet for Onlineshop.html</code> in the <code class="literal">data/hqsvc</code> folder.
+		</p><p>
+			You can also use the GUI Dashboard Page Builder to build an HTML page that incorporates eventlets and that uses the jQuery eventlet plugin.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-api"/>10.3. API</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-api-eventletplugin"/>10.3.1. Plugin API</h3></div></div></div><p>
+				  The following functions are available from the <code class="literal">jQuery</code> eventlet plugin:
+			</p><div class="table"><a id="d0e1701"/><p class="title"><b>Table 10.1. jQuery Eventlet Plugin API</b></p><div class="table-contents"><table summary="jQuery Eventlet Plugin API" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">eventletLoad(</code><span class="emphasis"><em>load object</em></span><code class="literal">)</code></td><td>
+							  <p>
+								  Prepare for loading and activating eventlets. Must be called before <code class="literal">eventlet()</code> calls.
+								  Pass a callback function to wait for successful load.
+							  </p>
+							</td></tr><tr><td><code class="literal">eventlet(</code><span class="emphasis"><em>initialization object</em></span><code class="literal">)</code></td><td>
+							  <p>Activate an eventlet.</p>
+							</td></tr><tr><td><code class="literal">eventletUnload()</code></td><td>
+							  <p>Deactivate all eventlets for this web page.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				The <code class="literal">eventletLoad</code> function must be called at least once before activating any eventlets, to allocate client resources.
+				In the <code class="literal">success</code> property of the object passed to <code class="literal">eventletLoad</code>, provide a
+				callback function that the eventlet runtime invokes when completed:
+			</p><p>
+				The typical sequence of function calls is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">var startEventlets = function() {
+  $("#example").eventlet({eventlet_filename: "SampleEventlet.eventlet"});
+};
+$.eventletLoad({success:startEventlets});</pre><p>
+				The <code class="literal">eventletUnload</code> function should be called before a web page unloads, to release the server and client-side resources:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$.eventletUnload();</pre><p>
+				The following example assigns a function to <code class="literal">window.onbeforeunload</code> that unloads all eventlets:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">var unloadPageEventlets = function() {
+	$.eventletUnload();
+};
+window.onbeforeunload=unloadPageEventlets;</pre><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>
+					We recommend adding code to your web page to unload all eventlets or destroy each eventlet, at the time the web page unloads.
+					This allows for a clean disconnect of the eventlet container from the web layer push service.
+				</p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-api-initialization"/>10.3.2. Initialization Object</h3></div></div></div><p>
+				You must specify either the <code class="literal">eventlet_filename</code>, or the <code class="literal">eventlet_xml</code> or the <code class="literal">eventlet_url</code> property of the initialization object.
+				The next table outlines the initialization object properties.
+			</p><div class="table"><a id="d0e1798"/><p class="title"><b>Table 10.2. jQuery Eventlet Plugin Initialization Parameters</b></p><div class="table-contents"><table summary="jQuery Eventlet Plugin Initialization Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>URL Parameter Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">eventlet_filename</code> : <span class="emphasis"><em>filename</em></span></td><td>
+							  <p>Assign <code class="literal">eventlet_filename</code> to the file name of an eventlet file in the file system.</p>
+							</td></tr><tr><td><code class="literal">eventlet_xml</code> : <span class="emphasis"><em>xml document</em></span></td><td>
+							  <p>Assign <code class="literal">eventlet_xml</code> to the XML document that defines the eventlet.</p>
+							</td></tr><tr><td><code class="literal">eventlet_url</code> : <span class="emphasis"><em>URL</em></span></td><td>
+							  <p>Assign <code class="literal">eventlet_url</code> to the URL of the web resource that originates the eventlet.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				  Pass an eventlet XML document to provide the eventlet definition without reading from a file: 
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#example").eventlet({eventlet_xml: 
+  '&lt;eventlet xmlns="http://www.espertech.com/esper-eventletxml"&gt;\
+    &lt;composition&gt;\
+      &lt;timeline detail="full"/&gt;\
+    &lt;/composition&gt;\
+    &lt;sources&gt;\
+      &lt;source sourceId="0"&gt;\
+        &lt;statement name="MyStatement" 
+            engineUri="default" endpoint="defaultendpoint"/&gt;\
+      &lt;/source&gt;\
+    &lt;/sources&gt;\
+  &lt;/eventlet&gt;'});</pre><p>
+				  Or pass a URL that points to a web resource that returns the eventlet definition: 
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#example").eventlet(
+  {eventlet_url: "http://myserver:port/path/to/file/MySampleEventlet.xml"}
+);</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-api-eventletcontrol"/>10.3.3. Eventlet Control API</h3></div></div></div><p>
+				  Although most of the time your Javascript interaction with the jQuery eventlet plugin will be done using the initialization object as described earlier,
+				  you might find it useful to have some external control of the eventlet.
+			</p><p>
+				  The following functions are available from the <code class="literal">jQuery.eventlet</code> object:
+			</p><div class="table"><a id="d0e1874"/><p class="title"><b>Table 10.3. jQuery Eventlet Instance API</b></p><div class="table-contents"><table summary="jQuery Eventlet Instance API" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">destroy</code></td><td>
+							  <p>Destroys the eventlet.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				Pass the literal <code class="literal">destroy</code> to the <code class="literal">eventlet</code> function to destroy a specific eventlet:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#example").eventlet('destroy'));</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-scripts"/>10.4. Required Script and CSS Files</h2></div></div></div><p>
+			Please include the following script files:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;script src="scripts/release/vendor.min.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/release/common.min.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/release/eventlet.min.js"&gt;&lt;/script&gt;</pre><p>
+			Please include the following CSS files:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;link rel="stylesheet" href="styles/release/vendor.css"&gt;
+&lt;link rel="stylesheet" href="styles/common.css"&gt;
+&lt;link rel="stylesheet" href="styles/eventlet.css"&gt;</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletjquery-parameters"/>10.5. Additional Eventlet Parameters</h2></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-parameters-chart"/>10.5.1. Chart Eventlet Parameters</h3></div></div></div><p>
+				  The chart eventlet can be parameterized by height and width.
+			</p><div class="table"><a id="d0e1925"/><p class="title"><b>Table 10.4. Chart Eventlet Parameters</b></p><div class="table-contents"><table summary="Chart Eventlet Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">width</code></td><td>
+							  <p>The width in pixels as an int value or the CSS width as a string-typed value.</p>
+							</td></tr><tr><td><code class="literal">height</code></td><td>
+							  <p>The height in pixels as an int value or the CSS height as a string-typed value.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				For example:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#eventlet").eventlet( {eventlet_filename: "mychart.eventlet", height:400, width:400});</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletjquery-parameters-timeline"/>10.5.2. Timeline Eventlet Parameters</h3></div></div></div><p>
+				  The timeline eventlet can be parameterized by height.
+			</p><div class="table"><a id="d0e1965"/><p class="title"><b>Table 10.5. Timeline Eventlet Parameters</b></p><div class="table-contents"><table summary="Timeline Eventlet Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">height</code></td><td>
+							  <p>The height in pixels as an int value.</p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				For example:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$("#eventlet").eventlet( {eventlet_filename: "mytimeline.eventlet", height:400});</pre></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletlauncher"/>Chapter 11. Eventlet Launcher</h2></div></div></div><p>
+		The eventlet faceless launcher allows your application to launch eventlets via URL. By passing URL parameters the launcher web page obtains all necessary information to provide the execution environment for the eventlet. You may start saved eventlets by name or by providing a URL or activation XML document.
+	</p><p>
+		The eventlet faceless launch is useful for web applications that require launching an eventlet in an HTML iframe or frame, for example.
+		Use the jQuery eventlet plugin instead for those web applications that need finer-grained control via scripting.
+	</p><p>
+		The URI for the launcher is:
+	</p><pre class="synopsis">http://<span class="emphasis"><em>host:port</em></span>/esperhqapp/launcher.html?<span class="emphasis"><em>launch_parameters</em></span></pre><p>
+		You must specify either the <code class="literal">eventlet_filename</code>, or the <code class="literal">eventlet_xml</code> or the <code class="literal">eventlet_url</code> parameter. 
+		The next table outlines the launch parameters. 
+	</p><div class="table"><a id="d0e2018"/><p class="title"><b>Table 11.1. Eventlet Faceless URL Launch Parameters</b></p><div class="table-contents"><table summary="Eventlet Faceless URL Launch Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>URL Parameter Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">eventlet_filename</code>=<span class="emphasis"><em>filename</em></span></td><td>
+					  <p>Specify <code class="literal">eventlet_filename</code> followed by the file name of an eventlet file in the file system to activate a saved eventlet.</p>
+					</td></tr><tr><td><code class="literal">eventlet_xml</code>=<span class="emphasis"><em>xml document</em></span></td><td>
+					  <p>Specify <code class="literal">eventlet_xml</code> followed by the XML document (escaped) that defines the eventlet.</p>
+					</td></tr><tr><td><code class="literal">eventlet_url</code>=<span class="emphasis"><em>URL</em></span></td><td>
+					  <p>Specify <code class="literal">eventlet_url</code> followed by the encoded URL of the web resource that defines the eventlet.</p>
+					</td></tr></tbody></table></div></div><br class="table-break"/><p>
+	  The following are examples of faceless launch URLs.
+	</p><p>
+		The next example launches an eventlet by providing the eventlet file name as it has been saved to the file system. 
+		It assumes that you have an eventlet by name <code class="literal">MySavedEventlet.eventlet</code> stored in the <code class="literal">myeventlets</code> subfolder of the root folder. The runtime loads 
+		the eventlet from the file system:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">http://host:port/esperhqapp/launcher.html?eventlet_filename=myeventlets/MySavedEventlet.eventlet</pre><p>
+		This example launch URL provides the eventlet XML as part of the URL parameters. Fill in the eventlet activation XML where 'MYXMLHERE' appears in the URL below, making sure the XML document is escaped.
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">http://host:port/esperhqapp/launcher.html?eventlet_xml=MYXMLHERE</pre><p>
+		This example launches an eventlet by providing a URL from which the eventlet itself can be loaded. 
+		This example loads the file <code class="literal">MySavedEventlet.eventlet</code> from the server <code class="literal">myserver</code> at port 8000 and at a given path:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">http://host:port/esperhqapp/launcher.html?eventlet_url=http://myserver:8000/path/to/file/MySavedEventlet.eventlet</pre></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletplugin"/>Chapter 12. Build-Your-Own Eventlet</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#eventletplugin-functions">12.1. Functions</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletplugin-functions-eventletConfigure">12.1.1. Function eventletConfigure</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-eventletInitialize">12.1.2. Function eventletInitialize</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-update">12.1.3. Function eventletUpdate</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-manifest">12.1.4. Function eventletManifest</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-functions-expire">12.1.5. Function eventletExpire</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletplugin-running">12.2. Running</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletplugin-buildingrunning-jqueryplugin">12.2.1. Run Using jQuery Eventlet Plugin</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-buildingrunning-gui">12.2.2. Run Using GUI and Launcher</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletplugin-htmlcontent">12.3. Providing HTML Content</a></span></dt><dt><span class="sect1"><a href="#eventletplugin-sample">12.4. Example Eventlet</a></span></dt><dd><dl><dt><span class="sect2"><a href="#eventletplugin-sample-html">12.4.1. Example Eventlet - Launch HTML</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-sample-htmlpartial">12.4.2. Example Eventlet - Content HTML</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-sample-javascipt">12.4.3. Example Eventlet - JavaScript</a></span></dt><dt><span class="sect2"><a href="#eventletplugin-sample-running">12.4.4. Running the Example Eventlet</a></span></dt></dl></dd><dt><span class="sect1"><a href="#eventletplugin-troubleshooting">12.5. Troubleshooting</a></span></dt></dl></div><p>
+      It is easy to develop a JavaScript eventlet and have that eventlet be managed by the eventlet runtime, jQuery plugin, EsperHQ GUI and faceless launcher. 
+      Thereby your application can provide only the minimal code needed for display logic of continuously-updating data from event streams. 
+      This chapter develops a simple eventlet that receives and displays event data.
+    </p><p>
+		The description herein requires working knowledge of JavaScript. An eventlet is a JavaScript prototype or object that provides a set of functions for the eventlet runtime to call.
+    </p><p>
+      It is not necessary to develop event classes in JavaScript: The eventlet runtime and push service map event object properties of CEP engine events of any underlying type to the corresponding structure in JSON. Nested, indexed and mapped properties are also supported.
+    </p><p>
+      If you would rather customize an existing eventlet other than the examples we provide as described below, please contact us.
+    </p><p>
+      The easiest approach to developing an eventlet can be to copy the eventlet example provided with the distribution.
+      The example code can be found in the <code class="literal">examples-eventlet-javascript</code> folder.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletplugin-functions"/>12.1. Functions</h2></div></div></div><p>
+		The table below overviews the functions that must be provided by an eventlet object:
+		</p><div class="table"><a id="d0e2123"/><p class="title"><b>Table 12.1. Eventlet Object Functions</b></p><div class="table-contents"><table summary="Eventlet Object Functions" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Function</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">eventletConfigure(</code><span class="emphasis"><em>configuration</em></span><code class="literal">)</code></td><td>
+						  <p>
+							  Called once by the eventlet runtime after eventlet object construction and before loading HTML content, 
+							  passing configuration information such as the composition and sources.
+						  </p>
+						</td></tr><tr><td><code class="literal">eventletInitialize(</code><span class="emphasis"><em>context</em></span><code class="literal">)</code></td><td>
+						  <p>
+							  Called once by the eventlet runtime after loading eventlet HTML content and before the eventlet receives any event data or manifests,
+							  passing the root DOM element and the eventlet container event target.
+						  </p>
+						</td></tr><tr><td><code class="literal">eventletUpdate(</code><span class="emphasis"><em>update</em></span><code class="literal">)</code></td><td>
+						  <p>
+							  Called by the eventlet runtime passing event data.
+						  </p>
+						</td></tr><tr><td><code class="literal">eventletManifest(</code><span class="emphasis"><em>manifest</em></span><code class="literal">)</code></td><td>
+						  <p>
+							  Called by the eventlet runtime passing manifests. Manifests contain source and type metadata.
+						  </p>
+						</td></tr><tr><td><code class="literal">eventletExpire(</code><span class="emphasis"><em>expire</em></span><code class="literal">)</code></td><td>
+						  <p>
+							  Called by the eventlet runtime passing expiry information.
+						  </p>
+						</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			The below code provides a complete JavaScript prototype that implements all required eventlet functions, for illustration purposes.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">function EventletExampleMinimal() {
+}
+
+EventletExampleMinimal.prototype.eventletConfigure = function(configuration) {
+    console.log("eventletConfigure called");
+    console.log("  sources: " + JSON.stringify(configuration.sources));
+    console.log("  composition: " + JSON.stringify(configuration.composition));
+    console.log("  activation name: " + configuration.activationName);
+    console.log("  activation xml: " + configuration.activationXML);
+};
+
+EventletExampleMinimal.prototype.eventletInitialize = function(context) {
+    console.log("eventletInitialize called");
+    // context.containerEventTarget to interact with the menu and output text
+    // context.rootDOM for addressing DOM elements in HTML content
+};
+
+EventletExampleMinimal.prototype.eventletUpdate = function(update) {
+    console.log("eventletUpdate called");
+    console.log("  update: " + JSON.stringify(update));
+};
+
+EventletExampleMinimal.prototype.eventletManifest = function(manifest) {
+    console.log("eventletManifest called");
+    console.log("  manifest: " + JSON.stringify(manifest));
+};
+
+EventletExampleMinimal.prototype.eventletExpire = function(expire) {
+    console.log("eventletExpire called");
+    console.log("  expire: " + JSON.stringify(expire));
+};</pre><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-functions-eventletConfigure"/>12.1.1. Function <code class="literal">eventletConfigure</code></h3></div></div></div><p>
+				The eventlet runtime invokes the <code class="literal">eventletConfigure</code> method as the first call to the object after object instantiation. 
+				Here the code should validate the configuration, if any, and throw an error if the configuration is invalid.			
+			</p><p>
+				The eventlet runtime passes a configuration object that contains useful properties that your eventlet may inspect to obtain information
+				about the composition of the eventlet, the event type(s) and CEP server resource information.
+			</p><p>
+				Properties of the configuration object passed to the function are:
+			</p><div class="table"><a id="d0e2219"/><p class="title"><b>Table 12.2. Configuration Object Properties</b></p><div class="table-contents"><table summary="Configuration Object Properties" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">composition</code></td><td>
+							  <p>
+								  Contains the eventlet composition according to the eventlet XML document.
+							  </p>
+							</td></tr><tr><td><code class="literal">sources</code></td><td>
+							  <p>
+								  Information about the sources contributing data.
+							  </p>
+							</td></tr><tr><td><code class="literal">activationXML</code></td><td>
+							  <p>
+								  Contains the XML definition of the eventlet.
+							  </p>
+							</td></tr><tr><td><code class="literal">activationName</code></td><td>
+							  <p>
+								  The activation name is the file name if activated from a file, or URL if activated from a URL.
+							  </p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="eventletplugin-functions-eventletConfigure-composition"/>12.1.1.1. Property <code class="literal">composition</code></h4></div></div></div><p>
+						The <code class="literal">composition</code> property of the configuration object is a direct mapping of the eventlet XML document composition element to JSON and JavaScript objects and contains all
+						of the eventlet definition.
+					</p><p>
+						An example structure for <code class="literal">composition</code> is shown below:
+					</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">{
+  "classname":"EventletExampleMinimal"
+}</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="eventletplugin-functions-eventletConfigure-sources"/>12.1.1.2. Property <code class="literal">sources</code></h4></div></div></div><p>
+					The <code class="literal">sources</code> property of the configuration object is an array of sources and contains:
+				</p><div class="itemizedlist"><ul compact="compact"><li><p>
+							The <code class="literal">sourceId</code> as per eventlet XML document identifying the server resource by number.
+						</p></li><li><p>
+							The <code class="literal">resourceId</code> is generated by the server and is provided for every event.
+						</p></li><li><p>
+							The <code class="literal">manifest</code> contains a <code class="literal">typeId</code> which is generated by the server and is unique per event type. 
+							The <code class="literal">properties</code> field is a list of event properties.
+						</p></li><li><p>
+							The <code class="literal">target</code> is a description of the CEP server resource. 
+						</p></li></ul></div><p>
+					An example structure for <code class="literal">sources</code> is shown below:
+				</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">[
+   {
+      "sourceId":"0",
+      "resourceId":1,
+      "manifest":{
+         "typeId":1,
+         "definition":{
+            "properties":[
+               {
+                  "propertyName":"somePropertyValue",
+                  "propertyType":"int",
+                  "writable":true,
+                  "requiresIndex":false,
+                  "requiresMapkey":false,
+                  "indexed":false,
+                  "mapped":false
+               }
+            ]
+         },
+         "target":{
+            "statement":{
+               "statement":{
+                  "engineURI":"default",
+                  "statementName":"MyStatement",
+                  "epl":"@Name('MyStatement') select somePropertyValue from MyEventType",
+                  "eplNoAnnotation":"select somePropertyValue from MyEventType",
+                  "state":"STARTED",
+                  "lastStateChange":"2013-07-27T11:43:33.632+02:00",
+                  "pattern":false,
+                  "type":"SELECT",
+                  "properties":[
+                     {
+                        "propertyName":"somePropertyValue",
+                        "propertyType":"int",
+                        "writable":true,
+                        "requiresIndex":false,
+                        "requiresMapkey":false,
+                        "indexed":false,
+                        "mapped":false
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   }
+]</pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-functions-eventletInitialize"/>12.1.2. Function <code class="literal">eventletInitialize</code></h3></div></div></div><p>
+				The eventlet runtime invokes the <code class="literal">eventletInitialize</code> method always after <code class="literal">eventletConfigure</code> and after loading
+				HTML resources. The eventlet runtime passes a context object.
+			</p><p>
+				Properties of the object passed to the function are:
+			</p><div class="table"><a id="d0e2348"/><p class="title"><b>Table 12.3. Initialization Object Properties</b></p><div class="table-contents"><table summary="Initialization Object Properties" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">containerEventTarget</code></td><td>
+							  <p>
+								  For listening to menu commands such as the <code class="literal">Clear</code> button, and for sending trace and error messages.
+							  </p>
+							</td></tr><tr><td><code class="literal">rootDOM</code></td><td>
+							  <p>
+								  The root DOM element of the loaded HTML, as a jQuery object.
+							  </p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				Register a callback function that is invoked when a user selects <code class="literal">Clear</code> from the eventlet menu:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">context.containerEventTarget.addListener("clear", function() {
+        console.log("Clear called");
+});</pre><p>
+				Send trace messages that become visible in the menu <code class="literal">About</code> dialog:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">context.containerEventTarget.fireTrace("A trace message");</pre><p>
+				Send error messages that become visible in the menu <code class="literal">About</code> dialog:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">context.containerEventTarget.fireError("An error message");</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-functions-update"/>12.1.3. Function <code class="literal">eventletUpdate</code></h3></div></div></div><p>
+				The <code class="literal">eventletUpdate</code> method is always called after <code class="literal">eventletInitialize</code> and indicates arriving events.
+			</p><p>
+				Properties of the update object passed to the function are:
+			</p><div class="table"><a id="d0e2418"/><p class="title"><b>Table 12.4. Update Object Properties</b></p><div class="table-contents"><table summary="Update Object Properties" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">entries</code></td><td>
+							  <p>
+								  Array of event objects.
+							  </p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				Each event object contains:
+			</p><div class="itemizedlist"><ul compact="compact"><li><p>
+						The <code class="literal">resourceIds</code> property is an array of integer values. The resource id is the same as the <code class="literal">resourceId</code> received in the <code class="literal">sources</code> property
+						passed to <code class="literal">eventletConfigure</code>.
+					</p></li><li><p>
+						The <code class="literal">activationIds</code> property is an array of integer values that lists activation ids and is mostly for internal use.
+					</p></li><li><p>
+						The <code class="literal">typeId</code> property contains the event type id and is the same as the <code class="literal">typeId</code> received in the <code class="literal">sources</code> property
+						passed to <code class="literal">eventletConfigure</code>. 
+					</p></li><li><p>
+						The <code class="literal">arrivalTime</code> property is the long-type server time. 
+					</p></li><li><p>
+						The <code class="literal">newRows</code> property is an array of events arriving. Each array is itself an object that contains all event property values
+						as well as the builtin <code class="literal">__rowid</code> property. The builtin <code class="literal">__rowid</code> property is a long-type client-assigned event number.
+					</p></li></ul></div><p>
+				A sample JSON representation of the object passed to the <code class="literal">eventletUpdate</code> method is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">{"entries": [
+   {
+      "resourceIds":[
+         1
+      ],
+      "activationIds":[
+         "A_1"
+      ],
+      "typeId":1,
+      "arrivalTime":1374918222732,
+      "newRows":[
+         {
+            "somePropertyValue":100,
+            "__rowid":0
+         }
+      ]
+   }
+]}</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-functions-manifest"/>12.1.4. Function <code class="literal">eventletManifest</code></h3></div></div></div><p>
+				The eventlet runtime invokes the <code class="literal">manifest</code> method when new event type information is available and always after <code class="literal">eventletInitialize</code>. 
+				The eventlet code can, for example, adjust the display when new types of events become known.
+			</p><p>
+				Properties of the manifest object passed to the function are:
+			</p><div class="table"><a id="d0e2519"/><p class="title"><b>Table 12.5. Manifest Object Properties</b></p><div class="table-contents"><table summary="Manifest Object Properties" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">manifests</code></td><td>
+							  <p>
+								  Array of manifest entry objects.
+							  </p>
+							</td></tr></tbody></table></div></div><br class="table-break"/><p>
+				Each manifest entry object contains:
+			</p><div class="itemizedlist"><ul compact="compact"><li><p>
+						The <code class="literal">resourceIds</code> property is an array of integer values. The resource id is the same as the <code class="literal">resourceId</code> received in the <code class="literal">sources</code> property
+						passed to <code class="literal">eventletConfigure</code>.
+					</p></li><li><p>
+						The <code class="literal">activationIds</code> property is an array of integer values that lists activation ids and is mostly for internal use.
+					</p></li><li><p>
+						The <code class="literal">manifest</code> property contains a <code class="literal">typeId</code> property that contains the event type id and is the same as the <code class="literal">typeId</code> 
+						received in the <code class="literal">sources</code> property
+						passed to <code class="literal">eventletConfigure</code>. The <code class="literal">definition</code> contains a list of property descriptors.
+					</p></li><li><p>
+						The <code class="literal">target</code> is a description of the CEP server resource. 
+					</p></li></ul></div><p>
+				A sample JSON representation of the object passed to the <code class="literal">manifest</code> method is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">{"manifests": [
+   {
+      "resourceIds":[
+         1
+      ],
+      "activationIds":[
+         "A_1"
+      ],
+      "manifest":{
+         "typeId":3,
+         "definition":{
+            "properties":[
+               {
+                  "propertyName":"someProperty",
+                  "propertyType":"java.lang.String",
+                  "writable":false,
+                  "requiresIndex":false,
+                  "requiresMapkey":false,
+                  "indexed":false,
+                  "mapped":false
+               }
+            ]
+         },
+         "target":{
+            "statement":{
+               "statement":{
+                  "engineURI":"default",
+                  "statementName":"MyStatement",
+                  "epl":"@Name('MyStatement') select * from MySampleEvent",
+                  "eplNoAnnotation":"select * from MySampleEvent",
+                  "state":"STARTED",
+                  "lastStateChange":"2013-07-27T13:21:48.656+02:00",
+                  "pattern":false,
+                  "type":"CREATE_WINDOW",
+                  "properties":[
+                     {
+                        "propertyName":"someProperty",
+                        "propertyType":"java.lang.String",
+                        "writable":false,
+                        "requiresIndex":false,
+                        "requiresMapkey":false,
+                        "indexed":false,
+                        "mapped":false
+                     }
+                  ]
+               }
+            }
+         },
+         "endpoint":"defaultendpoint"
+      }
+   }
+]}</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-functions-expire"/>12.1.5. Function <code class="literal">eventletExpire</code></h3></div></div></div><p>
+				The eventlet runtime invokes the <code class="literal">eventletExpire</code> method only when retain-all is unchecked and a retain 
+				period or number of events is set through the menu or through launch parameters.
+			</p><p>
+				The object passed to <code class="literal">eventletExpire</code> has the following properties:
+			</p><div class="table"><a id="d0e2614"/><p class="title"><b>Table 12.6. Expire Object Properties</b></p><div class="table-contents"><table summary="Expire Object Properties" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">rowIdOffset</code></td><td>
+							  <p>
+								  Contains the row id (<code class="literal">__rowid</code>) of the newest event that expired, i.e. that no longer is retained according to retain settings.
+							  </p>
+							</td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletplugin-running"/>12.2. Running</h2></div></div></div><p>
+			This section outlines the steps required to run your own JavaScript eventlet.
+		</p><p>
+			The below sequence of steps saves an eventlet that refers to the JavaScript eventlet object:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    In the EsperHQ client application, start the Eventlet Wizard dialog.
+                </p></li><li><p>
+                    Select <code class="literal">Plugin</code> among the list of visualization types and click <code class="literal">Next</code>.
+                </p></li><li><p>
+                    Select CEP resources such as a statement that provides the data to display, click <code class="literal">Next</code>.
+                </p></li><li><p>
+                    As the classname, enter the prototype object name, for example <code class="literal">EventletExampleMinimal</code>.
+                    Save the eventlet to the file system using the <code class="literal">Save</code> button and assign the name <code class="literal">example_minimal.eventlet</code>.
+                </p></li></ol></div><p>
+			The below sections provide information how to use the jQuery eventlet plugin or the faceless launcher and EsperHQ GUI to launch the eventlet.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-buildingrunning-jqueryplugin"/>12.2.1. Run Using jQuery Eventlet Plugin</h3></div></div></div><p>
+				A sample HTML file that uses the jQuery plugin to launch the eventlet is provided below and also in the <code class="literal">examples-eventlet-javascript</code> folder
+				by name <code class="literal">EventletExampleMinimal_example.html</code>.
+			</p><p>
+				The sample HTML file assumes that you saved the eventlet under the name <code class="literal">example_minimal.eventlet</code>. If you chose a different name, please edit the HTML
+				before pointing your browser to the page.
+			</p><p>
+				Copy the <code class="literal">EventletExampleMinimal_example.html</code> and <code class="literal">EventletExampleMinimal.js</code> to the root folder of the web server at
+				<span class="emphasis"><em>installation root</em></span><code class="literal">/webapps/esperhqapp</code>.
+			</p><p>
+				Launch the example by navigating the browser to <code class="literal">http://localhost:8400/esperhqapp/EventletExampleMinimal_example.html</code>.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;HTML running EventletExampleMinimal&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles/release/vendor.css"&gt;
+    &lt;link rel="stylesheet" href="styles/common.css"&gt;
+    &lt;link rel="stylesheet" href="styles/eventlet.css"&gt;
+    &lt;script src="scripts/release/vendor.min.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/release/common.min.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/release/eventlet.min.js"&gt;&lt;/script&gt;
+    &lt;script src="EventletExampleMinimal.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+      $(document).ready(function() {
+        $("#example").eventlet({eventlet_filename: "example_minimal.eventlet"});
+      } );
+      window.onbeforeunload = function() { $.eventletUnload(); };
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="example"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-buildingrunning-gui"/>12.2.2. Run Using GUI and Launcher</h3></div></div></div><p>
+				To run the eventlet within the EsperHQ GUI, except for Open-in-new-Window, you must edit the file <code class="literal">index.html</code> in the folder <span class="emphasis"><em>installation root</em></span><code class="literal">/webapps/esperhqapp</code> and add your JavaScript code to the scripts.
+			</p><p>
+				To run the eventlet in the launcher or in the EsperHQ GUI using Open-in-new-Window, 
+				you must edit the file <code class="literal">launcher.html</code> in the folder <span class="emphasis"><em>installation root</em></span><code class="literal">/webapps/esperhqapp</code>
+				and add your JavaScript code to the scripts.
+			</p><p>
+				For the example above, add <code class="literal">&lt;script src="EventletExampleMinimal.js"&lt;/script&gt;</code> to each file and make sure the JavaScript exists in the top folder.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletplugin-htmlcontent"/>12.3. Providing HTML Content</h2></div></div></div><p>
+			Your eventlet application can provide HTML content by specifying the <code class="literal">url</code> parameter of the eventlet configuration.
+			The eventlet runtime loads the HTML content from the provided URL and places the content in the container. The root DOM element becomes the parent DOM element of the content.
+		</p><p>
+			The HTML content should be a partital HTML content, not a full HTML page with body. Typically the HTML content contains a template or form to populate or a placeholder that gets replaced 
+			with event data.
+		</p><p>
+			If you specify a URL to load HTML content for the eventlet, you must specify the attribute <code class="literal">ng-controller="EventletController"</code> on the outermost HTML element.
+		</p><p>
+			If you do not specify a URL parameter for the plugin eventlet, the eventlet runtime loads the following content:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;div ng-controller="EventletController"&gt;
+    &lt;div hqeventletmenu="yes"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre><p>
+			You may specify <code class="literal">&lt;div hqeventletmenu="yes"/&gt;</code> to place the eventlet menu anywhere in your HTML content.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletplugin-sample"/>12.4. Example Eventlet</h2></div></div></div><p>
+			The sample eventlet described next can be found in the <code class="literal">examples-eventlet-javascript</code> folder of the distribution under name <code class="literal">EventletExampleTiledDisplay</code>.
+			The sample consists of the following files:
+		</p><div class="itemizedlist"><ul><li><p>
+                    The file <code class="literal">EventletExampleTiledDisplay.js</code> contains the JavaScript prototype that provides the eventlet functions.
+                </p></li><li><p>
+                    The file <code class="literal">EventletExampleTiledDisplay.html</code> contains the content HTML that the eventlet runtime loads when the eventlet activates.
+                </p></li><li><p>
+                    The file <code class="literal">EventletExampleTiledDisplay.css</code> contains CSS stylesheets.
+                </p></li><li><p>
+                    The file <code class="literal">EventletExampleTiledDisplay_example.html</code> contains HTML for running the eventlet and uses the jQuery eventlet plugin.
+                </p></li></ul></div><p>
+		  The example eventlet displays events in a grid or 3 rows and 3 cells per row.
+		  Each cell in the grid will show one event. Among the information in the cell is the source information i.e. the statement name of the event or the engine metric name or stream name providing the input event,
+		  as well as a list of event properties and their values.
+		</p><p>
+		  The grid will begin populating with events from the upper right corner. 
+		  Once all grid cells are populated the eventlet returns to the first cell and renders the newest arriving events from the first cell onwards again.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-sample-html"/>12.4.1. Example Eventlet - Launch HTML</h3></div></div></div><p>
+				The sample <code class="literal">EventletExampleTiledDisplay_example.html</code> loads the eventlet using the jQuery eventlet plugin.
+				It provides the eventlet XML document as a property of the initialization object that it passes to the jQuery eventlet plugin.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">$(document).ready(function() {
+  $("#example").eventlet({eventlet_xml:
+    '&lt;eventlet xmlns="http://www.espertech.com/esper-eventletxml"&gt;\
+      &lt;composition&gt;\
+        &lt;plugin url="EventletExampleTiledDisplay.html" 
+            classname="EventletExampleTiledDisplay"&gt;\
+      	  &lt;configuration&gt;some configuration can be passed here&lt;/configuration&gt;\
+        &lt;/plugin&gt;\
+      &lt;/composition&gt;\
+      &lt;sources&gt;\
+        &lt;source sourceId="0"&gt;\
+	       &lt;statement name="MyStatement" 
+	           engineUri="default" endpoint="defaultendpoint"/&gt;\
+        &lt;/source&gt;\
+      &lt;/sources&gt;\
+    &lt;/eventlet&gt;'});
+} );</pre><p>
+				Use the eventlet wizard to generate an eventlet file that holds the xml-formatted document. Note how the plugin configuration specifies a <code class="literal">url</code> property.
+				The URL property is the HTML file that contains the HTML content loaded for the eventlet.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-sample-htmlpartial"/>12.4.2. Example Eventlet - Content HTML</h3></div></div></div><p>
+				The eventlet runtime loads the file <code class="literal">EventletExampleTiledDisplay.html</code> because the <code class="literal">url</code> parameter in the 
+				eventlet XML document provides the url to load. The content of the file is shown below and provides the markup of the grid to display.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;div ng-controller="EventletController"&gt;
+    &lt;div hqeventletmenu="yes"&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;/div&gt;
+    &lt;div class="row-fluid tiled-display-row"&gt;
+        &lt;div class="span4" id="cell0"&gt;&lt;/div&gt;
+        &lt;div class="span4" id="cell1"&gt;&lt;/div&gt;
+        &lt;div class="span4" id="cell2"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="spacer"&gt;&lt;/div&gt;
+    &lt;div class="row-fluid tiled-display-row"&gt;
+        &lt;div class="span4" id="cell3"&gt;&lt;/div&gt;
+        &lt;div class="span4" id="cell4"&gt;&lt;/div&gt;
+        &lt;div class="span4" id="cell5"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="spacer"&gt;&lt;/div&gt;
+    &lt;div class="row-fluid tiled-display-row"&gt;
+        &lt;div class="span4" id="cell6"&gt;&lt;/div&gt;
+        &lt;div class="span4" id="cell7"&gt;&lt;/div&gt;
+        &lt;div class="span4" id="cell8"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre><p>
+				The <code class="literal">row-fluid</code> and <code class="literal">span4</code> CSS styles are Bootstrap styles.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-sample-javascipt"/>12.4.3. Example Eventlet - JavaScript</h3></div></div></div><p>
+				The file <code class="literal">EventletExampleTiledDisplay.js</code> provides the logic to handle event display.
+			</p><p>
+				The code displays events in a grid of 3 rows and 3 cells per row and retains the last 9 events in memory. 
+				When events expire because retain-settings indicate event expiry, the code empties the cell accordingly.
+			</p><p>
+				The code retains type information that it receives in manifest objects. 
+				The eventlet displays this type information, which may consist of any of statement, variable, on-demand query or engine metric information, as part of the header text of each cell.				
+			</p><p>
+				The code builds cell contents from the type information and from event property values using jQuery.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="eventletplugin-sample-running"/>12.4.4. Running the Example Eventlet</h3></div></div></div><p>
+				Copy all four example files, the JavaScript, CSS, content HTML and launch HTML files, to the web app root directory at
+				<span class="emphasis"><em>installation root</em></span><code class="literal">/webapps/esperhqapp</code>.
+			</p><p>
+				Create an EPL statement by name <code class="literal">MyStatement</code> or change the launch HTML file to refer to a different EPL statement name.
+			</p><p>
+				Launch the example by navigating the browser to <code class="literal">http://localhost:8400/esperhqapp/EventletExampleTiledDisplay_example.html</code>.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletplugin-troubleshooting"/>12.5. Troubleshooting</h2></div></div></div><p>
+			Common configuration problems will result in the eventlet runtime displaying an alert JavaScript popup that displays a message.
+		</p><p>
+			Errors raised by eventlet code are displayed on the menu <code class="literal">About</code> dialog and also the console. 
+			Therefore the first step in troubleshooting is to bring up the browser console and inspect messages.
+		</p><p>
+			There are also a number of good tools for JavaScript debugging that can be used in conjunction with the jQuery eventlet plugin, for example.
+		</p></div></div></div></body></html>

@@ -1,0 +1,54 @@
+<div id="eventletabout" ng-controller="EventletAboutController">
+    <div class="pull-right">
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">My Client Id:</label>
+            <div class="controls">
+                <input type="text" class="predefined-30wide" ng-model="clientId" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Activation Name:</label>
+            <div class="controls">
+                <input type="text" class="predefined-30wide" ng-model="activation.activationName" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Activation Detail:</label>
+            <div class="controls">
+                <textarea id="eventletabout_activationxml" rows="6"
+                          ng-model="activation.activationXML" readonly>
+                </textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Last Update:</label>
+            <div class="controls">
+                <input type="text" class="predefined-30wide" ng-model="stats.lastUpdate" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Number of Messages:</label>
+            <div class="controls">
+                <input type="text" class="predefined-15wide" ng-model="stats.numMessages" readonly/>
+                <span class="margin-left">Number of Rows:</span>
+                <input type="text" class="predefined-15wide" ng-model="stats.numRows" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Live Messages:</label>
+            <div class="controls">
+                <textarea id="eventletabout_trace" readonly ng-model="traceText" rows="6"></textarea>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 8. Runtime Script Execution</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="prev" href="sockettransport.html" title="Chapter 7. Socket Transport"/><link rel="next" href="restservices.html" title="Chapter 9. REST Services"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="sockettransport.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="restservices.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec"/>Chapter 8. Runtime Script Execution</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="scriptexec.html#scriptexec-enable">8.1. Enabling Runtime Script Execution</a></span></dt><dt><span class="sect1"><a href="scriptexec.html#scriptexec-sink">8.2. GroovySink - Execute Script Upon Event Arrival</a></span></dt><dt><span class="sect1"><a href="scriptexec.html#scriptexec-once">8.3. GroovySource - Executing a Script Once</a></span></dt><dt><span class="sect1"><a href="scriptexec.html#scriptexec-originate">8.4. GroovySource - Originating Events from Groovy</a></span></dt><dt><span class="sect1"><a href="scriptexec.html#scriptexec-addtlparams">8.5. Operator Parameters</a></span></dt></dl></div><p>
+		Runtime script execution is disabled in the default configuration to prevent a possible security concern. Please first enable runtime script execution by following the steps below.
+	</p><p>
+		You can use a dataflow operator to execute Groovy scripts at runtime as described herein. 
+		Groovy is a scripting language very close to Java and is further described in <a class="link" href="http://www.groovy-lang.org/" target="">Groovy Home</a>.
+    </p><p>
+		Script execution takes place within a dataflow instance. The dataflow operators provided are <code class="literal">GroovySource</code> and <code class="literal">GroovySink</code>. Each operator takes either the inline script or a script filename as a required parameter. Additional parameters may be passed to the Groovy script.
+	</p><p>
+		Since script execution is as part of a dataflow instance, this allows you to use EsperHQ GUI as well as REST services as well as Esper APIs to manage script execution.		
+	</p><p>
+      Scripts may utilize the complete Esper API as well as any other class in the server classpath. Scripts can also receive parameters via GUI or REST services and from the 
+      dataflow declaration.
+    </p><p>
+		Scripts can be useful to dynamically interact with the CEP engine instance(s) such as for managing statement listeners and other dynamic behavior. 
+		Scripts can also execute when an event arrives: This allows interacting with an external resource or triggering an external process based on event data.
+	</p><p>
+		Please review the Esper documentation on dataflows for an overview and additional information. Please refer to Esper JavaDoc documentation for API questions.
+	</p><p>
+		Unrelated to what is described here, Esper provides JSR 223 script execution as part of EPL statement processing. Please see the Esper documentation for more information.
+    </p><p>
+		Also unrelated to what is described here, post-startup script execution is described in <a class="xref" href="gettingstarted.html#gettingstarted-poststartup" title="2.10. Running Post-Startup Scripts">Section 2.10, “Running Post-Startup Scripts�?</a>.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-enable"/>8.1. Enabling Runtime Script Execution</h2></div></div></div><p>
+			By default, runtime script execution is disabled. You must edit the classpath script adding the required jar file and 
+			add an import to the default configuration file.
+		</p><p>
+			The jar file <code class="literal">esper-dataflow-groovy-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> provides the functionality.
+			Please edit the classpath by editing the file <code class="literal">bin/setclasspath.sh</code> (Linux) or <code class="literal">bin/setclasspath.bat</code> (Windows)
+			and comment-in the jar file.
+		</p><p>
+			Please add the following line to the Esper configuration file <code class="literal">conf/esper-default.xml</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;       
+    &lt;auto-import import-name="com.espertech.esper.groovy.*"/&gt;
+    ...
+&lt;/esper-configuration&gt;</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-sink"/>8.2. <code class="literal">GroovySink</code> - Execute Script Upon Event Arrival</h2></div></div></div><p>
+			The Groovy script must provide an <code class="literal">onInput</code> method taking a single <code class="literal">Object</code> type parameter.
+		</p><p>
+			A sample dataflow that provides the script inline and that simply prints the provided event is shown below.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow ProcessEventInGroovyScript
+  EventBusSource -&gt; stream&lt;MyEvent&gt; {}
+  GroovySink(stream) {
+    script: '
+      public void onInput(Object event) {
+        System.out.println(event);
+      }
+      '
+}</pre><p>
+		  Implement the methods provided by the <code class="literal">DataFlowOpLifecycle</code> interface (see Esper docs) to have the engine invoke the Groovy script 
+		  on initialization, open and close of the operator.
+		</p><p>
+		  The next sample shows a minimal inline script that, in addition, provides all lifecycle methods:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow ProcessEventWithLifecycleCallbacks
+  EventBusSource -&gt; stream&lt;MyEvent&gt; {}
+  GroovySink(stream) {
+    script: '
+      import com.espertech.esper.dataflow.interfaces.*;
+      public void initialize(DataFlowOpInitializateContext initContext) {
+        System.out.println(initContext);
+      }
+      public void open(DataFlowOpOpenContext openContext) {
+        System.out.println(openContext);
+      }
+      public void onInput(Object event) {
+        System.out.println(event);
+      }
+      public void close(DataFlowOpCloseContext closeContext) {
+        System.out.println(closeContext);
+      }
+      '
+}</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-once"/>8.3. <code class="literal">GroovySource</code> - Executing a Script Once</h2></div></div></div><p>
+			You may execute a script once upon dataflow instantiation by using the <code class="literal">GroovySource</code> operator.
+			The dataflow instance transitions to completed, after the script completed executing.
+		</p><p>
+			It is not necessary to provide any particular method in the Groovy script. The engine runs from the start of the Groovy script.
+		</p><p>
+			The dataflow declaration shown next executes a script stored in a file only a single time, at the time the dataflow is instantiated.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow RunScriptOnce
+  GroovySource {
+    file: 'my_script.groovy'
+  }</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-originate"/>8.4. <code class="literal">GroovySource</code> - Originating Events from Groovy</h2></div></div></div><p>
+			You may originate events provided by a Groovy script with the <code class="literal">GroovySource</code> operator.
+		</p><p>
+			Your script must provide a method <code class="literal">next</code> that takes a <code class="literal">EPDataFlowEmitter</code> as its argument.
+			The script can use the <code class="literal">submit</code> method of the emitter to provide events to the dataflow.
+		</p><p>
+			In this example dataflow, the script is an inline script which instantiates <code class="literal">MyEvent</code> events. The <code class="literal">EventBusSink</code> operator
+			makes the new events available to EPL statements for processing.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow GroovyOriginatedEvents
+  GroovySource -&gt; mystream&lt;MyEvent&gt; {
+    script:'
+      import com.espertech.esper.dataflow.interfaces.*;
+      import com.mycompany.myevents.MyEvent;
+      public void next(EPDataFlowEmitter emitter) throws InterruptedException {
+        emitter.submit(new MyEvent("Event"));
+        Thread.sleep(1000);
+      }
+    '}
+  EventBusSink(mystream) {}</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="scriptexec-addtlparams"/>8.5. Operator Parameters</h2></div></div></div><p>
+			Either the <code class="literal">script</code> or the <code class="literal">file</code> property must be provided. All parameters can be provided at time of dataflow instantiation.
+		</p><p>
+			Any additional parameters to the dataflow operator are passed through to the Groovy script.
+		</p><p>
+			Parameters are:
+		</p><div class="table"><a id="d0e2208"/><p class="title"><b>Table 8.1. GroovySink Parameters</b></p><div class="table-contents"><table summary="GroovySink Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>script</td><td>The Groovy script, or specify the <code class="literal">file</code> parameter providing the script instead.</td></tr><tr><td>file</td><td>The file name of the Groovy script, or specify the <code class="literal">script</code> parameter providing the actual script instead.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			When a <code class="literal">file</code> is specified, the engine resolves the file as an absolute file path, and if not found then relative to the Enterprise Edition base directory, and if not found from classpath.
+		</p><p>
+			All parameters are passed through to the Groovy script. In the Groovy you can simply refer to such parameters as variables.
+		</p><p>
+			For example, the following dataflow declaration expects that either the file or script are provided at time of instantiation, and passes a value for <code class="literal">threshold</code> to the Groovy script:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">create dataflow RunScriptOnce
+  GroovySource {
+    threshold: '100'
+  }</pre></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="sockettransport.html"><strong>Prev</strong>Chapter 7. Socket Transport</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="restservices.html"><strong>Next</strong>Chapter 9. REST Services</a></li></ul></body></html>

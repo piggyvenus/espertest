@@ -1,0 +1,211 @@
+/**
+ *      Global styles.
+ */
+
+html,body {
+    height:100%;
+}
+
+/**
+ *    Bootstrap overrides.
+ */
+legend {
+    margin-bottom: 5px;
+}
+
+legend small {
+    color: black;
+}
+
+.modal-body .btn-group {
+    margin-bottom: 10px;
+}
+
+/**
+ *    JQuery UI overrides.
+ */
+.ui-menu {
+    width: 15em;
+}
+
+/**
+ *    Reuseable Styles.
+ */
+.input-radio-span-padding {
+    padding-left: 20px;
+    margin-top: -15px;
+}
+
+.button-bar-margin {
+    margin: 2px 10px 10px 10px;
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.gap {
+    width: 10px;
+}
+
+.predefined-15wide {
+    width: 15em;
+}
+
+.predefined-30wide {
+    width: 30em;
+}
+
+.predefined-50wide {
+    width: 50em;
+}
+
+.predefined-60wide {
+    width: 60em;
+}
+
+.clear {
+    clear:both;
+}
+
+.float-left {
+    float: left;
+}
+
+.hr-divider {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 1px auto;
+    height: 0;
+    width: 100%;
+    max-height: 0;
+    font-size: 1px;
+    line-height: 0;
+    clear: both;
+    border: none;
+    border-top: 1px solid #aaaaaa;
+    border-bottom: 1px solid #ffffff;
+}
+
+.dialog-hidden {
+    display: none;
+}
+
+.dialog-visible {
+    display: block;
+}
+
+.label-required {
+    color: red;
+}
+
+.span-invalid {
+    color: red;
+    font-weight:bold;
+    font-size:1.1em;
+}
+
+.emptyField {
+    border: 2px solid red !important;
+}
+
+.td-column-align-top {
+    vertical-align: text-top;
+}
+
+.table-hor-minimalist
+{
+    background: #fff;
+    margin: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table-hor-minimalist th
+{
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+    padding: 10px 8px;
+    border-bottom: 2px solid #6678b1;
+}
+.table-hor-minimalist tr
+{
+    border-bottom: 1px solid #ccc;
+}
+.table-hor-minimalist td
+{
+    color: #000;
+    padding: 6px 8px;
+}
+.table-hor-minimalist tbody tr:hover td
+{
+    color: #009;
+}
+
+.table-hor-minimalist-divider {
+    height: 0;
+    padding: 0 0 0 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-hor-minimalist-nested
+{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table-hor-minimalist-nested td
+{
+    padding: 6px 8px;
+}
+.table-hor-minimalist-nested tbody tr:hover td
+{
+    color: #009;
+}
+
+.word-wrap-break-word {
+    word-wrap: break-word;
+}
+
+.termsheader {
+    font-weight:bold;
+    color: #096c7b;
+    font-size:14px;
+    padding: 10px;
+    line-height: 40px;
+}
+
+.generic-fieldset-bordered {
+    border: 1px solid #cccccc;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/**
+ * Codemirror and related styles, global settings
+ */
+.CodeMirror {
+    border: 1px solid #aaa;
+    height: auto;
+}
+.CodeMirror-scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.editor-validations {
+    width: 1em;
+}
+.editor-validation {
+    color: red; font-weight:bold;
+}

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Esper HQ Web Application Archive</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><div class="book" lang="en-US"><div class="titlepage"><div><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><div><h1 class="title"><a id="d0e1"/>Esper HQ Web Application Archive</h1></div><div><div xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="authorgroup"><div class="authors">by <span xmlns="http://www.w3.org/1999/xhtml" class="orgname"><a class="link" href="http://www.espertech.com" target="">EsperTech Inc.</a></span></div><div class="editors"/><div class="others"/></div></div><div><p class="releaseinfo">Version 5.3.0</p></div><div><p class="copyright">Copyright © 2015 EsperTech Inc.</p></div></div><hr/></div><div class="toc"><dl><dt><span class="preface"><a href="#d0e18">Preface</a></span></dt><dt><span class="chapter"><a href="#overview">1. Overview</a></span></dt><dd><dl><dt><span class="sect1"><a href="#overview_featureshq">1.1. Esper HQ Web Application Features</a></span></dt></dl></dd><dt><span class="chapter"><a href="#gettingstarted">2. Getting Started</a></span></dt><dd><dl><dt><span class="sect1"><a href="#overview-webapp-plugin">2.1. Web Application Container Plug-in</a></span></dt><dt><span class="sect1"><a href="#overview-webapp-store">2.2. Esper HQ File System Access for Project Files</a></span></dt></dl></dd><dt><span class="chapter"><a href="#securing">3. Securing the Web Application</a></span></dt><dd><dl><dt><span class="sect1"><a href="#securing-authentication">3.1. Authentication</a></span></dt><dt><span class="sect1"><a href="#securing-roles">3.2. Roles</a></span></dt><dt><span class="sect1"><a href="#securing-spring">3.3. Securing via Spring Security (ACEGI)</a></span></dt></dl></dd><dt><span class="chapter"><a href="#configuration">4. Configuration</a></span></dt><dd><dl><dt><span class="sect1"><a href="#configuration-client">4.1. Client and Web Application Settings </a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-client-websocketurl">4.1.1. Web Socket URL</a></span></dt><dt><span class="sect2"><a href="#configuration-client-authen">4.1.2. Authentication</a></span></dt><dt><span class="sect2"><a href="#configuration-client-filter">4.1.3. Service Filters</a></span></dt></dl></dd><dt><span class="sect1"><a href="#configuration-provider">4.2. Endpoint Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-provider-context">4.2.1. Configuring the JMS Provider Context</a></span></dt><dt><span class="sect2"><a href="#configuration-provider-rest">4.2.2. Configuring REST Service Addressing</a></span></dt></dl></dd></dl></dd></dl></div><div class="preface" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e18"/>Preface</h2></div></div></div><p>
+			This document introduces the EsperHQ web application archive (WAR).
+		</p><p>
+			The EsperHQ web application is the server-side code that provides the EsperHQ client application to web browser clients and that interfaces with data distribution services.
+		</p><p>
+			The <a class="xref" href="#overview" title="Chapter 1. Overview">Chapter 1, <i>Overview</i></a> chapter is the best place to understand features.
+		</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>Chapter 1. Overview</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#overview_featureshq">1.1. Esper HQ Web Application Features</a></span></dt></dl></div><p>
+		Esper HQ is the web application archive containing the web application and HQ Services REST services. 
+		The web application is a multi-window rich client application for Esper CEP engine management and real-time continuous displays (aka. eventlets).
+	</p><p>
+		The Esper HQ web application archive (WAR) is for use with Java Enterprise Edition -standard web containers. Esper HQ interfaces to one or multiple Esper CEP Management and CEP Push Services REST endpoints that each interface to Esper CEP engine instances.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview_featureshq"/>1.1. Esper HQ Web Application Features</h2></div></div></div><p>
+			An Esper HQ web application instance performs the following functions:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Handle client subscription lifecycle and push data to web client applications based on active client subscriptions (asynchronous publish-subscribe communication style).
+				</p></li><li><p>
+					Consolidate client subscription requests to avoid duplicate data transmission.
+				</p></li><li><p>
+					Handle client disconnect.
+				</p></li><li><p>
+					Handle client requests for CEP management services, such as for creating statements or setting variable values, for example.
+				</p></li><li><p>
+					Present a faceless (HTML-only) launch pad for continuous real-time displays.
+				</p></li><li><p>
+					Make the web application and its components available for download to web browsers.
+				</p></li><li><p>
+					Consolidate data from multiple CEP servers (CEP Push Services endpoints) to support partitioning and consolidation.
+				</p></li></ol></div></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted"/>Chapter 2. Getting Started</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#overview-webapp-plugin">2.1. Web Application Container Plug-in</a></span></dt><dt><span class="sect1"><a href="#overview-webapp-store">2.2. Esper HQ File System Access for Project Files</a></span></dt></dl></div><p>
+			Esper Enterprise Edition comes with Esper HQ prepackaged. Please simply follow the directions in file <code class="literal">RUNNING.txt</code> or the index web page to start the preconfigured server.
+		</p><p>
+			After starting the preconfigured server the web client application is available at <a class="link" href="http://localhost:8400/esperhq/esperhq/esperhq.html" target="">http://localhost:8400/esperhq/esperhq/esperhq.html</a>.
+		</p><p>
+			The Esper HQ web application and web client application consists of the following components:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					The Esper HQ war file (war stands for web application archive, or WAR) can be found in <span class="emphasis"><em>installation_root</em></span><code class="literal">/webapps/esperhq</code>. The distribution provides the WAR file in unpacked form.
+				</p></li><li><p>
+					The Esper HQ configuration file named <code class="literal">esperhq-default.xml</code> in the <code class="literal">conf</code> folder of the distribution (the file name is referenced by the web.xml deployment descriptor in the war file).
+				</p></li><li><p>
+					The web client application files reside in the Esper HQ war file in <span class="emphasis"><em>installation_root</em></span><code class="literal">/webapps/esperhq/esperhq</code>.
+				</p></li><li><p>
+					A XML XSD schema defining static eventlet configuration. The schema file is provided in the <code class="literal">schema</code> folder of the distribution and is named <code class="literal">esper_eventlet_</code><span class="emphasis"><em>version</em></span><code class="literal">.xsd</code>.
+				</p></li></ol></div><p>
+			Esper HQ minimally requires the following for operation:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Java 6 or higher.
+				</p></li><li><p>
+					An Esper HQ configuration file.
+				</p></li><li><p>
+					At least one Esper Data Distribution Services endpoint.
+				</p></li><li><p>
+					A web browser.
+				</p></li></ol></div><p>
+			The Esper HQ web application requires a J2EE web application container. Esper Enterprise Edition ships with the Jetty web container (see http://www.mortbay.org/jetty/). We do not specifically recommend any particular web application container - you can deploy into any J2EE standard web container.
+		</p><p>
+			There are multiple options to deploy and start Esper HQ:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					Start your favorite J2EE web application container and copy the Esper HQ war into its deployment directory or deploy via the container's web console.
+				</p><p>
+					For use when you already have a web container you would like to use.
+				</p></li><li><p>
+					As an Esper plug-in as part of an Esper configuration XML file or configuration API:
+				</p><p>
+					This requires your application to add the web container plug-in class to the Esper configuration (XML or API) as described next. The Jetty web container and Esper HQ are then started automatically as part of Esper engine initialization.
+				</p></li></ol></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-webapp-plugin"/>2.1. Web Application Container Plug-in</h2></div></div></div><p>
+				Esper Enterprise Edition provides the Jetty web application container and a plug-in class to start the container and deploy the Esper HQ war file.
+			</p><p>
+				The plug-in class is <code class="literal">com.espertech.esper.server.webapp.WebAppPlugin</code> and resides in the jar file <code class="literal">esper-server-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code>.
+			</p><p>
+				Under this option the Jetty web container and Esper HQ is initialized when your application first obtains an <code class="literal">EPServiceProvider</code> instance for a given URI or when your application calls the <code class="literal">initialize</code> method on an <code class="literal">EPServiceProvider</code>.
+				The Jetty web container and Esper HQ is destroyed when your application calls the <code class="literal">destroy</code> method on an <code class="literal">EPServiceProvider</code> instance or when it calls the <code class="literal">initialize</code> method on <code class="literal">EPServiceProvider</code> instance that had the adapter in its configuration.
+			</p><p>
+				Configuration is described in detail in the Server documentation.
+			</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-webapp-store"/>2.2. Esper HQ File System Access for Project Files</h2></div></div></div><p>
+				EsperHQ presents a directory structure and files in the <code class="literal">Project Files</code> folder in the GUI. 
+				The files are located under the installation root in the folder <code class="literal">data/hqsvc</code>.
+			</p></div></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing"/>Chapter 3. Securing the Web Application</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#securing-authentication">3.1. Authentication</a></span></dt><dt><span class="sect1"><a href="#securing-roles">3.2. Roles</a></span></dt><dt><span class="sect1"><a href="#securing-spring">3.3. Securing via Spring Security (ACEGI)</a></span></dt></dl></div><p>
+			Configuring SSL communication requires following a multistep process that includes generating an SSL certificate. Enterprise Edition utilizes the Jetty container
+			for the client application and REST web services. Please follow the steps described in the Jetty documentation at http://www.eclipse.org/jetty/documentation/current/configuring-ssl.html
+			to enable SSL communication.
+		</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing-authentication"/>3.1. Authentication</h2></div></div></div><p>
+			  The EsperHQ client application and eventlet faceless execution can be protected as described below. By default a new installation of the distribution does not authenticate or check authorizations.
+			</p><p>
+			  To enable the login challenge, and authorization checking of roles, set the provider-type in the authentication settings to <code class="literal">local</code>, as outlined in <a class="xref" href="#configuration-client-authen" title="4.1.2. Authentication">Section 4.1.2, “Authentication�?</a>.
+			  You may add individual users and credentials directly to the EsperHQ configuration file.
+			</p><p>
+			  To integrate EsperHQ with common security authentication and authorization architectures including for example LDAP, Siteminder, OpenID and JA-SIG we provide instructions to configure
+			  Spring security below.
+			</p><p>
+			  As a further alternative, consider configuring your own servlet filter or servlet context listener in the EsperHQ war file to secure EsperHQ URLs.
+			</p><p>
+			  In addition, if your application requires fine-grained control over individual operations that EsperHQ servlet performs on request by client applications, EsperHQ provides a callback that you may register. We explain 
+			  service filters below. A service filter can perform authorization checks and may also modify operation request values.
+			</p><p>
+			  EsperHQ enforces authentication and authorization in the client application and as part of all servlet operations of the web application server.
+			</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing-roles"/>3.2. Roles</h2></div></div></div><p>
+				The <code class="literal">EHQ_ADMIN</code> role is a superset of all roles and provides access to all functions.
+			</p><p>
+				 Assign the <code class="literal">EHQ_EXEC</code> role to users that may only execute an eventlet via faceless launch. 
+			</p><p>
+				 Assign the <code class="literal">EHQ_RO</code> role to users that may only perform read-only operations in the client application. 
+			</p><p>
+				 The below table summarizes authorizations:
+			</p><div class="table"><a id="d0e245"/><p class="title"><b>Table 3.1. Roles</b></p><div class="table-contents"><table summary="Roles" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th>Function</th><th>EHQ_ADMIN</th><th>EHQ_RO</th><th>EHQ_EXEC</th></tr></thead><tbody><tr><td>All create, update and delete operations, e.g. create statements, transition statements, set variable values, create eventlets and others.</td><td>Yes.</td><td>No.</td><td>No.</td></tr><tr><td>All read-only operations, e.g. view statements, view variable values.</td><td>Yes.</td><td>Yes.</td><td>No.</td></tr><tr><td>Launch eventlets via client application or faceless.</td><td>Yes.</td><td>No.</td><td>Yes.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="securing-spring"/>3.3. Securing via Spring Security (ACEGI)</h2></div></div></div><p>
+				This section provides the instructions to configure the web application with Spring (ACEGI) security. Via Spring ACEGI security it is easy to secure and integrate EsperHQ into many additional security architectures. 
+			</p><p>
+			  When using Spring security, the step-by-step instructions to enable security are as follows. File paths provided below are relative to the installation root directory.
+			</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+						Open <code class="literal">bin/setclasspath.sh</code> (Linux) or <code class="literal">bin/setclasspath.bat</code> (Windows)
+						and remove the comments in <code class="literal">Spring/ACEGI Security</code> section, such that Spring and Spring Security jar files are part of the classpath.
+					</p></li><li><p>
+						Change the <code class="literal">webapps/esperhqapp/WEB-INF/web.xml</code> file to include a reference to the Spring security context and the Spring web context loader, by adding the following lines before <code class="literal">&lt;/web-app&gt;</code>:
+					</p><pre xmlns="" class="">&lt;context-param&gt;
+  &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;
+      classpath:/spring-security.xml
+   &lt;/param-value&gt;
+&lt;/context-param&gt;
+
+&lt;listener&gt;
+  &lt;listener-class&gt;
+    org.springframework.web.context.ContextLoaderListener
+  &lt;/listener-class&gt;
+&lt;/listener&gt;</pre></li><li><p>
+						Add the <code class="literal">spring-security.xml</code> Spring security configuration to the <code class="literal">webapps/esperhqapp/WEB-INF/classes</code> folder, create the folder if it does not exist. 
+						The distribution provides a sample file in <code class="literal">lib-security</code>.
+					</p></li><li><p>
+						Configure EsperHQ to set the authentication provider type to Spring by setting <code class="literal">provider-type="spring"</code>.
+					</p></li></ol></div></div><p>
+		After restarting the server, review server console or log output to determine that Spring security initialized successfully and no exceptions were logged.
+		</p></div><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration"/>Chapter 4. Configuration</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="#configuration-client">4.1. Client and Web Application Settings </a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-client-websocketurl">4.1.1. Web Socket URL</a></span></dt><dt><span class="sect2"><a href="#configuration-client-authen">4.1.2. Authentication</a></span></dt><dt><span class="sect2"><a href="#configuration-client-filter">4.1.3. Service Filters</a></span></dt></dl></dd><dt><span class="sect1"><a href="#configuration-provider">4.2. Endpoint Configuration</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configuration-provider-context">4.2.1. Configuring the JMS Provider Context</a></span></dt><dt><span class="sect2"><a href="#configuration-provider-rest">4.2.2. Configuring REST Service Addressing</a></span></dt></dl></dd></dl></div><p>
+		Your Esper HQ XML configuration file should adhere to the XML XSD schema file provided in the <code class="literal">conf</code> folder of the distribution by name <code class="literal">esperhq-configuration-5-0.xsd</code>.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-client"/>4.1. Client and Web Application Settings </h2></div></div></div><p>
+			This section discusses EsperHQ rich client configuration and web application archive (WAR) settings in the <code class="literal">web.xml</code>file.
+		</p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-client-websocketurl"/>4.1.1. Web Socket URL</h3></div></div></div><p>
+				By default, the web socket URL is <code class="literal">ws://myhost:myport/hqpush/eventbus</code> wherein host and port are automatically derived from the request of the client and
+				without requiring a configuration. The client console trace outputs the web socket url as well.
+			</p><p>
+				To override the computed web socket url, please configure the url as shown below:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;client websocketurl="ws://myhost:myport/hqpush/eventbus"/&gt;
+&lt;/esperhq-configuration&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-client-authen"/>4.1.2. Authentication</h3></div></div></div><p>
+				This configuration item controls authentication and authorization. Please consult <a class="xref" href="#securing" title="Chapter 3. Securing the Web Application">Chapter 3, <i>Securing the Web Application</i></a> for an overview.
+			</p><p>
+				The synopsis is as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;authentication provider-type="[none|local|spring]" 
+  [remember-me="false|true"]&gt;
+  [&lt;password-encoder hash="none|md5"/&gt;]
+  [&lt;users&gt;
+	[&lt;user name="[name]" password="[credentials]" authorities="[list_of_roles]" /&gt;]
+  &lt;/users&gt;]
+&lt;/authentication&gt;</pre><p>
+			  When <span class="emphasis"><em>provider-type</em></span> is set to <code class="literal">none</code> then the client application and server web application do not authenticate or check authorization.
+			</p><p>
+			  When <span class="emphasis"><em>provider-type</em></span> is set to <code class="literal">local</code> then the client application and server web application authenticate and check role authorities for each client. You must provide a list of users and a password encoding.
+			  When set to <code class="literal">spring</code> you must follow the additional steps as outlined in <a class="xref" href="#securing-spring" title="3.3. Securing via Spring Security (ACEGI)">Section 3.3, “Securing via Spring Security (ACEGI)�?</a> and the Spring security configuration (via LDAP, OpenID etc.) provides users and roles.
+			</p><p>
+			  When <span class="emphasis"><em>provider-type</em></span> is set to <code class="literal">spring</code> then the client application and server web application authenticate and check role authorities for each client using Spring security. Please follow the additional steps as outlined in <a class="xref" href="#securing-spring" title="3.3. Securing via Spring Security (ACEGI)">Section 3.3, “Securing via Spring Security (ACEGI)�?</a> and provide a Spring security configuration that may reference LDAP, OpenID or other authentication providers.
+			</p><p>
+			  The <span class="emphasis"><em>remember-me</em></span> attribute is optional and enabled by default. When enabled the server application checks if a security context has already been established for the client or session and returns the
+			  existing security context. If the security context exists, a login challenge is not presented for the client.
+			</p><p>
+			  The <span class="emphasis"><em>password-encoder</em></span> element is required for the <code class="literal">local</code> provider type and indicates the password encoding. Use <code class="literal">md5</code> for MD5 encoding and <code class="literal">none</code> for plain-text passwords.
+			</p><p>
+			  If configuring the <code class="literal">local</code> provider type then repeat the <span class="emphasis"><em>user</em></span> element for each user and provide a name, password and a comma-separated list of roles.
+			</p><p>
+				An example XML to configure authentication is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;client&gt;
+    &lt;authentication provider-type="local" remember-me="true"&gt;
+      &lt;password-encoder hash="md5"/&gt;
+      &lt;users&gt;
+        &lt;!-- Sample users: rod/koala, dianne/emu, peter/cat --&gt;
+        &lt;user name="rod" password="a564de63c2d0da68cf47586ee05984d7" authorities="EHQ_ADMIN" /&gt;
+        &lt;user name="dianne" password="65d15fe9156f9c4bbffd98085992a44e" authorities="EHQ_RO" /&gt;
+        &lt;user name="peter" password="d077f244def8a70e5ea758bd8352fcd8" authorities="EHQ_EXEC" /&gt;
+      &lt;/users&gt;
+    &lt;/authentication&gt;
+  &lt;/client&gt;
+&lt;/esperhq-configuration&gt;</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-client-filter"/>4.1.3. Service Filters</h3></div></div></div><p>
+				Your application can provide a service filter to introduce additional security checks or to modify client application requests.
+			</p><p>
+				The synopsis is as follows:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;filters&gt;
+  &lt;filter class-name="[class_name]"/&gt;
+&lt;/filters&gt;</pre><p>
+			  The <span class="emphasis"><em>class_name</em></span> is name of the class implementing the <code class="literal">com.espertech.esper.hqsvc.config.ClientRequestFilter</code> interface.
+			  Every client operation can be intercepted by the implementation of this interface, client operation parameters can be interrogated and changed. Please see the API documentation
+			  for additional detail.
+			</p><p>
+				An example XML to configure authentication is:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;client&gt;
+    &lt;filters&gt;
+      &lt;filter class-name="com.mycompany.MyServiceFilter"/&gt;
+    &lt;/filters&gt;
+  &lt;/client&gt;
+&lt;/esperhq-configuration&gt;</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-provider"/>4.2. Endpoint Configuration</h2></div></div></div><p>
+			This section describes configuration of CEP endpoints. We use the term <span class="emphasis"><em>endpoint</em></span> to describe a server process that hosts one or more CEP engine instances.
+		</p><p>
+			The default configuration configures a single endpoint. You may configure multiple endpoints for a multi-server setup.
+		</p><p>
+			For endpoints that provide only Management REST services, it is not necessary to configure a JMS provider and a Push REST service token.
+		</p><p>
+			For endpoints that provide only Push REST services, it is not necessary to configure a Management REST service token.
+		</p><p>
+			Please ensure that required Push REST service or Management REST service are active for the configured endpoints.
+		</p><p>
+			You may designate one or more endpoints as default endpoints. The web client application uses the default endpoint in the configuration to present the default choice in the endpoint dropdown.
+		</p><p>
+			The <code class="literal">context</code> element configures the JMS provider JNDI context. 
+		</p><p>
+			The <code class="literal">restservice</code> element configures the REST URI and token information. The REST URI must be a value specifying the HTTP or HTTPS protocol 
+			and must specify the host and port, such as <code class="literal">http://myhost:myport</code>. The special value <code class="literal">local</code> is supported and is detailed below.
+		</p><p>
+			The below XML configuration configures a provider by name <code class="literal">defaultendpoint</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esperhq-configuration&gt;
+  &lt;endpoints&gt;
+    &lt;endpoint name="defaultendpoint" default="true"&gt;
+      &lt;context object-name="ConnectionFactory"&gt;
+        &lt;env name="java.naming.factory.initial" 
+           value="org.apache.activemq.jndi.ActiveMQInitialContextFactory"/&gt;
+        &lt;env name="java.naming.provider.url" 
+           value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/&gt;
+      &lt;/context&gt;
+      &lt;restservice hosts="local" cepmgmtsvc-token="cepmgmtsvctoken" 
+          ceppushsvc-token="ceppushsvctoken"/&gt;
+    &lt;/endpoint&gt;
+  &lt;/endpoints&gt;
+  ... more settings...
+&lt;/esperhq-configuration&gt;</pre><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-provider-context"/>4.2.1. Configuring the JMS Provider Context</h3></div></div></div><p>
+				The information under <code class="literal">context</code> configures the JNDI object name and parameters for the JNDI context lookup to resolve the JMS provider.
+			</p><p>
+				The information under <code class="literal">context</code>, in the default configuration, matches the embedded ActiveMQ broker that is configured by the Enterprise Edition default configuration.
+			</p><p>
+				If your environment utilizes external JMS brokers, please update hostname and port numbers accordingly.
+			</p><p>
+				For Push Services, wherein CEP engine(s) push data to the same or other web layer servers, it is required to configure the JMS provider context. 
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="configuration-provider-rest"/>4.2.2. Configuring REST Service Addressing</h3></div></div></div><p>
+				The information under <code class="literal">restservice</code> describes the URI (protocol, host, port) and tokens for access to CEP Management REST services and Push REST Services.
+			</p><p>	
+				In the <code class="literal">hosts</code> attribute you can simply specify <code class="literal">local</code> to indicate that the REST services are available at the same host and port as the enclosing web application container.
+			</p><p>	
+				In the <code class="literal">hosts</code> attribute, for multi-server setups, specify a new value for <code class="literal">hosts</code> that contains the hostname and port number formatted as <span class="emphasis"><em>protocol</em></span>://<span class="emphasis"><em>hostname</em></span><code class="literal">:</code><span class="emphasis"><em>port</em></span>. For example <code class="literal">http://cepserverhost:8400</code>.
+			</p><p>	
+				The <code class="literal">cepmgmtsvc-token</code> is optional and by default set to the same token as configured for the web application container under <code class="literal">cepmgmtsvc</code>, further described in the Server documentation under REST Services security. If no token is provided, authentication of CEP Management service clients does not take place only if the configuration of the web application container also does not list a token.
+			</p><p>	
+				The <code class="literal">ceppushsvc-token</code> is optional and by default set to the same token as configured for the web application container under <code class="literal">ceppushsvc</code>, further described in the Server documentation under REST Services security. If no token is provided, authentication of CEP Push service clients does not take place only if the configuration of the web application container also does not list a token.
+			</p></div></div></div></div></body></html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 5. Dashboard Page Builder</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperHQ Client Documentation"/><link rel="up" href="index.html" title="EsperHQ Client Documentation"/><link rel="prev" href="eventletwizard.html" title="Chapter 4. Eventlet Wizard"/><link rel="next" href="enginemgmt.html" title="Chapter 6. Engine Management Dialogs"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletwizard.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="enginemgmt.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard"/>Chapter 5. Dashboard Page Builder</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="eventletdashboard.html#eventletdashboard-eventletconfig">5.1. Dashboard Eventlet Configuration</a></span></dt><dt><span class="sect1"><a href="eventletdashboard.html#eventletdashboard-text">5.2. Dashboard Text/HTML content</a></span></dt><dt><span class="sect1"><a href="eventletdashboard.html#eventletdashboard-customizing">5.3. Customizing Generated HTML</a></span></dt></dl></div><p>
+		The dashboard page builder is a means to compose a complete web page that combines eventlets with static content or other dynamic content.
+	</p><p>
+	    The output of the dashboard page builder is a HTML page that fully adheres to the HTML 5 standard. You may edit the output file in a text or HTML editor and introduce
+	    additional content or formatting. The output HTML file contains a short script that initializes eventlets when a web browser loads the page.
+	</p><p>
+		The dashboard page builder is a drag &amp; drop dialog. On the left side of the dialog is a list of components that may be dragged onto the green-colored drop area. 
+	</p><p>
+		Drag and drop the eventlet icon to place eventlet content into the web page. Drag and drop the Text/HTML icon to place text or HTML content onto the web page.
+		Drag and drop any of the cell or row icons to organize the web page into rows and cells.
+	</p><p>
+		The dashboard page is organized into a grid system that consists of rows wherein each row contains one or more cells. You may add and remove rows and organize the cells in each row.		
+	</p><p>
+		The size of all cells in a row always adds up to 12. The width of a cell that is size 12 is 100% of available size and therefore takes up the space for a whole row.
+		The width of a cell that is size 6 is 50% of available size. Therefore if a row has 3 cells that are size 6, 4 and 2 then the cells take roughly 50%, 32% and 16% of space. 
+		Remaining space is allocated to padding between cells.
+	</p><p>
+		Use the <code class="literal">Save</code> button to save the HTML file to the file system.
+		Use the <code class="literal">Save and Open in New Window</code> button to save the HTML file to the file system and open the HTML file in a new window.
+		The saved HTML file can also be opened from the file explorer.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard-eventletconfig"/>5.1. Dashboard Eventlet Configuration</h2></div></div></div><p>
+			After dropping an eventlet icon onto a cell, the builder displays eventlet configuration input fields. The input fields consist of a drop-down from which you can choose
+			the origin of the eventlet, and of an input field.
+		</p><p>
+			Select <code class="literal">Filename</code> from the drop down if you want to identify an eventlet file that exists in the file system. 
+			You can then choose an eventlet file that you have previously saved in the file system by pressing the <code class="literal">Select File</code> button.
+		</p><p>
+			Select <code class="literal">External URL</code> from the drop down if your eventlet file resides on another server. 
+			When loading an eventlet from an HTTP or other resource, specify the URL to load from in the format <code class="literal">protocol:filename</code>. Examples for URL are <code class="literal">http://myhost/myeventlet.xml</code>.
+		</p><p>
+			Select <code class="literal">XML Document</code> from the drop down if you want to enter eventlet XML directly.
+			You can then enter or cut and paste the eventlet XML document into the input field. 
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard-text"/>5.2. Dashboard Text/HTML content</h2></div></div></div><p>
+			The Text/HTML component can be used to insert HTML or XHTML-formatted content.
+			The dashboard builder outputs an HTML document and the text you enter becomes part of the body, including its HTML formatting.			
+		</p><p>
+			For example, by entering <code class="literal">&lt;h3&gt;My Title&lt;/h3&gt;</code> into the text area the output page formats the title as a header.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="eventletdashboard-customizing"/>5.3. Customizing Generated HTML</h2></div></div></div><p>
+			You may add style information to the generated HTML.
+		</p><p>
+			By default, style <code class="literal">row-fluid</code> has zero height thereby all content expands row height. 
+			Add <code class="literal">style="height: 400px; overflow: auto;"</code> to the <code class="literal">div</code> containing the div to assign a row height.
+			In addition, please configure eventlet display height or width as follows.
+		</p><p>
+			For setting the height and width of a chart eventlet, please refer to <a class="xref" href="eventletjquery.html#eventletjquery-parameters-chart" title="10.5.1. Chart Eventlet Parameters">Section 10.5.1, “Chart Eventlet Parameters�?</a>.
+		</p><p>
+			For setting the height and width of a timeline eventlet, please refer to <a class="xref" href="eventletjquery.html#eventletjquery-parameters-timeline" title="10.5.2. Timeline Eventlet Parameters">Section 10.5.2, “Timeline Eventlet Parameters�?</a>.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="eventletwizard.html"><strong>Prev</strong>Chapter 4. Eventlet Wizard</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="enginemgmt.html"><strong>Next</strong>Chapter 6. Engine Management Dialogs</a></li></ul></body></html>

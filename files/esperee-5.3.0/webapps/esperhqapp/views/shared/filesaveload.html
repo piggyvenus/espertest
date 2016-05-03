@@ -1,0 +1,57 @@
+<div ng-controller="FileSaveLoadController">
+
+    <div class="pull-right">
+        <button class="btn button-bar-margin" type="submit" ng-click="doDelete()" ng-show="showDelete">Delete</button>
+        <button class="btn button-bar-margin" type="submit" ng-click="doRefresh()">Refresh</button>
+        <button class="btn button-bar-margin" type="submit" ng-click="doNewFolder()">New Folder</button>
+        <button class="btn btn-primary button-bar-margin" type="submit" ng-click="doFileSave()" ng-show="mode=='save'">Save</button>
+        <button class="btn btn-primary button-bar-margin" type="submit" ng-click="doFileLoad()" ng-show="mode=='load'">Load</button>
+        <button class="btn btn-primary button-bar-margin" type="submit" ng-click="doFileSelect()" ng-show="mode=='select'">Select</button>
+        <button class="btn button-bar-margin" type="submit" ng-click="doCancel()">Cancel</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label">Folder:</label>
+            <div class="controls">
+                <input type="text" ng-model="path" class="input-xxlarge" readonly/>
+            </div>
+        </div>
+    </form>
+
+    <div class="row-fluid" ng-show="newfolder">
+        <div class="span12">
+            <div class="pull-right">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">New Folder Name:</label>
+                        <div class="controls">
+                            <input type="text" ng-model="newfolderName" class="input filesaveload_newfolder_input"/>
+                            <button class="btn" type="submit" ng-click="doOkNewFolder()">Ok</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="filesaveload_tree">
+    </div>
+
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label">File Name:</label>
+            <div class="controls">
+                <input type="text" ng-model="filename" class="input-xxlarge" hqfocus="true"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Save As Type:</label>
+            <div class="controls">
+                <select ng-model="filetype" ng-options="e.name for e in filetypes" class="input-xxlarge" ng-click="doHandleFiletype()"></select>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,18 @@
+<eventlet>
+  <composition>
+    <chart type="column" legendPlacement="bottom">
+      <xaxis type="category" placement="bottom" label=""/>
+      <yaxis type="linear" placement="left" label=""/>
+      <data>
+        <series type="column" label="Page hits per product item category" markerType="none">
+          <pointsource sourceId="1" x="category" y="avgStockQty"/>
+        </series>
+      </data>
+    </chart>
+  </composition>
+  <sources>
+    <source sourceId="1">
+      <statement name="OnlineShopExample-AvgStockQtyPerCategory" engineUri="default"/>
+    </source>
+  </sources>
+</eventlet>

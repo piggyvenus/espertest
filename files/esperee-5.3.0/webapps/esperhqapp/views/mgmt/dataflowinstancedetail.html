@@ -1,0 +1,57 @@
+<div id="detail_dataflowinstance" ng-controller="DataflowInstanceDetailController">
+    <div class="pull-right">
+        <button ng-click="doRemove(false)" ng-disabled="instance.state != 'COMPLETE' && instance.state != 'CANCELLED'" class="btn button-bar-margin">Remove</button>
+        <button ng-click="doCancel()" ng-disabled="instance.state != 'RUNNING'" class="btn button-bar-margin">Cancel</button>
+        <button ng-click="doRemove(true)" ng-disabled="instance.state != 'RUNNING'" class="btn button-bar-margin">Cancel And Remove</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Dataflow Name:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="instance.dataflowName" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Instance Name:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="instance.dataflowInstanceName" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Instance Id:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="instance.dataflowInstanceId" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">State:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="instance.state" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Parameters:</label>
+            <div class="controls">
+                <div id="parameters_div">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th>URI</th>
+                            <th>Value</th>
+                            <th>Value Type</th>
+                            <th>Null</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

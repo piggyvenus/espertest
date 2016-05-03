@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 7. Socket Transport</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="prev" href="servercookbook.html" title="Chapter 6. Server And Deployment Cookbook"/><link rel="next" href="scriptexec.html" title="Chapter 8. Runtime Script Execution"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="servercookbook.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="scriptexec.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport"/>Chapter 7. Socket Transport</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="sockettransport.html#sockettransport-gettingstarted">7.1. Getting Started</a></span></dt><dt><span class="sect1"><a href="sockettransport.html#sockettransport-configsink">7.2. SocketE2ESink Configuration</a></span></dt><dt><span class="sect1"><a href="sockettransport.html#sockettransport-configsource">7.3. SocketE2ESource Configuration</a></span></dt><dt><span class="sect1"><a href="sockettransport.html#sockettransport-jmx">7.4. JMX Monitoring</a></span></dt></dl></div><p>
+		Enterprise Edition includes a socket transport for use with scalability and high-availability patterns in which multiple Enterprise Edition servers
+		are configured in a cluster to achieve a common goal.
+    </p><p>
+      Socket transport is a point-to-point transport for sending events between server instances, for example when partitioning streams or partitioning use cases between servers.
+    </p><p>
+      The default protocol utilized by socket transport is polling, blocking and buffered. We use the abbreviation <code class="literal">PBB</code>.
+      The protocol has the receiving server poll the sending server asking for a given maximum number of events. 
+      If the last poll returned no messages, the receiving operator sleeps for a short interval. 
+      Blocking queues are utilized by the sending and receiving operators to provide backpressure and hand-off.
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-gettingstarted"/>7.1. Getting Started</h2></div></div></div><p>
+			Socket transport consists of two dataflow operators, <code class="literal">SocketE2ESink</code> and <code class="literal">SocketE2ESource</code>.
+			Use <code class="literal">SocketE2ESink</code> on the originating server to send events to another server. 
+			Use <code class="literal">SocketE2ESource</code> on the receiving server to receive events sent from another server.
+		</p><p>
+			Before using socket transport, it is necessary to import the socket transport data flow operators and io package. No additional configuration is required in order to run socket transport.
+			The jar file for socket transport is <code class="literal">esper-dataflow-sockete2e-</code><span class="emphasis"><em>version</em></span> and is already part of the server classpath.
+		</p><p>
+			Please add the following two lines to the Esper configuration file <code class="literal">conf/esper-default.xml</code>:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;esper-configuration&gt;       
+    &lt;auto-import import-name="com.espertech.esper.transport.sockete2e.*"/&gt;
+    &lt;auto-import import-name="com.espertech.esper.dataflow.io.*"/&gt;
+    ...
+&lt;/esper-configuration&gt;</pre><p>
+		    The examples below declare the originating and the receiving data flows. The next section explains configurations is greater detail.
+		    After declaring the data flows, simply instantiate and start the data flow on each server either through the GUI or Esper APIs such as through a post-startup script.		    
+		</p><p>
+			A sample minimal data flow declaration for use on the originating server is shown next:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Deploy on the originating server
+create dataflow OriginatingFlow
+  EventBusSource -&gt; stream&lt;OrderEvent&gt; {}
+  
+  SocketE2ESink(stream) {
+    settings: {
+      class: 'SocketE2ESinkSettings_PBB',
+      hosts : '10.0.0.1:60001',
+      collector: {class:'ObjectToDataOutputCollectorSerializable'}
+    }
+  }</pre><p>
+		  The sample data flow above specifies that any <code class="literal">OrderEvent</code> events received by Esper (operator <code class="literal">EventBusSource</code>)
+		  are forwarded to the socket transport sink for transmission to another server.
+		</p><p>
+			The next data flow declaration is for use on the receiving server:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">// Deploy on the receiving server
+create dataflow ReceivingFlow
+  SocketE2ESource -&gt; stream&lt;OrderEvent&gt; {
+    settings: {
+      class: 'SocketE2ESourceSettings_PBB',
+      hostname : '10.0.0.1',	// the interface bind address
+      port : 60001,
+      collector: {class:'DataInputToObjectCollectorSerializable'}
+    }
+  }
+  
+  EventBusSink(stream) {}</pre><p>
+		  The sample data flow above specifies that any <code class="literal">OrderEvent</code> events received by socket transport source 
+		  are forwarded to the Esper event bus (operator <code class="literal">EventBusSink</code>) for further processing.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-configsink"/>7.2. <code class="literal">SocketE2ESink</code> Configuration</h2></div></div></div><p>
+			Specify the <code class="literal">settings</code> property of the data flow operator to hold an instance of <code class="literal">SocketE2ESinkSettings_PBB</code>. 
+		</p><p>
+			Parameters are:
+		</p><div class="table"><a id="sockete2esink_params"/><p class="title"><b>Table 7.1. SocketE2ESinkSettings_PBB Parameters</b></p><div class="table-contents"><table summary="SocketE2ESinkSettings_PBB Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>hosts (required)</td><td>A comma-separated list of host names and port numbers.</td></tr><tr><td>collector (required)</td><td>The object responsible for serializing event objects to <code class="literal">DataOutput</code>.</td></tr><tr><td>socketTimeout</td><td>Double-type socket timeout in seconds, defaults to 5 seconds.</td></tr><tr><td>connectTimeout</td><td>Double-type connect timeout in seconds, defaults to 5 seconds.</td></tr><tr><td>queueSize</td><td>Int-type queue size, defaults to 10000.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			Provide a list of host names and ports to have the sink connect to the first listed and available host. 
+		</p><p>
+			In the below configuration the operator will attempt to connect to host <code class="literal">10.0.0.1</code> on port 60001. When the connection fails,
+			the operator attempts to connect to host <code class="literal">10.0.0.2</code> on port 60001. When that connection fails, the operator attempts to connect to the first listed host and port again.
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">hosts : '10.0.0.1:60001,10.0.0.2:60001'</pre><p>
+		  The <code class="literal">collector</code> parameter is required and must provide the class name of an implementation of the <code class="literal">com.espertech.esper.client.dataflow.io.ObjectToDataOutputCollector</code> interface. The collector is responsible for serializing the event object to <code class="literal">java.io.DataOutput</code>.
+		</p><p>
+		  The <code class="literal">ObjectToDataOutputCollectorSerializable</code> serializes using Java serialization. For best performance, consider providing a collector implementation.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-configsource"/>7.3. <code class="literal">SocketE2ESource</code> Configuration</h2></div></div></div><p>
+			Specify the <code class="literal">settings</code> property of the data flow operator to hold an instance of <code class="literal">SocketE2ESourceSettings_PBB</code>. 
+		</p><p>
+			Parameters are:
+		</p><div class="table"><a id="sockete2esource_params"/><p class="title"><b>Table 7.2. SocketE2ESourceSettings_PBB Parameters</b></p><div class="table-contents"><table summary="SocketE2ESourceSettings_PBB Parameters" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>hostname (required)</td><td>The host name or ip address to use for providing the socket server i.e. bind interface.</td></tr><tr><td>port (required)</td><td>The port number to use for providing the socket server.</td></tr><tr><td>collector (required)</td><td>The object responsible for serializing event objects to <code class="literal">DataOutput</code>.</td></tr><tr><td>maxPoll</td><td>Int-type parameter setting the maximum number of events to receive in one round trip, defaults to 100.</td></tr><tr><td>maxLatency</td><td>Int-type parameter setting the wait time between polls when a poll returns no data, defaults to 100 milliseconds.</td></tr><tr><td>queueSize</td><td>Int-type queue size, defaults to 10000.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+		  The <code class="literal">collector</code> parameter is required and must provide the class name of an implementation of the <code class="literal">com.espertech.esper.client.dataflow.io.DataInputToObjectCollector</code> interface. The collector is responsible for de-serializing the event object from <code class="literal">java.io.DataInput</code>.
+		</p><p>
+		  The <code class="literal">DataInputToObjectCollectorSerializable</code> de-serializes using Java serialization. For best performance, consider providing a collector implementation.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="sockettransport-jmx"/>7.4. JMX Monitoring</h2></div></div></div><p>
+			Both source and sink operators register JMX MBeans with the platform MBean server that provide key statistics.
+		</p><p>
+			Please enable the platform MBean server access by setting <code class="literal">JAVA_OPTS=-Dcom.sun.management.jmxremote.port=9005 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false</code> on the command line before starting the server.
+		</p><p>
+			The source operator on the receiving side provides:
+		</p><div class="itemizedlist"><ul><li>
+				The <code class="literal">ServerMsgRecv</code> object provides count, one-minute, five-minute, 15-minute and mean rates of messages received.
+			</li><li>
+				The <code class="literal">ServerPollNumMsg</code> object provides count of polls and mean, minimum, maximum and x-percentile message count polled.
+			</li><li>
+				The <code class="literal">ServerPollTime</code> object provides information on time spent polling for more messages.
+			</li><li>
+				The <code class="literal">ServerQueueDepth</code> object provides current queue depth.
+			</li></ul></div><p>
+			The sink operator on the sending side provides:
+		</p><div class="itemizedlist"><ul><li>
+				The <code class="literal">ClientMsgSend</code> object provides count, one-minute, five-minute, 15-minute and mean rates of messages sent.
+			</li><li>
+				The <code class="literal">ClientPollNumMsg</code> object provides count of polls and mean, minimum, maximum and x-percentile message counts.
+			</li><li>
+				The <code class="literal">ClientQueueDepth</code> object provides current queue depth.
+			</li></ul></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="servercookbook.html"><strong>Prev</strong>Chapter 6. Server And Deployment Cookbook</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="scriptexec.html"><strong>Next</strong>Chapter 8. Runtime Script Execution</a></li></ul></body></html>

@@ -1,0 +1,73 @@
+<div ng-controller="EventletWizardResourceConfigureController">
+    <div class="pull-right">
+        <button class="btn" type="submit" ng-click="doClose()">Close</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <form class="form-horizontal">
+        <fieldset ng-show="iterateEnabled">
+            <legend><small>Configure Push</small></legend>
+            <div class="control-group">
+                <label class="control-label" for="inputNow">Push Snapshot Once On Start:</label>
+                <div class="controls">
+                    <input type="checkbox" id="inputNow" ng-model="iterate.now">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputRT">Real-Time Updates:</label>
+                <div class="controls">
+                    <input type="checkbox" id="inputRT" ng-model="iterate.realtime">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputExpr">Push Snapshots Based on Expression:</label>
+                <div class="controls">
+                    <input type="checkbox" id="inputExpr" ng-model="iterate.isPattern">
+                    <span class="margin-left">Time Pattern:</span>
+                    <input type="text" ng-model="iterate.pattern"/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="iterateErrorMsg != null">
+                <div class="controls">
+                    <span class="span-invalid">{{iterateErrorMsg}}</span>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend><small>Configure A Map-Type Property To Transform To Rows:</small></legend>
+            <div class="control-group">
+                <label class="control-label" for="inputUnmapEnabled">Enabled:</label>
+                <div class="controls">
+                    <input type="checkbox" id="inputUnmapEnabled" ng-model="transform.unmap">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputMapProp">Property Name of Map Property:</label>
+                <div class="controls">
+                    <input type="text" id="inputMapProp" ng-model="transform.unmapPropertyName"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputExpr">Name of Key Property:</label>
+                <div class="controls">
+                    <input type="text" ng-model="transform.keyName"/>
+                    Type:
+                    <input type="text" ng-model="transform.keyType"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputExpr">Name of Value Property:</label>
+                <div class="controls">
+                    <input type="text" ng-model="transform.valueName"/>
+                    Type:
+                    <input type="text" ng-model="transform.valueType"/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="transformErrorMsg != null">
+                <div class="controls">
+                    <span class="span-invalid">{{transformErrorMsg}}</span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

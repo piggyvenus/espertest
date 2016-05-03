@@ -1,0 +1,59 @@
+<div id="detail_dataflow" ng-controller="DataflowDetailController">
+
+    <div class="pull-right">
+        <button ng-click="doDestroy()" class="btn button-bar-margin">Destroy</button>
+        <button ng-click="doInstantiate()" ng-disabled="form.$invalid" class="btn button-bar-margin">Instantiate</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+        <div class="control-group">
+            <label class="control-label">Dataflow Name:</label>
+            <div class="controls">
+                <input type="text" class="predefined-60wide" ng-model="dataflow.dataflowName" readonly/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Definition:</label>
+            <div class="controls">
+                <div id="dataflow_editor_div">
+                    <textarea class="predefined-60wide"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <legend><small>Instantiate</small></legend>
+
+        <div class="control-group">
+            <label class="control-label">Instance Name: <span class="label-required">*</span></label>
+            <div class="controls">
+                <input class="predefined-60wide" type="text" ng-model="instanceName" required/>
+            </div>
+        </div>
+    </form>
+
+    <div class="row-fluid" ng-repeat="paramitem in parameterItems">
+        <div class="span12">
+            <form class="form-horizontal">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label">Parameter URI:</label>
+                        <div class="controls">
+                            <input type="text" ng-model="paramitem.uri"/>
+                            <span class="margin-left">Value:</span>
+                            <input type="text" ng-model="paramitem.value"/>
+                            <span class="margin-left">Value Type:</span>
+                            <select class="input-small" ng-model="paramitem.valueTypeObj" ng-options="n.name for n in valueTypeItems"></select>
+                            <span class="margin-left">Null:</span>
+                            <input type="checkbox" ng-model="paramitem.isNull"/>
+                            <button type="submit" class="btn button-bar-margin" ng-click="doParametersAddItem()">Add</button>
+                            <button type="submit" class="btn button-bar-margin" ng-show="parameterItems.length > 1" ng-click="doParametersRemoveItem($index)">Remove</button>
+                        </div>
+                    </div>
+                </fieldset>
+           </form>
+        </div>
+    </div>
+</div>

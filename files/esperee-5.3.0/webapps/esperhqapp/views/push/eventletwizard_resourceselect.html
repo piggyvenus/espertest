@@ -1,0 +1,90 @@
+<div ng-controller="EventletWizardResourceSelectController">
+    <div class="row">
+        <div class="span1"></div>
+        <div class="span11">
+            <div class="pull-left">
+                <span>Endpoint:</span>
+                <select ng-model="endpoint" ng-options="e.endpointName for e in endpoints" ng-click="doHandleEndpointSelect()"></select>
+                <span>Engine URI:</span>
+                <select ng-model="engineURI" ng-options="e.engineURI for e in engineURIs"></select>
+            </div>
+        </div>
+    </div>
+
+    <form name="myform" novalidate="">
+        <fieldset>
+            <legend><small>Current Selection:</small></legend>
+            <div id="eventletwizard_resource_table">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Detail</th>
+                        <th>Endpoint</th>
+                        <th>Engine URI</th>
+                        <th>Configuration</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend><small>Select Resources:</small></legend>
+            <div id="eventletwizard_resource_tabs" style="padding-bottom: 20px">
+                <ul>
+                    <li><a href="#tabs-1">Statement</a></li>
+                    <li><a href="#tabs-2">Dynamic Set Of Statements</a></li>
+                    <li><a href="#tabs-3">Metrics</a></li>
+                    <li><a href="#tabs-4">On-Demand Query</a></li>
+                    <li><a href="#tabs-5">Variable</a></li>
+                </ul>
+                <div id="tabs-1">
+                    <div>
+                        <span>Optional Expression Filtering Statement Output:</span>
+                        <input type="text" class="margin-left input-xlarge" ng-model="statementFilterExpr"/>
+                        <span class="margin-left">When provided, this expression is applied to statement output and must return true/false.</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div data-ng-include data-src="'/esperhqapp/views/shared/statementbrowseshared.html'"></div>
+                </div>
+                <div id="tabs-2">
+                    <div data-ng-include data-src="'/esperhqapp/views/shared/statementselectionshared.html'"></div>
+                    <div ng-show="statementSelectionErrorMsg != null"><span class="span-invalid">{{statementSelectionErrorMsg}}</span></div>
+                    <div class="clear"></div>
+                    <div>
+                        <button ng-click="doAddStatementSelectionExpr(false)" class="btn">Add</button>
+                        <button ng-click="doAddStatementSelectionExpr(true)" class="btn">Any Statement</button>
+                    </div>
+                </div>
+                <div id="tabs-3">
+                    <div data-ng-include data-src="'/esperhqapp/views/shared/metricsselectionshared.html'"></div>
+                </div>
+                <div id="tabs-4">
+                    <div>
+                        <div>
+                            <label>Query:
+                                <textarea ng-model="onDemandQuery" rows="5" class="predefined-30wide"></textarea>
+                            </label>
+                        </div>
+                        <div>
+                            <label>Max Rows:
+                                <input type="number" ng-model="onDemandQueryMaxRows"/>
+                            </label>
+                        </div>
+                        <div ng-show="onDemandQueryErrorMsg != null"><span class="span-invalid">{{onDemandQueryErrorMsg}}</span></div>
+                        <div class="clear"></div>
+                        <div>
+                            <button ng-click="doAddOnDemandQuery()" class="btn">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs-5">
+                    <div data-ng-include data-src="'/esperhqapp/views/shared/variableselectionshared.html'"></div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

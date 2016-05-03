@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 9. REST Services</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Server"/><link rel="prev" href="scriptexec.html" title="Chapter 8. Runtime Script Execution"/><link rel="next" href="examples.html" title="Chapter 10. Examples"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="scriptexec.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="examples.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices"/>Chapter 9. REST Services</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="restservices.html#restservices-errorhandling">9.1. Error Handling</a></span></dt><dt><span class="sect1"><a href="restservices.html#restservices-security">9.2. Security</a></span></dt><dt><span class="sect1"><a href="restservices.html#restservices-exposing">9.3. Exposing REST Services When Not Running Enterprise Edition Server</a></span></dt><dd><dl><dt><span class="sect2"><a href="restservices.html#restservices-exposing-classpath">9.3.1. Classpath Requirements</a></span></dt><dt><span class="sect2"><a href="restservices.html#restservices-exposing-http">9.3.2. JAX-RS Container</a></span></dt><dt><span class="sect2"><a href="restservices.html#restservices-exposing-configureesperhq">9.3.3. EsperHQ Configuration</a></span></dt></dl></dd><dt><span class="sect1"><a href="restservices.html#restservices-example">9.4. Example Client and Server</a></span></dt></dl></div><p>
+		Enterprise Edition ships with sets of RESTful web services utilizing JSON to allow easy integration. Web services are based on the JAX-RS standard for the Representational State Transfer (REST) architectural pattern.
+    </p><p>
+		The following table summarizes the REST services:
+	</p><div class="table"><a id="d0e2258"/><p class="title"><b>Table 9.1. REST Services</b></p><div class="table-contents"><table summary="REST Services" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th>Name</th><th>Description</th><th>Subcontext Root</th></tr></thead><tbody><tr><td>CEP Management Services</td><td>Administration of CEP and associated functionality.</td><td><code class="literal">cepmgmtapi/v1</code></td></tr><tr><td>CEP Push Services</td><td>Subscription management and data push.</td><td><code class="literal">ceppushapi/v1</code></td></tr><tr><td>HQ Services</td><td>Addressing multiple CEP engines (aka. endpoints); HQ web client services.</td><td><code class="literal">hqapi/v1</code></td></tr></tbody></table></div></div><br class="table-break"/><p>
+	  We provide detailed information about services as part of the REST services documentation set linked to the <code class="literal">index.html</code> file in the installation root and in the <code class="literal">doc</code> folder of the installation.
+	</p><p>
+		Individual or all REST services can be disabled by EsperHQ configuration.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-errorhandling"/>9.1. Error Handling</h2></div></div></div><p>
+			A successful service invocation returns HTTP status code 200 OK.
+		</p><p>
+			All service invocations that fail return any of the following HTTP status codes:
+		</p><div class="table"><a id="d0e2315"/><p class="title"><b>Table 9.2. HTTP Status Codes</b></p><div class="table-contents"><table summary="HTTP Status Codes" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>HTTP Status Code</th><th>Description</th></tr></thead><tbody><tr><td>404 Not Found</td><td>Returned when a resource was not found.</td></tr><tr><td>405 Method Not Allowed</td><td>Returned when an operation is not allowed on a resource.</td></tr><tr><td>400 Bad Request</td><td>Returned when the service fails or the data passed to the service is invalid.</td></tr><tr><td>500 Internal Server Error</td><td>Returned when there is an internal error. In this case, please inspect the server logs and report to us with as much information as possible so we can reproduce the issue.</td></tr></tbody></table></div></div><br class="table-break"/><p>
+			All error responses have a response body that contains a JSON-formatted object that has a <code class="literal">message</code> and a <code class="literal">details</code> property. 
+			The <code class="literal">message</code> property contains the reason text. 
+			The <code class="literal">details</code> property is for support and error handling. It contains a list of exceptions as additional information to the error.
+		</p><p>
+			A sample response body indicating an error is:
+		</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">{
+   "message":".... service message here ....",
+   "details":[
+      {
+         "exceptionClass":"java.lang.SampleExceptionClass",
+         "exceptionMessage":"....same or additional message....",
+         "exceptionStackTrace":".... stack trace here...."
+      }
+   ]
+}</pre><p>
+			Each object under <code class="literal">details</code> may contain:
+		</p><div class="table"><a id="d0e2371"/><p class="title"><b>Table 9.3. REST Services</b></p><div class="table-contents"><table summary="REST Services" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody><tr><td>exceptionClass</td><td>The exception fully-qualified class name.</td></tr><tr><td>exceptionMessage</td><td>The exception message.</td></tr><tr><td>exceptionStackTrace</td><td>The exception stack trace, for support.</td></tr><tr><td>line</td><td>A line number, where applicable.</td></tr><tr><td>expression</td><td>Expression causing the exception, where applicable.</td></tr><tr><td>fieldName</td><td>The name of the JSON property that the exception refers to, where applicable.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-security"/>9.2. Security</h2></div></div></div><p>
+			The EsperHQ JavaScript application invokes only HQ Services (REST), and not CEP Management (REST) or CEP Push Services (REST). Please consult
+			the Esper HQ Web Application Archive documentation for information on securing the web application including HQ Services.
+		</p><p>
+			HQ Services REST invocations invoke CEP Management REST Services and CEP Push REST Services. 
+			This communication is secured by HQ Services passing a hashed token value as a query parameter for every REST service invocation. 
+		</p><p>
+			Please consult the Esper HQ Web Application Archive documentation for information on configuring the token shared secret that HQ Services passes to CEP Management and CEP Push Services,
+			specific to each endpoint.
+		</p><p>
+			Please review the section <a class="xref" href="servercookbook.html#servercookbook-jettyconfig" title="6.7. Configuring Web Application Server Settings">Section 6.7, “Configuring Web Application Server Settings�?</a> in this document for information on configuring the token value expected and verified by CEP Management and CEP Push Services.
+			The token strings must match the HQ Services token strings.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-exposing"/>9.3. Exposing REST Services When Not Running Enterprise Edition Server</h2></div></div></div><p>
+			If you have an Esper-embedded application and would like to expose REST-style web services from that application, then this section provides the relevant instructions.
+		</p><p>
+			By having your application expose web services, the EsperHQ web client application can then invoke the web services. Thereby you can use EsperHQ to manage, monitor or debug
+			your application.			
+		</p><p>
+			Please follow these steps:
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+                    Set up the application classpath.
+                </p></li><li><p>
+                    Register the REST JAX-RS application(s) and expose an HTTP server (unless already provided). 
+                </p></li><li><p>
+                    Configure EsperHQ for the new host and port.
+                </p></li></ol></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="restservices-exposing-classpath"/>9.3.1. Classpath Requirements</h3></div></div></div><p>
+				The following table outlines the classpath additional jar files that must be placed in your application classpath.
+			</p><div class="table"><a id="d0e2451"/><p class="title"><b>Table 9.4. Required Jar Files</b></p><div class="table-contents"><table summary="Required Jar Files" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Jar File</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">esper-eeutil-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code></td><td>The Enterprise Edition utility jar for handling REST-style communication essentials.</td></tr><tr><td><code class="literal">esper-cepmgmtsvc-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code></td><td>CEP management services.</td></tr><tr><td><code class="literal">gson-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code></td><td>Library to convert JSON to objects and objects to JSON. We recommend version 2.3.1 or newer.</td></tr><tr><td><code class="literal">javax.ws.rs.jar</code></td><td>JAX-RS web services apis. Required as our REST services adhere to JAX-RS standards.</td></tr><tr><td><code class="literal">org.restlet.jar</code></td><td>Restlet framework (see http://restlet.org). We recommend version 2.3.1 or newer.</td></tr><tr><td><code class="literal">org.restlet.ext.jaxrs.jar</code></td><td>Restlet framework JAX-RS support. We recommend version 2.3.1 or newer.</td></tr><tr><td><code class="literal">slf4j-api-1.7.2.jar</code></td><td>SLF4J Logging.</td></tr><tr><td><code class="literal">slf4j-log4j12-1.7.2.jar</code></td><td>SLF4J Logging for Log4j.</td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="restservices-exposing-http"/>9.3.2. JAX-RS Container</h3></div></div></div><p>
+				If you do not have an existing HTTP server or JAX-RS container as part of the application, please use the Restlet framework to expose an HTTP server that hosts the JAX-RS application.
+				We provide an example code snippet below.
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">String host = "localhost";
+int port = 8401;
+			
+// Restlet framework setup (assumes host and port defined)
+Component comp = new Component();
+Server server = new Server(Protocol.HTTP, host, port);
+comp.getServers().add(server);
+
+// Add JAX-RS application
+JaxRsApplication application = new CepMgmtJaxRsApplication(comp.getContext().createChildContext());
+
+// This example provides a null-token, disabling token authentication.
+application.getJaxRsRestlet().addSingleton(new TokenValidationServiceProvider(null));
+
+// Attach the application to the component and start it
+String attachPath = RestRoots.MGMT_V1.toAttachString();
+comp.getDefaultHost().attach(attachPath, application);
+comp.start();</pre><p>
+				If you do not have an existing JAX-RS container you can use <code class="literal">CepMgmtJaxRsApplication</code> which is a JAX-RS standard <code class="literal">JaxRsApplication</code> application.
+			</p><p>
+				For CEP push services, please register <code class="literal">CepPushJaxRsApplication</code>.
+			</p><p>
+				Your application may provide a string token value to <code class="literal">TokenValidationServiceProvider</code> to enable token authentication.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="restservices-exposing-configureesperhq"/>9.3.3. EsperHQ Configuration</h3></div></div></div><p>
+				The EsperHQ web application archive configuration is described in EsperHQ Web Application Archive manual in the documentation set.
+			</p><p>
+				Please edit the <code class="literal">conf/esperhq-default.xml</code> file and change to <code class="literal">&lt;restservice hosts="http://host:port"/&gt;</code>. Remove the token settings if no token was provided to
+				<code class="literal">TokenValidationServiceProvider</code>.
+			</p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="restservices-example"/>9.4. Example Client and Server</h2></div></div></div><p>
+			The distribution contains a small REST web services client that invokes CEP Push Services web services using Apache Commons HTTP Client. 
+			The example is self-contained and does not run against the Enterprise Edition server but instead runs against a server also contained in the example,
+			which also demonstrates how to host REST services.
+		</p><p>
+			Please find the example code in <code class="literal">examples/examples-ceppushsvc</code> under the installation root. Further description on running the example is provided as part of Push Services documentation.
+		</p></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="scriptexec.html"><strong>Prev</strong>Chapter 8. Runtime Script Execution</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="examples.html"><strong>Next</strong>Chapter 10. Examples</a></li></ul></body></html>

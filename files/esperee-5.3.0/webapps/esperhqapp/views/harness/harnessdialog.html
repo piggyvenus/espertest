@@ -1,0 +1,72 @@
+<div id="harnessdialog" ng-controller="HarnessDialogController">
+
+    <div class="row-fluid">
+        <div class="span6">
+            <span>Test Name:</span>
+            <input type="text" ng-model="sim.name" disabled class="dialog_long" class="input-xlarge"/>
+        </div>
+        <div class="span2">
+            <span>Test {{sim.currentNumCase}} out of {{sim.totalNumCase}}</span>
+        </div>
+        <div class="span4">
+            <div class="pull-right">
+                <button ng-click="doNext()" class="btn">Next Test Case</button>
+                <button ng-click="doPausePlayback()" class="btn">Pause Playback</button>
+                <button ng-click="doContinuePlayback()" class="btn">Continue Playback</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <span>Description:</span>
+        <input type="text" ng-model="sim.description" disabled class="dialog_long" class="input-xxlarge"/>
+    </div>
+
+    <div id="dialog_left">
+        <span>Simulate Time:</span>
+        <input type="checkbox" ng-model="sim.simulatedTime" disabled/>
+        <span>NonSim Factor:</span>
+        <input type="text" class="dialog_short" ng-model="sim.nonsimulatedTimeFactor" readonly/>
+        <span>Sim Start:</span>
+        <input type="text" class="dialog_mid" ng-model="sim.startTime" readonly/>
+        <span>Sim Factor:</span>
+        <input type="text" class="dialog_short" ng-model="sim.simulatedTimeFactor" readonly/>
+        <table width="100%" class="harness-table-minimalist-b">
+            <thead>
+            <tr>
+                <th>SrcId</th>
+                <th>ResId</th>
+                <th>TypeId</th>
+                <th>Target</th>
+                <th>Props</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="source in sim.sources">
+                <td>
+                    {{source.sourceId}}
+                </td>
+                <td>
+                    {{source.resourceId}}
+                </td>
+                <td>
+                    {{source.typeId}}
+                </td>
+                <td>
+                    {{source.target}}
+                </td>
+                <td>
+                    {{source.props}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="harness_events_div">
+            <table width="100%" class="harness-table-minimalist-b">
+            </table>
+        </div>
+    </div>
+    <div id="dialog_right">
+        <span>Traces</span>
+        <textarea id="dialog_trace" readonly ng-model="traceText"></textarea>
+    </div>
+</div>

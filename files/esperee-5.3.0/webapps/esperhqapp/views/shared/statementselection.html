@@ -1,0 +1,9 @@
+<div id="statementselection" ng-controller="StatementSelectionController">
+    <div class="pull-right">
+        <button type="submit" ng-click="doCloseCriteria(true)" class="btn btn-primary button-bar-margin">Ok</button>
+        <button type="submit" ng-click="doCloseCriteria(false)" class="btn button-bar-margin">Cancel</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+    <div data-ng-include data-src="'views/shared/statementselectionshared.html'"></div>
+</div>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 3. Local Driver</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper JDBC Driver"/><link rel="up" href="index.html" title="Esper JDBC Driver"/><link rel="prev" href="concepts.html" title="Chapter 2. Concepts"/><link rel="next" href="remote.html" title="Chapter 4. Remote Server and Driver"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="concepts.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="remote.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="local"/>Chapter 3. Local Driver</h2></div></div></div><p>
+		The local JDBC driver requires that your application JDBC code, Esper engine instances and the driver reside in the same Java VM.
+	</p><p>
+		The following table outlines the connection information for the local driver:
+	</p><div class="table"><a id="d0e216"/><p class="title"><b>Table 3.1. Local Driver</b></p><div class="table-contents"><table summary="Local Driver" border="1"><colgroup><col/><col/></colgroup><thead><tr><th>Item</th><th>Description</th></tr></thead><tbody><tr><td>Jar file</td><td>esper-jdbcserver-<span class="emphasis"><em>version</em></span>.jar</td></tr><tr><td>Jar dependencies</td><td>Same as Esper dependencies</td></tr><tr><td><code class="literal">java.sql.Driver</code> class</td><td>com.espertech.esper.jdbc.local.EPLLocalJdbcDriver</td></tr><tr><td>URL</td><td><pre class="synopsis">jdbc:esper:local[/<span class="emphasis"><em>Esper_provider_URI</em></span>][&amp;<span class="emphasis"><em>parameter</em></span>=<span class="emphasis"><em>value</em></span>[&amp;...]]</pre></td></tr><tr><td><code class="literal">javax.sql.DataSource</code> class</td><td>com.espertech.esper.jdbc.local.EPLLocalDataSource</td></tr></tbody></table></div></div><br class="table-break"/><p>
+		The driver connection URL may specify a provider URI as part of the connection URL. If your application does not specify a provider URI as part of the URL, the driver connects to the 
+		Esper default provider instance. The literal <code class="literal">default</code> can also be specified to connect to the default provider instance.			
+	</p><p>
+		Note that the JDBC driver does not allocate a new Esper engine instance, it only returns existing, already-allocated engine instances. Therefore, if the Esper engine instance by the name has not been initialized beforehand, the driver returns an error upon connecting.
+	</p><p>
+		The next code snippet connects to the default Esper engine instance using the <code class="literal">DriverManager</code> class:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPServiceProvider service = EPServiceProviderManager.getDefaultProvider();
+// ... create statements here ...
+Class.forName("com.espertech.esper.jdbc.local.EPLLocalJdbcDriver");
+String url = "jdbc:esper:local";
+Connection connection = DriverManager.getConnection(url);</pre><p>
+		This example specifies the Esper engine instance named "primary" in the URL:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPServiceProvider service = EPServiceProviderManager.getProvider("primary");
+// ... create statements here ...
+Class.forName("com.espertech.esper.jdbc.local.EPLLocalJdbcDriver");
+String url = "jdbc:esper:local/primary";
+Connection connection = DriverManager.getConnection(url);</pre><p>
+		An example that connects via <code class="literal">DataSource</code> to obtain a connection is:
+	</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EPLLocalDataSource localDataSource = new EPLLocalDataSource();
+localDataSource.setProviderURI("primary");
+Connection connection = localDataSource.getConnection();</pre></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="concepts.html"><strong>Prev</strong>Chapter 2. Concepts</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="remote.html"><strong>Next</strong>Chapter 4. Remote Server and Driver</a></li></ul></body></html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 2. EPL Detailed Metrics Including Memory Use</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="Esper Enterprise Edition - Debugger and Metrics"/><link rel="up" href="index.html" title="Esper Enterprise Edition - Debugger and Metrics"/><link rel="prev" href="debugger.html" title="Chapter 1. EPL Debugger"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="debugger.html"><strong>Prev</strong></a></li><li class="next"/></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="metric"/>Chapter 2. EPL Detailed Metrics Including Memory Use</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="metric.html#metric-introduction">2.1. Introduction</a></span></dt><dt><span class="sect1"><a href="metric.html#metric-apiuse">2.2. Metrics Service API</a></span></dt><dd><dl><dt><span class="sect2"><a href="metric.html#metric-apiuse-agent">2.2.1. Configure Java VM Agent</a></span></dt><dt><span class="sect2"><a href="metric.html#metric-apiuse-jar">2.2.2. Add Enterprise Edition Utility Jar to Classpath</a></span></dt><dt><span class="sect2"><a href="metric.html#metric-apiuse-api">2.2.3. Metric Service API</a></span></dt></dl></dd><dt><span class="sect1"><a href="metric.html#metric-esperhq">2.3. Metrics EsperHQ Web Client</a></span></dt><dt><span class="sect1"><a href="metric.html#metric-usage">2.4. Usage Notes</a></span></dt></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="metric-introduction"/>2.1. Introduction</h2></div></div></div><p>
+			The metrics service feature of Enterprise Edition reports detailed, fine-grained metrics as well as summarized metrics for EPL statements.
+		</p><p>
+			The metrics service feature is available for applications that embed Esper as well as for use with Enterprise Edition server.
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+					For obtaining detailed EPL metrics using the metrics service API in conjunction with your own Esper-embedded application, please
+					review <a class="xref" href="metric.html#metric-apiuse" title="2.2. Metrics Service API">Section 2.2, “Metrics Service API�?</a>.
+                </p></li><li><p>
+					For a description of the EPL metrics pages in EsperHQ web client, please see <a class="xref" href="metric.html#metric-esperhq" title="2.3. Metrics EsperHQ Web Client">Section 2.3, “Metrics EsperHQ Web Client�?</a>.
+                </p></li></ol></div><p>
+			The metrics service can provide detailed information about the following constructs:
+		</p><div class="itemizedlist"><ul><li><p>
+					Data windows, including lists of data windows that are in a grouped, intersected or union relationship.
+                </p></li><li><p>
+                    Patterns and pattern subexpression breakdowns.
+                </p></li><li><p>
+                    Aggregations including per-group detail.
+                </p></li><li><p>
+                    Match-recognize states including per-partition detailed information.
+                </p></li><li><p>
+                    Named window data window detailed information.
+                </p></li><li><p>
+                    Implicit indexes as well as explicit indexes created by <code class="literal">create index</code>.
+                </p></li><li><p>
+                    Subqueries and a explanation of their related data windows, aggregation and indexes.
+                </p></li><li><p>
+                    Per-context-partition lists.
+                </p></li></ul></div><p>
+			This list is a limited overview of the data points reported:
+		</p><div class="itemizedlist"><ul><li><p>
+					Memory use.
+                </p></li><li><p>
+					Counts such as event counts, pattern subexpression counts, match-recognize state counts and key counts generally for any unique, group and partition-able constructs.
+                </p></li><li><p>
+					Statement and context-partition information.
+                </p></li><li><p>
+					Amount of wall time it took to obtain the measurement.
+                </p></li></ul></div><p>
+			The metrics services API and web client allow you to choose and customize the detail level of information reported. 
+		</p><p>
+			Please also review the important usage notes listed in <a class="xref" href="metric.html#metric-usage" title="2.4. Usage Notes">Section 2.4, “Usage Notes�?</a>.
+		</p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="metric-apiuse"/>2.2. Metrics Service API</h2></div></div></div><p>
+			In order to use the public client API of metrics service with your own application that embeds Esper, please follow the instructions herein.
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="metric-apiuse-agent"/>2.2.1. Configure Java VM Agent</h3></div></div></div><p>
+				A Java VM agent must be configured in order to report memory use information. If the Java VM agent is not configured then memory use reporting is automatically disabled
+				and the metric information omits any memory byte counts.
+			</p><p>
+				The following argument to the Java application to instrument has to be given:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">-javaagent:/path/to/esper-eeutilagent-&lt;version&gt;.jar</pre><p>
+				The agent jar file can be found in the Enterprise Edition distribution in the <code class="literal">lib</code> folder.
+			</p><p>
+				The agent jar file does not need to be added to the classpath.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="metric-apiuse-jar"/>2.2.2. Add Enterprise Edition Utility Jar to Classpath</h3></div></div></div><p>
+				Please add <code class="literal">esper-eeutil-<span class="emphasis"><em>version</em></span>.jar</code> to the application classpath.
+			</p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="metric-apiuse-api"/>2.2.3. Metric Service API</h3></div></div></div><p>
+				The metrics service API is provided by the class <code class="literal">com.espertech.esper.eeutil.client.metric.MetricClient</code>.
+			</p><p>
+				Please consult the Enterprise Edition Utility API docs in the folder <code class="literal">doc/esper-eeutil/api/index.html</code> for additional API information.
+			</p><p>
+			    Use the <code class="literal">getMetrics</code> static method to obtain metrics for a given engine instance and EPL statement names.
+			    The method takes an optional <code class="literal">MetricClientOptions</code> parameter that allows passing additional options.
+			</p><p>
+			    This code snippet invokes the metric service API and returns metrics for statement <code class="literal">MyStatement</code>:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">EngineMetricDetail detail = 
+    MetricClient.getMetrics(engine, new String[] {"MyStatement"});</pre><p>
+				The above example assumes that a statement by name <code class="literal">MyStatement</code> exists and that the <code class="literal">engine</code> variable is an object of type <code class="literal">EPServiceProvider</code>.
+			</p><p>
+				The options object allows your application to control the metrics level of detail and the flavors of memory use reporting. It is described in detail as part of the API docs.
+			</p><p>
+				The next sample code sets the measure-memory-for-events option to false (true by default, see usage notes below) and returns metrics for all statements:
+			</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">MetricClientOptions options = new MetricClientOptions();
+options.setMeasureMemoryForEvents(false);
+String[] allStatements = engine.getEPAdministrator().getStatementNames();
+EngineMetricDetail detail = MetricClient.getMetrics(engine, allStatements, options);</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="metric-esperhq"/>2.3. Metrics EsperHQ Web Client</h2></div></div></div><p>
+			The EsperHQ web client offers a dialog to view detailed metric breakdowns. The dialog can be accessed from the <code class="literal">Monitoring</code> category on the <code class="literal">View Endpoint</code> page.
+			The View Endpoint page has a <code class="literal">Statement Detailed Metrics</code> button that leads to the <code class="literal">Browse Statement Detailed Metrics</code> dialog.
+        </p><p>
+			Please utilize the information (i) button for the dialog to position to a help page for this screen, or navigate to the web client user documentation for client help.
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="metric-usage"/>2.4. Usage Notes</h2></div></div></div><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="caution"><h2>Caution</h2><div class="itemizedlist"><ul><li>
+					Metrics reporting itself allocates memory in order to produce a metrics report. If a system is already nearly out-of-memory then metrics reporting may itself cause an out-of-memory condition.
+				</li><li>
+					Metrics reporting requires locking of each a context partition for which metrics are reported. The metric service reports the time that each lock is held. 
+				</li></ul></div></div><p>
+			By default, the memory measurement for any context partition includes the memory allocated for any event underlying objects referenced by that context partition.
+			Thus, by default, the memory use of each event underlying object is counted once towards each context partition. It is counted for the construct that references the event first (data window, pattern etc.).
+			The metric options allow changing this default.
+		</p><p>
+			The default options for metrics are preset such that only summary information is reported and not very detailed breakdowns. 
+			You can change the detail reporting level using the <code class="literal">Show Options</code> button or the metric options API object.
+		</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><div class="itemizedlist"><ul><li>
+					The time a lock is held and the memory required for the metrics report is generally increased when the metric options are set to include all details.
+				</li></ul></div></div></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="debugger.html"><strong>Prev</strong>Chapter 1. EPL Debugger</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li></ul></body></html>

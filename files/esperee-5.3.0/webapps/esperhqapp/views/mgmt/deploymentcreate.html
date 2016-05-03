@@ -1,0 +1,121 @@
+<div id="modulecreate" ng-controller="DeploymentCreateController">
+    <div class="pull-right">
+        <input type="checkbox" ng-model="undeployExisting" class="margin-left">
+        <span class="margin-left">Undeploy And Remove Existing</span>
+        <span class="gap">&nbsp;</span>
+        <input type="checkbox" ng-model="closeOnDeploy" class="margin-left">
+        <span class="margin-left">Close On Deploy</span>
+        <button ng-click="doTemplates()" class="btn button-bar-margin">Templates</button>
+        <button ng-click="doExisting()" class="btn button-bar-margin">Existing Deployments</button>
+        <button ng-click="doLoad()" class="btn button-bar-margin">Load</button>
+        <button ng-click="doSave()" class="btn button-bar-margin">Save</button>
+        <button ng-click="doValidate()" class="btn button-bar-margin">Validate</button>
+        <button ng-click="doAddOrDeploy(false)" class="btn button-bar-margin">Add</button>
+        <button ng-click="doAddOrDeploy(true)" class="btn btn-primary button-bar-margin">Deploy</button>
+        <input type="image" src="/esperhqapp/assets/help.png" ng-click="doHelp()" class="button-bar-margin"/>
+    </div>
+    <div class="clear"></div>
+
+    <form class="form-horizontal" novalidate name="form">
+
+        <fieldset>
+            <legend><small>Module Name, Imports, Uses and EPL Statements </small></legend>
+            <div class="control-group">
+                <label class="control-label">Module EPL:<span class="label-required">*</span></label>
+                <div class="controls">
+                    <div id="modulecreate_editor_div">
+                        <textarea class="predefined-60wide" style="min-height:600px"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group" ng-show="eplErrorMsg != null">
+                <div class="controls">
+                    <span class="span-invalid">Failed validation: {{eplErrorMsg}}</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Validation Messages:</label>
+                <div class="controls">
+                    <div id="messages_div">
+                        <table width="100%">
+                            <thead>
+                            <tr>
+                                <th>Line</th>
+                                <th>Message</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend><small>Optional Additional Deployment Information</small></legend>
+            <div class="control-group">
+                <label class="control-label">Deployment Id:</label>
+                <div class="controls">
+                    <input type="text" ng-model="deploymentId" class="predefined-50wide"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Module URI:</label>
+                <div class="controls">
+                    <input type="text" ng-model="moduleURI" class="predefined-50wide"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Module Archive:</label>
+                <div class="controls">
+                    <input type="text" ng-model="archive" class="predefined-50wide"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">User Object:</label>
+                <div class="controls">
+                    <input type="text" ng-model="userObject" class="predefined-50wide"/>
+                </div>
+            </div>
+        </fieldset>
+
+        <div id="templates_dialog" class="dialog-hidden">
+            <div id="templates_div">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div id="existing_dialog" class="dialog-hidden">
+            <div id="existing_div">
+                <!-- Similar table used in deploymentbrowse -->
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Text</th>
+                        <th>State</th>
+                        <th>Name</th>
+                        <th>Module URI</th>
+                        <th>Archive</th>
+                        <th>User Object</th>
+                        <th>Uses</th>
+                        <th>Imports</th>
+                        <th>Added</th>
+                        <th>Last Update</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

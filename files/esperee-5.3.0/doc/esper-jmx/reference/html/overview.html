@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. Overview</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="EsperJMX"/><link rel="up" href="index.html" title="EsperJMX"/><link rel="prev" href="pr01.html" title="Preface"/><link rel="next" href="configuration.html" title="Chapter 2. Configuration"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>Chapter 1. Overview</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="overview.html#overview-installation">1.1. Installation</a></span></dt></dl></div><p>
+		EsperJMX is an add-on for use with Esper to provide administrative and runtime functions via JMX MBeans following JMX standards and compatible to any JMX console.
+	</p><p>
+		EsperJMX can be configured as part of your regular Esper configuration file and thus be initialized as part of Esper service provider initialization. Or EsperJMX can be used on an already-active Esper service provider to allow JMX-based management.
+	</p><p>
+		This is a short summary of the main features:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				Create new EPL or pattern statements; Start, stop and destroy statements. Obtain statement lists and statement details.
+			</p></li><li><p>
+				Subscribe to statement results delivered as JMX notifications.
+			</p></li><li><p>
+				Iterate over statement results returned as JMX tabular data.
+			</p></li><li><p>
+				Runtime metrics, such as number of events evaluated, for display and graphing.
+			</p></li><li><p>
+				Dynamically execute non-continuous, fire-and-forget queries against named windows (aka. on-demand queries).
+			</p></li><li><p>
+				Named window metrics such as number of events held.
+			</p></li><li><p>
+				Variable get and set.
+			</p></li></ol></div><p>
+		In the next section, <a class="xref" href="configuration.html" title="Chapter 2. Configuration">Chapter 2, <i>Configuration</i></a>, we explain the different ways to set up the EsperJMX. 
+	</p><p>
+		The JMX management beans (aka. <span class="emphasis"><em>MBeans</em></span>) are summarized in <a class="xref" href="mbeans.html" title="Chapter 3. MBeans">Chapter 3, <i>MBeans</i></a>.		
+	</p><p>
+		<a class="xref" href="examples.html" title="Chapter 4. Examples">Chapter 4, <i>Examples</i></a> shows a Java process with a JMX-enabled Esper service provider and a JMX client that performs an on-demand fire-and-forget query against a named window.
+		The section contains code samples for performing the query and a screenshot of EsperJMX in a JMX console.
+	</p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview-installation"/>1.1. Installation</h2></div></div></div><p>
+			To enable EsperJMX, add the <code class="literal">esperjmx-</code><span class="emphasis"><em>version</em></span><code class="literal">.jar</code> jar file to the Esper classpath. Your application must employ one of the methods outlined in <a class="xref" href="configuration.html" title="Chapter 2. Configuration">Chapter 2, <i>Configuration</i></a> to start EsperJMX.
+        </p><p>
+			EsperJMX also utilizes the Log4J log library for logging. Thus log configuration for EsperJMX can be added to the same log configuration file used for Esper. All EsperJMX packages begin as <code class="literal">com.espertech.esper.jmx</code> thereby a log level for EsperJMX may be configured by adding a Log4J logger for EsperJMX as follows:			
+        </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">&lt;logger name="com.espertech.esper.jmx"&gt;
+  &lt;level value="INFO"/&gt;
+&lt;/logger&gt;</pre></div></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong>Chapter 2. Configuration</a></li></ul></body></html>

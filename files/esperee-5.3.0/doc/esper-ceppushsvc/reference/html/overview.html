@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. Overview</title><link rel="stylesheet" href="css/espertech.css" type="text/css"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL-NS Stylesheets V1.74.0"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="home" href="index.html" title="CEP Push Services"/><link rel="up" href="index.html" title="CEP Push Services"/><link rel="prev" href="pr01.html" title="Preface"/><link rel="next" href="concepts.html" title="Chapter 2. Key Concepts"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.espertech.com" class="site_href"><strong>www.espertech.com</strong></a><a href="http://www.espertech.com/esper/documentation.php" class="doc_href"><strong>Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="concepts.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>Chapter 1. Overview</h2></div></div></div><p>
+		Esper Push Services (Push Services for short) is a service and publishing component for use with the Esper CEP engine. It provides an application-layer publish-subscribe multi-tiered data distribution service for efficient and scalable delivery of CEP engine data based on active logical subscriptions. In addition, Push Services provides REST web services for managing subscriptions and obtaining ongoing information.
+	</p><p>
+		Push Services is built on the Java Message Service (JMS) standard. Push Services utilizes the control bus enterprise integration pattern for providing management services in a request-response communication style over a JMS queue. Push Services manages any number of JMS topics or queue destinations for data distribution.
+	</p><p>
+		Why does one need a Push Service? In the simplest case where there is only a single source of data and type of message that goes to a single consumer and there are no requirements around subscription timeout, stale subscriptions or quality of service then one may not need a Push Services.
+	</p><p>
+		The idea of the Push Service component is to handle:
+	</p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li><p>
+				A dynamic space of data sources (Esper EPL statements, engine metrics etc).
+			</p></li><li><p>
+				Mapping of a logical data sources to CEP engine data sources. For example, a subscription may ask for the dynamic set of Esper statements tagged "Visit" (via the @Tag annotation) and the published data must dynamically include all current and newly created EPL statements tagged.
+			</p></li><li><p>
+				Quality of Service requirements by flexible policy configuration.
+			</p></li><li><p>
+				Tracking and managing subscriptions to efficiently share server resources where possible, to reduce or eliminating duplicate data on the transport.
+			</p></li><li><p>
+				Subscriber timeout, e.g. when a subscriber unexpectedly disappears.
+			</p></li><li><p>
+				Subscription to stale logical data sources, e.g. when a subscribed-to EPL statement gets destroyed.
+			</p></li><li><p>
+				Subscription history.
+			</p></li><li><p>
+				Mapping of logical data sources to the underlying transport (JMS destination(s)) and effective marshalling of payload.
+			</p></li></ol></div><p>
+		In the next section, <a class="xref" href="concepts.html" title="Chapter 2. Key Concepts">Chapter 2, <i>Key Concepts</i></a>, the document introduces the key concepts.
+	</p><p>
+		The <a class="xref" href="gettingstarted.html" title="Chapter 3. Getting Started">Chapter 3, <i>Getting Started</i></a> section outlines the dependent jar files and introduces configurations.
+	</p><p>
+		The section <a class="xref" href="configuration.html" title="Chapter 4. Configuration">Chapter 4, <i>Configuration</i></a> section explains the static and runtime configuration options.
+	</p></div><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="pr01.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="concepts.html"><strong>Next</strong>Chapter 2. Key Concepts</a></li></ul></body></html>

@@ -1,0 +1,6 @@
+#filesaveload_tree {
+    min-height: 400px;
+    max-height: 600px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
